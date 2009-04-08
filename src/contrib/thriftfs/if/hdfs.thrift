@@ -32,16 +32,19 @@ namespace php     hadoop_api
 namespace py      hadoop.api
 namespace rb      Hadoop.API
 
-
 /* Values for 'type' argument to getDatanodeReport(). */
-const i32 ALL_DATANODES = 1;
-const i32 LIVE_DATANODES = 2;
-const i32 DEAD_DATANODES = 3;
+enum DatanodeReportType {
+  ALL_DATANODES = 1;
+  LIVE_DATANODES = 2;
+  DEAD_DATANODES = 3;
+}
 
 /* Values for DatanodeInfo.state */
-const i32 NORMAL_STATE = 1;
-const i32 DECOMMISSION_INPROGRESS = 2;
-const i32 DECOMMISSIONED = 3;
+enum DatanodeState {
+  NORMAL_STATE = 1;
+  DECOMMISSION_INPROGRESS = 2;
+  DECOMMISSIONED = 3;
+}
 
 /* Value for unknown Thrift port in DatanodeInfo */
 const i32 UNKNOWN_THRIFT_PORT = -1;
@@ -85,7 +88,7 @@ struct DatanodeInfo {
   8: i32 xceiverCount,
   
   /** State of this data node. */
-  9: i32 state
+  9: DatanodeState state
 }
 
 /**
@@ -248,7 +251,7 @@ service Namenode {
                                         * Type of data nodes to return
                                         * information about.
                                         */
-                                       1: i32 type)
+                                       1: DatanodeReportType type)
                                           throws (1: IOException err),
 
   /**
@@ -393,16 +396,20 @@ service Namenode {
    */
   void datanodeUp(/** <host name>:<port number> of the datanode */
                   1:  string name,
+                  /** the storage id of the datanode */
+                  2:  string storage,
                   /** Thrift port of the datanode */
-                  2:  i32 thriftPort),
+                  3:  i32 thriftPort),
                   
   /**
    * Inform the namenode that a datanode process has stopped.
    */
   void datanodeDown(/** <host name>:<port number> of the datanode */
                     1:  string name,
+                    /** the storage id of the datanode */
+                    2:  string storage,
                     /** Thrift port of the datanode */
-                    2:  i32 thriftPort)
+                    3:  i32 thriftPort),
 }
 
 /** Encapsulates a block data transfer with its CRC */

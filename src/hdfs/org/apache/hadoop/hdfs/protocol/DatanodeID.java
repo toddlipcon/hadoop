@@ -145,7 +145,16 @@ public class DatanodeID implements WritableComparable<DatanodeID> {
   public String toString() {
     return name;
   }
-  
+
+  public String getLongString() {
+    return getClass().getSimpleName()
+      + "(" + name
+      + ", storageID=" + storageID
+      + ", infoPort=" + infoPort
+      + ", ipcPort=" + ipcPort
+      + ")";
+  }
+
   /**
    * Update fields when a new registration request comes in.
    * Note that this does not update storageID.

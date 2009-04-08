@@ -543,7 +543,7 @@ public class DatanodeInfo implements TBase, java.io.Serializable, Cloneable {
       return new Integer(getXceiverCount());
 
     case STATE:
-      return new Integer(getState());
+      return getState();
 
     default:
       throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
@@ -862,7 +862,15 @@ public class DatanodeInfo implements TBase, java.io.Serializable, Cloneable {
     first = false;
     if (!first) sb.append(", ");
     sb.append("state:");
+    String state_name = DatanodeState.VALUES_TO_NAMES.get(this.state);
+    if (state_name != null) {
+      sb.append(state_name);
+      sb.append(" (");
+    }
     sb.append(this.state);
+    if (state_name != null) {
+      sb.append(")");
+    }
     first = false;
     sb.append(")");
     return sb.toString();
@@ -871,6 +879,9 @@ public class DatanodeInfo implements TBase, java.io.Serializable, Cloneable {
   public void validate() throws TException {
     // check for required fields
     // check that fields of type enum have valid values
+    if (isSetState() && !DatanodeState.VALID_VALUES.contains(state)){
+      throw new TProtocolException("The field 'state' has been assigned the invalid value " + state);
+    }
   }
 
 }

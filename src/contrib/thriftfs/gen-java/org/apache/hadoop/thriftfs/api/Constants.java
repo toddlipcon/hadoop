@@ -15,18 +15,6 @@ import java.util.Collections;
 
 public class Constants {
 
-  public static final int ALL_DATANODES = 1;
-
-  public static final int LIVE_DATANODES = 2;
-
-  public static final int DEAD_DATANODES = 3;
-
-  public static final int NORMAL_STATE = 1;
-
-  public static final int DECOMMISSION_INPROGRESS = 2;
-
-  public static final int DECOMMISSIONED = 3;
-
   public static final int UNKNOWN_THRIFT_PORT = -1;
 
   public static final long QUOTA_DONT_SET = -2L;

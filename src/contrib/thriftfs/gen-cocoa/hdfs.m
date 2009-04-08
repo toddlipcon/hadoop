@@ -13,35 +13,15 @@
 
 #import "hdfs.h"
 
-static int32_t ALL_DATANODES = 1;
-static int32_t LIVE_DATANODES = 2;
-static int32_t DEAD_DATANODES = 3;
-static int32_t NORMAL_STATE = 1;
-static int32_t DECOMMISSION_INPROGRESS = 2;
-static int32_t DECOMMISSIONED = 3;
+static int32_t UNKNOWN_THRIFT_PORT = -1;
 static int64_t QUOTA_DONT_SET = -2;
 static int64_t QUOTA_RESET = -1;
 
 @implementation hdfsConstants
 + (void) initialize {
 }
-+ (int32_t) ALL_DATANODES{
-  return ALL_DATANODES;
-}
-+ (int32_t) LIVE_DATANODES{
-  return LIVE_DATANODES;
-}
-+ (int32_t) DEAD_DATANODES{
-  return DEAD_DATANODES;
-}
-+ (int32_t) NORMAL_STATE{
-  return NORMAL_STATE;
-}
-+ (int32_t) DECOMMISSION_INPROGRESS{
-  return DECOMMISSION_INPROGRESS;
-}
-+ (int32_t) DECOMMISSIONED{
-  return DECOMMISSIONED;
++ (int32_t) UNKNOWN_THRIFT_PORT{
+  return UNKNOWN_THRIFT_PORT;
 }
 + (int64_t) QUOTA_DONT_SET{
   return QUOTA_DONT_SET;
@@ -52,7 +32,7 @@ static int64_t QUOTA_RESET = -1;
 @end
 
 @implementation DatanodeInfo
-- (id) initWithName: (NSString *) name storageID: (NSString *) storageID host: (NSString *) host thriftPort: (int32_t) thriftPort capacity: (int64_t) capacity dfsUsed: (int64_t) dfsUsed remaining: (int64_t) remaining xceiverCount: (int32_t) xceiverCount state: (int32_t) state
+- (id) initWithName: (NSString *) name storageID: (NSString *) storageID host: (NSString *) host thriftPort: (int32_t) thriftPort capacity: (int64_t) capacity dfsUsed: (int64_t) dfsUsed remaining: (int64_t) remaining xceiverCount: (int32_t) xceiverCount state: (int) state
 {
   self = [super init];
   __name = [name retain];
@@ -232,11 +212,11 @@ static int64_t QUOTA_RESET = -1;
   __xceiverCount_isset = NO;
 }
 
-- (int32_t) state {
+- (int) state {
   return __state;
 }
 
-- (void) setState: (int32_t) state {
+- (void) setState: (int) state {
   __state = state;
   __state_isset = YES;
 }
@@ -330,7 +310,7 @@ static int64_t QUOTA_RESET = -1;
         break;
       case 9:
         if (fieldType == TType_I32) {
-          int32_t fieldValue = [inProtocol readI32];
+          int fieldValue = [inProtocol readI32];
           [self setState: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -4674,7 +4654,7 @@ static int64_t QUOTA_RESET = -1;
   return [self recv_getBlocks];
 }
 
-- (void) send_getDatanodeReport: (int32_t) type
+- (void) send_getDatanodeReport: (int) type
 {
   [outProtocol writeMessageBeginWithName: @"getDatanodeReport" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"getDatanodeReport_args"];
@@ -4709,7 +4689,7 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"getDatanodeReport failed: unknown result"];
 }
 
-- (NSArray *) getDatanodeReport: (int32_t) type
+- (NSArray *) getDatanodeReport: (int) type
 {
   [self send_getDatanodeReport: type];
   return [self recv_getDatanodeReport];
@@ -5273,7 +5253,7 @@ static int64_t QUOTA_RESET = -1;
   [self recv_utime];
 }
 
-- (void) send_datanodeUp: (NSString *) name : (int32_t) thriftPort
+- (void) send_datanodeUp: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
   [outProtocol writeMessageBeginWithName: @"datanodeUp" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"datanodeUp_args"];
@@ -5282,7 +5262,12 @@ static int64_t QUOTA_RESET = -1;
     [outProtocol writeString: name];
     [outProtocol writeFieldEnd];
   }
-  [outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 2];
+  if (storage != nil)  {
+    [outProtocol writeFieldBeginWithName: @"storage" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: storage];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 3];
   [outProtocol writeI32: thriftPort];
   [outProtocol writeFieldEnd];
   [outProtocol writeFieldStop];
@@ -5306,13 +5291,13 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) datanodeUp: (NSString *) name : (int32_t) thriftPort
+- (void) datanodeUp: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
-  [self send_datanodeUp: name : thriftPort];
+  [self send_datanodeUp: name : storage : thriftPort];
   [self recv_datanodeUp];
 }
 
-- (void) send_datanodeDown: (NSString *) name : (int32_t) thriftPort
+- (void) send_datanodeDown: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
   [outProtocol writeMessageBeginWithName: @"datanodeDown" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"datanodeDown_args"];
@@ -5321,7 +5306,12 @@ static int64_t QUOTA_RESET = -1;
     [outProtocol writeString: name];
     [outProtocol writeFieldEnd];
   }
-  [outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 2];
+  if (storage != nil)  {
+    [outProtocol writeFieldBeginWithName: @"storage" type: TType_STRING fieldID: 2];
+    [outProtocol writeString: storage];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 3];
   [outProtocol writeI32: thriftPort];
   [outProtocol writeFieldEnd];
   [outProtocol writeFieldStop];
@@ -5345,9 +5335,9 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) datanodeDown: (NSString *) name : (int32_t) thriftPort
+- (void) datanodeDown: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
-  [self send_datanodeDown: name : thriftPort];
+  [self send_datanodeDown: name : storage : thriftPort];
   [self recv_datanodeDown];
 }
 

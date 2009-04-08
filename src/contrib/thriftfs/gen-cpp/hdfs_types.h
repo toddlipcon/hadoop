@@ -14,13 +14,25 @@
 
 namespace hadoop { namespace api {
 
+enum DatanodeReportType {
+  ALL_DATANODES = 1,
+  LIVE_DATANODES = 2,
+  DEAD_DATANODES = 3
+};
+
+enum DatanodeState {
+  NORMAL_STATE = 1,
+  DECOMMISSION_INPROGRESS = 2,
+  DECOMMISSIONED = 3
+};
+
 class DatanodeInfo {
  public:
 
-  static const char* ascii_fingerprint; // = "8134369D16097EFB06CDBCD8EA6EDB55";
-  static const uint8_t binary_fingerprint[16]; // = {0x81,0x34,0x36,0x9D,0x16,0x09,0x7E,0xFB,0x06,0xCD,0xBC,0xD8,0xEA,0x6E,0xDB,0x55};
+  static const char* ascii_fingerprint; // = "B94C24DED41ECFF96DC7A3570D59C2AC";
+  static const uint8_t binary_fingerprint[16]; // = {0xB9,0x4C,0x24,0xDE,0xD4,0x1E,0xCF,0xF9,0x6D,0xC7,0xA3,0x57,0x0D,0x59,0xC2,0xAC};
 
-  DatanodeInfo() : name(""), storageID(""), host(""), thriftPort(0), capacity(0), dfsUsed(0), remaining(0), xceiverCount(0), state(0) {
+  DatanodeInfo() : name(""), storageID(""), host(""), thriftPort(0), capacity(0), dfsUsed(0), remaining(0), xceiverCount(0) {
   }
 
   virtual ~DatanodeInfo() throw() {}
@@ -33,7 +45,7 @@ class DatanodeInfo {
   int64_t dfsUsed;
   int64_t remaining;
   int32_t xceiverCount;
-  int32_t state;
+  DatanodeState state;
 
   struct __isset {
     __isset() : name(false), storageID(false), host(false), thriftPort(false), capacity(false), dfsUsed(false), remaining(false), xceiverCount(false), state(false) {}
@@ -84,8 +96,8 @@ class DatanodeInfo {
 class Block {
  public:
 
-  static const char* ascii_fingerprint; // = "17D68B60ABD0DF64DBF165F1A9443800";
-  static const uint8_t binary_fingerprint[16]; // = {0x17,0xD6,0x8B,0x60,0xAB,0xD0,0xDF,0x64,0xDB,0xF1,0x65,0xF1,0xA9,0x44,0x38,0x00};
+  static const char* ascii_fingerprint; // = "DC05DB32945F8E863495794EF27CF3CC";
+  static const uint8_t binary_fingerprint[16]; // = {0xDC,0x05,0xDB,0x32,0x94,0x5F,0x8E,0x86,0x34,0x95,0x79,0x4E,0xF2,0x7C,0xF3,0xCC};
 
   Block() : blockId(0), path(""), numBytes(0), genStamp(0) {
   }

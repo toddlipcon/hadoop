@@ -17,6 +17,7 @@
  */
 package org.apache.hadoop.thriftfs;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,13 +26,15 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configurable;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.ContentSummary;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.permission.FsPermission;
+import org.apache.hadoop.hdfs.protocol.DatanodeID;
 import org.apache.hadoop.hdfs.protocol.FSConstants;
 import org.apache.hadoop.hdfs.protocol.LocatedBlock;
 import org.apache.hadoop.hdfs.protocol.LocatedBlocks;
-import org.apache.hadoop.hdfs.protocol.FSConstants.DatanodeReportType;
 import org.apache.hadoop.hdfs.protocol.FSConstants.SafeModeAction;
 import org.apache.hadoop.hdfs.server.namenode.NameNode;
 import org.apache.hadoop.net.NetUtils;
@@ -48,10 +51,12 @@ import org.apache.thrift.TProcessor;
 import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.transport.TTransport;
 
-public class NamenodePlugin extends PluginBase implements ServicePlugin {
+public class NamenodePlugin
+  extends org.apache.hadoop.hdfs.server.namenode.NamenodePlugin
+  implements Configurable {
 
   /** Name of the configuration property of the Thrift server address */
-  public static final String THRFIT_ADDRESS_PROPERTY = "dfs.thrift.address";
+  public static final String THRIFT_ADDRESS_PROPERTY = "dfs.thrift.address";
 
   /**
    * Default address and port this server will bind to, in case nothing is found
@@ -61,10 +66,14 @@ public class NamenodePlugin extends PluginBase implements ServicePlugin {
 
   private NameNode namenode;
 
-  private static Map<String, Integer> thriftPorts =
-      new HashMap<String, Integer>();
+  private static Map<DatanodeID, Integer> thriftPorts =
+      new HashMap<DatanodeID, Integer>();
 
   static final Log LOG = LogFactory.getLog(NamenodePlugin.class);
+
+  private Configuration conf;
+  private ThriftPluginServer thriftServer;
+
 
   /** Java server-side implementation of the 'Namenode' Thrift interface. */
   class ThriftHandler implements Namenode.Iface {
@@ -151,16 +160,16 @@ public class NamenodePlugin extends PluginBase implements ServicePlugin {
       LOG.debug("getDatanodeReport(" + type + "): Entering");
       List<DatanodeInfo> ret = new ArrayList<DatanodeInfo>();
       try {
-        DatanodeReportType rt;
+        FSConstants.DatanodeReportType rt;
         switch (type) {
-        case Constants.ALL_DATANODES:
-          rt = DatanodeReportType.ALL;
+        case org.apache.hadoop.thriftfs.api.DatanodeReportType.ALL_DATANODES:
+          rt = FSConstants.DatanodeReportType.ALL;
           break;
-        case Constants.DEAD_DATANODES:
-          rt = DatanodeReportType.DEAD;
+        case org.apache.hadoop.thriftfs.api.DatanodeReportType.DEAD_DATANODES:
+          rt = FSConstants.DatanodeReportType.DEAD;
           break;
-        case Constants.LIVE_DATANODES:
-          rt = DatanodeReportType.LIVE;
+        case org.apache.hadoop.thriftfs.api.DatanodeReportType.LIVE_DATANODES:
+          rt = FSConstants.DatanodeReportType.LIVE;
           break;
         default:
           throw new IllegalArgumentException("Invalid report type " + type);
@@ -324,7 +333,7 @@ public class NamenodePlugin extends PluginBase implements ServicePlugin {
         LOG.debug("stat(" + path + "): Returning " + ret);
         return ret;
       } catch (Throwable t) {
-        LOG.info("stat(" + path + "): Failed");
+        LOG.info("stat(" + path + "): Failed", t);
         throw ThriftUtils.toThrift(t);
       }
     }
@@ -386,16 +395,18 @@ public class NamenodePlugin extends PluginBase implements ServicePlugin {
       return st;
     }
 
-    public void datanodeDown(String name, int thriftPort) throws TException {
-      String addr = normalizeAddress(name);
-      LOG.info("Datanode " + addr + ": Thrift port " + thriftPort + " closed");
-      thriftPorts.remove(addr);
+    public void datanodeDown(String name, String storage, int thriftPort) throws TException {
+      DatanodeID dnId = new DatanodeID(name, storage, -1, -1);
+      LOG.info("Datanode " + dnId.getLongString() + ": Thrift port "
+               + thriftPort + " closed");
+      thriftPorts.remove(dnId);
     }
 
-    public void datanodeUp(String name, int thriftPort) throws TException {
-      String addr = normalizeAddress(name);
-      LOG.info("Datanode " + addr + ": Thrift port " + thriftPort + " open");
-      thriftPorts.put(addr, thriftPort);
+    public void datanodeUp(String name, String storage, int thriftPort) throws TException {
+      DatanodeID dnId = new DatanodeID(name, storage, -1, -1);
+      LOG.info("Datanode " + dnId.getLongString() + ": " +
+               "Thrift port " + thriftPort + " open");
+      thriftPorts.put(dnId, thriftPort);
     }
 
     private String normalizeAddress(String name) {
@@ -411,14 +422,44 @@ public class NamenodePlugin extends PluginBase implements ServicePlugin {
     }
   }
 
+  public NamenodePlugin() {
+  }
+
   @Override
   public void start(Object service) {
     this.namenode = (NameNode)service;
     try {
-      super.start();
-    } catch (Throwable t) {
-      LOG.warn("Cannot start Thrift namenode plug-in", t);
+      InetSocketAddress address = NetUtils.createSocketAddr(
+        conf.get(THRIFT_ADDRESS_PROPERTY, DEFAULT_THRIFT_ADDRESS));
+
+      this.thriftServer = new ThriftPluginServer(address, new ProcessorFactory());
+      thriftServer.setConf(conf);
+      thriftServer.start();
+    } catch (java.io.IOException ioe) {
+      throw new RuntimeException("Cannot start Thrift namenode plug-in", ioe);
     }
+  }
+
+  @Override
+  public void stop() {
+    if (thriftServer != null) {
+      thriftServer.stop();
+    }
+  }
+
+  @Override
+  public void close() {
+    if (thriftServer != null) {
+      thriftServer.close();
+    }
+  }
+
+  public Configuration getConf() {
+    return conf;
+  }
+
+  public void setConf(Configuration conf) {
+    this.conf = conf;
   }
 
   class ProcessorFactory extends TProcessorFactory {
@@ -430,21 +471,10 @@ public class NamenodePlugin extends PluginBase implements ServicePlugin {
     @Override
     public TProcessor getProcessor(TTransport t) {
       ThriftHandler impl = new ThriftHandler();
-      UserGroupInformation ugi = PluginBase.getUserGroupInformation(t);
+      UserGroupInformation ugi = thriftServer.getUserGroupInformation(t);
       UserGroupInformation.setCurrentUser(ugi);
       LOG.info("Connection from user " + ugi);
       return new Namenode.Processor(impl);
     }
-  }
-
-  @Override
-  protected TProcessorFactory getProcessorFactory() {
-    return new ProcessorFactory();
-  }
-
-  @Override
-  protected InetSocketAddress getAddress() {
-    return NetUtils.createSocketAddr(conf.get(THRFIT_ADDRESS_PROPERTY,
-        DEFAULT_THRIFT_ADDRESS));
   }
 }

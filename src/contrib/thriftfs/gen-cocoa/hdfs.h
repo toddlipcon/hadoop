@@ -11,6 +11,18 @@
 #import <TProtocolUtil.h>
 
 
+enum DatanodeReportType {
+  DatanodeReportType_ALL_DATANODES = 1,
+  DatanodeReportType_LIVE_DATANODES = 2,
+  DatanodeReportType_DEAD_DATANODES = 3
+};
+
+enum DatanodeState {
+  DatanodeState_NORMAL_STATE = 1,
+  DatanodeState_DECOMMISSION_INPROGRESS = 2,
+  DatanodeState_DECOMMISSIONED = 3
+};
+
 @interface DatanodeInfo : NSObject {
   NSString * __name;
   NSString * __storageID;
@@ -20,7 +32,7 @@
   int64_t __dfsUsed;
   int64_t __remaining;
   int32_t __xceiverCount;
-  int32_t __state;
+  int __state;
 
   BOOL __name_isset;
   BOOL __storageID_isset;
@@ -33,7 +45,7 @@
   BOOL __state_isset;
 }
 
-- (id) initWithName: (NSString *) name storageID: (NSString *) storageID host: (NSString *) host thriftPort: (int32_t) thriftPort capacity: (int64_t) capacity dfsUsed: (int64_t) dfsUsed remaining: (int64_t) remaining xceiverCount: (int32_t) xceiverCount state: (int32_t) state;
+- (id) initWithName: (NSString *) name storageID: (NSString *) storageID host: (NSString *) host thriftPort: (int32_t) thriftPort capacity: (int64_t) capacity dfsUsed: (int64_t) dfsUsed remaining: (int64_t) remaining xceiverCount: (int32_t) xceiverCount state: (int) state;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -70,8 +82,8 @@
 - (void) setXceiverCount: (int32_t) xceiverCount;
 - (BOOL) xceiverCountIsSet;
 
-- (int32_t) state;
-- (void) setState: (int32_t) state;
+- (int) state;
+- (void) setState: (int) state;
 - (BOOL) stateIsSet;
 
 @end
@@ -299,7 +311,7 @@
 - (NSArray *) df;  // throws IOException *, TException
 - (void) enterSafeMode;  // throws IOException *, TException
 - (NSArray *) getBlocks: (NSString *) path : (int64_t) offset : (int64_t) length;  // throws IOException *, TException
-- (NSArray *) getDatanodeReport: (int32_t) type;  // throws IOException *, TException
+- (NSArray *) getDatanodeReport: (int) type;  // throws IOException *, TException
 - (int64_t) getPreferredBlockSize: (NSString *) path;  // throws IOException *, TException
 - (BOOL) isInSafeMode;  // throws IOException *, TException
 - (void) leaveSafeMode;  // throws IOException *, TException
@@ -313,8 +325,8 @@
 - (BOOL) setReplication: (NSString *) path : (int16_t) replication;  // throws IOException *, TException
 - (BOOL) unlink: (NSString *) path : (BOOL) recursive;  // throws IOException *, TException
 - (void) utime: (NSString *) path : (int64_t) atime : (int64_t) mtime;  // throws IOException *, TException
-- (void) datanodeUp: (NSString *) name : (int32_t) thriftPort;  // throws TException
-- (void) datanodeDown: (NSString *) name : (int32_t) thriftPort;  // throws TException
+- (void) datanodeUp: (NSString *) name : (NSString *) storage : (int32_t) thriftPort;  // throws TException
+- (void) datanodeDown: (NSString *) name : (NSString *) storage : (int32_t) thriftPort;  // throws TException
 @end
 
 @interface NamenodeClient : NSObject <Namenode> {
@@ -339,12 +351,7 @@ id <TProtocol> outProtocol;
 
 @interface hdfsConstants {
 }
-+ (int32_t) ALL_DATANODES;
-+ (int32_t) LIVE_DATANODES;
-+ (int32_t) DEAD_DATANODES;
-+ (int32_t) NORMAL_STATE;
-+ (int32_t) DECOMMISSION_INPROGRESS;
-+ (int32_t) DECOMMISSIONED;
++ (int32_t) UNKNOWN_THRIFT_PORT;
 + (int64_t) QUOTA_DONT_SET;
 + (int64_t) QUOTA_RESET;
 @end

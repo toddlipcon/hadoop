@@ -2922,16 +2922,20 @@ sub write {
 package Hadoop::API::Namenode_datanodeUp_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_datanodeUp_args->mk_accessors( qw( name thriftPort ) );
+Hadoop::API::Namenode_datanodeUp_args->mk_accessors( qw( name storage thriftPort ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
 $self->{name} = undef;
+$self->{storage} = undef;
 $self->{thriftPort} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{name}) {
       $self->{name} = $vals->{name};
+    }
+    if (defined $vals->{storage}) {
+      $self->{storage} = $vals->{storage};
     }
     if (defined $vals->{thriftPort}) {
       $self->{thriftPort} = $vals->{thriftPort};
@@ -2966,7 +2970,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
-      /^2$/ && do{      if ($ftype == TType::I32) {
+      /^2$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{storage});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::I32) {
         $xfer += $input->readI32(\$self->{thriftPort});
       } else {
         $xfer += $input->skip($ftype);
@@ -2990,8 +3000,13 @@ sub write {
     $xfer += $output->writeString($self->{name});
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{storage}) {
+    $xfer += $output->writeFieldBegin('storage', TType::STRING, 2);
+    $xfer += $output->writeString($self->{storage});
+    $xfer += $output->writeFieldEnd();
+  }
   if (defined $self->{thriftPort}) {
-    $xfer += $output->writeFieldBegin('thriftPort', TType::I32, 2);
+    $xfer += $output->writeFieldBegin('thriftPort', TType::I32, 3);
     $xfer += $output->writeI32($self->{thriftPort});
     $xfer += $output->writeFieldEnd();
   }
@@ -3051,16 +3066,20 @@ sub write {
 package Hadoop::API::Namenode_datanodeDown_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_datanodeDown_args->mk_accessors( qw( name thriftPort ) );
+Hadoop::API::Namenode_datanodeDown_args->mk_accessors( qw( name storage thriftPort ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
 $self->{name} = undef;
+$self->{storage} = undef;
 $self->{thriftPort} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{name}) {
       $self->{name} = $vals->{name};
+    }
+    if (defined $vals->{storage}) {
+      $self->{storage} = $vals->{storage};
     }
     if (defined $vals->{thriftPort}) {
       $self->{thriftPort} = $vals->{thriftPort};
@@ -3095,7 +3114,13 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
-      /^2$/ && do{      if ($ftype == TType::I32) {
+      /^2$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{storage});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::I32) {
         $xfer += $input->readI32(\$self->{thriftPort});
       } else {
         $xfer += $input->skip($ftype);
@@ -3119,8 +3144,13 @@ sub write {
     $xfer += $output->writeString($self->{name});
     $xfer += $output->writeFieldEnd();
   }
+  if (defined $self->{storage}) {
+    $xfer += $output->writeFieldBegin('storage', TType::STRING, 2);
+    $xfer += $output->writeString($self->{storage});
+    $xfer += $output->writeFieldEnd();
+  }
   if (defined $self->{thriftPort}) {
-    $xfer += $output->writeFieldBegin('thriftPort', TType::I32, 2);
+    $xfer += $output->writeFieldBegin('thriftPort', TType::I32, 3);
     $xfer += $output->writeI32($self->{thriftPort});
     $xfer += $output->writeFieldEnd();
   }
@@ -3304,6 +3334,7 @@ sub utime{
 sub datanodeUp{
   my $self = shift;
   my $name = shift;
+  my $storage = shift;
   my $thriftPort = shift;
 
   die 'implement interface';
@@ -3311,6 +3342,7 @@ sub datanodeUp{
 sub datanodeDown{
   my $self = shift;
   my $name = shift;
+  my $storage = shift;
   my $thriftPort = shift;
 
   die 'implement interface';
@@ -3490,8 +3522,9 @@ sub datanodeUp{
   my $request = shift;
 
   my $name = ($request->{'name'}) ? $request->{'name'} : undef;
+  my $storage = ($request->{'storage'}) ? $request->{'storage'} : undef;
   my $thriftPort = ($request->{'thriftPort'}) ? $request->{'thriftPort'} : undef;
-  return $self->{impl}->datanodeUp($name, $thriftPort);
+  return $self->{impl}->datanodeUp($name, $storage, $thriftPort);
 }
 
 sub datanodeDown{
@@ -3499,8 +3532,9 @@ sub datanodeDown{
   my $request = shift;
 
   my $name = ($request->{'name'}) ? $request->{'name'} : undef;
+  my $storage = ($request->{'storage'}) ? $request->{'storage'} : undef;
   my $thriftPort = ($request->{'thriftPort'}) ? $request->{'thriftPort'} : undef;
-  return $self->{impl}->datanodeDown($name, $thriftPort);
+  return $self->{impl}->datanodeDown($name, $storage, $thriftPort);
 }
 
 package Hadoop::API::NamenodeClient;
@@ -4394,20 +4428,23 @@ sub recv_utime{
 sub datanodeUp{
   my $self = shift;
   my $name = shift;
+  my $storage = shift;
   my $thriftPort = shift;
 
-    $self->send_datanodeUp($name, $thriftPort);
+    $self->send_datanodeUp($name, $storage, $thriftPort);
   $self->recv_datanodeUp();
 }
 
 sub send_datanodeUp{
   my $self = shift;
   my $name = shift;
+  my $storage = shift;
   my $thriftPort = shift;
 
   $self->{output}->writeMessageBegin('datanodeUp', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_datanodeUp_args();
   $args->{name} = $name;
+  $args->{storage} = $storage;
   $args->{thriftPort} = $thriftPort;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -4437,20 +4474,23 @@ sub recv_datanodeUp{
 sub datanodeDown{
   my $self = shift;
   my $name = shift;
+  my $storage = shift;
   my $thriftPort = shift;
 
-    $self->send_datanodeDown($name, $thriftPort);
+    $self->send_datanodeDown($name, $storage, $thriftPort);
   $self->recv_datanodeDown();
 }
 
 sub send_datanodeDown{
   my $self = shift;
   my $name = shift;
+  my $storage = shift;
   my $thriftPort = shift;
 
   $self->{output}->writeMessageBegin('datanodeDown', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_datanodeDown_args();
   $args->{name} = $name;
+  $args->{storage} = $storage;
   $args->{thriftPort} = $thriftPort;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -4822,7 +4862,7 @@ my $args = new Hadoop::API::Namenode_datanodeUp_args();
 $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_datanodeUp_result();
-$self->{handler}->datanodeUp($args->name, $args->thriftPort);
+$self->{handler}->datanodeUp($args->name, $args->storage, $args->thriftPort);
 $output->writeMessageBegin('datanodeUp', TMessageType::REPLY, $seqid);
 $result->write($output);
 $output->getTransport()->flush();
@@ -4834,7 +4874,7 @@ my $args = new Hadoop::API::Namenode_datanodeDown_args();
 $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_datanodeDown_result();
-$self->{handler}->datanodeDown($args->name, $args->thriftPort);
+$self->{handler}->datanodeDown($args->name, $args->storage, $args->thriftPort);
 $output->writeMessageBegin('datanodeDown', TMessageType::REPLY, $seqid);
 $result->write($output);
 $output->getTransport()->flush();

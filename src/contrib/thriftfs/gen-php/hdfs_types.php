@@ -7,6 +7,40 @@
 include_once $GLOBALS['THRIFT_ROOT'].'/Thrift.php';
 
 
+$GLOBALS['hadoop_api_E_DatanodeReportType'] = array(
+  'ALL_DATANODES' => 1,
+  'LIVE_DATANODES' => 2,
+  'DEAD_DATANODES' => 3,
+);
+
+final class hadoop_api_DatanodeReportType {
+  const ALL_DATANODES = 1;
+  const LIVE_DATANODES = 2;
+  const DEAD_DATANODES = 3;
+  static public $__names = array(
+    1 => 'ALL_DATANODES',
+    2 => 'LIVE_DATANODES',
+    3 => 'DEAD_DATANODES',
+  );
+}
+
+$GLOBALS['hadoop_api_E_DatanodeState'] = array(
+  'NORMAL_STATE' => 1,
+  'DECOMMISSION_INPROGRESS' => 2,
+  'DECOMMISSIONED' => 3,
+);
+
+final class hadoop_api_DatanodeState {
+  const NORMAL_STATE = 1;
+  const DECOMMISSION_INPROGRESS = 2;
+  const DECOMMISSIONED = 3;
+  static public $__names = array(
+    1 => 'NORMAL_STATE',
+    2 => 'DECOMMISSION_INPROGRESS',
+    3 => 'DECOMMISSIONED',
+  );
+}
+
 class hadoop_api_DatanodeInfo {
   static $_TSPEC;
 

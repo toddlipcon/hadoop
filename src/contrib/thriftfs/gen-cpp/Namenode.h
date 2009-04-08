@@ -19,7 +19,7 @@ class NamenodeIf {
   virtual void df(std::vector<int64_t> & _return) = 0;
   virtual void enterSafeMode() = 0;
   virtual void getBlocks(std::vector<Block> & _return, const std::string& path, const int64_t offset, const int64_t length) = 0;
-  virtual void getDatanodeReport(std::vector<DatanodeInfo> & _return, const int32_t type) = 0;
+  virtual void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type) = 0;
   virtual int64_t getPreferredBlockSize(const std::string& path) = 0;
   virtual bool isInSafeMode() = 0;
   virtual void leaveSafeMode() = 0;
@@ -33,8 +33,8 @@ class NamenodeIf {
   virtual bool setReplication(const std::string& path, const int16_t replication) = 0;
   virtual bool unlink(const std::string& path, const bool recursive) = 0;
   virtual void utime(const std::string& path, const int64_t atime, const int64_t mtime) = 0;
-  virtual void datanodeUp(const std::string& name, const int32_t thriftPort) = 0;
-  virtual void datanodeDown(const std::string& name, const int32_t thriftPort) = 0;
+  virtual void datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort) = 0;
+  virtual void datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort) = 0;
 };
 
 class NamenodeNull : virtual public NamenodeIf {
@@ -55,7 +55,7 @@ class NamenodeNull : virtual public NamenodeIf {
   void getBlocks(std::vector<Block> & /* _return */, const std::string& /* path */, const int64_t /* offset */, const int64_t /* length */) {
     return;
   }
-  void getDatanodeReport(std::vector<DatanodeInfo> & /* _return */, const int32_t /* type */) {
+  void getDatanodeReport(std::vector<DatanodeInfo> & /* _return */, const DatanodeReportType /* type */) {
     return;
   }
   int64_t getPreferredBlockSize(const std::string& /* path */) {
@@ -103,10 +103,10 @@ class NamenodeNull : virtual public NamenodeIf {
   void utime(const std::string& /* path */, const int64_t /* atime */, const int64_t /* mtime */) {
     return;
   }
-  void datanodeUp(const std::string& /* name */, const int32_t /* thriftPort */) {
+  void datanodeUp(const std::string& /* name */, const std::string& /* storage */, const int32_t /* thriftPort */) {
     return;
   }
-  void datanodeDown(const std::string& /* name */, const int32_t /* thriftPort */) {
+  void datanodeDown(const std::string& /* name */, const std::string& /* storage */, const int32_t /* thriftPort */) {
     return;
   }
 };
@@ -598,12 +598,12 @@ class Namenode_getBlocks_presult {
 class Namenode_getDatanodeReport_args {
  public:
 
-  Namenode_getDatanodeReport_args() : type(0) {
+  Namenode_getDatanodeReport_args() {
   }
 
   virtual ~Namenode_getDatanodeReport_args() throw() {}
 
-  int32_t type;
+  DatanodeReportType type;
 
   struct __isset {
     __isset() : type(false) {}
@@ -633,7 +633,7 @@ class Namenode_getDatanodeReport_pargs {
 
   virtual ~Namenode_getDatanodeReport_pargs() throw() {}
 
-  const int32_t* type;
+  const DatanodeReportType* type;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -1967,23 +1967,27 @@ class Namenode_utime_presult {
 class Namenode_datanodeUp_args {
  public:
 
-  Namenode_datanodeUp_args() : name(""), thriftPort(0) {
+  Namenode_datanodeUp_args() : name(""), storage(""), thriftPort(0) {
   }
 
   virtual ~Namenode_datanodeUp_args() throw() {}
 
   std::string name;
+  std::string storage;
   int32_t thriftPort;
 
   struct __isset {
-    __isset() : name(false), thriftPort(false) {}
+    __isset() : name(false), storage(false), thriftPort(false) {}
     bool name;
+    bool storage;
     bool thriftPort;
   } __isset;
 
   bool operator == (const Namenode_datanodeUp_args & rhs) const
   {
     if (!(name == rhs.name))
+      return false;
+    if (!(storage == rhs.storage))
       return false;
     if (!(thriftPort == rhs.thriftPort))
       return false;
@@ -2007,6 +2011,7 @@ class Namenode_datanodeUp_pargs {
   virtual ~Namenode_datanodeUp_pargs() throw() {}
 
   const std::string* name;
+  const std::string* storage;
   const int32_t* thriftPort;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
@@ -2051,23 +2056,27 @@ class Namenode_datanodeUp_presult {
 class Namenode_datanodeDown_args {
  public:
 
-  Namenode_datanodeDown_args() : name(""), thriftPort(0) {
+  Namenode_datanodeDown_args() : name(""), storage(""), thriftPort(0) {
   }
 
   virtual ~Namenode_datanodeDown_args() throw() {}
 
   std::string name;
+  std::string storage;
   int32_t thriftPort;
 
   struct __isset {
-    __isset() : name(false), thriftPort(false) {}
+    __isset() : name(false), storage(false), thriftPort(false) {}
     bool name;
+    bool storage;
     bool thriftPort;
   } __isset;
 
   bool operator == (const Namenode_datanodeDown_args & rhs) const
   {
     if (!(name == rhs.name))
+      return false;
+    if (!(storage == rhs.storage))
       return false;
     if (!(thriftPort == rhs.thriftPort))
       return false;
@@ -2091,6 +2100,7 @@ class Namenode_datanodeDown_pargs {
   virtual ~Namenode_datanodeDown_pargs() throw() {}
 
   const std::string* name;
+  const std::string* storage;
   const int32_t* thriftPort;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
@@ -2167,8 +2177,8 @@ class NamenodeClient : virtual public NamenodeIf {
   void getBlocks(std::vector<Block> & _return, const std::string& path, const int64_t offset, const int64_t length);
   void send_getBlocks(const std::string& path, const int64_t offset, const int64_t length);
   void recv_getBlocks(std::vector<Block> & _return);
-  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const int32_t type);
-  void send_getDatanodeReport(const int32_t type);
+  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type);
+  void send_getDatanodeReport(const DatanodeReportType type);
   void recv_getDatanodeReport(std::vector<DatanodeInfo> & _return);
   int64_t getPreferredBlockSize(const std::string& path);
   void send_getPreferredBlockSize(const std::string& path);
@@ -2209,11 +2219,11 @@ class NamenodeClient : virtual public NamenodeIf {
   void utime(const std::string& path, const int64_t atime, const int64_t mtime);
   void send_utime(const std::string& path, const int64_t atime, const int64_t mtime);
   void recv_utime();
-  void datanodeUp(const std::string& name, const int32_t thriftPort);
-  void send_datanodeUp(const std::string& name, const int32_t thriftPort);
+  void datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort);
+  void send_datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort);
   void recv_datanodeUp();
-  void datanodeDown(const std::string& name, const int32_t thriftPort);
-  void send_datanodeDown(const std::string& name, const int32_t thriftPort);
+  void datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort);
+  void send_datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort);
   void recv_datanodeDown();
  protected:
   boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot_;
@@ -2336,7 +2346,7 @@ class NamenodeMultiface : virtual public NamenodeIf {
     }
   }
 
-  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const int32_t type) {
+  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
@@ -2473,17 +2483,17 @@ class NamenodeMultiface : virtual public NamenodeIf {
     }
   }
 
-  void datanodeUp(const std::string& name, const int32_t thriftPort) {
+  void datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->datanodeUp(name, thriftPort);
+      ifaces_[i]->datanodeUp(name, storage, thriftPort);
     }
   }
 
-  void datanodeDown(const std::string& name, const int32_t thriftPort) {
+  void datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->datanodeDown(name, thriftPort);
+      ifaces_[i]->datanodeDown(name, storage, thriftPort);
     }
   }
 

@@ -14,6 +14,16 @@ except:
   fastbinary = None
 
 
+class DatanodeReportType:
+  ALL_DATANODES = 1
+  LIVE_DATANODES = 2
+  DEAD_DATANODES = 3
+
+class DatanodeState:
+  NORMAL_STATE = 1
+  DECOMMISSION_INPROGRESS = 2
+  DECOMMISSIONED = 3
+
 class DatanodeInfo:
   """
   Information and state of a data node.

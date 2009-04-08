@@ -26,7 +26,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '   df()'
   print '  void enterSafeMode()'
   print '   getBlocks(string path, i64 offset, i64 length)'
-  print '   getDatanodeReport(i32 type)'
+  print '   getDatanodeReport(DatanodeReportType type)'
   print '  i64 getPreferredBlockSize(string path)'
   print '  bool isInSafeMode()'
   print '  void leaveSafeMode()'
@@ -40,8 +40,8 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '  bool setReplication(string path, i16 replication)'
   print '  bool unlink(string path, bool recursive)'
   print '  void utime(string path, i64 atime, i64 mtime)'
-  print '  void datanodeUp(string name, i32 thriftPort)'
-  print '  void datanodeDown(string name, i32 thriftPort)'
+  print '  void datanodeUp(string name, string storage, i32 thriftPort)'
+  print '  void datanodeDown(string name, string storage, i32 thriftPort)'
   print ''
   sys.exit(0)
 
@@ -205,15 +205,15 @@ elif cmd == 'utime':
   pp.pprint(client.utime(args[0],eval(args[1]),eval(args[2]),))
 
 elif cmd == 'datanodeUp':
-  if len(args) != 2:
-    print 'datanodeUp requires 2 args'
+  if len(args) != 3:
+    print 'datanodeUp requires 3 args'
     sys.exit(1)
-  pp.pprint(client.datanodeUp(args[0],eval(args[1]),))
+  pp.pprint(client.datanodeUp(args[0],args[1],eval(args[2]),))
 
 elif cmd == 'datanodeDown':
-  if len(args) != 2:
-    print 'datanodeDown requires 2 args'
+  if len(args) != 3:
+    print 'datanodeDown requires 3 args'
     sys.exit(1)
-  pp.pprint(client.datanodeDown(args[0],eval(args[1]),))
+  pp.pprint(client.datanodeDown(args[0],args[1],eval(args[2]),))
 
 transport.close()

@@ -234,22 +234,24 @@ class Iface:
     """
     pass
 
-  def datanodeUp(self, name, thriftPort):
+  def datanodeUp(self, name, storage, thriftPort):
     """
     Inform the namenode that a datanode process has started.
     
     Parameters:
      - name: <host name>:<port number> of the datanode
+     - storage: the storage id of the datanode
      - thriftPort: Thrift port of the datanode
     """
     pass
 
-  def datanodeDown(self, name, thriftPort):
+  def datanodeDown(self, name, storage, thriftPort):
     """
     Inform the namenode that a datanode process has stopped.
     
     Parameters:
      - name: <host name>:<port number> of the datanode
+     - storage: the storage id of the datanode
      - thriftPort: Thrift port of the datanode
     """
     pass
@@ -947,21 +949,23 @@ class Client(Iface):
       raise result.err
     return
 
-  def datanodeUp(self, name, thriftPort):
+  def datanodeUp(self, name, storage, thriftPort):
     """
     Inform the namenode that a datanode process has started.
     
     Parameters:
      - name: <host name>:<port number> of the datanode
+     - storage: the storage id of the datanode
      - thriftPort: Thrift port of the datanode
     """
-    self.send_datanodeUp(name, thriftPort)
+    self.send_datanodeUp(name, storage, thriftPort)
     self.recv_datanodeUp()
 
-  def send_datanodeUp(self, name, thriftPort):
+  def send_datanodeUp(self, name, storage, thriftPort):
     self._oprot.writeMessageBegin('datanodeUp', TMessageType.CALL, self._seqid)
     args = datanodeUp_args()
     args.name = name
+    args.storage = storage
     args.thriftPort = thriftPort
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -979,21 +983,23 @@ class Client(Iface):
     self._iprot.readMessageEnd()
     return
 
-  def datanodeDown(self, name, thriftPort):
+  def datanodeDown(self, name, storage, thriftPort):
     """
     Inform the namenode that a datanode process has stopped.
     
     Parameters:
      - name: <host name>:<port number> of the datanode
+     - storage: the storage id of the datanode
      - thriftPort: Thrift port of the datanode
     """
-    self.send_datanodeDown(name, thriftPort)
+    self.send_datanodeDown(name, storage, thriftPort)
     self.recv_datanodeDown()
 
-  def send_datanodeDown(self, name, thriftPort):
+  def send_datanodeDown(self, name, storage, thriftPort):
     self._oprot.writeMessageBegin('datanodeDown', TMessageType.CALL, self._seqid)
     args = datanodeDown_args()
     args.name = name
+    args.storage = storage
     args.thriftPort = thriftPort
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -1324,7 +1330,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = datanodeUp_result()
-    self._handler.datanodeUp(args.name, args.thriftPort)
+    self._handler.datanodeUp(args.name, args.storage, args.thriftPort)
     oprot.writeMessageBegin("datanodeUp", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -1335,7 +1341,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = datanodeDown_result()
-    self._handler.datanodeDown(args.name, args.thriftPort)
+    self._handler.datanodeDown(args.name, args.storage, args.thriftPort)
     oprot.writeMessageBegin("datanodeDown", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -3729,17 +3735,20 @@ class datanodeUp_args:
   """
   Attributes:
    - name: <host name>:<port number> of the datanode
+   - storage: the storage id of the datanode
    - thriftPort: Thrift port of the datanode
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'name', None, None, ), # 1
-    (2, TType.I32, 'thriftPort', None, None, ), # 2
+    (2, TType.STRING, 'storage', None, None, ), # 2
+    (3, TType.I32, 'thriftPort', None, None, ), # 3
   )
 
-  def __init__(self, name=None, thriftPort=None,):
+  def __init__(self, name=None, storage=None, thriftPort=None,):
     self.name = name
+    self.storage = storage
     self.thriftPort = thriftPort
 
   def read(self, iprot):
@@ -3757,6 +3766,11 @@ class datanodeUp_args:
         else:
           iprot.skip(ftype)
       elif fid == 2:
+        if ftype == TType.STRING:
+          self.storage = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
         if ftype == TType.I32:
           self.thriftPort = iprot.readI32();
         else:
@@ -3775,8 +3789,12 @@ class datanodeUp_args:
       oprot.writeFieldBegin('name', TType.STRING, 1)
       oprot.writeString(self.name)
       oprot.writeFieldEnd()
+    if self.storage != None:
+      oprot.writeFieldBegin('storage', TType.STRING, 2)
+      oprot.writeString(self.storage)
+      oprot.writeFieldEnd()
     if self.thriftPort != None:
-      oprot.writeFieldBegin('thriftPort', TType.I32, 2)
+      oprot.writeFieldBegin('thriftPort', TType.I32, 3)
       oprot.writeI32(self.thriftPort)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
@@ -3835,17 +3853,20 @@ class datanodeDown_args:
   """
   Attributes:
    - name: <host name>:<port number> of the datanode
+   - storage: the storage id of the datanode
    - thriftPort: Thrift port of the datanode
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'name', None, None, ), # 1
-    (2, TType.I32, 'thriftPort', None, None, ), # 2
+    (2, TType.STRING, 'storage', None, None, ), # 2
+    (3, TType.I32, 'thriftPort', None, None, ), # 3
   )
 
-  def __init__(self, name=None, thriftPort=None,):
+  def __init__(self, name=None, storage=None, thriftPort=None,):
     self.name = name
+    self.storage = storage
     self.thriftPort = thriftPort
 
   def read(self, iprot):
@@ -3863,6 +3884,11 @@ class datanodeDown_args:
         else:
           iprot.skip(ftype)
       elif fid == 2:
+        if ftype == TType.STRING:
+          self.storage = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
         if ftype == TType.I32:
           self.thriftPort = iprot.readI32();
         else:
@@ -3881,8 +3907,12 @@ class datanodeDown_args:
       oprot.writeFieldBegin('name', TType.STRING, 1)
       oprot.writeString(self.name)
       oprot.writeFieldEnd()
+    if self.storage != None:
+      oprot.writeFieldBegin('storage', TType.STRING, 2)
+      oprot.writeString(self.storage)
+      oprot.writeFieldEnd()
     if self.thriftPort != None:
-      oprot.writeFieldBegin('thriftPort', TType.I32, 2)
+      oprot.writeFieldBegin('thriftPort', TType.I32, 3)
       oprot.writeI32(self.thriftPort)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()

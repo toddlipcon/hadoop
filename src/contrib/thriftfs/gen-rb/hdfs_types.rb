@@ -7,6 +7,20 @@
 
 module Hadoop
   module API
+        module DatanodeReportType
+          ALL_DATANODES = 1
+          LIVE_DATANODES = 2
+          DEAD_DATANODES = 3
+          VALID_VALUES = Set.new([ALL_DATANODES, LIVE_DATANODES, DEAD_DATANODES]).freeze
+        end
+
+        module DatanodeState
+          NORMAL_STATE = 1
+          DECOMMISSION_INPROGRESS = 2
+          DECOMMISSIONED = 3
+          VALID_VALUES = Set.new([NORMAL_STATE, DECOMMISSION_INPROGRESS, DECOMMISSIONED]).freeze
+        end
+
         # Information and state of a data node.
         # 
         # Modelled after org.apache.hadoop.hdfs.protocol.DatanodeInfo
@@ -22,32 +36,35 @@ module Hadoop
           XCEIVERCOUNT = 8
           STATE = 9
 
-          Thrift::Struct.field_accessor self, :name, :storageID, :host, :thriftPort, :capacity, :dfsUsed, :remaining, :xceiverCount, :state
+          ::Thrift::Struct.field_accessor self, :name, :storageID, :host, :thriftPort, :capacity, :dfsUsed, :remaining, :xceiverCount, :state
           FIELDS = {
             # HDFS name of the datanode (equals to <host>:<datanode port>)
-            NAME => {:type => Thrift::Types::STRING, :name => 'name'},
+            NAME => {:type => ::Thrift::Types::STRING, :name => 'name'},
             # Unique ID within a HDFS cluster
-            STORAGEID => {:type => Thrift::Types::STRING, :name => 'storageID'},
+            STORAGEID => {:type => ::Thrift::Types::STRING, :name => 'storageID'},
             # Host name of the Thrift server socket.
-            HOST => {:type => Thrift::Types::STRING, :name => 'host'},
+            HOST => {:type => ::Thrift::Types::STRING, :name => 'host'},
             # Port number of the Thrift server socket, or UNKNOWN_THRIFT_PORT
             # if the Thrift port for this datanode is not known.
-            THRIFTPORT => {:type => Thrift::Types::I32, :name => 'thriftPort'},
+            THRIFTPORT => {:type => ::Thrift::Types::I32, :name => 'thriftPort'},
             # Raw capacity of the data node (in bytes).
-            CAPACITY => {:type => Thrift::Types::I64, :name => 'capacity'},
+            CAPACITY => {:type => ::Thrift::Types::I64, :name => 'capacity'},
             # Space used by the data node (in bytes).
-            DFSUSED => {:type => Thrift::Types::I64, :name => 'dfsUsed'},
+            DFSUSED => {:type => ::Thrift::Types::I64, :name => 'dfsUsed'},
             # Raw free space in the data node (in bytes).
-            REMAINING => {:type => Thrift::Types::I64, :name => 'remaining'},
+            REMAINING => {:type => ::Thrift::Types::I64, :name => 'remaining'},
             # Number of active connections to the data node.
-            XCEIVERCOUNT => {:type => Thrift::Types::I32, :name => 'xceiverCount'},
+            XCEIVERCOUNT => {:type => ::Thrift::Types::I32, :name => 'xceiverCount'},
             # State of this data node.
-            STATE => {:type => Thrift::Types::I32, :name => 'state'}
+            STATE => {:type => ::Thrift::Types::I32, :name => 'state', :enum_class => Hadoop::API::DatanodeState}
           }
 
           def struct_fields; FIELDS; end
 
           def validate
+            unless @state.nil? || DatanodeState::VALID_VALUES.include?(@state)
+              raise ::Thrift::ProtocolException.new(::Thrift::ProtocolException::UNKNOWN, 'Invalid value of field state!')
+            end
           end
 
         end
@@ -63,18 +80,18 @@ module Hadoop
           GENSTAMP = 4
           NODES = 5
 
-          Thrift::Struct.field_accessor self, :blockId, :path, :numBytes, :genStamp, :nodes
+          ::Thrift::Struct.field_accessor self, :blockId, :path, :numBytes, :genStamp, :nodes
           FIELDS = {
             # Block ID (unique among all blocks in a filesystem).
-            BLOCKID => {:type => Thrift::Types::I64, :name => 'blockId'},
+            BLOCKID => {:type => ::Thrift::Types::I64, :name => 'blockId'},
             # Path of the file which this block belongs to.
-            PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+            PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
             # Length of this block.
-            NUMBYTES => {:type => Thrift::Types::I64, :name => 'numBytes'},
+            NUMBYTES => {:type => ::Thrift::Types::I64, :name => 'numBytes'},
             # Generational stamp of this block.
-            GENSTAMP => {:type => Thrift::Types::I64, :name => 'genStamp'},
+            GENSTAMP => {:type => ::Thrift::Types::I64, :name => 'genStamp'},
             # List of data nodes with copies  of this block.
-            NODES => {:type => Thrift::Types::LIST, :name => 'nodes', :element => {:type => Thrift::Types::STRUCT, :class => Hadoop::API::DatanodeInfo}}
+            NODES => {:type => ::Thrift::Types::LIST, :name => 'nodes', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::DatanodeInfo}}
           }
 
           def struct_fields; FIELDS; end
@@ -106,39 +123,39 @@ module Hadoop
           BLOCKSIZE = 14
           REPLICATION = 15
 
-          Thrift::Struct.field_accessor self, :path, :isDir, :atime, :mtime, :perms, :owner, :group, :fileCount, :directoryCount, :quota, :spaceConsumed, :spaceQuota, :length, :blockSize, :replication
+          ::Thrift::Struct.field_accessor self, :path, :isDir, :atime, :mtime, :perms, :owner, :group, :fileCount, :directoryCount, :quota, :spaceConsumed, :spaceQuota, :length, :blockSize, :replication
           FIELDS = {
             # The path.
-            PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+            PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
             # True:  The path represents a file.
             # False: The path represents a directory.
-            ISDIR => {:type => Thrift::Types::BOOL, :name => 'isDir'},
+            ISDIR => {:type => ::Thrift::Types::BOOL, :name => 'isDir'},
             # Access time (milliseconds since 1970-01-01 00:00 UTC).
-            ATIME => {:type => Thrift::Types::I64, :name => 'atime'},
+            ATIME => {:type => ::Thrift::Types::I64, :name => 'atime'},
             # Modification time (milliseconds since 1970-01-01 00:00 UTC).
-            MTIME => {:type => Thrift::Types::I64, :name => 'mtime'},
+            MTIME => {:type => ::Thrift::Types::I64, :name => 'mtime'},
             # Access permissions
-            PERMS => {:type => Thrift::Types::I16, :name => 'perms'},
+            PERMS => {:type => ::Thrift::Types::I16, :name => 'perms'},
             # Owner
-            OWNER => {:type => Thrift::Types::STRING, :name => 'owner'},
+            OWNER => {:type => ::Thrift::Types::STRING, :name => 'owner'},
             # Group
-            GROUP => {:type => Thrift::Types::STRING, :name => 'group'},
+            GROUP => {:type => ::Thrift::Types::STRING, :name => 'group'},
             # Number of files in this directory
-            FILECOUNT => {:type => Thrift::Types::I64, :name => 'fileCount'},
+            FILECOUNT => {:type => ::Thrift::Types::I64, :name => 'fileCount'},
             # Number of directories in this directory
-            DIRECTORYCOUNT => {:type => Thrift::Types::I64, :name => 'directoryCount'},
+            DIRECTORYCOUNT => {:type => ::Thrift::Types::I64, :name => 'directoryCount'},
             # Quota for this directory (in bytes).
-            QUOTA => {:type => Thrift::Types::I64, :name => 'quota'},
+            QUOTA => {:type => ::Thrift::Types::I64, :name => 'quota'},
             # Space consumed in disk (in bytes).
-            SPACECONSUMED => {:type => Thrift::Types::I64, :name => 'spaceConsumed'},
+            SPACECONSUMED => {:type => ::Thrift::Types::I64, :name => 'spaceConsumed'},
             # Quota consumed in disk (in bytes).
-            SPACEQUOTA => {:type => Thrift::Types::I64, :name => 'spaceQuota'},
+            SPACEQUOTA => {:type => ::Thrift::Types::I64, :name => 'spaceQuota'},
             # Length (in bytes).
-            LENGTH => {:type => Thrift::Types::I64, :name => 'length'},
+            LENGTH => {:type => ::Thrift::Types::I64, :name => 'length'},
             # Block size (in bytes).
-            BLOCKSIZE => {:type => Thrift::Types::I64, :name => 'blockSize'},
+            BLOCKSIZE => {:type => ::Thrift::Types::I64, :name => 'blockSize'},
             # Replication factor.
-            REPLICATION => {:type => Thrift::Types::I16, :name => 'replication'}
+            REPLICATION => {:type => ::Thrift::Types::I16, :name => 'replication'}
           }
 
           def struct_fields; FIELDS; end
@@ -149,17 +166,17 @@ module Hadoop
         end
 
         # Generic I/O error
-        class IOException < Thrift::Exception
+        class IOException < ::Thrift::Exception
           include ::Thrift::Struct
           MSG = 1
           STACK = 2
 
-          Thrift::Struct.field_accessor self, :msg, :stack
+          ::Thrift::Struct.field_accessor self, :msg, :stack
           FIELDS = {
             # Error message.
-            MSG => {:type => Thrift::Types::STRING, :name => 'msg'},
+            MSG => {:type => ::Thrift::Types::STRING, :name => 'msg'},
             # Textual representation of the call stack.
-            STACK => {:type => Thrift::Types::STRING, :name => 'stack'}
+            STACK => {:type => ::Thrift::Types::STRING, :name => 'stack'}
           }
 
           def struct_fields; FIELDS; end
@@ -170,17 +187,17 @@ module Hadoop
         end
 
         # Quota-related error
-        class QuotaException < Thrift::Exception
+        class QuotaException < ::Thrift::Exception
           include ::Thrift::Struct
           MSG = 1
           STACK = 2
 
-          Thrift::Struct.field_accessor self, :msg, :stack
+          ::Thrift::Struct.field_accessor self, :msg, :stack
           FIELDS = {
             # Error message.
-            MSG => {:type => Thrift::Types::STRING, :name => 'msg'},
+            MSG => {:type => ::Thrift::Types::STRING, :name => 'msg'},
             # Textual representation of the call stack.
-            STACK => {:type => Thrift::Types::STRING, :name => 'stack'}
+            STACK => {:type => ::Thrift::Types::STRING, :name => 'stack'}
           }
 
           def struct_fields; FIELDS; end
@@ -197,14 +214,14 @@ module Hadoop
           LENGTH = 2
           DATA = 3
 
-          Thrift::Struct.field_accessor self, :crc, :length, :data
+          ::Thrift::Struct.field_accessor self, :crc, :length, :data
           FIELDS = {
             # CRC32 of the data being transfered
-            CRC => {:type => Thrift::Types::I32, :name => 'crc'},
+            CRC => {:type => ::Thrift::Types::I32, :name => 'crc'},
             # Length of the data being transfered
-            LENGTH => {:type => Thrift::Types::I32, :name => 'length'},
+            LENGTH => {:type => ::Thrift::Types::I32, :name => 'length'},
             # The data itsef
-            DATA => {:type => Thrift::Types::STRING, :name => 'data'}
+            DATA => {:type => ::Thrift::Types::STRING, :name => 'data'}
           }
 
           def struct_fields; FIELDS; end

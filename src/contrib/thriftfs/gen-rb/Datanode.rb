@@ -26,7 +26,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(ReadBlock_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'readBlock failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'readBlock failed: unknown result')
                 end
 
               end
@@ -55,14 +55,14 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 OFFSET = 2
                 LENGTH = 3
 
-                Thrift::Struct.field_accessor self, :block, :offset, :length
+                ::Thrift::Struct.field_accessor self, :block, :offset, :length
                 FIELDS = {
                   # Block to be read from.
-                  BLOCK => {:type => Thrift::Types::STRUCT, :name => 'block', :class => Hadoop::API::Block},
+                  BLOCK => {:type => ::Thrift::Types::STRUCT, :name => 'block', :class => Hadoop::API::Block},
                   # Offset within the block where read must start from.
-                  OFFSET => {:type => Thrift::Types::I64, :name => 'offset'},
+                  OFFSET => {:type => ::Thrift::Types::I64, :name => 'offset'},
                   # Number of bytes to read.
-                  LENGTH => {:type => Thrift::Types::I32, :name => 'length'}
+                  LENGTH => {:type => ::Thrift::Types::I32, :name => 'length'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -77,10 +77,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => Hadoop::API::BlockData},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => Hadoop::API::BlockData},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end

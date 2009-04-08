@@ -7,8 +7,8 @@
 
 namespace hadoop { namespace api {
 
-const char* DatanodeInfo::ascii_fingerprint = "8134369D16097EFB06CDBCD8EA6EDB55";
-const uint8_t DatanodeInfo::binary_fingerprint[16] = {0x81,0x34,0x36,0x9D,0x16,0x09,0x7E,0xFB,0x06,0xCD,0xBC,0xD8,0xEA,0x6E,0xDB,0x55};
+const char* DatanodeInfo::ascii_fingerprint = "B94C24DED41ECFF96DC7A3570D59C2AC";
+const uint8_t DatanodeInfo::binary_fingerprint[16] = {0xB9,0x4C,0x24,0xDE,0xD4,0x1E,0xCF,0xF9,0x6D,0xC7,0xA3,0x57,0x0D,0x59,0xC2,0xAC};
 
 uint32_t DatanodeInfo::read(apache::thrift::protocol::TProtocol* iprot) {
 
@@ -96,7 +96,9 @@ uint32_t DatanodeInfo::read(apache::thrift::protocol::TProtocol* iprot) {
         break;
       case 9:
         if (ftype == apache::thrift::protocol::T_I32) {
-          xfer += iprot->readI32(this->state);
+          int32_t ecast0;
+          xfer += iprot->readI32(ecast0);
+          this->state = (DatanodeState)ecast0;
           this->__isset.state = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -142,15 +144,15 @@ uint32_t DatanodeInfo::write(apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeI32(this->xceiverCount);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("state", apache::thrift::protocol::T_I32, 9);
-  xfer += oprot->writeI32(this->state);
+  xfer += oprot->writeI32((int32_t)this->state);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-const char* Block::ascii_fingerprint = "17D68B60ABD0DF64DBF165F1A9443800";
-const uint8_t Block::binary_fingerprint[16] = {0x17,0xD6,0x8B,0x60,0xAB,0xD0,0xDF,0x64,0xDB,0xF1,0x65,0xF1,0xA9,0x44,0x38,0x00};
+const char* Block::ascii_fingerprint = "DC05DB32945F8E863495794EF27CF3CC";
+const uint8_t Block::binary_fingerprint[16] = {0xDC,0x05,0xDB,0x32,0x94,0x5F,0x8E,0x86,0x34,0x95,0x79,0x4E,0xF2,0x7C,0xF3,0xCC};
 
 uint32_t Block::read(apache::thrift::protocol::TProtocol* iprot) {
 
@@ -208,14 +210,14 @@ uint32_t Block::read(apache::thrift::protocol::TProtocol* iprot) {
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->nodes.clear();
-            uint32_t _size0;
-            apache::thrift::protocol::TType _etype3;
-            iprot->readListBegin(_etype3, _size0);
-            this->nodes.resize(_size0);
-            uint32_t _i4;
-            for (_i4 = 0; _i4 < _size0; ++_i4)
+            uint32_t _size1;
+            apache::thrift::protocol::TType _etype4;
+            iprot->readListBegin(_etype4, _size1);
+            this->nodes.resize(_size1);
+            uint32_t _i5;
+            for (_i5 = 0; _i5 < _size1; ++_i5)
             {
-              xfer += this->nodes[_i4].read(iprot);
+              xfer += this->nodes[_i5].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -254,10 +256,10 @@ uint32_t Block::write(apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeFieldBegin("nodes", apache::thrift::protocol::T_LIST, 5);
   {
     xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->nodes.size());
-    std::vector<DatanodeInfo> ::const_iterator _iter5;
-    for (_iter5 = this->nodes.begin(); _iter5 != this->nodes.end(); ++_iter5)
+    std::vector<DatanodeInfo> ::const_iterator _iter6;
+    for (_iter6 = this->nodes.begin(); _iter6 != this->nodes.end(); ++_iter6)
     {
-      xfer += (*_iter5).write(oprot);
+      xfer += (*_iter6).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }

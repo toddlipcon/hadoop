@@ -47,7 +47,7 @@ class NamenodeHandler : virtual public NamenodeIf {
     printf("getBlocks\n");
   }
 
-  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const int32_t type) {
+  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type) {
     // Your implementation goes here
     printf("getDatanodeReport\n");
   }
@@ -117,12 +117,12 @@ class NamenodeHandler : virtual public NamenodeIf {
     printf("utime\n");
   }
 
-  void datanodeUp(const std::string& name, const int32_t thriftPort) {
+  void datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort) {
     // Your implementation goes here
     printf("datanodeUp\n");
   }
 
-  void datanodeDown(const std::string& name, const int32_t thriftPort) {
+  void datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort) {
     // Your implementation goes here
     printf("datanodeDown\n");
   }

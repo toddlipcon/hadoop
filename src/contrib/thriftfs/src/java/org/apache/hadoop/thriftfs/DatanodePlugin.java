@@ -24,6 +24,8 @@ import java.util.zip.CRC32;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configurable;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.server.datanode.DataNode;
 import org.apache.hadoop.net.NetUtils;
@@ -39,10 +41,13 @@ import org.apache.thrift.TProcessor;
 import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.transport.TTransport;
 
-public class DatanodePlugin extends PluginBase implements ServicePlugin {
+public class DatanodePlugin
+  extends org.apache.hadoop.hdfs.server.datanode.DatanodePlugin
+  implements Configurable {
+
 
   /** Name of the configuration property of the Thrift server address */
-  public static final String THRFIT_ADDRESS_PROPERTY =
+  public static final String THRIFT_ADDRESS_PROPERTY =
       "dfs.thrift.datanode.address";
   /**
    * Default address and port this server will bind to, in case nothing is found
@@ -52,9 +57,17 @@ public class DatanodePlugin extends PluginBase implements ServicePlugin {
 
   private DataNode datanode;
   private Thread registerThread;
-  private boolean register;
+  private volatile boolean register;
 
   static final Log LOG = LogFactory.getLog(DatanodePlugin.class);
+
+  private ThriftPluginServer thriftServer;
+
+  private Configuration conf;
+
+  public DatanodePlugin() {
+  }
+
 
   class ThriftHandler implements Datanode.Iface {
 
@@ -119,25 +132,58 @@ public class DatanodePlugin extends PluginBase implements ServicePlugin {
     }
   }
 
+  public void setConf(Configuration conf) {
+    this.conf = conf;
+  }
+
+  public Configuration getConf() {
+    return conf;
+  }
+
+
   @Override
   public void start(Object service) {
     this.datanode = (DataNode)service;
     try {
-      super.start();
+      InetSocketAddress address = NetUtils.createSocketAddr(
+        conf.get(THRIFT_ADDRESS_PROPERTY, DEFAULT_THRIFT_ADDRESS));
 
-      register = true;
-      registerThread = new Thread(new Runnable() {
+      thriftServer = new ThriftPluginServer(address,
+                                            new ProcessorFactory());
+      thriftServer.setConf(conf);
+      thriftServer.start();
+    } catch (java.io.IOException ioe) {
+      throw new RuntimeException("Could not start Thrift Datanode Plugin", ioe);
+    }
+  }
+
+  @Override
+  public void initialRegistrationComplete() {
+    registerWithNameNode();
+  }
+
+  @Override
+  public void reregistrationComplete() {
+    registerWithNameNode();
+  }
+
+  private void registerWithNameNode() {
+    register = true;
+    registerThread = new Thread(new Runnable() {
         public void run() {
           Namenode.Client namenode = null;
           String name = datanode.dnRegistration.getName();
+          String storageId = datanode.dnRegistration.getStorageID();
+
           while (register) {
             try {
               if (namenode == null) {
                 namenode = ThriftUtils.createNamenodeClient(conf);
               }
-              namenode.datanodeUp(name, port);
+              namenode.datanodeUp(name, storageId, thriftServer.getPort());
               register = false;
-              LOG.info("Datanode " + name + " registered Thrift port " + port);
+              LOG.info("Datanode " + name + " registered Thrift port " +
+                       thriftServer.getPort());
             } catch (Throwable t) {
               LOG.info("Datanode registration failed", t);
               try {
@@ -147,10 +193,7 @@ public class DatanodePlugin extends PluginBase implements ServicePlugin {
           }
         }
       });
-      registerThread.start();
-    } catch (Throwable t) {
-      LOG.warn("Cannot start Thrift datanode plug-in", t);
-    }
+    registerThread.start();
   }
 
   @Override
@@ -162,10 +205,17 @@ public class DatanodePlugin extends PluginBase implements ServicePlugin {
 
     try {
       Namenode.Client namenode = ThriftUtils.createNamenodeClient(conf);
-      namenode.datanodeDown(datanode.dnRegistration.getName(), port);
+      namenode.datanodeDown(datanode.dnRegistration.getName(),
+                            datanode.dnRegistration.getStorageID(),
+                            thriftServer.getPort());
     } catch (Throwable t) {}
 
-    super.stop();
+    thriftServer.stop();
+  }
+
+  @Override
+  public void close() {
+    stop();
   }
 
   class ProcessorFactory extends TProcessorFactory {
@@ -176,22 +226,11 @@ public class DatanodePlugin extends PluginBase implements ServicePlugin {
 
     @Override
     public TProcessor getProcessor(TTransport t) {
-      ThriftHandler impl = new ThriftHandler(PluginBase.getClientName(t));
-      UserGroupInformation ugi = PluginBase.getUserGroupInformation(t);
+      ThriftHandler impl = new ThriftHandler(thriftServer.getClientName(t));
+      UserGroupInformation ugi = thriftServer.getUserGroupInformation(t);
       UserGroupInformation.setCurrentUser(ugi);
       LOG.info("Connection from user " + ugi);
       return new Datanode.Processor(impl);
     }
-  }
-
-  @Override
-  protected TProcessorFactory getProcessorFactory() {
-    return new ProcessorFactory();
-  }
-
-  @Override
-  protected InetSocketAddress getAddress() {
-    return NetUtils.createSocketAddr(conf.get(THRFIT_ADDRESS_PROPERTY,
-        DEFAULT_THRIFT_ADDRESS));
   }
 }

@@ -8,6 +8,14 @@ use strict;
 use warnings;
 use Thrift;
 
+package Hadoop::API::DatanodeReportType;
+use constant ALL_DATANODES => 1;
+use constant LIVE_DATANODES => 2;
+use constant DEAD_DATANODES => 3;
+package Hadoop::API::DatanodeState;
+use constant NORMAL_STATE => 1;
+use constant DECOMMISSION_INPROGRESS => 2;
+use constant DECOMMISSIONED => 3;
 package Hadoop::API::DatanodeInfo;
 use Class::Accessor;
 use base('Class::Accessor');

@@ -56,7 +56,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(Df_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'df failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'df failed: unknown result')
                 end
 
                 def enterSafeMode()
@@ -87,7 +87,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(GetBlocks_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'getBlocks failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getBlocks failed: unknown result')
                 end
 
                 def getDatanodeReport(type)
@@ -103,7 +103,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(GetDatanodeReport_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'getDatanodeReport failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getDatanodeReport failed: unknown result')
                 end
 
                 def getPreferredBlockSize(path)
@@ -119,7 +119,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(GetPreferredBlockSize_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'getPreferredBlockSize failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getPreferredBlockSize failed: unknown result')
                 end
 
                 def isInSafeMode()
@@ -135,7 +135,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(IsInSafeMode_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'isInSafeMode failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'isInSafeMode failed: unknown result')
                 end
 
                 def leaveSafeMode()
@@ -166,7 +166,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(Ls_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'ls failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'ls failed: unknown result')
                 end
 
                 def mkdirhier(path, perms)
@@ -182,7 +182,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(Mkdirhier_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'mkdirhier failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'mkdirhier failed: unknown result')
                 end
 
                 def refreshNodes()
@@ -213,7 +213,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(Rename_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'rename failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'rename failed: unknown result')
                 end
 
                 def reportBadBlocks(blocks)
@@ -244,7 +244,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(Stat_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'stat failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'stat failed: unknown result')
                 end
 
                 def setQuota(path, namespaceQuota, diskspaceQuota)
@@ -275,7 +275,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(SetReplication_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'setReplication failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'setReplication failed: unknown result')
                 end
 
                 def unlink(path, recursive)
@@ -291,7 +291,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = receive_message(Unlink_result)
                   return result.success unless result.success.nil?
                   raise result.err unless result.err.nil?
-                  raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'unlink failed: unknown result')
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'unlink failed: unknown result')
                 end
 
                 def utime(path, atime, mtime)
@@ -309,13 +309,13 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   return
                 end
 
-                def datanodeUp(name, thriftPort)
-                  send_datanodeUp(name, thriftPort)
+                def datanodeUp(name, storage, thriftPort)
+                  send_datanodeUp(name, storage, thriftPort)
                   recv_datanodeUp()
                 end
 
-                def send_datanodeUp(name, thriftPort)
-                  send_message('datanodeUp', DatanodeUp_args, :name => name, :thriftPort => thriftPort)
+                def send_datanodeUp(name, storage, thriftPort)
+                  send_message('datanodeUp', DatanodeUp_args, :name => name, :storage => storage, :thriftPort => thriftPort)
                 end
 
                 def recv_datanodeUp()
@@ -323,13 +323,13 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   return
                 end
 
-                def datanodeDown(name, thriftPort)
-                  send_datanodeDown(name, thriftPort)
+                def datanodeDown(name, storage, thriftPort)
+                  send_datanodeDown(name, storage, thriftPort)
                   recv_datanodeDown()
                 end
 
-                def send_datanodeDown(name, thriftPort)
-                  send_message('datanodeDown', DatanodeDown_args, :name => name, :thriftPort => thriftPort)
+                def send_datanodeDown(name, storage, thriftPort)
+                  send_message('datanodeDown', DatanodeDown_args, :name => name, :storage => storage, :thriftPort => thriftPort)
                 end
 
                 def recv_datanodeDown()
@@ -554,14 +554,14 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 def process_datanodeUp(seqid, iprot, oprot)
                   args = read_args(iprot, DatanodeUp_args)
                   result = DatanodeUp_result.new()
-                  @handler.datanodeUp(args.name, args.thriftPort)
+                  @handler.datanodeUp(args.name, args.storage, args.thriftPort)
                   write_result(result, oprot, 'datanodeUp', seqid)
                 end
 
                 def process_datanodeDown(seqid, iprot, oprot)
                   args = read_args(iprot, DatanodeDown_args)
                   result = DatanodeDown_result.new()
-                  @handler.datanodeDown(args.name, args.thriftPort)
+                  @handler.datanodeDown(args.name, args.storage, args.thriftPort)
                   write_result(result, oprot, 'datanodeDown', seqid)
                 end
 
@@ -574,12 +574,12 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 PATH = 1
                 PERMS = 2
 
-                Thrift::Struct.field_accessor self, :path, :perms
+                ::Thrift::Struct.field_accessor self, :path, :perms
                 FIELDS = {
                   # Path of the file or directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # New permissions for the file or directory.
-                  PERMS => {:type => Thrift::Types::I16, :name => 'perms'}
+                  PERMS => {:type => ::Thrift::Types::I16, :name => 'perms'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -593,9 +593,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -611,14 +611,14 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 OWNER = 2
                 GROUP = 3
 
-                Thrift::Struct.field_accessor self, :path, :owner, :group
+                ::Thrift::Struct.field_accessor self, :path, :owner, :group
                 FIELDS = {
                   # Path to the file or directory
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # New owner.
-                  OWNER => {:type => Thrift::Types::STRING, :name => 'owner'},
+                  OWNER => {:type => ::Thrift::Types::STRING, :name => 'owner'},
                   # New group.
-                  GROUP => {:type => Thrift::Types::STRING, :name => 'group'}
+                  GROUP => {:type => ::Thrift::Types::STRING, :name => 'group'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -632,9 +632,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -663,10 +663,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::I64}},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::I64}},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -694,9 +694,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -712,14 +712,14 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 OFFSET = 2
                 LENGTH = 3
 
-                Thrift::Struct.field_accessor self, :path, :offset, :length
+                ::Thrift::Struct.field_accessor self, :path, :offset, :length
                 FIELDS = {
                   # Path to the file.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # Offset of the region.
-                  OFFSET => {:type => Thrift::Types::I64, :name => 'offset'},
+                  OFFSET => {:type => ::Thrift::Types::I64, :name => 'offset'},
                   # Length of the region
-                  LENGTH => {:type => Thrift::Types::I64, :name => 'length'}
+                  LENGTH => {:type => ::Thrift::Types::I64, :name => 'length'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -734,10 +734,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => Hadoop::API::Block}},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::Block}},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -751,16 +751,19 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 TYPE = 1
 
-                Thrift::Struct.field_accessor self, :type
+                ::Thrift::Struct.field_accessor self, :type
                 FIELDS = {
                   # Type of data nodes to return
                   # information about.
-                  TYPE => {:type => Thrift::Types::I32, :name => 'type'}
+                  TYPE => {:type => ::Thrift::Types::I32, :name => 'type', :enum_class => Hadoop::API::DatanodeReportType}
                 }
 
                 def struct_fields; FIELDS; end
 
                 def validate
+                  unless @type.nil? || DatanodeReportType::VALID_VALUES.include?(@type)
+                    raise ::Thrift::ProtocolException.new(::Thrift::ProtocolException::UNKNOWN, 'Invalid value of field type!')
+                  end
                 end
 
               end
@@ -770,10 +773,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => Hadoop::API::DatanodeInfo}},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::DatanodeInfo}},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -787,10 +790,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 PATH = 1
 
-                Thrift::Struct.field_accessor self, :path
+                ::Thrift::Struct.field_accessor self, :path
                 FIELDS = {
                   # Path to the file.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'}
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -805,10 +808,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::I64, :name => 'success'},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::I64, :name => 'success'},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -837,10 +840,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -868,9 +871,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -884,10 +887,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 PATH = 1
 
-                Thrift::Struct.field_accessor self, :path
+                ::Thrift::Struct.field_accessor self, :path
                 FIELDS = {
                   # Path to the directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'}
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -902,10 +905,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => Hadoop::API::Stat}},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::Stat}},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -920,12 +923,12 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 PATH = 1
                 PERMS = 2
 
-                Thrift::Struct.field_accessor self, :path, :perms
+                ::Thrift::Struct.field_accessor self, :path, :perms
                 FIELDS = {
                   # Path to the directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # Access permissions of the directory.
-                  PERMS => {:type => Thrift::Types::I16, :name => 'perms'}
+                  PERMS => {:type => ::Thrift::Types::I16, :name => 'perms'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -940,10 +943,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -971,9 +974,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -988,12 +991,12 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 PATH = 1
                 NEWPATH = 2
 
-                Thrift::Struct.field_accessor self, :path, :newPath
+                ::Thrift::Struct.field_accessor self, :path, :newPath
                 FIELDS = {
                   # Path to existing file or directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # New path.
-                  NEWPATH => {:type => Thrift::Types::STRING, :name => 'newPath'}
+                  NEWPATH => {:type => ::Thrift::Types::STRING, :name => 'newPath'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1008,10 +1011,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1025,10 +1028,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 BLOCKS = 1
 
-                Thrift::Struct.field_accessor self, :blocks
+                ::Thrift::Struct.field_accessor self, :blocks
                 FIELDS = {
                   # List of corrupted blocks.
-                  BLOCKS => {:type => Thrift::Types::LIST, :name => 'blocks', :element => {:type => Thrift::Types::STRUCT, :class => Hadoop::API::Block}}
+                  BLOCKS => {:type => ::Thrift::Types::LIST, :name => 'blocks', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::Block}}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1042,9 +1045,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1058,10 +1061,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 PATH = 1
 
-                Thrift::Struct.field_accessor self, :path
+                ::Thrift::Struct.field_accessor self, :path
                 FIELDS = {
                   # Path of the file or directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'}
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1076,10 +1079,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => Hadoop::API::Stat},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => Hadoop::API::Stat},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1095,15 +1098,15 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 NAMESPACEQUOTA = 2
                 DISKSPACEQUOTA = 3
 
-                Thrift::Struct.field_accessor self, :path, :namespaceQuota, :diskspaceQuota
+                ::Thrift::Struct.field_accessor self, :path, :namespaceQuota, :diskspaceQuota
                 FIELDS = {
                   # Path of the directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # Limit on the number of names in the directory.
-                  NAMESPACEQUOTA => {:type => Thrift::Types::I64, :name => 'namespaceQuota'},
+                  NAMESPACEQUOTA => {:type => ::Thrift::Types::I64, :name => 'namespaceQuota'},
                   # Limit on disk space occupied by all the files in the
                   # directory.
-                  DISKSPACEQUOTA => {:type => Thrift::Types::I64, :name => 'diskspaceQuota'}
+                  DISKSPACEQUOTA => {:type => ::Thrift::Types::I64, :name => 'diskspaceQuota'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1117,9 +1120,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1134,12 +1137,12 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 PATH = 1
                 REPLICATION = 2
 
-                Thrift::Struct.field_accessor self, :path, :replication
+                ::Thrift::Struct.field_accessor self, :path, :replication
                 FIELDS = {
                   # Path of the file.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # New replication factor.
-                  REPLICATION => {:type => Thrift::Types::I16, :name => 'replication'}
+                  REPLICATION => {:type => ::Thrift::Types::I16, :name => 'replication'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1154,10 +1157,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1172,12 +1175,12 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 PATH = 1
                 RECURSIVE = 2
 
-                Thrift::Struct.field_accessor self, :path, :recursive
+                ::Thrift::Struct.field_accessor self, :path, :recursive
                 FIELDS = {
                   # Path of the file or directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # Delete a non-empty directory recursively.
-                  RECURSIVE => {:type => Thrift::Types::BOOL, :name => 'recursive'}
+                  RECURSIVE => {:type => ::Thrift::Types::BOOL, :name => 'recursive'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1192,10 +1195,10 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 SUCCESS = 0
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :success, :err
+                ::Thrift::Struct.field_accessor self, :success, :err
                 FIELDS = {
-                  SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1211,14 +1214,14 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 ATIME = 2
                 MTIME = 3
 
-                Thrift::Struct.field_accessor self, :path, :atime, :mtime
+                ::Thrift::Struct.field_accessor self, :path, :atime, :mtime
                 FIELDS = {
                   # Path of the file or directory.
-                  PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+                  PATH => {:type => ::Thrift::Types::STRING, :name => 'path'},
                   # Access time in milliseconds since 1970-01-01 00:00 UTC
-                  ATIME => {:type => Thrift::Types::I64, :name => 'atime'},
+                  ATIME => {:type => ::Thrift::Types::I64, :name => 'atime'},
                   # Modification time in milliseconds since 1970-01-01 00:00 UTC
-                  MTIME => {:type => Thrift::Types::I64, :name => 'mtime'}
+                  MTIME => {:type => ::Thrift::Types::I64, :name => 'mtime'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1232,9 +1235,9 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 include ::Thrift::Struct
                 ERR = 1
 
-                Thrift::Struct.field_accessor self, :err
+                ::Thrift::Struct.field_accessor self, :err
                 FIELDS = {
-                  ERR => {:type => Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1247,14 +1250,17 @@ require File.dirname(__FILE__) + '/hdfs_types'
               class DatanodeUp_args
                 include ::Thrift::Struct
                 NAME = 1
-                THRIFTPORT = 2
+                STORAGE = 2
+                THRIFTPORT = 3
 
-                Thrift::Struct.field_accessor self, :name, :thriftPort
+                ::Thrift::Struct.field_accessor self, :name, :storage, :thriftPort
                 FIELDS = {
                   # <host name>:<port number> of the datanode
-                  NAME => {:type => Thrift::Types::STRING, :name => 'name'},
+                  NAME => {:type => ::Thrift::Types::STRING, :name => 'name'},
+                  # the storage id of the datanode
+                  STORAGE => {:type => ::Thrift::Types::STRING, :name => 'storage'},
                   # Thrift port of the datanode
-                  THRIFTPORT => {:type => Thrift::Types::I32, :name => 'thriftPort'}
+                  THRIFTPORT => {:type => ::Thrift::Types::I32, :name => 'thriftPort'}
                 }
 
                 def struct_fields; FIELDS; end
@@ -1281,14 +1287,17 @@ require File.dirname(__FILE__) + '/hdfs_types'
               class DatanodeDown_args
                 include ::Thrift::Struct
                 NAME = 1
-                THRIFTPORT = 2
+                STORAGE = 2
+                THRIFTPORT = 3
 
-                Thrift::Struct.field_accessor self, :name, :thriftPort
+                ::Thrift::Struct.field_accessor self, :name, :storage, :thriftPort
                 FIELDS = {
                   # <host name>:<port number> of the datanode
-                  NAME => {:type => Thrift::Types::STRING, :name => 'name'},
+                  NAME => {:type => ::Thrift::Types::STRING, :name => 'name'},
+                  # the storage id of the datanode
+                  STORAGE => {:type => ::Thrift::Types::STRING, :name => 'storage'},
                   # Thrift port of the datanode
-                  THRIFTPORT => {:type => Thrift::Types::I32, :name => 'thriftPort'}
+                  THRIFTPORT => {:type => ::Thrift::Types::I32, :name => 'thriftPort'}
                 }
 
                 def struct_fields; FIELDS; end

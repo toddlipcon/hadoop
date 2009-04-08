@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configurable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.net.NetUtils;
 import org.apache.hadoop.security.UnixUserGroupInformation;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.util.LineReader;
@@ -49,7 +50,7 @@ import org.apache.thrift.transport.TTransportFactory;
 /**
  * Thrift HDFS plug-in base class.
  */
-public abstract class PluginBase implements Configurable, Runnable {
+public class ThriftPluginServer implements Configurable, Runnable {
 
   protected Configuration conf;
   private TThreadPoolServer server;
@@ -59,16 +60,30 @@ public abstract class PluginBase implements Configurable, Runnable {
 
   private static final Random random = new Random();
 
-  static final Log LOG = LogFactory.getLog(PluginBase.class);
+  /**
+   * This threadlocal is set by the TransportRecordingTransportFactory whenever
+   * a new socket connection is made to the server.
+   */
+  private ThreadLocal<TTransport> inputTransport;
+
+  private InetSocketAddress address;
+
+  private TProcessorFactory processorFactory;
+
+  static final Log LOG = LogFactory.getLog(ThriftPluginServer.class);
 
   static {
     Configuration.addDefaultResource("thriftfs-default.xml");
     Configuration.addDefaultResource("thriftfs-site.xml");
   }
 
-  public PluginBase() {
+  public ThriftPluginServer(InetSocketAddress address,
+                            TProcessorFactory processorFactory) {
     //options = new TThreadPoolServer.Options();
-    port = -1;
+    port = address.getPort();
+    inputTransport = new ThreadLocal<TTransport>();
+    this.address = address;
+    this.processorFactory = processorFactory;
   }
 
   /**
@@ -78,9 +93,7 @@ public abstract class PluginBase implements Configurable, Runnable {
    * @throws IOException on network errors.
    */
   public void start() throws IOException {
-    InetSocketAddress address = getAddress();
     String hostname = address.getHostName();
-    port = address.getPort();
 
     synchronized (this) {
       if (server != null) {
@@ -102,9 +115,13 @@ public abstract class PluginBase implements Configurable, Runnable {
       options.maxWorkerThreads = conf.getInt("dfs.thrift.threads.max", 20);
       options.stopTimeoutVal = conf.getInt("dfs.thrift.timeout", 60);
       options.stopTimeoutUnit = TimeUnit.SECONDS;
-      server = new TThreadPoolServer(getProcessorFactory(), transport,
-          new TTransportFactory(), new TTransportFactory(),
-          new TBinaryProtocol.Factory(), new TBinaryProtocol.Factory(), options);
+      TTransportFactory inTransportFactory = 
+        new TransportRecordingTransportFactory(new TTransportFactory(), inputTransport);
+
+      server = new TThreadPoolServer(
+        processorFactory, transport,
+        inTransportFactory, new TTransportFactory(),
+        new TBinaryProtocol.Factory(), new TBinaryProtocol.Factory(), options);
     }
 
     Thread t = new Thread(this);
@@ -125,7 +142,7 @@ public abstract class PluginBase implements Configurable, Runnable {
     }
   }
 
-  public void close() throws IOException {
+  public void close() {
     stop();
   }
 
@@ -141,11 +158,9 @@ public abstract class PluginBase implements Configurable, Runnable {
     this.conf = conf;
   }
 
-  /** Extract this server's address from the configuration object */
-  protected abstract InetSocketAddress getAddress();
-
-  /** Return a processor factory for this server */
-  protected abstract TProcessorFactory getProcessorFactory();
+  public int getPort() {
+    return port;
+  }
 
   /**
    * Tries to get the client name for a given Thrift transport.
@@ -155,11 +170,46 @@ public abstract class PluginBase implements Configurable, Runnable {
    *         "unknown-client:<random number>" otherwise.
    */
   protected static String getClientName(TTransport t) {
-    if (TSocket.class.isAssignableFrom(t.getClass())) {
-      Socket s = ((TSocket)t).getSocket();
-      return s.getInetAddress().getHostAddress() + ":" + s.getPort();
+    Socket sock = getTransportSocket(t);
+    if (sock != null) {
+      return sock.getInetAddress().getHostAddress() + ":" + sock.getPort();
     }
     return "unknown-client:" + random.nextLong();
+  }
+
+  /**
+   * Tries to get the Socket out of a Thrift transport.
+   *
+   * @param t the Thrift transport
+   * @return the socket, or null if the transport was non-socket type.
+   */
+  protected static Socket getTransportSocket(TTransport t) {
+    if (TSocket.class.isAssignableFrom(t.getClass())) {
+      return ((TSocket)t).getSocket();
+    }
+    return null;
+  }
+
+  /**
+   * From within a Thrift RPC handler, return the InetAddress of the caller.
+   *
+   * @return InetAddress
+   * @throws IllegalStateException if the request was not within a Thrift context
+   */
+  protected InetAddress getThriftCallerAddress() {
+    TTransport t = inputTransport.get();
+    if (t == null) {
+      throw new IllegalStateException(
+        "No Input TTransport - called from outside Thrift Processor?");
+    }
+    
+    Socket sock = getTransportSocket(t);
+    if (sock == null) {
+      throw new IllegalStateException(
+        "Input TTransport does not appear to be a TSocket.");
+    }
+
+    return sock.getInetAddress();
   }
 
   /**
@@ -260,6 +310,31 @@ public abstract class PluginBase implements Configurable, Runnable {
       } catch (Exception e) {
         LOG.error("Cannot close IDENT socket to " + identAddress, e);
       }
+    }
+  }
+
+  /**
+   * Thrift Transport Factory that acts as a passthrough to another transport factory.
+   * As a side effect, this class records the transports being passed through into a
+   * thread local variable.
+   *
+   * This is used in order to access the TSocket from within the plugins in order to
+   * find the remote IP of Thrift RPC requests.
+   */
+  private static class TransportRecordingTransportFactory extends TTransportFactory {
+    private ThreadLocal<TTransport> threadLocal;
+    private TTransportFactory wrapped;
+
+    public TransportRecordingTransportFactory(TTransportFactory wrapped,
+                                              ThreadLocal<TTransport> threadLocal) {
+      this.wrapped = wrapped;
+      this.threadLocal = threadLocal;
+    }
+
+    public TTransport getTransport(TTransport trans) {
+      TTransport toRet = wrapped.getTransport(trans);
+      threadLocal.set(toRet);
+      return toRet;
     }
   }
 }

@@ -10,18 +10,6 @@ use warnings;
 use Thrift;
 
 
-use constant ALL_DATANODES => 1;
-
-use constant LIVE_DATANODES => 2;
-
-use constant DEAD_DATANODES => 3;
-
-use constant NORMAL_STATE => 1;
-
-use constant DECOMMISSION_INPROGRESS => 2;
-
-use constant DECOMMISSIONED => 3;
-
 use constant UNKNOWN_THRIFT_PORT => -1;
 
 use constant QUOTA_DONT_SET => -2;

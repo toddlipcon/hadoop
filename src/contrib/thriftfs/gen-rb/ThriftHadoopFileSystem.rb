@@ -52,7 +52,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Create_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'create failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'create failed: unknown result')
     end
 
     def createFile(path, mode, overwrite, bufferSize, block_replication, blocksize)
@@ -68,7 +68,7 @@ module ThriftHadoopFileSystem
       result = receive_message(CreateFile_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'createFile failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'createFile failed: unknown result')
     end
 
     def open(path)
@@ -84,7 +84,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Open_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'open failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'open failed: unknown result')
     end
 
     def append(path)
@@ -100,39 +100,39 @@ module ThriftHadoopFileSystem
       result = receive_message(Append_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'append failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'append failed: unknown result')
     end
 
-    def write(data, handle)
-      send_write(data, handle)
+    def write(handle, data)
+      send_write(handle, data)
       return recv_write()
     end
 
-    def send_write(data, handle)
-      send_message('write', Write_args, :data => data, :handle => handle)
+    def send_write(handle, data)
+      send_message('write', Write_args, :handle => handle, :data => data)
     end
 
     def recv_write()
       result = receive_message(Write_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'write failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'write failed: unknown result')
     end
 
-    def read(size, offset, handle)
-      send_read(size, offset, handle)
+    def read(handle, offset, size)
+      send_read(handle, offset, size)
       return recv_read()
     end
 
-    def send_read(size, offset, handle)
-      send_message('read', Read_args, :size => size, :offset => offset, :handle => handle)
+    def send_read(handle, offset, size)
+      send_message('read', Read_args, :handle => handle, :offset => offset, :size => size)
     end
 
     def recv_read()
       result = receive_message(Read_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'read failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'read failed: unknown result')
     end
 
     def close(out)
@@ -148,7 +148,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Close_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'close failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'close failed: unknown result')
     end
 
     def rm(path, recursive)
@@ -164,7 +164,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Rm_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'rm failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'rm failed: unknown result')
     end
 
     def rename(path, dest)
@@ -180,7 +180,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Rename_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'rename failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'rename failed: unknown result')
     end
 
     def mkdirs(path)
@@ -196,7 +196,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Mkdirs_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'mkdirs failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'mkdirs failed: unknown result')
     end
 
     def exists(path)
@@ -212,7 +212,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Exists_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'exists failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'exists failed: unknown result')
     end
 
     def stat(path)
@@ -228,7 +228,7 @@ module ThriftHadoopFileSystem
       result = receive_message(Stat_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'stat failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'stat failed: unknown result')
     end
 
     def listStatus(path)
@@ -244,7 +244,7 @@ module ThriftHadoopFileSystem
       result = receive_message(ListStatus_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'listStatus failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'listStatus failed: unknown result')
     end
 
     def chmod(path, mode)
@@ -305,7 +305,7 @@ module ThriftHadoopFileSystem
       result = receive_message(GetFileBlockLocations_result)
       return result.success unless result.success.nil?
       raise result.ouch unless result.ouch.nil?
-      raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'getFileBlockLocations failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getFileBlockLocations failed: unknown result')
     end
 
   end
@@ -375,7 +375,7 @@ module ThriftHadoopFileSystem
       args = read_args(iprot, Write_args)
       result = Write_result.new()
       begin
-        result.success = @handler.write(args.data, args.handle)
+        result.success = @handler.write(args.handle, args.data)
       rescue ThriftIOException => ouch
         result.ouch = ouch
       end
@@ -386,7 +386,7 @@ module ThriftHadoopFileSystem
       args = read_args(iprot, Read_args)
       result = Read_result.new()
       begin
-        result.success = @handler.read(args.size, args.offset, args.handle)
+        result.success = @handler.read(args.handle, args.offset, args.size)
       rescue ThriftIOException => ouch
         result.ouch = ouch
       end
@@ -522,9 +522,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PERIODINSECONDS = 1
 
-    Thrift::Struct.field_accessor self, :periodInSeconds
+    ::Thrift::Struct.field_accessor self, :periodInSeconds
     FIELDS = {
-      PERIODINSECONDS => {:type => Thrift::Types::I64, :name => 'periodInSeconds'}
+      PERIODINSECONDS => {:type => ::Thrift::Types::I64, :name => 'periodInSeconds'}
     }
 
     def struct_fields; FIELDS; end
@@ -552,9 +552,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     STATUS = 1
 
-    Thrift::Struct.field_accessor self, :status
+    ::Thrift::Struct.field_accessor self, :status
     FIELDS = {
-      STATUS => {:type => Thrift::Types::I32, :name => 'status'}
+      STATUS => {:type => ::Thrift::Types::I32, :name => 'status'}
     }
 
     def struct_fields; FIELDS; end
@@ -582,9 +582,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PATH = 1
 
-    Thrift::Struct.field_accessor self, :path
+    ::Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -599,10 +599,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -621,14 +621,14 @@ module ThriftHadoopFileSystem
     BLOCK_REPLICATION = 5
     BLOCKSIZE = 6
 
-    Thrift::Struct.field_accessor self, :path, :mode, :overwrite, :bufferSize, :block_replication, :blocksize
+    ::Thrift::Struct.field_accessor self, :path, :mode, :overwrite, :bufferSize, :block_replication, :blocksize
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      MODE => {:type => Thrift::Types::I16, :name => 'mode'},
-      OVERWRITE => {:type => Thrift::Types::BOOL, :name => 'overwrite'},
-      BUFFERSIZE => {:type => Thrift::Types::I32, :name => 'bufferSize'},
-      BLOCK_REPLICATION => {:type => Thrift::Types::I16, :name => 'block_replication'},
-      BLOCKSIZE => {:type => Thrift::Types::I64, :name => 'blocksize'}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      MODE => {:type => ::Thrift::Types::I16, :name => 'mode'},
+      OVERWRITE => {:type => ::Thrift::Types::BOOL, :name => 'overwrite'},
+      BUFFERSIZE => {:type => ::Thrift::Types::I32, :name => 'bufferSize'},
+      BLOCK_REPLICATION => {:type => ::Thrift::Types::I16, :name => 'block_replication'},
+      BLOCKSIZE => {:type => ::Thrift::Types::I64, :name => 'blocksize'}
     }
 
     def struct_fields; FIELDS; end
@@ -643,10 +643,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -660,9 +660,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PATH = 1
 
-    Thrift::Struct.field_accessor self, :path
+    ::Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -677,10 +677,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -694,9 +694,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PATH = 1
 
-    Thrift::Struct.field_accessor self, :path
+    ::Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -711,10 +711,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -726,13 +726,13 @@ module ThriftHadoopFileSystem
 
   class Write_args
     include ::Thrift::Struct
-    DATA = -1
     HANDLE = 1
+    DATA = -1
 
-    Thrift::Struct.field_accessor self, :data, :handle
+    ::Thrift::Struct.field_accessor self, :handle, :data
     FIELDS = {
-      DATA => {:type => Thrift::Types::STRING, :name => 'data'},
-      HANDLE => {:type => Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle}
+      HANDLE => {:type => ::Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle},
+      DATA => {:type => ::Thrift::Types::STRING, :name => 'data'}
     }
 
     def struct_fields; FIELDS; end
@@ -747,10 +747,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -762,15 +762,15 @@ module ThriftHadoopFileSystem
 
   class Read_args
     include ::Thrift::Struct
-    SIZE = -2
-    OFFSET = -1
     HANDLE = 1
+    OFFSET = -1
+    SIZE = -2
 
-    Thrift::Struct.field_accessor self, :size, :offset, :handle
+    ::Thrift::Struct.field_accessor self, :handle, :offset, :size
     FIELDS = {
-      SIZE => {:type => Thrift::Types::I32, :name => 'size'},
-      OFFSET => {:type => Thrift::Types::I64, :name => 'offset'},
-      HANDLE => {:type => Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle}
+      HANDLE => {:type => ::Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle},
+      OFFSET => {:type => ::Thrift::Types::I64, :name => 'offset'},
+      SIZE => {:type => ::Thrift::Types::I32, :name => 'size'}
     }
 
     def struct_fields; FIELDS; end
@@ -785,10 +785,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::STRING, :name => 'success'},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::STRING, :name => 'success'},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -802,9 +802,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     OUT = 1
 
-    Thrift::Struct.field_accessor self, :out
+    ::Thrift::Struct.field_accessor self, :out
     FIELDS = {
-      OUT => {:type => Thrift::Types::STRUCT, :name => 'out', :class => ThriftHandle}
+      OUT => {:type => ::Thrift::Types::STRUCT, :name => 'out', :class => ThriftHandle}
     }
 
     def struct_fields; FIELDS; end
@@ -819,10 +819,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -837,10 +837,10 @@ module ThriftHadoopFileSystem
     PATH = 1
     RECURSIVE = 2
 
-    Thrift::Struct.field_accessor self, :path, :recursive
+    ::Thrift::Struct.field_accessor self, :path, :recursive
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      RECURSIVE => {:type => Thrift::Types::BOOL, :name => 'recursive'}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      RECURSIVE => {:type => ::Thrift::Types::BOOL, :name => 'recursive'}
     }
 
     def struct_fields; FIELDS; end
@@ -855,10 +855,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -873,10 +873,10 @@ module ThriftHadoopFileSystem
     PATH = 1
     DEST = 2
 
-    Thrift::Struct.field_accessor self, :path, :dest
+    ::Thrift::Struct.field_accessor self, :path, :dest
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      DEST => {:type => Thrift::Types::STRUCT, :name => 'dest', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      DEST => {:type => ::Thrift::Types::STRUCT, :name => 'dest', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -891,10 +891,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -908,9 +908,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PATH = 1
 
-    Thrift::Struct.field_accessor self, :path
+    ::Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -925,10 +925,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -942,9 +942,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PATH = 1
 
-    Thrift::Struct.field_accessor self, :path
+    ::Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -959,10 +959,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -976,9 +976,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PATH = 1
 
-    Thrift::Struct.field_accessor self, :path
+    ::Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -993,10 +993,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => FileStatus},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => FileStatus},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -1010,9 +1010,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     PATH = 1
 
-    Thrift::Struct.field_accessor self, :path
+    ::Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
 
     def struct_fields; FIELDS; end
@@ -1027,10 +1027,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => FileStatus}},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => FileStatus}},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -1045,10 +1045,10 @@ module ThriftHadoopFileSystem
     PATH = 1
     MODE = 2
 
-    Thrift::Struct.field_accessor self, :path, :mode
+    ::Thrift::Struct.field_accessor self, :path, :mode
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      MODE => {:type => Thrift::Types::I16, :name => 'mode'}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      MODE => {:type => ::Thrift::Types::I16, :name => 'mode'}
     }
 
     def struct_fields; FIELDS; end
@@ -1062,9 +1062,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :ouch
+    ::Thrift::Struct.field_accessor self, :ouch
     FIELDS = {
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -1080,11 +1080,11 @@ module ThriftHadoopFileSystem
     OWNER = 2
     GROUP = 3
 
-    Thrift::Struct.field_accessor self, :path, :owner, :group
+    ::Thrift::Struct.field_accessor self, :path, :owner, :group
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      OWNER => {:type => Thrift::Types::STRING, :name => 'owner'},
-      GROUP => {:type => Thrift::Types::STRING, :name => 'group'}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      OWNER => {:type => ::Thrift::Types::STRING, :name => 'owner'},
+      GROUP => {:type => ::Thrift::Types::STRING, :name => 'group'}
     }
 
     def struct_fields; FIELDS; end
@@ -1098,9 +1098,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :ouch
+    ::Thrift::Struct.field_accessor self, :ouch
     FIELDS = {
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -1115,10 +1115,10 @@ module ThriftHadoopFileSystem
     PATH = 1
     REPLICATION = 2
 
-    Thrift::Struct.field_accessor self, :path, :replication
+    ::Thrift::Struct.field_accessor self, :path, :replication
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      REPLICATION => {:type => Thrift::Types::I16, :name => 'replication'}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      REPLICATION => {:type => ::Thrift::Types::I16, :name => 'replication'}
     }
 
     def struct_fields; FIELDS; end
@@ -1132,9 +1132,9 @@ module ThriftHadoopFileSystem
     include ::Thrift::Struct
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :ouch
+    ::Thrift::Struct.field_accessor self, :ouch
     FIELDS = {
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end
@@ -1150,11 +1150,11 @@ module ThriftHadoopFileSystem
     START = 2
     LENGTH = 3
 
-    Thrift::Struct.field_accessor self, :path, :start, :length
+    ::Thrift::Struct.field_accessor self, :path, :start, :length
     FIELDS = {
-      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      START => {:type => Thrift::Types::I64, :name => 'start'},
-      LENGTH => {:type => Thrift::Types::I64, :name => 'length'}
+      PATH => {:type => ::Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      START => {:type => ::Thrift::Types::I64, :name => 'start'},
+      LENGTH => {:type => ::Thrift::Types::I64, :name => 'length'}
     }
 
     def struct_fields; FIELDS; end
@@ -1169,10 +1169,10 @@ module ThriftHadoopFileSystem
     SUCCESS = 0
     OUCH = 1
 
-    Thrift::Struct.field_accessor self, :success, :ouch
+    ::Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => BlockLocation}},
-      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => BlockLocation}},
+      OUCH => {:type => ::Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
 
     def struct_fields; FIELDS; end

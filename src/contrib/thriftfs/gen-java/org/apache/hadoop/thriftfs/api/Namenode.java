@@ -224,18 +224,22 @@ public class Namenode {
      * 
      * @param name <host name>:<port number> of the datanode
      * 
+     * @param storage the storage id of the datanode
+     * 
      * @param thriftPort Thrift port of the datanode
      */
-    public void datanodeUp(String name, int thriftPort) throws TException;
+    public void datanodeUp(String name, String storage, int thriftPort) throws TException;
 
     /**
      * Inform the namenode that a datanode process has stopped.
      * 
      * @param name <host name>:<port number> of the datanode
      * 
+     * @param storage the storage id of the datanode
+     * 
      * @param thriftPort Thrift port of the datanode
      */
-    public void datanodeDown(String name, int thriftPort) throws TException;
+    public void datanodeDown(String name, String storage, int thriftPort) throws TException;
 
   }
 
@@ -934,17 +938,18 @@ public class Namenode {
       return;
     }
 
-    public void datanodeUp(String name, int thriftPort) throws TException
+    public void datanodeUp(String name, String storage, int thriftPort) throws TException
     {
-      send_datanodeUp(name, thriftPort);
+      send_datanodeUp(name, storage, thriftPort);
       recv_datanodeUp();
     }
 
-    public void send_datanodeUp(String name, int thriftPort) throws TException
+    public void send_datanodeUp(String name, String storage, int thriftPort) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("datanodeUp", TMessageType.CALL, seqid_));
       datanodeUp_args args = new datanodeUp_args();
       args.name = name;
+      args.storage = storage;
       args.thriftPort = thriftPort;
       args.write(oprot_);
       oprot_.writeMessageEnd();
@@ -965,17 +970,18 @@ public class Namenode {
       return;
     }
 
-    public void datanodeDown(String name, int thriftPort) throws TException
+    public void datanodeDown(String name, String storage, int thriftPort) throws TException
     {
-      send_datanodeDown(name, thriftPort);
+      send_datanodeDown(name, storage, thriftPort);
       recv_datanodeDown();
     }
 
-    public void send_datanodeDown(String name, int thriftPort) throws TException
+    public void send_datanodeDown(String name, String storage, int thriftPort) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("datanodeDown", TMessageType.CALL, seqid_));
       datanodeDown_args args = new datanodeDown_args();
       args.name = name;
+      args.storage = storage;
       args.thriftPort = thriftPort;
       args.write(oprot_);
       oprot_.writeMessageEnd();
@@ -1442,7 +1448,7 @@ public class Namenode {
         args.read(iprot);
         iprot.readMessageEnd();
         datanodeUp_result result = new datanodeUp_result();
-        iface_.datanodeUp(args.name, args.thriftPort);
+        iface_.datanodeUp(args.name, args.storage, args.thriftPort);
         oprot.writeMessageBegin(new TMessage("datanodeUp", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
@@ -1458,7 +1464,7 @@ public class Namenode {
         args.read(iprot);
         iprot.readMessageEnd();
         datanodeDown_result result = new datanodeDown_result();
-        iface_.datanodeDown(args.name, args.thriftPort);
+        iface_.datanodeDown(args.name, args.storage, args.thriftPort);
         oprot.writeMessageBegin(new TMessage("datanodeDown", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
@@ -4041,7 +4047,7 @@ public class Namenode {
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
       case TYPE:
-        return new Integer(getType());
+        return getType();
 
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
@@ -4137,7 +4143,15 @@ public class Namenode {
       boolean first = true;
 
       sb.append("type:");
+      String type_name = DatanodeReportType.VALUES_TO_NAMES.get(this.type);
+      if (type_name != null) {
+        sb.append(type_name);
+        sb.append(" (");
+      }
       sb.append(this.type);
+      if (type_name != null) {
+        sb.append(")");
+      }
       first = false;
       sb.append(")");
       return sb.toString();
@@ -4146,6 +4160,9 @@ public class Namenode {
     public void validate() throws TException {
       // check for required fields
       // check that fields of type enum have valid values
+      if (isSetType() && !DatanodeReportType.VALID_VALUES.contains(type)){
+        throw new TProtocolException("The field 'type' has been assigned the invalid value " + type);
+      }
     }
 
   }
@@ -10764,7 +10781,8 @@ public class Namenode {
   public static class datanodeUp_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("datanodeUp_args");
     private static final TField NAME_FIELD_DESC = new TField("name", TType.STRING, (short)1);
-    private static final TField THRIFT_PORT_FIELD_DESC = new TField("thriftPort", TType.I32, (short)2);
+    private static final TField STORAGE_FIELD_DESC = new TField("storage", TType.STRING, (short)2);
+    private static final TField THRIFT_PORT_FIELD_DESC = new TField("thriftPort", TType.I32, (short)3);
 
     /**
      * <host name>:<port number> of the datanode
@@ -10772,10 +10790,15 @@ public class Namenode {
     public String name;
     public static final int NAME = 1;
     /**
+     * the storage id of the datanode
+     */
+    public String storage;
+    public static final int STORAGE = 2;
+    /**
      * Thrift port of the datanode
      */
     public int thriftPort;
-    public static final int THRIFTPORT = 2;
+    public static final int THRIFTPORT = 3;
 
     private final Isset __isset = new Isset();
     private static final class Isset implements java.io.Serializable {
@@ -10784,6 +10807,8 @@ public class Namenode {
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
       put(NAME, new FieldMetaData("name", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      put(STORAGE, new FieldMetaData("storage", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(THRIFTPORT, new FieldMetaData("thriftPort", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.I32)));
@@ -10798,10 +10823,12 @@ public class Namenode {
 
     public datanodeUp_args(
       String name,
+      String storage,
       int thriftPort)
     {
       this();
       this.name = name;
+      this.storage = storage;
       this.thriftPort = thriftPort;
       this.__isset.thriftPort = true;
     }
@@ -10812,6 +10839,9 @@ public class Namenode {
     public datanodeUp_args(datanodeUp_args other) {
       if (other.isSetName()) {
         this.name = other.name;
+      }
+      if (other.isSetStorage()) {
+        this.storage = other.storage;
       }
       __isset.thriftPort = other.__isset.thriftPort;
       this.thriftPort = other.thriftPort;
@@ -10848,6 +10878,35 @@ public class Namenode {
     public void setNameIsSet(boolean value) {
       if (!value) {
         this.name = null;
+      }
+    }
+
+    /**
+     * the storage id of the datanode
+     */
+    public String getStorage() {
+      return this.storage;
+    }
+
+    /**
+     * the storage id of the datanode
+     */
+    public void setStorage(String storage) {
+      this.storage = storage;
+    }
+
+    public void unsetStorage() {
+      this.storage = null;
+    }
+
+    // Returns true if field storage is set (has been asigned a value) and false otherwise
+    public boolean isSetStorage() {
+      return this.storage != null;
+    }
+
+    public void setStorageIsSet(boolean value) {
+      if (!value) {
+        this.storage = null;
       }
     }
 
@@ -10889,6 +10948,14 @@ public class Namenode {
         }
         break;
 
+      case STORAGE:
+        if (value == null) {
+          unsetStorage();
+        } else {
+          setStorage((String)value);
+        }
+        break;
+
       case THRIFTPORT:
         if (value == null) {
           unsetThriftPort();
@@ -10907,6 +10974,9 @@ public class Namenode {
       case NAME:
         return getName();
 
+      case STORAGE:
+        return getStorage();
+
       case THRIFTPORT:
         return new Integer(getThriftPort());
 
@@ -10920,6 +10990,8 @@ public class Namenode {
       switch (fieldID) {
       case NAME:
         return isSetName();
+      case STORAGE:
+        return isSetStorage();
       case THRIFTPORT:
         return isSetThriftPort();
       default:
@@ -10946,6 +11018,15 @@ public class Namenode {
         if (!(this_present_name && that_present_name))
           return false;
         if (!this.name.equals(that.name))
+          return false;
+      }
+
+      boolean this_present_storage = true && this.isSetStorage();
+      boolean that_present_storage = true && that.isSetStorage();
+      if (this_present_storage || that_present_storage) {
+        if (!(this_present_storage && that_present_storage))
+          return false;
+        if (!this.storage.equals(that.storage))
           return false;
       }
 
@@ -10984,6 +11065,13 @@ public class Namenode {
               TProtocolUtil.skip(iprot, field.type);
             }
             break;
+          case STORAGE:
+            if (field.type == TType.STRING) {
+              this.storage = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case THRIFTPORT:
             if (field.type == TType.I32) {
               this.thriftPort = iprot.readI32();
@@ -11014,6 +11102,11 @@ public class Namenode {
         oprot.writeString(this.name);
         oprot.writeFieldEnd();
       }
+      if (this.storage != null) {
+        oprot.writeFieldBegin(STORAGE_FIELD_DESC);
+        oprot.writeString(this.storage);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldBegin(THRIFT_PORT_FIELD_DESC);
       oprot.writeI32(this.thriftPort);
       oprot.writeFieldEnd();
@@ -11031,6 +11124,14 @@ public class Namenode {
         sb.append("null");
       } else {
         sb.append(this.name);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("storage:");
+      if (this.storage == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.storage);
       }
       first = false;
       if (!first) sb.append(", ");
@@ -11165,7 +11266,8 @@ public class Namenode {
   public static class datanodeDown_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("datanodeDown_args");
     private static final TField NAME_FIELD_DESC = new TField("name", TType.STRING, (short)1);
-    private static final TField THRIFT_PORT_FIELD_DESC = new TField("thriftPort", TType.I32, (short)2);
+    private static final TField STORAGE_FIELD_DESC = new TField("storage", TType.STRING, (short)2);
+    private static final TField THRIFT_PORT_FIELD_DESC = new TField("thriftPort", TType.I32, (short)3);
 
     /**
      * <host name>:<port number> of the datanode
@@ -11173,10 +11275,15 @@ public class Namenode {
     public String name;
     public static final int NAME = 1;
     /**
+     * the storage id of the datanode
+     */
+    public String storage;
+    public static final int STORAGE = 2;
+    /**
      * Thrift port of the datanode
      */
     public int thriftPort;
-    public static final int THRIFTPORT = 2;
+    public static final int THRIFTPORT = 3;
 
     private final Isset __isset = new Isset();
     private static final class Isset implements java.io.Serializable {
@@ -11185,6 +11292,8 @@ public class Namenode {
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
       put(NAME, new FieldMetaData("name", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      put(STORAGE, new FieldMetaData("storage", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(THRIFTPORT, new FieldMetaData("thriftPort", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.I32)));
@@ -11199,10 +11308,12 @@ public class Namenode {
 
     public datanodeDown_args(
       String name,
+      String storage,
       int thriftPort)
     {
       this();
       this.name = name;
+      this.storage = storage;
       this.thriftPort = thriftPort;
       this.__isset.thriftPort = true;
     }
@@ -11213,6 +11324,9 @@ public class Namenode {
     public datanodeDown_args(datanodeDown_args other) {
       if (other.isSetName()) {
         this.name = other.name;
+      }
+      if (other.isSetStorage()) {
+        this.storage = other.storage;
       }
       __isset.thriftPort = other.__isset.thriftPort;
       this.thriftPort = other.thriftPort;
@@ -11249,6 +11363,35 @@ public class Namenode {
     public void setNameIsSet(boolean value) {
       if (!value) {
         this.name = null;
+      }
+    }
+
+    /**
+     * the storage id of the datanode
+     */
+    public String getStorage() {
+      return this.storage;
+    }
+
+    /**
+     * the storage id of the datanode
+     */
+    public void setStorage(String storage) {
+      this.storage = storage;
+    }
+
+    public void unsetStorage() {
+      this.storage = null;
+    }
+
+    // Returns true if field storage is set (has been asigned a value) and false otherwise
+    public boolean isSetStorage() {
+      return this.storage != null;
+    }
+
+    public void setStorageIsSet(boolean value) {
+      if (!value) {
+        this.storage = null;
       }
     }
 
@@ -11290,6 +11433,14 @@ public class Namenode {
         }
         break;
 
+      case STORAGE:
+        if (value == null) {
+          unsetStorage();
+        } else {
+          setStorage((String)value);
+        }
+        break;
+
       case THRIFTPORT:
         if (value == null) {
           unsetThriftPort();
@@ -11308,6 +11459,9 @@ public class Namenode {
       case NAME:
         return getName();
 
+      case STORAGE:
+        return getStorage();
+
       case THRIFTPORT:
         return new Integer(getThriftPort());
 
@@ -11321,6 +11475,8 @@ public class Namenode {
       switch (fieldID) {
       case NAME:
         return isSetName();
+      case STORAGE:
+        return isSetStorage();
       case THRIFTPORT:
         return isSetThriftPort();
       default:
@@ -11347,6 +11503,15 @@ public class Namenode {
         if (!(this_present_name && that_present_name))
           return false;
         if (!this.name.equals(that.name))
+          return false;
+      }
+
+      boolean this_present_storage = true && this.isSetStorage();
+      boolean that_present_storage = true && that.isSetStorage();
+      if (this_present_storage || that_present_storage) {
+        if (!(this_present_storage && that_present_storage))
+          return false;
+        if (!this.storage.equals(that.storage))
           return false;
       }
 
@@ -11385,6 +11550,13 @@ public class Namenode {
               TProtocolUtil.skip(iprot, field.type);
             }
             break;
+          case STORAGE:
+            if (field.type == TType.STRING) {
+              this.storage = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case THRIFTPORT:
             if (field.type == TType.I32) {
               this.thriftPort = iprot.readI32();
@@ -11415,6 +11587,11 @@ public class Namenode {
         oprot.writeString(this.name);
         oprot.writeFieldEnd();
       }
+      if (this.storage != null) {
+        oprot.writeFieldBegin(STORAGE_FIELD_DESC);
+        oprot.writeString(this.storage);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldBegin(THRIFT_PORT_FIELD_DESC);
       oprot.writeI32(this.thriftPort);
       oprot.writeFieldEnd();
@@ -11432,6 +11609,14 @@ public class Namenode {
         sb.append("null");
       } else {
         sb.append(this.name);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("storage:");
+      if (this.storage == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.storage);
       }
       first = false;
       if (!first) sb.append(", ");

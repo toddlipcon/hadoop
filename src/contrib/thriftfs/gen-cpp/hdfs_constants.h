@@ -14,12 +14,6 @@ class hdfsConstants {
  public:
   hdfsConstants();
 
-  int32_t ALL_DATANODES;
-  int32_t LIVE_DATANODES;
-  int32_t DEAD_DATANODES;
-  int32_t NORMAL_STATE;
-  int32_t DECOMMISSION_INPROGRESS;
-  int32_t DECOMMISSIONED;
   int32_t UNKNOWN_THRIFT_PORT;
   int64_t QUOTA_DONT_SET;
   int64_t QUOTA_RESET;

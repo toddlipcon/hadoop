@@ -25,11 +25,14 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hdfs.protocol.DatanodeID;
 import org.apache.hadoop.hdfs.protocol.LocatedBlock;
+import org.apache.hadoop.hdfs.server.namenode.NameNode;
 import org.apache.hadoop.net.NetUtils;
 import org.apache.hadoop.thriftfs.api.Block;
 import org.apache.hadoop.thriftfs.api.Constants;
 import org.apache.hadoop.thriftfs.api.DatanodeInfo;
+import org.apache.hadoop.thriftfs.api.DatanodeState;
 import org.apache.hadoop.thriftfs.api.IOException;
 import org.apache.hadoop.thriftfs.api.Namenode;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -60,7 +63,7 @@ public class ThriftUtils {
   }
 
   public static Block toThrift(LocatedBlock block, String path,
-      Map<String, Integer> thriftPorts) {
+      Map<DatanodeID, Integer> thriftPorts) {
     if (block == null) {
       return new Block();
     }
@@ -92,7 +95,7 @@ public class ThriftUtils {
     ret.setHostName(node.host);
     ret.setXceiverCount(node.xceiverCount);
     ret.setRemaining(node.remaining);
-    if (node.state == Constants.DECOMMISSIONED) {
+    if (node.state == DatanodeState.DECOMMISSIONED) {
       ret.setDecommissioned();
     }
     return ret;
@@ -100,29 +103,30 @@ public class ThriftUtils {
 
   public static DatanodeInfo toThrift(
       org.apache.hadoop.hdfs.protocol.DatanodeInfo node,
-      Map<String, Integer> thriftPorts) {
+      Map<DatanodeID, Integer> thriftPorts) {
     if (node == null) {
       return new DatanodeInfo();
     }
 
     DatanodeInfo ret = new DatanodeInfo();
-    ret.name = node.name;
+    ret.name = node.getHostName();
     ret.storageID = node.storageID;
     ret.host = node.getHost();
-    Integer p = thriftPorts.get(node.name);
+    Integer p = thriftPorts.get(node);
     if (p == null) {
       LOG.warn("Unknown Thrift port for datanode " + node.name);
       ret.thriftPort = Constants.UNKNOWN_THRIFT_PORT;
     } else {
       ret.thriftPort = p.intValue();
     }
+
     ret.capacity = node.getCapacity();
     ret.dfsUsed = node.getDfsUsed();
     ret.remaining = node.getRemaining();
     ret.xceiverCount = node.getXceiverCount();
-    ret.state = node.isDecommissioned() ? Constants.DECOMMISSIONED :
-        node.isDecommissionInProgress() ? Constants.DECOMMISSION_INPROGRESS :
-        Constants.NORMAL_STATE;
+    ret.state = node.isDecommissioned() ? DatanodeState.DECOMMISSIONED :
+        node.isDecommissionInProgress() ? DatanodeState.DECOMMISSION_INPROGRESS :
+        DatanodeState.NORMAL_STATE;
     return ret;
   }
 
@@ -148,12 +152,21 @@ public class ThriftUtils {
    */
   public static Namenode.Client createNamenodeClient(Configuration conf)
       throws Exception {
-    String s = conf.get(NamenodePlugin.THRFIT_ADDRESS_PROPERTY);
+    String s = conf.get(NamenodePlugin.THRIFT_ADDRESS_PROPERTY);
     if (s == null) {
       throw new RuntimeException("Missing property '" +
-          NamenodePlugin.THRFIT_ADDRESS_PROPERTY + "'");
+          NamenodePlugin.THRIFT_ADDRESS_PROPERTY + "'");
     }
     InetSocketAddress addr = NetUtils.createSocketAddr(s);
+
+    // If the NN thrift server is listening on the wildcard address (0.0.0.0),
+    // use the external IP from the NN configuration, but with the port listed
+    // in the thrift config.
+    if (addr.getAddress().isAnyLocalAddress()) {
+      InetSocketAddress nnAddr = NameNode.getAddress(conf);
+      addr = new InetSocketAddress(nnAddr.getAddress(), addr.getPort());
+    }
+
     TTransport t = new TSocket(addr.getHostName(), addr.getPort());
     t.open();
     TProtocol p = new TBinaryProtocol(t);
