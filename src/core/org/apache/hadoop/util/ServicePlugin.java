@@ -35,6 +35,9 @@ public interface ServicePlugin extends Closeable {
   /**
    * This method is invoked when the service instance has been started.
    *
+   * If the plugin fails to initialize and throws an exception, the
+   * PluginDispatcher instance will log an error and remove the plugin.
+   *
    * @param service The service instance invoking this method
    */
   void start(Object service);

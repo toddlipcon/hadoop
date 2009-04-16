@@ -75,6 +75,7 @@ import org.apache.hadoop.security.authorize.ConfiguredPolicy;
 import org.apache.hadoop.security.authorize.PolicyProvider;
 import org.apache.hadoop.security.authorize.RefreshAuthorizationPolicyProtocol;
 import org.apache.hadoop.security.authorize.ServiceAuthorizationManager;
+import org.apache.hadoop.util.PluginDispatcher;
 import org.apache.hadoop.util.ReflectionUtils;
 import org.apache.hadoop.util.ServicePlugin;
 import org.apache.hadoop.util.StringUtils;
@@ -158,8 +159,9 @@ public class NameNode implements ClientProtocol, DatanodeProtocol,
   protected NamenodeRegistration nodeRegistration;
   /** Is service level authorization enabled? */
   private boolean serviceAuthEnabled = false;
+
   /** Activated plug-ins. */
-  private List<ServicePlugin> plugins;
+  private PluginDispatcher<NamenodePlugin> pluginDispatcher;
   
   /** Format a new filesystem.  Destroys any filesystem that may already
    * exist at this location.  **/
@@ -292,15 +294,10 @@ public class NameNode implements ClientProtocol, DatanodeProtocol,
     startHttpServer(conf);
     server.start();  //start RPC server
     startTrashEmptier(conf);
-    
-    plugins = conf.getInstances("dfs.namenode.plugins", ServicePlugin.class);
-    for (ServicePlugin p: plugins) {
-      try {
-        p.start(this);
-      } catch (Throwable t) {
-        LOG.warn("ServicePlugin " + p + " could not be started", t);
-      }
-    }
+
+    pluginDispatcher = PluginDispatcher.createFromConfiguration(
+      conf, "dfs.namenode.plugins", NamenodePlugin.class);
+    pluginDispatcher.dispatchStart(this);
   }
 
   private void startTrashEmptier(Configuration conf) throws IOException {
@@ -410,14 +407,8 @@ public class NameNode implements ClientProtocol, DatanodeProtocol,
     if (stopRequested)
       return;
     stopRequested = true;
-    if (plugins != null) {
-      for (ServicePlugin p : plugins) {
-        try {
-          p.stop();
-        } catch (Throwable t) {
-          LOG.warn("ServicePlugin " + p + " could not be stopped", t);
-        }
-      }
+    if (pluginDispatcher != null) {
+      pluginDispatcher.dispatchStop();
     }
     try {
       if (httpServer != null) httpServer.stop();
