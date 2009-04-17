@@ -4,13 +4,12 @@
 # DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 #
 
-require 'thrift/protocol'
 require 'thrift'
-require 'hadoopfs_types'
+require File.dirname(__FILE__) + '/hadoopfs_types'
 
 module ThriftHadoopFileSystem
   class Client
-    include Thrift::Client
+    include ::Thrift::Client
 
     def setInactivityTimeoutPeriod(periodInSeconds)
       send_setInactivityTimeoutPeriod(periodInSeconds)
@@ -104,13 +103,13 @@ module ThriftHadoopFileSystem
       raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'append failed: unknown result')
     end
 
-    def write(handle, data)
-      send_write(handle, data)
+    def write(data, handle)
+      send_write(data, handle)
       return recv_write()
     end
 
-    def send_write(handle, data)
-      send_message('write', Write_args, :handle => handle, :data => data)
+    def send_write(data, handle)
+      send_message('write', Write_args, :data => data, :handle => handle)
     end
 
     def recv_write()
@@ -120,13 +119,13 @@ module ThriftHadoopFileSystem
       raise Thrift::ApplicationException.new(Thrift::ApplicationException::MISSING_RESULT, 'write failed: unknown result')
     end
 
-    def read(handle, offset, size)
-      send_read(handle, offset, size)
+    def read(size, offset, handle)
+      send_read(size, offset, handle)
       return recv_read()
     end
 
-    def send_read(handle, offset, size)
-      send_message('read', Read_args, :handle => handle, :offset => offset, :size => size)
+    def send_read(size, offset, handle)
+      send_message('read', Read_args, :size => size, :offset => offset, :handle => handle)
     end
 
     def recv_read()
@@ -312,7 +311,7 @@ module ThriftHadoopFileSystem
   end
 
   class Processor
-    include Thrift::Processor
+    include ::Thrift::Processor
 
     def process_setInactivityTimeoutPeriod(seqid, iprot, oprot)
       args = read_args(iprot, SetInactivityTimeoutPeriod_args)
@@ -376,7 +375,7 @@ module ThriftHadoopFileSystem
       args = read_args(iprot, Write_args)
       result = Write_result.new()
       begin
-        result.success = @handler.write(args.handle, args.data)
+        result.success = @handler.write(args.data, args.handle)
       rescue ThriftIOException => ouch
         result.ouch = ouch
       end
@@ -387,7 +386,7 @@ module ThriftHadoopFileSystem
       args = read_args(iprot, Read_args)
       result = Read_result.new()
       begin
-        result.success = @handler.read(args.handle, args.offset, args.size)
+        result.success = @handler.read(args.size, args.offset, args.handle)
       rescue ThriftIOException => ouch
         result.ouch = ouch
       end
@@ -520,335 +519,667 @@ module ThriftHadoopFileSystem
   # HELPER FUNCTIONS AND STRUCTURES
 
   class SetInactivityTimeoutPeriod_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PERIODINSECONDS = 1
+
     Thrift::Struct.field_accessor self, :periodInSeconds
     FIELDS = {
-      1 => {:type => Thrift::Types::I64, :name => 'periodInSeconds'}
+      PERIODINSECONDS => {:type => Thrift::Types::I64, :name => 'periodInSeconds'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class SetInactivityTimeoutPeriod_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+
     FIELDS = {
 
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Shutdown_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    STATUS = 1
+
     Thrift::Struct.field_accessor self, :status
     FIELDS = {
-      1 => {:type => Thrift::Types::I32, :name => 'status'}
+      STATUS => {:type => Thrift::Types::I32, :name => 'status'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Shutdown_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+
     FIELDS = {
 
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Create_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+
     Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Create_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class CreateFile_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+    MODE = 2
+    OVERWRITE = 3
+    BUFFERSIZE = 4
+    BLOCK_REPLICATION = 5
+    BLOCKSIZE = 6
+
     Thrift::Struct.field_accessor self, :path, :mode, :overwrite, :bufferSize, :block_replication, :blocksize
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      2 => {:type => Thrift::Types::I16, :name => 'mode'},
-      3 => {:type => Thrift::Types::BOOL, :name => 'overwrite'},
-      4 => {:type => Thrift::Types::I32, :name => 'bufferSize'},
-      5 => {:type => Thrift::Types::I16, :name => 'block_replication'},
-      6 => {:type => Thrift::Types::I64, :name => 'blocksize'}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      MODE => {:type => Thrift::Types::I16, :name => 'mode'},
+      OVERWRITE => {:type => Thrift::Types::BOOL, :name => 'overwrite'},
+      BUFFERSIZE => {:type => Thrift::Types::I32, :name => 'bufferSize'},
+      BLOCK_REPLICATION => {:type => Thrift::Types::I16, :name => 'block_replication'},
+      BLOCKSIZE => {:type => Thrift::Types::I64, :name => 'blocksize'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class CreateFile_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Open_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+
     Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Open_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Append_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+
     Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Append_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => ThriftHandle},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Write_args
-    include Thrift::Struct
-    Thrift::Struct.field_accessor self, :handle, :data
+    include ::Thrift::Struct
+    DATA = -1
+    HANDLE = 1
+
+    Thrift::Struct.field_accessor self, :data, :handle
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle},
-      -1 => {:type => Thrift::Types::STRING, :name => 'data'}
+      DATA => {:type => Thrift::Types::STRING, :name => 'data'},
+      HANDLE => {:type => Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Write_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::BOOL, :name => 'success'},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Read_args
-    include Thrift::Struct
-    Thrift::Struct.field_accessor self, :handle, :offset, :size
+    include ::Thrift::Struct
+    SIZE = -2
+    OFFSET = -1
+    HANDLE = 1
+
+    Thrift::Struct.field_accessor self, :size, :offset, :handle
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle},
-      -1 => {:type => Thrift::Types::I64, :name => 'offset'},
-      -2 => {:type => Thrift::Types::I32, :name => 'size'}
+      SIZE => {:type => Thrift::Types::I32, :name => 'size'},
+      OFFSET => {:type => Thrift::Types::I64, :name => 'offset'},
+      HANDLE => {:type => Thrift::Types::STRUCT, :name => 'handle', :class => ThriftHandle}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Read_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::STRING, :name => 'success'},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::STRING, :name => 'success'},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Close_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    OUT = 1
+
     Thrift::Struct.field_accessor self, :out
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'out', :class => ThriftHandle}
+      OUT => {:type => Thrift::Types::STRUCT, :name => 'out', :class => ThriftHandle}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Close_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::BOOL, :name => 'success'},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Rm_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+    RECURSIVE = 2
+
     Thrift::Struct.field_accessor self, :path, :recursive
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      2 => {:type => Thrift::Types::BOOL, :name => 'recursive'}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      RECURSIVE => {:type => Thrift::Types::BOOL, :name => 'recursive'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Rm_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::BOOL, :name => 'success'},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Rename_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+    DEST = 2
+
     Thrift::Struct.field_accessor self, :path, :dest
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      2 => {:type => Thrift::Types::STRUCT, :name => 'dest', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      DEST => {:type => Thrift::Types::STRUCT, :name => 'dest', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Rename_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::BOOL, :name => 'success'},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Mkdirs_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+
     Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Mkdirs_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::BOOL, :name => 'success'},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Exists_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+
     Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Exists_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::BOOL, :name => 'success'},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::BOOL, :name => 'success'},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Stat_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+
     Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Stat_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::STRUCT, :name => 'success', :class => FileStatus},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::STRUCT, :name => 'success', :class => FileStatus},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class ListStatus_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+
     Thrift::Struct.field_accessor self, :path
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class ListStatus_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => FileStatus}},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => FileStatus}},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Chmod_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+    MODE = 2
+
     Thrift::Struct.field_accessor self, :path, :mode
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      2 => {:type => Thrift::Types::I16, :name => 'mode'}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      MODE => {:type => Thrift::Types::I16, :name => 'mode'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Chmod_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :ouch
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Chown_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+    OWNER = 2
+    GROUP = 3
+
     Thrift::Struct.field_accessor self, :path, :owner, :group
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      2 => {:type => Thrift::Types::STRING, :name => 'owner'},
-      3 => {:type => Thrift::Types::STRING, :name => 'group'}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      OWNER => {:type => Thrift::Types::STRING, :name => 'owner'},
+      GROUP => {:type => Thrift::Types::STRING, :name => 'group'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class Chown_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :ouch
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class SetReplication_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+    REPLICATION = 2
+
     Thrift::Struct.field_accessor self, :path, :replication
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      2 => {:type => Thrift::Types::I16, :name => 'replication'}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      REPLICATION => {:type => Thrift::Types::I16, :name => 'replication'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class SetReplication_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :ouch
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class GetFileBlockLocations_args
-    include Thrift::Struct
+    include ::Thrift::Struct
+    PATH = 1
+    START = 2
+    LENGTH = 3
+
     Thrift::Struct.field_accessor self, :path, :start, :length
     FIELDS = {
-      1 => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
-      2 => {:type => Thrift::Types::I64, :name => 'start'},
-      3 => {:type => Thrift::Types::I64, :name => 'length'}
+      PATH => {:type => Thrift::Types::STRUCT, :name => 'path', :class => Pathname},
+      START => {:type => Thrift::Types::I64, :name => 'start'},
+      LENGTH => {:type => Thrift::Types::I64, :name => 'length'}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
   class GetFileBlockLocations_result
-    include Thrift::Struct
+    include ::Thrift::Struct
+    SUCCESS = 0
+    OUCH = 1
+
     Thrift::Struct.field_accessor self, :success, :ouch
     FIELDS = {
-      0 => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => BlockLocation}},
-      1 => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
+      SUCCESS => {:type => Thrift::Types::LIST, :name => 'success', :element => {:type => Thrift::Types::STRUCT, :class => BlockLocation}},
+      OUCH => {:type => Thrift::Types::STRUCT, :name => 'ouch', :class => ThriftIOException}
     }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
   end
 
 end

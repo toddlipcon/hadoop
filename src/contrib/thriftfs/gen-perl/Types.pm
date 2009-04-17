@@ -9,6 +9,7 @@ use warnings;
 use Thrift;
 
 package ThriftHandle;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHandle->mk_accessors( qw( id ) );
 sub new {
@@ -74,6 +75,7 @@ sub write {
 }
 
 package Pathname;
+use Class::Accessor;
 use base('Class::Accessor');
 Pathname->mk_accessors( qw( pathname ) );
 sub new {
@@ -139,6 +141,7 @@ sub write {
 }
 
 package FileStatus;
+use Class::Accessor;
 use base('Class::Accessor');
 FileStatus->mk_accessors( qw( path length isdir block_replication blocksize modification_time permission owner group ) );
 sub new {
@@ -324,6 +327,7 @@ sub write {
 }
 
 package BlockLocation;
+use Class::Accessor;
 use base('Class::Accessor');
 BlockLocation->mk_accessors( qw( hosts names offset length ) );
 sub new {
@@ -477,6 +481,7 @@ sub write {
 
 package MalformedInputException;
 use base('Thrift::TException');
+use Class::Accessor;
 use base('Class::Accessor');
 MalformedInputException->mk_accessors( qw( message ) );
 sub new {
@@ -543,6 +548,7 @@ sub write {
 
 package ThriftIOException;
 use base('Thrift::TException');
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftIOException->mk_accessors( qw( message ) );
 sub new {

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Do not modify this file directly.  Instead, copy entries that you    -->
+<!-- wish to modify from this file into thriftfs-site.xml and change them -->
+<!-- there.  If thriftfs-site.xml does not already exist, create it.      -->
+
+<configuration>
+<property>
+  <name>dfs.thrift.address</name>
+  <value>0.0.0.0:9090</value>
+  <description>
+    The address where the Thrift namenode server will listen to.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+<property>
+  <name>dfs.thrift.datanode.address</name>
+  <value>0.0.0.0:0</value>
+  <description>
+    The address where the Thrift datanode server will listen to.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+<property>
+  <name>dfs.thrift.threads.min</name>
+  <value>5</value>
+  <descrition>Minimum number of Thrift server threads.</descrition>
+</property>
+<property>
+  <name>dfs.thrift.threads.max</name>
+  <value>20</value>
+  <descrition>Maximum number of Thrift server threads.</descrition>
+</property>
+<property>
+  <name>dfs.thrift.timeout</name>
+  <value>60</value>
+  <descrition>Timeout in seconds for Thrift server threads.</descrition>
+</property>
+</configuration>

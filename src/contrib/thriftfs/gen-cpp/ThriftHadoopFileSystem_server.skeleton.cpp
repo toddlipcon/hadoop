@@ -7,10 +7,10 @@
 #include <transport/TServerSocket.h>
 #include <transport/TBufferTransports.h>
 
-using namespace facebook::thrift;
-using namespace facebook::thrift::protocol;
-using namespace facebook::thrift::transport;
-using namespace facebook::thrift::server;
+using namespace apache::thrift;
+using namespace apache::thrift::protocol;
+using namespace apache::thrift::transport;
+using namespace apache::thrift::server;
 
 using boost::shared_ptr;
 
@@ -50,12 +50,12 @@ class ThriftHadoopFileSystemHandler : virtual public ThriftHadoopFileSystemIf {
     printf("append\n");
   }
 
-  bool write(const ThriftHandle& handle, const std::string& data) {
+  bool write(const std::string& data, const ThriftHandle& handle) {
     // Your implementation goes here
     printf("write\n");
   }
 
-  void read(std::string& _return, const ThriftHandle& handle, const int64_t offset, const int32_t size) {
+  void read(std::string& _return, const int32_t size, const int64_t offset, const ThriftHandle& handle) {
     // Your implementation goes here
     printf("read\n");
   }

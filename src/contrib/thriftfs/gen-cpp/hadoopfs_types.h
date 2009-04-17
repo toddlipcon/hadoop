@@ -7,7 +7,6 @@
 #define hadoopfs_TYPES_H
 
 #include <Thrift.h>
-#include <reflection_limited_types.h>
 #include <protocol/TProtocol.h>
 #include <transport/TTransport.h>
 
@@ -45,8 +44,8 @@ class ThriftHandle {
 
   bool operator < (const ThriftHandle & ) const;
 
-  uint32_t read(facebook::thrift::protocol::TProtocol* iprot);
-  uint32_t write(facebook::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -80,8 +79,8 @@ class Pathname {
 
   bool operator < (const Pathname & ) const;
 
-  uint32_t read(facebook::thrift::protocol::TProtocol* iprot);
-  uint32_t write(facebook::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -147,8 +146,8 @@ class FileStatus {
 
   bool operator < (const FileStatus & ) const;
 
-  uint32_t read(facebook::thrift::protocol::TProtocol* iprot);
-  uint32_t write(facebook::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
@@ -194,12 +193,12 @@ class BlockLocation {
 
   bool operator < (const BlockLocation & ) const;
 
-  uint32_t read(facebook::thrift::protocol::TProtocol* iprot);
-  uint32_t write(facebook::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class MalformedInputException : public facebook::thrift::TException {
+class MalformedInputException : public apache::thrift::TException {
  public:
 
   static const char* ascii_fingerprint; // = "E2167DA91A8F7459A2FE1B5F56D14B5D";
@@ -229,12 +228,12 @@ class MalformedInputException : public facebook::thrift::TException {
 
   bool operator < (const MalformedInputException & ) const;
 
-  uint32_t read(facebook::thrift::protocol::TProtocol* iprot);
-  uint32_t write(facebook::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
-class ThriftIOException : public facebook::thrift::TException {
+class ThriftIOException : public apache::thrift::TException {
  public:
 
   static const char* ascii_fingerprint; // = "E2167DA91A8F7459A2FE1B5F56D14B5D";
@@ -264,8 +263,8 @@ class ThriftIOException : public facebook::thrift::TException {
 
   bool operator < (const ThriftIOException & ) const;
 
-  uint32_t read(facebook::thrift::protocol::TProtocol* iprot);
-  uint32_t write(facebook::thrift::protocol::TProtocol* oprot) const;
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 

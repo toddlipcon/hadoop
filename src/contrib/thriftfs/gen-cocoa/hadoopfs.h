@@ -186,8 +186,8 @@
 - (ThriftHandle *) createFile: (Pathname *) path : (int16_t) mode : (BOOL) overwrite : (int32_t) bufferSize : (int16_t) block_replication : (int64_t) blocksize;  // throws ThriftIOException *, TException
 - (ThriftHandle *) open: (Pathname *) path;  // throws ThriftIOException *, TException
 - (ThriftHandle *) append: (Pathname *) path;  // throws ThriftIOException *, TException
-- (BOOL) write: (ThriftHandle *) handle : (NSString *) data;  // throws ThriftIOException *, TException
-- (NSString *) read: (ThriftHandle *) handle : (int64_t) offset : (int32_t) size;  // throws ThriftIOException *, TException
+- (BOOL) write: (NSString *) data : (ThriftHandle *) handle;  // throws ThriftIOException *, TException
+- (NSString *) read: (int32_t) size : (int64_t) offset : (ThriftHandle *) handle;  // throws ThriftIOException *, TException
 - (BOOL) close: (ThriftHandle *) out;  // throws ThriftIOException *, TException
 - (BOOL) rm: (Pathname *) path : (BOOL) recursive;  // throws ThriftIOException *, TException
 - (BOOL) rename: (Pathname *) path : (Pathname *) dest;  // throws ThriftIOException *, TException

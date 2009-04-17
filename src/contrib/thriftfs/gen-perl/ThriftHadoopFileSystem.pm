@@ -13,6 +13,7 @@ use Types;
 # HELPER FUNCTIONS AND STRUCTURES
 
 package ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args->mk_accessors( qw( periodInSeconds ) );
 sub new {
@@ -78,6 +79,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_setInactivityTimeoutPeriod_result;
+use Class::Accessor;
 use base('Class::Accessor');
 sub new {
 my $classname = shift;
@@ -125,6 +127,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_shutdown_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_shutdown_args->mk_accessors( qw( status ) );
 sub new {
@@ -190,6 +193,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_shutdown_result;
+use Class::Accessor;
 use base('Class::Accessor');
 sub new {
 my $classname = shift;
@@ -237,6 +241,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_create_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_create_args->mk_accessors( qw( path ) );
 sub new {
@@ -303,6 +308,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_create_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_create_result->mk_accessors( qw( success ) );
 sub new {
@@ -385,6 +391,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_createFile_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_createFile_args->mk_accessors( qw( path mode overwrite bufferSize block_replication blocksize ) );
 sub new {
@@ -526,6 +533,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_createFile_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_createFile_result->mk_accessors( qw( success ) );
 sub new {
@@ -608,6 +616,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_open_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_open_args->mk_accessors( qw( path ) );
 sub new {
@@ -674,6 +683,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_open_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_open_result->mk_accessors( qw( success ) );
 sub new {
@@ -756,6 +766,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_append_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_append_args->mk_accessors( qw( path ) );
 sub new {
@@ -822,6 +833,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_append_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_append_result->mk_accessors( qw( success ) );
 sub new {
@@ -904,20 +916,21 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_write_args;
+use Class::Accessor;
 use base('Class::Accessor');
-ThriftHadoopFileSystem_write_args->mk_accessors( qw( handle data ) );
+ThriftHadoopFileSystem_write_args->mk_accessors( qw( data handle ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
-$self->{handle} = undef;
 $self->{data} = undef;
+$self->{handle} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
-    if (defined $vals->{handle}) {
-      $self->{handle} = $vals->{handle};
-    }
     if (defined $vals->{data}) {
       $self->{data} = $vals->{data};
+    }
+    if (defined $vals->{handle}) {
+      $self->{handle} = $vals->{handle};
     }
   }
 return bless($self,$classname);
@@ -943,15 +956,15 @@ sub read {
     }
     SWITCH: for($fid)
     {
-      /^1$/ && do{      if ($ftype == TType::STRUCT) {
-        $self->{handle} = new ThriftHandle();
-        $xfer += $self->{handle}->read($input);
+      /^-1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{data});
       } else {
         $xfer += $input->skip($ftype);
       }
       last; };
-      /^-1$/ && do{      if ($ftype == TType::STRING) {
-        $xfer += $input->readString(\$self->{data});
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{handle} = new ThriftHandle();
+        $xfer += $self->{handle}->read($input);
       } else {
         $xfer += $input->skip($ftype);
       }
@@ -969,14 +982,14 @@ sub write {
   my $output = shift;
   my $xfer   = 0;
   $xfer += $output->writeStructBegin('ThriftHadoopFileSystem_write_args');
-  if (defined $self->{handle}) {
-    $xfer += $output->writeFieldBegin('handle', TType::STRUCT, 1);
-    $xfer += $self->{handle}->write($output);
-    $xfer += $output->writeFieldEnd();
-  }
   if (defined $self->{data}) {
     $xfer += $output->writeFieldBegin('data', TType::STRING, -1);
     $xfer += $output->writeString($self->{data});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{handle}) {
+    $xfer += $output->writeFieldBegin('handle', TType::STRUCT, 1);
+    $xfer += $self->{handle}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -985,6 +998,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_write_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_write_result->mk_accessors( qw( success ) );
 sub new {
@@ -1066,24 +1080,25 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_read_args;
+use Class::Accessor;
 use base('Class::Accessor');
-ThriftHadoopFileSystem_read_args->mk_accessors( qw( handle offset size ) );
+ThriftHadoopFileSystem_read_args->mk_accessors( qw( size offset handle ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
-$self->{handle} = undef;
-$self->{offset} = undef;
 $self->{size} = undef;
+$self->{offset} = undef;
+$self->{handle} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
-    if (defined $vals->{handle}) {
-      $self->{handle} = $vals->{handle};
+    if (defined $vals->{size}) {
+      $self->{size} = $vals->{size};
     }
     if (defined $vals->{offset}) {
       $self->{offset} = $vals->{offset};
     }
-    if (defined $vals->{size}) {
-      $self->{size} = $vals->{size};
+    if (defined $vals->{handle}) {
+      $self->{handle} = $vals->{handle};
     }
   }
 return bless($self,$classname);
@@ -1109,9 +1124,8 @@ sub read {
     }
     SWITCH: for($fid)
     {
-      /^1$/ && do{      if ($ftype == TType::STRUCT) {
-        $self->{handle} = new ThriftHandle();
-        $xfer += $self->{handle}->read($input);
+      /^-2$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{size});
       } else {
         $xfer += $input->skip($ftype);
       }
@@ -1122,8 +1136,9 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
-      /^-2$/ && do{      if ($ftype == TType::I32) {
-        $xfer += $input->readI32(\$self->{size});
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{handle} = new ThriftHandle();
+        $xfer += $self->{handle}->read($input);
       } else {
         $xfer += $input->skip($ftype);
       }
@@ -1141,9 +1156,9 @@ sub write {
   my $output = shift;
   my $xfer   = 0;
   $xfer += $output->writeStructBegin('ThriftHadoopFileSystem_read_args');
-  if (defined $self->{handle}) {
-    $xfer += $output->writeFieldBegin('handle', TType::STRUCT, 1);
-    $xfer += $self->{handle}->write($output);
+  if (defined $self->{size}) {
+    $xfer += $output->writeFieldBegin('size', TType::I32, -2);
+    $xfer += $output->writeI32($self->{size});
     $xfer += $output->writeFieldEnd();
   }
   if (defined $self->{offset}) {
@@ -1151,9 +1166,9 @@ sub write {
     $xfer += $output->writeI64($self->{offset});
     $xfer += $output->writeFieldEnd();
   }
-  if (defined $self->{size}) {
-    $xfer += $output->writeFieldBegin('size', TType::I32, -2);
-    $xfer += $output->writeI32($self->{size});
+  if (defined $self->{handle}) {
+    $xfer += $output->writeFieldBegin('handle', TType::STRUCT, 1);
+    $xfer += $self->{handle}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -1162,6 +1177,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_read_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_read_result->mk_accessors( qw( success ) );
 sub new {
@@ -1243,6 +1259,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_close_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_close_args->mk_accessors( qw( out ) );
 sub new {
@@ -1309,6 +1326,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_close_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_close_result->mk_accessors( qw( success ) );
 sub new {
@@ -1390,6 +1408,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_rm_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_rm_args->mk_accessors( qw( path recursive ) );
 sub new {
@@ -1471,6 +1490,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_rm_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_rm_result->mk_accessors( qw( success ) );
 sub new {
@@ -1552,6 +1572,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_rename_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_rename_args->mk_accessors( qw( path dest ) );
 sub new {
@@ -1634,6 +1655,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_rename_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_rename_result->mk_accessors( qw( success ) );
 sub new {
@@ -1715,6 +1737,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_mkdirs_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_mkdirs_args->mk_accessors( qw( path ) );
 sub new {
@@ -1781,6 +1804,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_mkdirs_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_mkdirs_result->mk_accessors( qw( success ) );
 sub new {
@@ -1862,6 +1886,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_exists_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_exists_args->mk_accessors( qw( path ) );
 sub new {
@@ -1928,6 +1953,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_exists_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_exists_result->mk_accessors( qw( success ) );
 sub new {
@@ -2009,6 +2035,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_stat_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_stat_args->mk_accessors( qw( path ) );
 sub new {
@@ -2075,6 +2102,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_stat_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_stat_result->mk_accessors( qw( success ) );
 sub new {
@@ -2157,6 +2185,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_listStatus_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_listStatus_args->mk_accessors( qw( path ) );
 sub new {
@@ -2223,6 +2252,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_listStatus_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_listStatus_result->mk_accessors( qw( success ) );
 sub new {
@@ -2326,6 +2356,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_chmod_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_chmod_args->mk_accessors( qw( path mode ) );
 sub new {
@@ -2407,6 +2438,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_chmod_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_chmod_result->mk_accessors( qw( ) );
 sub new {
@@ -2473,6 +2505,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_chown_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_chown_args->mk_accessors( qw( path owner group ) );
 sub new {
@@ -2569,6 +2602,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_chown_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_chown_result->mk_accessors( qw( ) );
 sub new {
@@ -2635,6 +2669,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_setReplication_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_setReplication_args->mk_accessors( qw( path replication ) );
 sub new {
@@ -2716,6 +2751,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_setReplication_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_setReplication_result->mk_accessors( qw( ) );
 sub new {
@@ -2782,6 +2818,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_getFileBlockLocations_args;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_getFileBlockLocations_args->mk_accessors( qw( path start length ) );
 sub new {
@@ -2878,6 +2915,7 @@ sub write {
 }
 
 package ThriftHadoopFileSystem_getFileBlockLocations_result;
+use Class::Accessor;
 use base('Class::Accessor');
 ThriftHadoopFileSystem_getFileBlockLocations_result->mk_accessors( qw( success ) );
 sub new {
@@ -3025,16 +3063,16 @@ sub append{
 }
 sub write{
   my $self = shift;
-  my $handle = shift;
   my $data = shift;
+  my $handle = shift;
 
   die 'implement interface';
 }
 sub read{
   my $self = shift;
-  my $handle = shift;
-  my $offset = shift;
   my $size = shift;
+  my $offset = shift;
+  my $handle = shift;
 
   die 'implement interface';
 }
@@ -3179,19 +3217,19 @@ sub write{
   my $self = shift;
   my $request = shift;
 
-  my $handle = ($request->{'handle'}) ? $request->{'handle'} : undef;
   my $data = ($request->{'data'}) ? $request->{'data'} : undef;
-  return $self->{impl}->write($handle, $data);
+  my $handle = ($request->{'handle'}) ? $request->{'handle'} : undef;
+  return $self->{impl}->write($data, $handle);
 }
 
 sub read{
   my $self = shift;
   my $request = shift;
 
-  my $handle = ($request->{'handle'}) ? $request->{'handle'} : undef;
-  my $offset = ($request->{'offset'}) ? $request->{'offset'} : undef;
   my $size = ($request->{'size'}) ? $request->{'size'} : undef;
-  return $self->{impl}->read($handle, $offset, $size);
+  my $offset = ($request->{'offset'}) ? $request->{'offset'} : undef;
+  my $handle = ($request->{'handle'}) ? $request->{'handle'} : undef;
+  return $self->{impl}->read($size, $offset, $handle);
 }
 
 sub close{
@@ -3585,22 +3623,22 @@ sub recv_append{
 }
 sub write{
   my $self = shift;
-  my $handle = shift;
   my $data = shift;
+  my $handle = shift;
 
-    $self->send_write($handle, $data);
+    $self->send_write($data, $handle);
   return $self->recv_write();
 }
 
 sub send_write{
   my $self = shift;
-  my $handle = shift;
   my $data = shift;
+  my $handle = shift;
 
   $self->{output}->writeMessageBegin('write', TMessageType::CALL, $self->{seqid});
   my $args = new ThriftHadoopFileSystem_write_args();
-  $args->{handle} = $handle;
   $args->{data} = $data;
+  $args->{handle} = $handle;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -3634,25 +3672,25 @@ sub recv_write{
 }
 sub read{
   my $self = shift;
-  my $handle = shift;
-  my $offset = shift;
   my $size = shift;
+  my $offset = shift;
+  my $handle = shift;
 
-    $self->send_read($handle, $offset, $size);
+    $self->send_read($size, $offset, $handle);
   return $self->recv_read();
 }
 
 sub send_read{
   my $self = shift;
-  my $handle = shift;
-  my $offset = shift;
   my $size = shift;
+  my $offset = shift;
+  my $handle = shift;
 
   $self->{output}->writeMessageBegin('read', TMessageType::CALL, $self->{seqid});
   my $args = new ThriftHadoopFileSystem_read_args();
-  $args->{handle} = $handle;
-  $args->{offset} = $offset;
   $args->{size} = $size;
+  $args->{offset} = $offset;
+  $args->{handle} = $handle;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -4335,7 +4373,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new ThriftHadoopFileSystem_write_result();
 eval {
-$result->{success} = $self->{handler}->write($args->handle, $args->data);
+$result->{success} = $self->{handler}->write($args->data, $args->handle);
 }; if( UNIVERSAL::isa($@,'ThriftIOException') ){ 
 $result->{ouch} = $@;
 }
@@ -4351,7 +4389,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new ThriftHadoopFileSystem_read_result();
 eval {
-$result->{success} = $self->{handler}->read($args->handle, $args->offset, $args->size);
+$result->{success} = $self->{handler}->read($args->size, $args->offset, $args->handle);
 }; if( UNIVERSAL::isa($@,'ThriftIOException') ){ 
 $result->{ouch} = $@;
 }

@@ -4,74 +4,132 @@
 # DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 #
 
-require 'thrift/protocol'
 
 class ThriftHandle
-  include Thrift::Struct
+  include ::Thrift::Struct
+  ID = -1
+
   Thrift::Struct.field_accessor self, :id
   FIELDS = {
-    -1 => {:type => Thrift::Types::I64, :name => 'id'}
+    ID => {:type => Thrift::Types::I64, :name => 'id'}
   }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
 end
 
 class Pathname
-  include Thrift::Struct
+  include ::Thrift::Struct
+  PATHNAME = -1
+
   Thrift::Struct.field_accessor self, :pathname
   FIELDS = {
-    -1 => {:type => Thrift::Types::STRING, :name => 'pathname'}
+    PATHNAME => {:type => Thrift::Types::STRING, :name => 'pathname'}
   }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
 end
 
 class FileStatus
-  include Thrift::Struct
+  include ::Thrift::Struct
+  PATH = 1
+  LENGTH = 2
+  ISDIR = 3
+  BLOCK_REPLICATION = 4
+  BLOCKSIZE = 5
+  MODIFICATION_TIME = 6
+  PERMISSION = 7
+  OWNER = 8
+  GROUP = 9
+
   Thrift::Struct.field_accessor self, :path, :length, :isdir, :block_replication, :blocksize, :modification_time, :permission, :owner, :group
   FIELDS = {
-    1 => {:type => Thrift::Types::STRING, :name => 'path'},
-    2 => {:type => Thrift::Types::I64, :name => 'length'},
-    3 => {:type => Thrift::Types::BOOL, :name => 'isdir'},
-    4 => {:type => Thrift::Types::I16, :name => 'block_replication'},
-    5 => {:type => Thrift::Types::I64, :name => 'blocksize'},
-    6 => {:type => Thrift::Types::I64, :name => 'modification_time'},
-    7 => {:type => Thrift::Types::STRING, :name => 'permission'},
-    8 => {:type => Thrift::Types::STRING, :name => 'owner'},
-    9 => {:type => Thrift::Types::STRING, :name => 'group'}
+    PATH => {:type => Thrift::Types::STRING, :name => 'path'},
+    LENGTH => {:type => Thrift::Types::I64, :name => 'length'},
+    ISDIR => {:type => Thrift::Types::BOOL, :name => 'isdir'},
+    BLOCK_REPLICATION => {:type => Thrift::Types::I16, :name => 'block_replication'},
+    BLOCKSIZE => {:type => Thrift::Types::I64, :name => 'blocksize'},
+    MODIFICATION_TIME => {:type => Thrift::Types::I64, :name => 'modification_time'},
+    PERMISSION => {:type => Thrift::Types::STRING, :name => 'permission'},
+    OWNER => {:type => Thrift::Types::STRING, :name => 'owner'},
+    GROUP => {:type => Thrift::Types::STRING, :name => 'group'}
   }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
 end
 
 class BlockLocation
-  include Thrift::Struct
+  include ::Thrift::Struct
+  HOSTS = 1
+  NAMES = 2
+  OFFSET = 3
+  LENGTH = 4
+
   Thrift::Struct.field_accessor self, :hosts, :names, :offset, :length
   FIELDS = {
-    1 => {:type => Thrift::Types::LIST, :name => 'hosts', :element => {:type => Thrift::Types::STRING}},
-    2 => {:type => Thrift::Types::LIST, :name => 'names', :element => {:type => Thrift::Types::STRING}},
-    3 => {:type => Thrift::Types::I64, :name => 'offset'},
-    4 => {:type => Thrift::Types::I64, :name => 'length'}
+    HOSTS => {:type => Thrift::Types::LIST, :name => 'hosts', :element => {:type => Thrift::Types::STRING}},
+    NAMES => {:type => Thrift::Types::LIST, :name => 'names', :element => {:type => Thrift::Types::STRING}},
+    OFFSET => {:type => Thrift::Types::I64, :name => 'offset'},
+    LENGTH => {:type => Thrift::Types::I64, :name => 'length'}
   }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
 end
 
-class MalformedInputException < StandardError
-  include Thrift::Struct
+class MalformedInputException < Thrift::Exception
+  include ::Thrift::Struct
   def initialize(message=nil)
     super()
     self.message = message
   end
 
+  MESSAGE = -1
+
   Thrift::Struct.field_accessor self, :message
   FIELDS = {
-    -1 => {:type => Thrift::Types::STRING, :name => 'message'}
+    MESSAGE => {:type => Thrift::Types::STRING, :name => 'message'}
   }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
 end
 
-class ThriftIOException < StandardError
-  include Thrift::Struct
+class ThriftIOException < Thrift::Exception
+  include ::Thrift::Struct
   def initialize(message=nil)
     super()
     self.message = message
   end
 
+  MESSAGE = -1
+
   Thrift::Struct.field_accessor self, :message
   FIELDS = {
-    -1 => {:type => Thrift::Types::STRING, :name => 'message'}
+    MESSAGE => {:type => Thrift::Types::STRING, :name => 'message'}
   }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
 end
 

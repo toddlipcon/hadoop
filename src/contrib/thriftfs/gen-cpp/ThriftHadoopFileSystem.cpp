@@ -7,28 +7,28 @@
 
 
 
-uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_I64) {
+        if (ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->periodInSeconds);
           this->__isset.periodInSeconds = true;
         } else {
@@ -47,10 +47,10 @@ uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args::read(facebook::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args");
-  xfer += oprot->writeFieldBegin("periodInSeconds", facebook::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeFieldBegin("periodInSeconds", apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64(this->periodInSeconds);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -58,10 +58,10 @@ uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args::write(facebook:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_setInactivityTimeoutPeriod_pargs");
-  xfer += oprot->writeFieldBegin("periodInSeconds", facebook::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeFieldBegin("periodInSeconds", apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64((*(this->periodInSeconds)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -69,22 +69,22 @@ uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_pargs::write(facebook
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -101,7 +101,7 @@ uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_result::read(facebook
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
@@ -112,22 +112,22 @@ uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_result::write(faceboo
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -144,28 +144,28 @@ uint32_t ThriftHadoopFileSystem_setInactivityTimeoutPeriod_presult::read(faceboo
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_shutdown_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_shutdown_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_I32) {
+        if (ftype == apache::thrift::protocol::T_I32) {
           xfer += iprot->readI32(this->status);
           this->__isset.status = true;
         } else {
@@ -184,10 +184,10 @@ uint32_t ThriftHadoopFileSystem_shutdown_args::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_shutdown_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_shutdown_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_shutdown_args");
-  xfer += oprot->writeFieldBegin("status", facebook::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeFieldBegin("status", apache::thrift::protocol::T_I32, 1);
   xfer += oprot->writeI32(this->status);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -195,10 +195,10 @@ uint32_t ThriftHadoopFileSystem_shutdown_args::write(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_shutdown_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_shutdown_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_shutdown_pargs");
-  xfer += oprot->writeFieldBegin("status", facebook::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeFieldBegin("status", apache::thrift::protocol::T_I32, 1);
   xfer += oprot->writeI32((*(this->status)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -206,22 +206,22 @@ uint32_t ThriftHadoopFileSystem_shutdown_pargs::write(facebook::thrift::protocol
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_shutdown_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_shutdown_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -238,7 +238,7 @@ uint32_t ThriftHadoopFileSystem_shutdown_result::read(facebook::thrift::protocol
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_shutdown_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_shutdown_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
@@ -249,22 +249,22 @@ uint32_t ThriftHadoopFileSystem_shutdown_result::write(facebook::thrift::protoco
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_shutdown_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_shutdown_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
@@ -281,28 +281,28 @@ uint32_t ThriftHadoopFileSystem_shutdown_presult::read(facebook::thrift::protoco
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_create_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_create_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -321,10 +321,10 @@ uint32_t ThriftHadoopFileSystem_create_args::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_create_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_create_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_create_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -332,10 +332,10 @@ uint32_t ThriftHadoopFileSystem_create_args::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_create_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_create_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_create_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -343,28 +343,28 @@ uint32_t ThriftHadoopFileSystem_create_pargs::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_create_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_create_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->success.read(iprot);
           this->__isset.success = true;
         } else {
@@ -372,7 +372,7 @@ uint32_t ThriftHadoopFileSystem_create_result::read(facebook::thrift::protocol::
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -391,18 +391,18 @@ uint32_t ThriftHadoopFileSystem_create_result::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_create_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_create_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_create_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_STRUCT, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_STRUCT, 0);
     xfer += this->success.write(oprot);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -411,28 +411,28 @@ uint32_t ThriftHadoopFileSystem_create_result::write(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_create_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_create_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += (*(this->success)).read(iprot);
           this->__isset.success = true;
         } else {
@@ -440,7 +440,7 @@ uint32_t ThriftHadoopFileSystem_create_presult::read(facebook::thrift::protocol:
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -459,28 +459,28 @@ uint32_t ThriftHadoopFileSystem_create_presult::read(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_createFile_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_createFile_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -488,7 +488,7 @@ uint32_t ThriftHadoopFileSystem_createFile_args::read(facebook::thrift::protocol
         }
         break;
       case 2:
-        if (ftype == facebook::thrift::protocol::T_I16) {
+        if (ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->mode);
           this->__isset.mode = true;
         } else {
@@ -496,7 +496,7 @@ uint32_t ThriftHadoopFileSystem_createFile_args::read(facebook::thrift::protocol
         }
         break;
       case 3:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->overwrite);
           this->__isset.overwrite = true;
         } else {
@@ -504,7 +504,7 @@ uint32_t ThriftHadoopFileSystem_createFile_args::read(facebook::thrift::protocol
         }
         break;
       case 4:
-        if (ftype == facebook::thrift::protocol::T_I32) {
+        if (ftype == apache::thrift::protocol::T_I32) {
           xfer += iprot->readI32(this->bufferSize);
           this->__isset.bufferSize = true;
         } else {
@@ -512,7 +512,7 @@ uint32_t ThriftHadoopFileSystem_createFile_args::read(facebook::thrift::protocol
         }
         break;
       case 5:
-        if (ftype == facebook::thrift::protocol::T_I16) {
+        if (ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->block_replication);
           this->__isset.block_replication = true;
         } else {
@@ -520,7 +520,7 @@ uint32_t ThriftHadoopFileSystem_createFile_args::read(facebook::thrift::protocol
         }
         break;
       case 6:
-        if (ftype == facebook::thrift::protocol::T_I64) {
+        if (ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->blocksize);
           this->__isset.blocksize = true;
         } else {
@@ -539,25 +539,25 @@ uint32_t ThriftHadoopFileSystem_createFile_args::read(facebook::thrift::protocol
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_createFile_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_createFile_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_createFile_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("mode", facebook::thrift::protocol::T_I16, 2);
+  xfer += oprot->writeFieldBegin("mode", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16(this->mode);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("overwrite", facebook::thrift::protocol::T_BOOL, 3);
+  xfer += oprot->writeFieldBegin("overwrite", apache::thrift::protocol::T_BOOL, 3);
   xfer += oprot->writeBool(this->overwrite);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("bufferSize", facebook::thrift::protocol::T_I32, 4);
+  xfer += oprot->writeFieldBegin("bufferSize", apache::thrift::protocol::T_I32, 4);
   xfer += oprot->writeI32(this->bufferSize);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("block_replication", facebook::thrift::protocol::T_I16, 5);
+  xfer += oprot->writeFieldBegin("block_replication", apache::thrift::protocol::T_I16, 5);
   xfer += oprot->writeI16(this->block_replication);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("blocksize", facebook::thrift::protocol::T_I64, 6);
+  xfer += oprot->writeFieldBegin("blocksize", apache::thrift::protocol::T_I64, 6);
   xfer += oprot->writeI64(this->blocksize);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -565,25 +565,25 @@ uint32_t ThriftHadoopFileSystem_createFile_args::write(facebook::thrift::protoco
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_createFile_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_createFile_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_createFile_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("mode", facebook::thrift::protocol::T_I16, 2);
+  xfer += oprot->writeFieldBegin("mode", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16((*(this->mode)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("overwrite", facebook::thrift::protocol::T_BOOL, 3);
+  xfer += oprot->writeFieldBegin("overwrite", apache::thrift::protocol::T_BOOL, 3);
   xfer += oprot->writeBool((*(this->overwrite)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("bufferSize", facebook::thrift::protocol::T_I32, 4);
+  xfer += oprot->writeFieldBegin("bufferSize", apache::thrift::protocol::T_I32, 4);
   xfer += oprot->writeI32((*(this->bufferSize)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("block_replication", facebook::thrift::protocol::T_I16, 5);
+  xfer += oprot->writeFieldBegin("block_replication", apache::thrift::protocol::T_I16, 5);
   xfer += oprot->writeI16((*(this->block_replication)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("blocksize", facebook::thrift::protocol::T_I64, 6);
+  xfer += oprot->writeFieldBegin("blocksize", apache::thrift::protocol::T_I64, 6);
   xfer += oprot->writeI64((*(this->blocksize)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -591,28 +591,28 @@ uint32_t ThriftHadoopFileSystem_createFile_pargs::write(facebook::thrift::protoc
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_createFile_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_createFile_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->success.read(iprot);
           this->__isset.success = true;
         } else {
@@ -620,7 +620,7 @@ uint32_t ThriftHadoopFileSystem_createFile_result::read(facebook::thrift::protoc
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -639,18 +639,18 @@ uint32_t ThriftHadoopFileSystem_createFile_result::read(facebook::thrift::protoc
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_createFile_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_createFile_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_createFile_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_STRUCT, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_STRUCT, 0);
     xfer += this->success.write(oprot);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -659,28 +659,28 @@ uint32_t ThriftHadoopFileSystem_createFile_result::write(facebook::thrift::proto
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_createFile_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_createFile_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += (*(this->success)).read(iprot);
           this->__isset.success = true;
         } else {
@@ -688,7 +688,7 @@ uint32_t ThriftHadoopFileSystem_createFile_presult::read(facebook::thrift::proto
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -707,28 +707,28 @@ uint32_t ThriftHadoopFileSystem_createFile_presult::read(facebook::thrift::proto
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_open_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_open_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -747,10 +747,10 @@ uint32_t ThriftHadoopFileSystem_open_args::read(facebook::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_open_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_open_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_open_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -758,10 +758,10 @@ uint32_t ThriftHadoopFileSystem_open_args::write(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_open_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_open_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_open_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -769,28 +769,28 @@ uint32_t ThriftHadoopFileSystem_open_pargs::write(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_open_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_open_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->success.read(iprot);
           this->__isset.success = true;
         } else {
@@ -798,7 +798,7 @@ uint32_t ThriftHadoopFileSystem_open_result::read(facebook::thrift::protocol::TP
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -817,18 +817,18 @@ uint32_t ThriftHadoopFileSystem_open_result::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_open_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_open_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_open_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_STRUCT, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_STRUCT, 0);
     xfer += this->success.write(oprot);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -837,28 +837,28 @@ uint32_t ThriftHadoopFileSystem_open_result::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_open_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_open_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += (*(this->success)).read(iprot);
           this->__isset.success = true;
         } else {
@@ -866,7 +866,7 @@ uint32_t ThriftHadoopFileSystem_open_presult::read(facebook::thrift::protocol::T
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -885,28 +885,28 @@ uint32_t ThriftHadoopFileSystem_open_presult::read(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_append_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_append_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -925,10 +925,10 @@ uint32_t ThriftHadoopFileSystem_append_args::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_append_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_append_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_append_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -936,10 +936,10 @@ uint32_t ThriftHadoopFileSystem_append_args::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_append_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_append_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_append_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -947,28 +947,28 @@ uint32_t ThriftHadoopFileSystem_append_pargs::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_append_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_append_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->success.read(iprot);
           this->__isset.success = true;
         } else {
@@ -976,7 +976,7 @@ uint32_t ThriftHadoopFileSystem_append_result::read(facebook::thrift::protocol::
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -995,18 +995,18 @@ uint32_t ThriftHadoopFileSystem_append_result::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_append_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_append_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_append_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_STRUCT, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_STRUCT, 0);
     xfer += this->success.write(oprot);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -1015,28 +1015,28 @@ uint32_t ThriftHadoopFileSystem_append_result::write(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_append_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_append_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += (*(this->success)).read(iprot);
           this->__isset.success = true;
         } else {
@@ -1044,7 +1044,7 @@ uint32_t ThriftHadoopFileSystem_append_presult::read(facebook::thrift::protocol:
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1063,38 +1063,38 @@ uint32_t ThriftHadoopFileSystem_append_presult::read(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_write_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_write_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
-      case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
-          xfer += this->handle.read(iprot);
-          this->__isset.handle = true;
+      case -1:
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->data);
+          this->__isset.data = true;
         } else {
           xfer += iprot->skip(ftype);
         }
         break;
-      case -1:
-        if (ftype == facebook::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->data);
-          this->__isset.data = true;
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->handle.read(iprot);
+          this->__isset.handle = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -1111,56 +1111,56 @@ uint32_t ThriftHadoopFileSystem_write_args::read(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_write_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_write_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_write_args");
-  xfer += oprot->writeFieldBegin("handle", facebook::thrift::protocol::T_STRUCT, 1);
-  xfer += this->handle.write(oprot);
-  xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("data", facebook::thrift::protocol::T_STRING, -1);
+  xfer += oprot->writeFieldBegin("data", apache::thrift::protocol::T_STRING, -1);
   xfer += oprot->writeString(this->data);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("handle", apache::thrift::protocol::T_STRUCT, 1);
+  xfer += this->handle.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_write_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_write_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_write_pargs");
-  xfer += oprot->writeFieldBegin("handle", facebook::thrift::protocol::T_STRUCT, 1);
-  xfer += (*(this->handle)).write(oprot);
-  xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("data", facebook::thrift::protocol::T_STRING, -1);
+  xfer += oprot->writeFieldBegin("data", apache::thrift::protocol::T_STRING, -1);
   xfer += oprot->writeString((*(this->data)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("handle", apache::thrift::protocol::T_STRUCT, 1);
+  xfer += (*(this->handle)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_write_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_write_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -1168,7 +1168,7 @@ uint32_t ThriftHadoopFileSystem_write_result::read(facebook::thrift::protocol::T
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1187,18 +1187,18 @@ uint32_t ThriftHadoopFileSystem_write_result::read(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_write_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_write_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_write_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -1207,28 +1207,28 @@ uint32_t ThriftHadoopFileSystem_write_result::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_write_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_write_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -1236,7 +1236,7 @@ uint32_t ThriftHadoopFileSystem_write_presult::read(facebook::thrift::protocol::
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1255,46 +1255,46 @@ uint32_t ThriftHadoopFileSystem_write_presult::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_read_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_read_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
-      case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
-          xfer += this->handle.read(iprot);
-          this->__isset.handle = true;
+      case -2:
+        if (ftype == apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->size);
+          this->__isset.size = true;
         } else {
           xfer += iprot->skip(ftype);
         }
         break;
       case -1:
-        if (ftype == facebook::thrift::protocol::T_I64) {
+        if (ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->offset);
           this->__isset.offset = true;
         } else {
           xfer += iprot->skip(ftype);
         }
         break;
-      case -2:
-        if (ftype == facebook::thrift::protocol::T_I32) {
-          xfer += iprot->readI32(this->size);
-          this->__isset.size = true;
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->handle.read(iprot);
+          this->__isset.handle = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -1311,62 +1311,62 @@ uint32_t ThriftHadoopFileSystem_read_args::read(facebook::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_read_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_read_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_read_args");
-  xfer += oprot->writeFieldBegin("handle", facebook::thrift::protocol::T_STRUCT, 1);
-  xfer += this->handle.write(oprot);
-  xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("offset", facebook::thrift::protocol::T_I64, -1);
-  xfer += oprot->writeI64(this->offset);
-  xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("size", facebook::thrift::protocol::T_I32, -2);
+  xfer += oprot->writeFieldBegin("size", apache::thrift::protocol::T_I32, -2);
   xfer += oprot->writeI32(this->size);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("offset", apache::thrift::protocol::T_I64, -1);
+  xfer += oprot->writeI64(this->offset);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("handle", apache::thrift::protocol::T_STRUCT, 1);
+  xfer += this->handle.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_read_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_read_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_read_pargs");
-  xfer += oprot->writeFieldBegin("handle", facebook::thrift::protocol::T_STRUCT, 1);
-  xfer += (*(this->handle)).write(oprot);
+  xfer += oprot->writeFieldBegin("size", apache::thrift::protocol::T_I32, -2);
+  xfer += oprot->writeI32((*(this->size)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("offset", facebook::thrift::protocol::T_I64, -1);
+  xfer += oprot->writeFieldBegin("offset", apache::thrift::protocol::T_I64, -1);
   xfer += oprot->writeI64((*(this->offset)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("size", facebook::thrift::protocol::T_I32, -2);
-  xfer += oprot->writeI32((*(this->size)));
+  xfer += oprot->writeFieldBegin("handle", apache::thrift::protocol::T_STRUCT, 1);
+  xfer += (*(this->handle)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_read_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_read_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRING) {
+        if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->success);
           this->__isset.success = true;
         } else {
@@ -1374,7 +1374,7 @@ uint32_t ThriftHadoopFileSystem_read_result::read(facebook::thrift::protocol::TP
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1393,18 +1393,18 @@ uint32_t ThriftHadoopFileSystem_read_result::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_read_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_read_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_read_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_STRING, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_STRING, 0);
     xfer += oprot->writeString(this->success);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -1413,28 +1413,28 @@ uint32_t ThriftHadoopFileSystem_read_result::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_read_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_read_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRING) {
+        if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -1442,7 +1442,7 @@ uint32_t ThriftHadoopFileSystem_read_presult::read(facebook::thrift::protocol::T
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1461,28 +1461,28 @@ uint32_t ThriftHadoopFileSystem_read_presult::read(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_close_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_close_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->out.read(iprot);
           this->__isset.out = true;
         } else {
@@ -1501,10 +1501,10 @@ uint32_t ThriftHadoopFileSystem_close_args::read(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_close_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_close_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_close_args");
-  xfer += oprot->writeFieldBegin("out", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("out", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->out.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1512,10 +1512,10 @@ uint32_t ThriftHadoopFileSystem_close_args::write(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_close_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_close_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_close_pargs");
-  xfer += oprot->writeFieldBegin("out", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("out", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->out)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1523,28 +1523,28 @@ uint32_t ThriftHadoopFileSystem_close_pargs::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_close_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_close_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -1552,7 +1552,7 @@ uint32_t ThriftHadoopFileSystem_close_result::read(facebook::thrift::protocol::T
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1571,18 +1571,18 @@ uint32_t ThriftHadoopFileSystem_close_result::read(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_close_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_close_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_close_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -1591,28 +1591,28 @@ uint32_t ThriftHadoopFileSystem_close_result::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_close_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_close_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -1620,7 +1620,7 @@ uint32_t ThriftHadoopFileSystem_close_presult::read(facebook::thrift::protocol::
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1639,28 +1639,28 @@ uint32_t ThriftHadoopFileSystem_close_presult::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rm_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_rm_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -1668,7 +1668,7 @@ uint32_t ThriftHadoopFileSystem_rm_args::read(facebook::thrift::protocol::TProto
         }
         break;
       case 2:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->recursive);
           this->__isset.recursive = true;
         } else {
@@ -1687,13 +1687,13 @@ uint32_t ThriftHadoopFileSystem_rm_args::read(facebook::thrift::protocol::TProto
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rm_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_rm_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_rm_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("recursive", facebook::thrift::protocol::T_BOOL, 2);
+  xfer += oprot->writeFieldBegin("recursive", apache::thrift::protocol::T_BOOL, 2);
   xfer += oprot->writeBool(this->recursive);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1701,13 +1701,13 @@ uint32_t ThriftHadoopFileSystem_rm_args::write(facebook::thrift::protocol::TProt
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rm_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_rm_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_rm_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("recursive", facebook::thrift::protocol::T_BOOL, 2);
+  xfer += oprot->writeFieldBegin("recursive", apache::thrift::protocol::T_BOOL, 2);
   xfer += oprot->writeBool((*(this->recursive)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1715,28 +1715,28 @@ uint32_t ThriftHadoopFileSystem_rm_pargs::write(facebook::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rm_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_rm_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -1744,7 +1744,7 @@ uint32_t ThriftHadoopFileSystem_rm_result::read(facebook::thrift::protocol::TPro
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1763,18 +1763,18 @@ uint32_t ThriftHadoopFileSystem_rm_result::read(facebook::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rm_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_rm_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_rm_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -1783,28 +1783,28 @@ uint32_t ThriftHadoopFileSystem_rm_result::write(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rm_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_rm_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -1812,7 +1812,7 @@ uint32_t ThriftHadoopFileSystem_rm_presult::read(facebook::thrift::protocol::TPr
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1831,28 +1831,28 @@ uint32_t ThriftHadoopFileSystem_rm_presult::read(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rename_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_rename_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -1860,7 +1860,7 @@ uint32_t ThriftHadoopFileSystem_rename_args::read(facebook::thrift::protocol::TP
         }
         break;
       case 2:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->dest.read(iprot);
           this->__isset.dest = true;
         } else {
@@ -1879,13 +1879,13 @@ uint32_t ThriftHadoopFileSystem_rename_args::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rename_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_rename_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_rename_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("dest", facebook::thrift::protocol::T_STRUCT, 2);
+  xfer += oprot->writeFieldBegin("dest", apache::thrift::protocol::T_STRUCT, 2);
   xfer += this->dest.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1893,13 +1893,13 @@ uint32_t ThriftHadoopFileSystem_rename_args::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rename_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_rename_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_rename_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("dest", facebook::thrift::protocol::T_STRUCT, 2);
+  xfer += oprot->writeFieldBegin("dest", apache::thrift::protocol::T_STRUCT, 2);
   xfer += (*(this->dest)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -1907,28 +1907,28 @@ uint32_t ThriftHadoopFileSystem_rename_pargs::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rename_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_rename_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -1936,7 +1936,7 @@ uint32_t ThriftHadoopFileSystem_rename_result::read(facebook::thrift::protocol::
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -1955,18 +1955,18 @@ uint32_t ThriftHadoopFileSystem_rename_result::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rename_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_rename_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_rename_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -1975,28 +1975,28 @@ uint32_t ThriftHadoopFileSystem_rename_result::write(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_rename_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_rename_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -2004,7 +2004,7 @@ uint32_t ThriftHadoopFileSystem_rename_presult::read(facebook::thrift::protocol:
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2023,28 +2023,28 @@ uint32_t ThriftHadoopFileSystem_rename_presult::read(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_mkdirs_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_mkdirs_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -2063,10 +2063,10 @@ uint32_t ThriftHadoopFileSystem_mkdirs_args::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_mkdirs_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_mkdirs_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_mkdirs_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2074,10 +2074,10 @@ uint32_t ThriftHadoopFileSystem_mkdirs_args::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_mkdirs_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_mkdirs_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_mkdirs_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2085,28 +2085,28 @@ uint32_t ThriftHadoopFileSystem_mkdirs_pargs::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_mkdirs_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_mkdirs_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -2114,7 +2114,7 @@ uint32_t ThriftHadoopFileSystem_mkdirs_result::read(facebook::thrift::protocol::
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2133,18 +2133,18 @@ uint32_t ThriftHadoopFileSystem_mkdirs_result::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_mkdirs_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_mkdirs_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_mkdirs_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -2153,28 +2153,28 @@ uint32_t ThriftHadoopFileSystem_mkdirs_result::write(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_mkdirs_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_mkdirs_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -2182,7 +2182,7 @@ uint32_t ThriftHadoopFileSystem_mkdirs_presult::read(facebook::thrift::protocol:
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2201,28 +2201,28 @@ uint32_t ThriftHadoopFileSystem_mkdirs_presult::read(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_exists_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_exists_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -2241,10 +2241,10 @@ uint32_t ThriftHadoopFileSystem_exists_args::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_exists_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_exists_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_exists_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2252,10 +2252,10 @@ uint32_t ThriftHadoopFileSystem_exists_args::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_exists_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_exists_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_exists_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2263,28 +2263,28 @@ uint32_t ThriftHadoopFileSystem_exists_pargs::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_exists_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_exists_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool(this->success);
           this->__isset.success = true;
         } else {
@@ -2292,7 +2292,7 @@ uint32_t ThriftHadoopFileSystem_exists_result::read(facebook::thrift::protocol::
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2311,18 +2311,18 @@ uint32_t ThriftHadoopFileSystem_exists_result::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_exists_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_exists_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_exists_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_BOOL, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_BOOL, 0);
     xfer += oprot->writeBool(this->success);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -2331,28 +2331,28 @@ uint32_t ThriftHadoopFileSystem_exists_result::write(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_exists_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_exists_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_BOOL) {
+        if (ftype == apache::thrift::protocol::T_BOOL) {
           xfer += iprot->readBool((*(this->success)));
           this->__isset.success = true;
         } else {
@@ -2360,7 +2360,7 @@ uint32_t ThriftHadoopFileSystem_exists_presult::read(facebook::thrift::protocol:
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2379,28 +2379,28 @@ uint32_t ThriftHadoopFileSystem_exists_presult::read(facebook::thrift::protocol:
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_stat_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_stat_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -2419,10 +2419,10 @@ uint32_t ThriftHadoopFileSystem_stat_args::read(facebook::thrift::protocol::TPro
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_stat_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_stat_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_stat_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2430,10 +2430,10 @@ uint32_t ThriftHadoopFileSystem_stat_args::write(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_stat_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_stat_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_stat_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2441,28 +2441,28 @@ uint32_t ThriftHadoopFileSystem_stat_pargs::write(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_stat_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_stat_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->success.read(iprot);
           this->__isset.success = true;
         } else {
@@ -2470,7 +2470,7 @@ uint32_t ThriftHadoopFileSystem_stat_result::read(facebook::thrift::protocol::TP
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2489,18 +2489,18 @@ uint32_t ThriftHadoopFileSystem_stat_result::read(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_stat_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_stat_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_stat_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_STRUCT, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_STRUCT, 0);
     xfer += this->success.write(oprot);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -2509,28 +2509,28 @@ uint32_t ThriftHadoopFileSystem_stat_result::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_stat_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_stat_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += (*(this->success)).read(iprot);
           this->__isset.success = true;
         } else {
@@ -2538,7 +2538,7 @@ uint32_t ThriftHadoopFileSystem_stat_presult::read(facebook::thrift::protocol::T
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2557,28 +2557,28 @@ uint32_t ThriftHadoopFileSystem_stat_presult::read(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_listStatus_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_listStatus_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -2597,10 +2597,10 @@ uint32_t ThriftHadoopFileSystem_listStatus_args::read(facebook::thrift::protocol
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_listStatus_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_listStatus_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_listStatus_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2608,10 +2608,10 @@ uint32_t ThriftHadoopFileSystem_listStatus_args::write(facebook::thrift::protoco
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_listStatus_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_listStatus_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_listStatus_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2619,32 +2619,32 @@ uint32_t ThriftHadoopFileSystem_listStatus_pargs::write(facebook::thrift::protoc
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_listStatus_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_listStatus_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_LIST) {
+        if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
             uint32_t _size12;
-            facebook::thrift::protocol::TType _etype15;
+            apache::thrift::protocol::TType _etype15;
             iprot->readListBegin(_etype15, _size12);
             this->success.resize(_size12);
             uint32_t _i16;
@@ -2660,7 +2660,7 @@ uint32_t ThriftHadoopFileSystem_listStatus_result::read(facebook::thrift::protoc
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2679,16 +2679,16 @@ uint32_t ThriftHadoopFileSystem_listStatus_result::read(facebook::thrift::protoc
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_listStatus_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_listStatus_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_listStatus_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_LIST, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
     {
-      xfer += oprot->writeListBegin(facebook::thrift::protocol::T_STRUCT, this->success.size());
+      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
       std::vector<FileStatus> ::const_iterator _iter17;
       for (_iter17 = this->success.begin(); _iter17 != this->success.end(); ++_iter17)
       {
@@ -2698,7 +2698,7 @@ uint32_t ThriftHadoopFileSystem_listStatus_result::write(facebook::thrift::proto
     }
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -2707,32 +2707,32 @@ uint32_t ThriftHadoopFileSystem_listStatus_result::write(facebook::thrift::proto
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_listStatus_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_listStatus_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_LIST) {
+        if (ftype == apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
             uint32_t _size18;
-            facebook::thrift::protocol::TType _etype21;
+            apache::thrift::protocol::TType _etype21;
             iprot->readListBegin(_etype21, _size18);
             (*(this->success)).resize(_size18);
             uint32_t _i22;
@@ -2748,7 +2748,7 @@ uint32_t ThriftHadoopFileSystem_listStatus_presult::read(facebook::thrift::proto
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2767,28 +2767,28 @@ uint32_t ThriftHadoopFileSystem_listStatus_presult::read(facebook::thrift::proto
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chmod_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_chmod_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -2796,7 +2796,7 @@ uint32_t ThriftHadoopFileSystem_chmod_args::read(facebook::thrift::protocol::TPr
         }
         break;
       case 2:
-        if (ftype == facebook::thrift::protocol::T_I16) {
+        if (ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->mode);
           this->__isset.mode = true;
         } else {
@@ -2815,13 +2815,13 @@ uint32_t ThriftHadoopFileSystem_chmod_args::read(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chmod_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_chmod_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_chmod_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("mode", facebook::thrift::protocol::T_I16, 2);
+  xfer += oprot->writeFieldBegin("mode", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16(this->mode);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2829,13 +2829,13 @@ uint32_t ThriftHadoopFileSystem_chmod_args::write(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chmod_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_chmod_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_chmod_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("mode", facebook::thrift::protocol::T_I16, 2);
+  xfer += oprot->writeFieldBegin("mode", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16((*(this->mode)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -2843,28 +2843,28 @@ uint32_t ThriftHadoopFileSystem_chmod_pargs::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chmod_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_chmod_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2883,14 +2883,14 @@ uint32_t ThriftHadoopFileSystem_chmod_result::read(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chmod_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_chmod_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_chmod_result");
 
   if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -2899,28 +2899,28 @@ uint32_t ThriftHadoopFileSystem_chmod_result::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chmod_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_chmod_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -2939,28 +2939,28 @@ uint32_t ThriftHadoopFileSystem_chmod_presult::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chown_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_chown_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -2968,7 +2968,7 @@ uint32_t ThriftHadoopFileSystem_chown_args::read(facebook::thrift::protocol::TPr
         }
         break;
       case 2:
-        if (ftype == facebook::thrift::protocol::T_STRING) {
+        if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->owner);
           this->__isset.owner = true;
         } else {
@@ -2976,7 +2976,7 @@ uint32_t ThriftHadoopFileSystem_chown_args::read(facebook::thrift::protocol::TPr
         }
         break;
       case 3:
-        if (ftype == facebook::thrift::protocol::T_STRING) {
+        if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->group);
           this->__isset.group = true;
         } else {
@@ -2995,16 +2995,16 @@ uint32_t ThriftHadoopFileSystem_chown_args::read(facebook::thrift::protocol::TPr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chown_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_chown_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_chown_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("owner", facebook::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeFieldBegin("owner", apache::thrift::protocol::T_STRING, 2);
   xfer += oprot->writeString(this->owner);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("group", facebook::thrift::protocol::T_STRING, 3);
+  xfer += oprot->writeFieldBegin("group", apache::thrift::protocol::T_STRING, 3);
   xfer += oprot->writeString(this->group);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -3012,16 +3012,16 @@ uint32_t ThriftHadoopFileSystem_chown_args::write(facebook::thrift::protocol::TP
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chown_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_chown_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_chown_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("owner", facebook::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeFieldBegin("owner", apache::thrift::protocol::T_STRING, 2);
   xfer += oprot->writeString((*(this->owner)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("group", facebook::thrift::protocol::T_STRING, 3);
+  xfer += oprot->writeFieldBegin("group", apache::thrift::protocol::T_STRING, 3);
   xfer += oprot->writeString((*(this->group)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -3029,28 +3029,28 @@ uint32_t ThriftHadoopFileSystem_chown_pargs::write(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chown_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_chown_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -3069,14 +3069,14 @@ uint32_t ThriftHadoopFileSystem_chown_result::read(facebook::thrift::protocol::T
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chown_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_chown_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_chown_result");
 
   if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -3085,28 +3085,28 @@ uint32_t ThriftHadoopFileSystem_chown_result::write(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_chown_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_chown_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -3125,28 +3125,28 @@ uint32_t ThriftHadoopFileSystem_chown_presult::read(facebook::thrift::protocol::
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setReplication_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_setReplication_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -3154,7 +3154,7 @@ uint32_t ThriftHadoopFileSystem_setReplication_args::read(facebook::thrift::prot
         }
         break;
       case 2:
-        if (ftype == facebook::thrift::protocol::T_I16) {
+        if (ftype == apache::thrift::protocol::T_I16) {
           xfer += iprot->readI16(this->replication);
           this->__isset.replication = true;
         } else {
@@ -3173,13 +3173,13 @@ uint32_t ThriftHadoopFileSystem_setReplication_args::read(facebook::thrift::prot
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setReplication_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_setReplication_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_setReplication_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("replication", facebook::thrift::protocol::T_I16, 2);
+  xfer += oprot->writeFieldBegin("replication", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16(this->replication);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -3187,13 +3187,13 @@ uint32_t ThriftHadoopFileSystem_setReplication_args::write(facebook::thrift::pro
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setReplication_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_setReplication_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_setReplication_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("replication", facebook::thrift::protocol::T_I16, 2);
+  xfer += oprot->writeFieldBegin("replication", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16((*(this->replication)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -3201,28 +3201,28 @@ uint32_t ThriftHadoopFileSystem_setReplication_pargs::write(facebook::thrift::pr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setReplication_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_setReplication_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -3241,14 +3241,14 @@ uint32_t ThriftHadoopFileSystem_setReplication_result::read(facebook::thrift::pr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setReplication_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_setReplication_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_setReplication_result");
 
   if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -3257,28 +3257,28 @@ uint32_t ThriftHadoopFileSystem_setReplication_result::write(facebook::thrift::p
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_setReplication_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_setReplication_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -3297,28 +3297,28 @@ uint32_t ThriftHadoopFileSystem_setReplication_presult::read(facebook::thrift::p
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->path.read(iprot);
           this->__isset.path = true;
         } else {
@@ -3326,7 +3326,7 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::read(facebook::thrif
         }
         break;
       case 2:
-        if (ftype == facebook::thrift::protocol::T_I64) {
+        if (ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->start);
           this->__isset.start = true;
         } else {
@@ -3334,7 +3334,7 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::read(facebook::thrif
         }
         break;
       case 3:
-        if (ftype == facebook::thrift::protocol::T_I64) {
+        if (ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->length);
           this->__isset.length = true;
         } else {
@@ -3353,16 +3353,16 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::read(facebook::thrif
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_getFileBlockLocations_args");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += this->path.write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("start", facebook::thrift::protocol::T_I64, 2);
+  xfer += oprot->writeFieldBegin("start", apache::thrift::protocol::T_I64, 2);
   xfer += oprot->writeI64(this->start);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("length", facebook::thrift::protocol::T_I64, 3);
+  xfer += oprot->writeFieldBegin("length", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64(this->length);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -3370,16 +3370,16 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_args::write(facebook::thri
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_getFileBlockLocations_pargs::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_getFileBlockLocations_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_getFileBlockLocations_pargs");
-  xfer += oprot->writeFieldBegin("path", facebook::thrift::protocol::T_STRUCT, 1);
+  xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRUCT, 1);
   xfer += (*(this->path)).write(oprot);
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("start", facebook::thrift::protocol::T_I64, 2);
+  xfer += oprot->writeFieldBegin("start", apache::thrift::protocol::T_I64, 2);
   xfer += oprot->writeI64((*(this->start)));
   xfer += oprot->writeFieldEnd();
-  xfer += oprot->writeFieldBegin("length", facebook::thrift::protocol::T_I64, 3);
+  xfer += oprot->writeFieldBegin("length", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64((*(this->length)));
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
@@ -3387,32 +3387,32 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_pargs::write(facebook::thr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_LIST) {
+        if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
             uint32_t _size23;
-            facebook::thrift::protocol::TType _etype26;
+            apache::thrift::protocol::TType _etype26;
             iprot->readListBegin(_etype26, _size23);
             this->success.resize(_size23);
             uint32_t _i27;
@@ -3428,7 +3428,7 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::read(facebook::thr
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -3447,16 +3447,16 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::read(facebook::thr
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::write(facebook::thrift::protocol::TProtocol* oprot) const {
+uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::write(apache::thrift::protocol::TProtocol* oprot) const {
 
   uint32_t xfer = 0;
 
   xfer += oprot->writeStructBegin("ThriftHadoopFileSystem_getFileBlockLocations_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", facebook::thrift::protocol::T_LIST, 0);
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
     {
-      xfer += oprot->writeListBegin(facebook::thrift::protocol::T_STRUCT, this->success.size());
+      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
       std::vector<BlockLocation> ::const_iterator _iter28;
       for (_iter28 = this->success.begin(); _iter28 != this->success.end(); ++_iter28)
       {
@@ -3466,7 +3466,7 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::write(facebook::th
     }
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.ouch) {
-    xfer += oprot->writeFieldBegin("ouch", facebook::thrift::protocol::T_STRUCT, 1);
+    xfer += oprot->writeFieldBegin("ouch", apache::thrift::protocol::T_STRUCT, 1);
     xfer += this->ouch.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
@@ -3475,32 +3475,32 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_result::write(facebook::th
   return xfer;
 }
 
-uint32_t ThriftHadoopFileSystem_getFileBlockLocations_presult::read(facebook::thrift::protocol::TProtocol* iprot) {
+uint32_t ThriftHadoopFileSystem_getFileBlockLocations_presult::read(apache::thrift::protocol::TProtocol* iprot) {
 
   uint32_t xfer = 0;
   std::string fname;
-  facebook::thrift::protocol::TType ftype;
+  apache::thrift::protocol::TType ftype;
   int16_t fid;
 
   xfer += iprot->readStructBegin(fname);
 
-  using facebook::thrift::protocol::TProtocolException;
+  using apache::thrift::protocol::TProtocolException;
 
 
   while (true)
   {
     xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == facebook::thrift::protocol::T_STOP) {
+    if (ftype == apache::thrift::protocol::T_STOP) {
       break;
     }
     switch (fid)
     {
       case 0:
-        if (ftype == facebook::thrift::protocol::T_LIST) {
+        if (ftype == apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
             uint32_t _size29;
-            facebook::thrift::protocol::TType _etype32;
+            apache::thrift::protocol::TType _etype32;
             iprot->readListBegin(_etype32, _size29);
             (*(this->success)).resize(_size29);
             uint32_t _i33;
@@ -3516,7 +3516,7 @@ uint32_t ThriftHadoopFileSystem_getFileBlockLocations_presult::read(facebook::th
         }
         break;
       case 1:
-        if (ftype == facebook::thrift::protocol::T_STRUCT) {
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->ouch.read(iprot);
           this->__isset.ouch = true;
         } else {
@@ -3544,7 +3544,7 @@ void ThriftHadoopFileSystemClient::setInactivityTimeoutPeriod(const int64_t peri
 void ThriftHadoopFileSystemClient::send_setInactivityTimeoutPeriod(const int64_t periodInSeconds)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("setInactivityTimeoutPeriod", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("setInactivityTimeoutPeriod", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_setInactivityTimeoutPeriod_pargs args;
   args.periodInSeconds = &periodInSeconds;
@@ -3560,27 +3560,27 @@ void ThriftHadoopFileSystemClient::recv_setInactivityTimeoutPeriod()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("setInactivityTimeoutPeriod") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_setInactivityTimeoutPeriod_presult result;
   result.read(iprot_);
@@ -3599,7 +3599,7 @@ void ThriftHadoopFileSystemClient::shutdown(const int32_t status)
 void ThriftHadoopFileSystemClient::send_shutdown(const int32_t status)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("shutdown", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("shutdown", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_shutdown_pargs args;
   args.status = &status;
@@ -3615,27 +3615,27 @@ void ThriftHadoopFileSystemClient::recv_shutdown()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("shutdown") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_shutdown_presult result;
   result.read(iprot_);
@@ -3654,7 +3654,7 @@ void ThriftHadoopFileSystemClient::create(ThriftHandle& _return, const Pathname&
 void ThriftHadoopFileSystemClient::send_create(const Pathname& path)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("create", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("create", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_create_pargs args;
   args.path = &path;
@@ -3670,27 +3670,27 @@ void ThriftHadoopFileSystemClient::recv_create(ThriftHandle& _return)
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("create") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_create_presult result;
   result.success = &_return;
@@ -3705,7 +3705,7 @@ void ThriftHadoopFileSystemClient::recv_create(ThriftHandle& _return)
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "create failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "create failed: unknown result");
 }
 
 void ThriftHadoopFileSystemClient::createFile(ThriftHandle& _return, const Pathname& path, const int16_t mode, const bool overwrite, const int32_t bufferSize, const int16_t block_replication, const int64_t blocksize)
@@ -3717,7 +3717,7 @@ void ThriftHadoopFileSystemClient::createFile(ThriftHandle& _return, const Pathn
 void ThriftHadoopFileSystemClient::send_createFile(const Pathname& path, const int16_t mode, const bool overwrite, const int32_t bufferSize, const int16_t block_replication, const int64_t blocksize)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("createFile", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("createFile", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_createFile_pargs args;
   args.path = &path;
@@ -3738,27 +3738,27 @@ void ThriftHadoopFileSystemClient::recv_createFile(ThriftHandle& _return)
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("createFile") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_createFile_presult result;
   result.success = &_return;
@@ -3773,7 +3773,7 @@ void ThriftHadoopFileSystemClient::recv_createFile(ThriftHandle& _return)
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "createFile failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "createFile failed: unknown result");
 }
 
 void ThriftHadoopFileSystemClient::open(ThriftHandle& _return, const Pathname& path)
@@ -3785,7 +3785,7 @@ void ThriftHadoopFileSystemClient::open(ThriftHandle& _return, const Pathname& p
 void ThriftHadoopFileSystemClient::send_open(const Pathname& path)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("open", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("open", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_open_pargs args;
   args.path = &path;
@@ -3801,27 +3801,27 @@ void ThriftHadoopFileSystemClient::recv_open(ThriftHandle& _return)
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("open") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_open_presult result;
   result.success = &_return;
@@ -3836,7 +3836,7 @@ void ThriftHadoopFileSystemClient::recv_open(ThriftHandle& _return)
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "open failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "open failed: unknown result");
 }
 
 void ThriftHadoopFileSystemClient::append(ThriftHandle& _return, const Pathname& path)
@@ -3848,7 +3848,7 @@ void ThriftHadoopFileSystemClient::append(ThriftHandle& _return, const Pathname&
 void ThriftHadoopFileSystemClient::send_append(const Pathname& path)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("append", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("append", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_append_pargs args;
   args.path = &path;
@@ -3864,27 +3864,27 @@ void ThriftHadoopFileSystemClient::recv_append(ThriftHandle& _return)
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("append") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_append_presult result;
   result.success = &_return;
@@ -3899,23 +3899,23 @@ void ThriftHadoopFileSystemClient::recv_append(ThriftHandle& _return)
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "append failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "append failed: unknown result");
 }
 
-bool ThriftHadoopFileSystemClient::write(const ThriftHandle& handle, const std::string& data)
+bool ThriftHadoopFileSystemClient::write(const std::string& data, const ThriftHandle& handle)
 {
-  send_write(handle, data);
+  send_write(data, handle);
   return recv_write();
 }
 
-void ThriftHadoopFileSystemClient::send_write(const ThriftHandle& handle, const std::string& data)
+void ThriftHadoopFileSystemClient::send_write(const std::string& data, const ThriftHandle& handle)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("write", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("write", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_write_pargs args;
-  args.handle = &handle;
   args.data = &data;
+  args.handle = &handle;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -3928,27 +3928,27 @@ bool ThriftHadoopFileSystemClient::recv_write()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("write") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   ThriftHadoopFileSystem_write_presult result;
@@ -3963,24 +3963,24 @@ bool ThriftHadoopFileSystemClient::recv_write()
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "write failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "write failed: unknown result");
 }
 
-void ThriftHadoopFileSystemClient::read(std::string& _return, const ThriftHandle& handle, const int64_t offset, const int32_t size)
+void ThriftHadoopFileSystemClient::read(std::string& _return, const int32_t size, const int64_t offset, const ThriftHandle& handle)
 {
-  send_read(handle, offset, size);
+  send_read(size, offset, handle);
   recv_read(_return);
 }
 
-void ThriftHadoopFileSystemClient::send_read(const ThriftHandle& handle, const int64_t offset, const int32_t size)
+void ThriftHadoopFileSystemClient::send_read(const int32_t size, const int64_t offset, const ThriftHandle& handle)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("read", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("read", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_read_pargs args;
-  args.handle = &handle;
-  args.offset = &offset;
   args.size = &size;
+  args.offset = &offset;
+  args.handle = &handle;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -3993,27 +3993,27 @@ void ThriftHadoopFileSystemClient::recv_read(std::string& _return)
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("read") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_read_presult result;
   result.success = &_return;
@@ -4028,7 +4028,7 @@ void ThriftHadoopFileSystemClient::recv_read(std::string& _return)
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "read failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "read failed: unknown result");
 }
 
 bool ThriftHadoopFileSystemClient::close(const ThriftHandle& out)
@@ -4040,7 +4040,7 @@ bool ThriftHadoopFileSystemClient::close(const ThriftHandle& out)
 void ThriftHadoopFileSystemClient::send_close(const ThriftHandle& out)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("close", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("close", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_close_pargs args;
   args.out = &out;
@@ -4056,27 +4056,27 @@ bool ThriftHadoopFileSystemClient::recv_close()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("close") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   ThriftHadoopFileSystem_close_presult result;
@@ -4091,7 +4091,7 @@ bool ThriftHadoopFileSystemClient::recv_close()
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "close failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "close failed: unknown result");
 }
 
 bool ThriftHadoopFileSystemClient::rm(const Pathname& path, const bool recursive)
@@ -4103,7 +4103,7 @@ bool ThriftHadoopFileSystemClient::rm(const Pathname& path, const bool recursive
 void ThriftHadoopFileSystemClient::send_rm(const Pathname& path, const bool recursive)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("rm", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("rm", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_rm_pargs args;
   args.path = &path;
@@ -4120,27 +4120,27 @@ bool ThriftHadoopFileSystemClient::recv_rm()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("rm") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   ThriftHadoopFileSystem_rm_presult result;
@@ -4155,7 +4155,7 @@ bool ThriftHadoopFileSystemClient::recv_rm()
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "rm failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "rm failed: unknown result");
 }
 
 bool ThriftHadoopFileSystemClient::rename(const Pathname& path, const Pathname& dest)
@@ -4167,7 +4167,7 @@ bool ThriftHadoopFileSystemClient::rename(const Pathname& path, const Pathname& 
 void ThriftHadoopFileSystemClient::send_rename(const Pathname& path, const Pathname& dest)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("rename", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("rename", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_rename_pargs args;
   args.path = &path;
@@ -4184,27 +4184,27 @@ bool ThriftHadoopFileSystemClient::recv_rename()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("rename") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   ThriftHadoopFileSystem_rename_presult result;
@@ -4219,7 +4219,7 @@ bool ThriftHadoopFileSystemClient::recv_rename()
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "rename failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "rename failed: unknown result");
 }
 
 bool ThriftHadoopFileSystemClient::mkdirs(const Pathname& path)
@@ -4231,7 +4231,7 @@ bool ThriftHadoopFileSystemClient::mkdirs(const Pathname& path)
 void ThriftHadoopFileSystemClient::send_mkdirs(const Pathname& path)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("mkdirs", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("mkdirs", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_mkdirs_pargs args;
   args.path = &path;
@@ -4247,27 +4247,27 @@ bool ThriftHadoopFileSystemClient::recv_mkdirs()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("mkdirs") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   ThriftHadoopFileSystem_mkdirs_presult result;
@@ -4282,7 +4282,7 @@ bool ThriftHadoopFileSystemClient::recv_mkdirs()
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "mkdirs failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "mkdirs failed: unknown result");
 }
 
 bool ThriftHadoopFileSystemClient::exists(const Pathname& path)
@@ -4294,7 +4294,7 @@ bool ThriftHadoopFileSystemClient::exists(const Pathname& path)
 void ThriftHadoopFileSystemClient::send_exists(const Pathname& path)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("exists", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("exists", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_exists_pargs args;
   args.path = &path;
@@ -4310,27 +4310,27 @@ bool ThriftHadoopFileSystemClient::recv_exists()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("exists") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   bool _return;
   ThriftHadoopFileSystem_exists_presult result;
@@ -4345,7 +4345,7 @@ bool ThriftHadoopFileSystemClient::recv_exists()
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "exists failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "exists failed: unknown result");
 }
 
 void ThriftHadoopFileSystemClient::stat(FileStatus& _return, const Pathname& path)
@@ -4357,7 +4357,7 @@ void ThriftHadoopFileSystemClient::stat(FileStatus& _return, const Pathname& pat
 void ThriftHadoopFileSystemClient::send_stat(const Pathname& path)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("stat", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("stat", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_stat_pargs args;
   args.path = &path;
@@ -4373,27 +4373,27 @@ void ThriftHadoopFileSystemClient::recv_stat(FileStatus& _return)
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("stat") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_stat_presult result;
   result.success = &_return;
@@ -4408,7 +4408,7 @@ void ThriftHadoopFileSystemClient::recv_stat(FileStatus& _return)
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "stat failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "stat failed: unknown result");
 }
 
 void ThriftHadoopFileSystemClient::listStatus(std::vector<FileStatus> & _return, const Pathname& path)
@@ -4420,7 +4420,7 @@ void ThriftHadoopFileSystemClient::listStatus(std::vector<FileStatus> & _return,
 void ThriftHadoopFileSystemClient::send_listStatus(const Pathname& path)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("listStatus", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("listStatus", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_listStatus_pargs args;
   args.path = &path;
@@ -4436,27 +4436,27 @@ void ThriftHadoopFileSystemClient::recv_listStatus(std::vector<FileStatus> & _re
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("listStatus") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_listStatus_presult result;
   result.success = &_return;
@@ -4471,7 +4471,7 @@ void ThriftHadoopFileSystemClient::recv_listStatus(std::vector<FileStatus> & _re
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "listStatus failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "listStatus failed: unknown result");
 }
 
 void ThriftHadoopFileSystemClient::chmod(const Pathname& path, const int16_t mode)
@@ -4483,7 +4483,7 @@ void ThriftHadoopFileSystemClient::chmod(const Pathname& path, const int16_t mod
 void ThriftHadoopFileSystemClient::send_chmod(const Pathname& path, const int16_t mode)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("chmod", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("chmod", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_chmod_pargs args;
   args.path = &path;
@@ -4500,27 +4500,27 @@ void ThriftHadoopFileSystemClient::recv_chmod()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("chmod") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_chmod_presult result;
   result.read(iprot_);
@@ -4542,7 +4542,7 @@ void ThriftHadoopFileSystemClient::chown(const Pathname& path, const std::string
 void ThriftHadoopFileSystemClient::send_chown(const Pathname& path, const std::string& owner, const std::string& group)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("chown", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("chown", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_chown_pargs args;
   args.path = &path;
@@ -4560,27 +4560,27 @@ void ThriftHadoopFileSystemClient::recv_chown()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("chown") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_chown_presult result;
   result.read(iprot_);
@@ -4602,7 +4602,7 @@ void ThriftHadoopFileSystemClient::setReplication(const Pathname& path, const in
 void ThriftHadoopFileSystemClient::send_setReplication(const Pathname& path, const int16_t replication)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("setReplication", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("setReplication", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_setReplication_pargs args;
   args.path = &path;
@@ -4619,27 +4619,27 @@ void ThriftHadoopFileSystemClient::recv_setReplication()
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("setReplication") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_setReplication_presult result;
   result.read(iprot_);
@@ -4661,7 +4661,7 @@ void ThriftHadoopFileSystemClient::getFileBlockLocations(std::vector<BlockLocati
 void ThriftHadoopFileSystemClient::send_getFileBlockLocations(const Pathname& path, const int64_t start, const int64_t length)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("getFileBlockLocations", facebook::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("getFileBlockLocations", apache::thrift::protocol::T_CALL, cseqid);
 
   ThriftHadoopFileSystem_getFileBlockLocations_pargs args;
   args.path = &path;
@@ -4679,27 +4679,27 @@ void ThriftHadoopFileSystemClient::recv_getFileBlockLocations(std::vector<BlockL
 
   int32_t rseqid = 0;
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
 
   iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == facebook::thrift::protocol::T_EXCEPTION) {
-    facebook::thrift::TApplicationException x;
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
     x.read(iprot_);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
     throw x;
   }
-  if (mtype != facebook::thrift::protocol::T_REPLY) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
   }
   if (fname.compare("getFileBlockLocations") != 0) {
-    iprot_->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
     iprot_->readMessageEnd();
     iprot_->getTransport()->readEnd();
-    throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::WRONG_METHOD_NAME);
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
   }
   ThriftHadoopFileSystem_getFileBlockLocations_presult result;
   result.success = &_return;
@@ -4714,25 +4714,25 @@ void ThriftHadoopFileSystemClient::recv_getFileBlockLocations(std::vector<BlockL
   if (result.__isset.ouch) {
     throw result.ouch;
   }
-  throw facebook::thrift::TApplicationException(facebook::thrift::TApplicationException::MISSING_RESULT, "getFileBlockLocations failed: unknown result");
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "getFileBlockLocations failed: unknown result");
 }
 
-bool ThriftHadoopFileSystemProcessor::process(boost::shared_ptr<facebook::thrift::protocol::TProtocol> piprot, boost::shared_ptr<facebook::thrift::protocol::TProtocol> poprot) {
+bool ThriftHadoopFileSystemProcessor::process(boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot) {
 
-  facebook::thrift::protocol::TProtocol* iprot = piprot.get();
-  facebook::thrift::protocol::TProtocol* oprot = poprot.get();
+  apache::thrift::protocol::TProtocol* iprot = piprot.get();
+  apache::thrift::protocol::TProtocol* oprot = poprot.get();
   std::string fname;
-  facebook::thrift::protocol::TMessageType mtype;
+  apache::thrift::protocol::TMessageType mtype;
   int32_t seqid;
 
   iprot->readMessageBegin(fname, mtype, seqid);
 
-  if (mtype != facebook::thrift::protocol::T_CALL) {
-    iprot->skip(facebook::thrift::protocol::T_STRUCT);
+  if (mtype != apache::thrift::protocol::T_CALL && mtype != apache::thrift::protocol::T_ONEWAY) {
+    iprot->skip(apache::thrift::protocol::T_STRUCT);
     iprot->readMessageEnd();
     iprot->getTransport()->readEnd();
-    facebook::thrift::TApplicationException x(facebook::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
-    oprot->writeMessageBegin(fname, facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+    oprot->writeMessageBegin(fname, apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4743,15 +4743,15 @@ bool ThriftHadoopFileSystemProcessor::process(boost::shared_ptr<facebook::thrift
   return process_fn(iprot, oprot, fname, seqid);
 }
 
-bool ThriftHadoopFileSystemProcessor::process_fn(facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid) {
-  std::map<std::string, void (ThriftHadoopFileSystemProcessor::*)(int32_t, facebook::thrift::protocol::TProtocol*, facebook::thrift::protocol::TProtocol*)>::iterator pfn;
+bool ThriftHadoopFileSystemProcessor::process_fn(apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid) {
+  std::map<std::string, void (ThriftHadoopFileSystemProcessor::*)(int32_t, apache::thrift::protocol::TProtocol*, apache::thrift::protocol::TProtocol*)>::iterator pfn;
   pfn = processMap_.find(fname);
   if (pfn == processMap_.end()) {
-    iprot->skip(facebook::thrift::protocol::T_STRUCT);
+    iprot->skip(apache::thrift::protocol::T_STRUCT);
     iprot->readMessageEnd();
     iprot->getTransport()->readEnd();
-    facebook::thrift::TApplicationException x(facebook::thrift::TApplicationException::UNKNOWN_METHOD, "Invalid method name: '"+fname+"'");
-    oprot->writeMessageBegin(fname, facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(apache::thrift::TApplicationException::UNKNOWN_METHOD, "Invalid method name: '"+fname+"'");
+    oprot->writeMessageBegin(fname, apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4762,7 +4762,7 @@ bool ThriftHadoopFileSystemProcessor::process_fn(facebook::thrift::protocol::TPr
   return true;
 }
 
-void ThriftHadoopFileSystemProcessor::process_setInactivityTimeoutPeriod(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_setInactivityTimeoutPeriod(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_setInactivityTimeoutPeriod_args args;
   args.read(iprot);
@@ -4773,8 +4773,8 @@ void ThriftHadoopFileSystemProcessor::process_setInactivityTimeoutPeriod(int32_t
   try {
     iface_->setInactivityTimeoutPeriod(args.periodInSeconds);
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("setInactivityTimeoutPeriod", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("setInactivityTimeoutPeriod", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4782,14 +4782,14 @@ void ThriftHadoopFileSystemProcessor::process_setInactivityTimeoutPeriod(int32_t
     return;
   }
 
-  oprot->writeMessageBegin("setInactivityTimeoutPeriod", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("setInactivityTimeoutPeriod", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_shutdown(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_shutdown(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_shutdown_args args;
   args.read(iprot);
@@ -4800,8 +4800,8 @@ void ThriftHadoopFileSystemProcessor::process_shutdown(int32_t seqid, facebook::
   try {
     iface_->shutdown(args.status);
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("shutdown", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("shutdown", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4809,14 +4809,14 @@ void ThriftHadoopFileSystemProcessor::process_shutdown(int32_t seqid, facebook::
     return;
   }
 
-  oprot->writeMessageBegin("shutdown", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("shutdown", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_create(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_create(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_create_args args;
   args.read(iprot);
@@ -4831,8 +4831,8 @@ void ThriftHadoopFileSystemProcessor::process_create(int32_t seqid, facebook::th
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("create", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("create", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4840,14 +4840,14 @@ void ThriftHadoopFileSystemProcessor::process_create(int32_t seqid, facebook::th
     return;
   }
 
-  oprot->writeMessageBegin("create", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("create", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_createFile(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_createFile(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_createFile_args args;
   args.read(iprot);
@@ -4862,8 +4862,8 @@ void ThriftHadoopFileSystemProcessor::process_createFile(int32_t seqid, facebook
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("createFile", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("createFile", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4871,14 +4871,14 @@ void ThriftHadoopFileSystemProcessor::process_createFile(int32_t seqid, facebook
     return;
   }
 
-  oprot->writeMessageBegin("createFile", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("createFile", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_open(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_open(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_open_args args;
   args.read(iprot);
@@ -4893,8 +4893,8 @@ void ThriftHadoopFileSystemProcessor::process_open(int32_t seqid, facebook::thri
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("open", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("open", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4902,14 +4902,14 @@ void ThriftHadoopFileSystemProcessor::process_open(int32_t seqid, facebook::thri
     return;
   }
 
-  oprot->writeMessageBegin("open", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("open", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_append(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_append(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_append_args args;
   args.read(iprot);
@@ -4924,8 +4924,8 @@ void ThriftHadoopFileSystemProcessor::process_append(int32_t seqid, facebook::th
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("append", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("append", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4933,14 +4933,14 @@ void ThriftHadoopFileSystemProcessor::process_append(int32_t seqid, facebook::th
     return;
   }
 
-  oprot->writeMessageBegin("append", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("append", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_write(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_write(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_write_args args;
   args.read(iprot);
@@ -4949,14 +4949,14 @@ void ThriftHadoopFileSystemProcessor::process_write(int32_t seqid, facebook::thr
 
   ThriftHadoopFileSystem_write_result result;
   try {
-    result.success = iface_->write(args.handle, args.data);
+    result.success = iface_->write(args.data, args.handle);
     result.__isset.success = true;
   } catch (ThriftIOException &ouch) {
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("write", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("write", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4964,14 +4964,14 @@ void ThriftHadoopFileSystemProcessor::process_write(int32_t seqid, facebook::thr
     return;
   }
 
-  oprot->writeMessageBegin("write", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("write", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_read(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_read(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_read_args args;
   args.read(iprot);
@@ -4980,14 +4980,14 @@ void ThriftHadoopFileSystemProcessor::process_read(int32_t seqid, facebook::thri
 
   ThriftHadoopFileSystem_read_result result;
   try {
-    iface_->read(result.success, args.handle, args.offset, args.size);
+    iface_->read(result.success, args.size, args.offset, args.handle);
     result.__isset.success = true;
   } catch (ThriftIOException &ouch) {
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("read", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("read", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -4995,14 +4995,14 @@ void ThriftHadoopFileSystemProcessor::process_read(int32_t seqid, facebook::thri
     return;
   }
 
-  oprot->writeMessageBegin("read", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("read", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_close(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_close(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_close_args args;
   args.read(iprot);
@@ -5017,8 +5017,8 @@ void ThriftHadoopFileSystemProcessor::process_close(int32_t seqid, facebook::thr
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("close", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("close", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5026,14 +5026,14 @@ void ThriftHadoopFileSystemProcessor::process_close(int32_t seqid, facebook::thr
     return;
   }
 
-  oprot->writeMessageBegin("close", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("close", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_rm(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_rm(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_rm_args args;
   args.read(iprot);
@@ -5048,8 +5048,8 @@ void ThriftHadoopFileSystemProcessor::process_rm(int32_t seqid, facebook::thrift
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("rm", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("rm", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5057,14 +5057,14 @@ void ThriftHadoopFileSystemProcessor::process_rm(int32_t seqid, facebook::thrift
     return;
   }
 
-  oprot->writeMessageBegin("rm", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("rm", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_rename(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_rename(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_rename_args args;
   args.read(iprot);
@@ -5079,8 +5079,8 @@ void ThriftHadoopFileSystemProcessor::process_rename(int32_t seqid, facebook::th
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("rename", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("rename", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5088,14 +5088,14 @@ void ThriftHadoopFileSystemProcessor::process_rename(int32_t seqid, facebook::th
     return;
   }
 
-  oprot->writeMessageBegin("rename", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("rename", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_mkdirs(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_mkdirs(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_mkdirs_args args;
   args.read(iprot);
@@ -5110,8 +5110,8 @@ void ThriftHadoopFileSystemProcessor::process_mkdirs(int32_t seqid, facebook::th
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("mkdirs", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("mkdirs", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5119,14 +5119,14 @@ void ThriftHadoopFileSystemProcessor::process_mkdirs(int32_t seqid, facebook::th
     return;
   }
 
-  oprot->writeMessageBegin("mkdirs", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("mkdirs", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_exists(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_exists(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_exists_args args;
   args.read(iprot);
@@ -5141,8 +5141,8 @@ void ThriftHadoopFileSystemProcessor::process_exists(int32_t seqid, facebook::th
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("exists", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("exists", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5150,14 +5150,14 @@ void ThriftHadoopFileSystemProcessor::process_exists(int32_t seqid, facebook::th
     return;
   }
 
-  oprot->writeMessageBegin("exists", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("exists", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_stat(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_stat(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_stat_args args;
   args.read(iprot);
@@ -5172,8 +5172,8 @@ void ThriftHadoopFileSystemProcessor::process_stat(int32_t seqid, facebook::thri
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("stat", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("stat", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5181,14 +5181,14 @@ void ThriftHadoopFileSystemProcessor::process_stat(int32_t seqid, facebook::thri
     return;
   }
 
-  oprot->writeMessageBegin("stat", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("stat", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_listStatus(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_listStatus(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_listStatus_args args;
   args.read(iprot);
@@ -5203,8 +5203,8 @@ void ThriftHadoopFileSystemProcessor::process_listStatus(int32_t seqid, facebook
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("listStatus", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("listStatus", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5212,14 +5212,14 @@ void ThriftHadoopFileSystemProcessor::process_listStatus(int32_t seqid, facebook
     return;
   }
 
-  oprot->writeMessageBegin("listStatus", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("listStatus", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_chmod(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_chmod(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_chmod_args args;
   args.read(iprot);
@@ -5233,8 +5233,8 @@ void ThriftHadoopFileSystemProcessor::process_chmod(int32_t seqid, facebook::thr
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("chmod", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("chmod", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5242,14 +5242,14 @@ void ThriftHadoopFileSystemProcessor::process_chmod(int32_t seqid, facebook::thr
     return;
   }
 
-  oprot->writeMessageBegin("chmod", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("chmod", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_chown(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_chown(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_chown_args args;
   args.read(iprot);
@@ -5263,8 +5263,8 @@ void ThriftHadoopFileSystemProcessor::process_chown(int32_t seqid, facebook::thr
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("chown", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("chown", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5272,14 +5272,14 @@ void ThriftHadoopFileSystemProcessor::process_chown(int32_t seqid, facebook::thr
     return;
   }
 
-  oprot->writeMessageBegin("chown", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("chown", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_setReplication(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_setReplication(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_setReplication_args args;
   args.read(iprot);
@@ -5293,8 +5293,8 @@ void ThriftHadoopFileSystemProcessor::process_setReplication(int32_t seqid, face
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("setReplication", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("setReplication", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5302,14 +5302,14 @@ void ThriftHadoopFileSystemProcessor::process_setReplication(int32_t seqid, face
     return;
   }
 
-  oprot->writeMessageBegin("setReplication", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("setReplication", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();
   oprot->getTransport()->writeEnd();
 }
 
-void ThriftHadoopFileSystemProcessor::process_getFileBlockLocations(int32_t seqid, facebook::thrift::protocol::TProtocol* iprot, facebook::thrift::protocol::TProtocol* oprot)
+void ThriftHadoopFileSystemProcessor::process_getFileBlockLocations(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
 {
   ThriftHadoopFileSystem_getFileBlockLocations_args args;
   args.read(iprot);
@@ -5324,8 +5324,8 @@ void ThriftHadoopFileSystemProcessor::process_getFileBlockLocations(int32_t seqi
     result.ouch = ouch;
     result.__isset.ouch = true;
   } catch (const std::exception& e) {
-    facebook::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("getFileBlockLocations", facebook::thrift::protocol::T_EXCEPTION, seqid);
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("getFileBlockLocations", apache::thrift::protocol::T_EXCEPTION, seqid);
     x.write(oprot);
     oprot->writeMessageEnd();
     oprot->getTransport()->flush();
@@ -5333,7 +5333,7 @@ void ThriftHadoopFileSystemProcessor::process_getFileBlockLocations(int32_t seqi
     return;
   }
 
-  oprot->writeMessageBegin("getFileBlockLocations", facebook::thrift::protocol::T_REPLY, seqid);
+  oprot->writeMessageBegin("getFileBlockLocations", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();

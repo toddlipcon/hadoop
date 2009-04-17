@@ -1,30 +1,33 @@
 package org.apache.hadoop.thriftfs;
 
-import com.facebook.thrift.TException;
-import com.facebook.thrift.TApplicationException;
-import com.facebook.thrift.protocol.TBinaryProtocol;
-import com.facebook.thrift.protocol.TProtocol;
-import com.facebook.thrift.server.TServer;
-import com.facebook.thrift.server.TThreadPoolServer;
-import com.facebook.thrift.transport.TServerSocket;
-import com.facebook.thrift.transport.TServerTransport;
-import com.facebook.thrift.transport.TTransportFactory;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-// Include Generated code
-import org.apache.hadoop.thriftfs.api.*;
-import org.apache.hadoop.thriftfs.api.ThriftHadoopFileSystem;
-
-import java.io.*;
-import java.util.*;
-import java.net.*;
-
-import org.apache.hadoop.fs.*;
-import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.permission.FsPermission;
+import org.apache.hadoop.thriftfs.api.Pathname;
+import org.apache.hadoop.thriftfs.api.ThriftHadoopFileSystem;
+import org.apache.hadoop.thriftfs.api.ThriftHandle;
+import org.apache.hadoop.thriftfs.api.ThriftIOException;
 import org.apache.hadoop.util.Daemon;
 import org.apache.hadoop.util.StringUtils;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.server.TServer;
+import org.apache.thrift.server.TThreadPoolServer;
+import org.apache.thrift.transport.TServerSocket;
+import org.apache.thrift.transport.TServerTransport;
+import org.apache.thrift.transport.TTransportFactory;
 
 /**
  * ThriftHadoopFileSystem
@@ -273,7 +276,7 @@ public class HadoopThriftServer extends ThriftHadoopFileSystem {
     /**
      * write to a file
      */
-    public boolean write(ThriftHandle tout, String data) throws ThriftIOException {
+    public boolean write(String data, ThriftHandle tout) throws ThriftIOException {
       try {
         now = now();
         HadoopThriftHandler.LOG.debug("write: " + tout.id);
@@ -290,8 +293,8 @@ public class HadoopThriftServer extends ThriftHadoopFileSystem {
     /**
      * read from a file
      */
-    public String read(ThriftHandle tout, long offset,
-                       int length) throws ThriftIOException {
+    public String read(int length, long offset, ThriftHandle tout)
+        throws ThriftIOException {
       try {
         now = now();
         HadoopThriftHandler.LOG.debug("read: " + tout.id +

@@ -3915,18 +3915,18 @@
   return [self recv_append];
 }
 
-- (void) send_write: (ThriftHandle *) handle : (NSString *) data
+- (void) send_write: (NSString *) data : (ThriftHandle *) handle
 {
   [outProtocol writeMessageBeginWithName: @"write" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"write_args"];
-  if (handle != nil)  {
-    [outProtocol writeFieldBeginWithName: @"handle" type: TType_STRUCT fieldID: 1];
-    [handle write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
   if (data != nil)  {
     [outProtocol writeFieldBeginWithName: @"data" type: TType_STRING fieldID: -1];
     [outProtocol writeString: data];
+    [outProtocol writeFieldEnd];
+  }
+  if (handle != nil)  {
+    [outProtocol writeFieldBeginWithName: @"handle" type: TType_STRUCT fieldID: 1];
+    [handle write: outProtocol];
     [outProtocol writeFieldEnd];
   }
   [outProtocol writeFieldStop];
@@ -3957,27 +3957,27 @@
                                            reason: @"write failed: unknown result"];
 }
 
-- (BOOL) write: (ThriftHandle *) handle : (NSString *) data
+- (BOOL) write: (NSString *) data : (ThriftHandle *) handle
 {
-  [self send_write: handle : data];
+  [self send_write: data : handle];
   return [self recv_write];
 }
 
-- (void) send_read: (ThriftHandle *) handle : (int64_t) offset : (int32_t) size
+- (void) send_read: (int32_t) size : (int64_t) offset : (ThriftHandle *) handle
 {
   [outProtocol writeMessageBeginWithName: @"read" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"read_args"];
+  [outProtocol writeFieldBeginWithName: @"size" type: TType_I32 fieldID: -2];
+  [outProtocol writeI32: size];
+  [outProtocol writeFieldEnd];
+  [outProtocol writeFieldBeginWithName: @"offset" type: TType_I64 fieldID: -1];
+  [outProtocol writeI64: offset];
+  [outProtocol writeFieldEnd];
   if (handle != nil)  {
     [outProtocol writeFieldBeginWithName: @"handle" type: TType_STRUCT fieldID: 1];
     [handle write: outProtocol];
     [outProtocol writeFieldEnd];
   }
-  [outProtocol writeFieldBeginWithName: @"offset" type: TType_I64 fieldID: -1];
-  [outProtocol writeI64: offset];
-  [outProtocol writeFieldEnd];
-  [outProtocol writeFieldBeginWithName: @"size" type: TType_I32 fieldID: -2];
-  [outProtocol writeI32: size];
-  [outProtocol writeFieldEnd];
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
@@ -4006,9 +4006,9 @@
                                            reason: @"read failed: unknown result"];
 }
 
-- (NSString *) read: (ThriftHandle *) handle : (int64_t) offset : (int32_t) size
+- (NSString *) read: (int32_t) size : (int64_t) offset : (ThriftHandle *) handle
 {
-  [self send_read: handle : offset : size];
+  [self send_read: size : offset : handle];
   return [self recv_read];
 }
 

@@ -12,19 +12,19 @@ Object subclass: #Hadoopfs
 Hadoopfs class
 	instanceVariableNames: 'constants enums'!
 
-!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 enums: anObject
     enums := anObject! !
 
-!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 enums
     ^ enums! !
 
-!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 constants: anObject
     constants := anObject! !
 
-!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!Hadoopfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 constants
     ^ constants! !
 
@@ -37,11 +37,11 @@ Object subclass: #ThriftHandle
 	poolDictionaries: ''
 	category: 'Generated-Hadoopfs'!
 
-!ThriftHandle methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHandle methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 id: anI64
     id := anI64! !
 
-!ThriftHandle methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHandle methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 id
     ^ id! !
 
@@ -52,11 +52,11 @@ Object subclass: #Pathname
 	poolDictionaries: ''
 	category: 'Generated-Hadoopfs'!
 
-!Pathname methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!Pathname methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 pathname: aString
     pathname := aString! !
 
-!Pathname methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!Pathname methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 pathname
     ^ pathname! !
 
@@ -67,75 +67,75 @@ Object subclass: #FileStatus
 	poolDictionaries: ''
 	category: 'Generated-Hadoopfs'!
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 path: aString
     path := aString! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 path
     ^ path! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 length: anI64
     length := anI64! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 length
     ^ length! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 isdir: aBool
     isdir := aBool! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 isdir
     ^ isdir! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 blockReplication: anI16
     blockReplication := anI16! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 blockReplication
     ^ blockReplication! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 blocksize: anI64
     blocksize := anI64! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 blocksize
     ^ blocksize! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 modificationTime: anI64
     modificationTime := anI64! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 modificationTime
     ^ modificationTime! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 permission: aString
     permission := aString! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 permission
     ^ permission! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 owner: aString
     owner := aString! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 owner
     ^ owner! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 group: aString
     group := aString! !
 
-!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!FileStatus methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 group
     ^ group! !
 
@@ -146,35 +146,35 @@ Object subclass: #BlockLocation
 	poolDictionaries: ''
 	category: 'Generated-Hadoopfs'!
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 hosts: a
     hosts := a! !
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 hosts
     ^ hosts! !
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 names: a
     names := a! !
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 names
     ^ names! !
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 offset: anI64
     offset := anI64! !
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 offset
     ^ offset! !
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 length: anI64
     length := anI64! !
 
-!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!BlockLocation methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 length
     ^ length! !
 
@@ -185,11 +185,11 @@ Error subclass: #MalformedInputException
 	poolDictionaries: ''
 	category: 'Generated-Hadoopfs'!
 
-!MalformedInputException methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!MalformedInputException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 message: aString
     message := aString! !
 
-!MalformedInputException methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!MalformedInputException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 message
     ^ message! !
 
@@ -200,11 +200,11 @@ Error subclass: #ThriftIOException
 	poolDictionaries: ''
 	category: 'Generated-Hadoopfs'!
 
-!ThriftIOException methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftIOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 message: aString
     message := aString! !
 
-!ThriftIOException methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftIOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 message
     ^ message! !
 
@@ -215,14 +215,14 @@ TClient subclass: #ThriftHadoopFileSystemClient
 	poolDictionaries: ''
 	category: 'Generated-Hadoopfs'!
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 setInactivityTimeoutPeriodPeriodInSeconds: periodInSeconds
     "periodInSeconds: i64"
     self sendSetInactivityTimeoutPeriodPeriodInSeconds: periodInSeconds.
     ^ self recvSetInactivityTimeoutPeriod success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendSetInactivityTimeoutPeriodPeriodInSeconds: periodInSeconds
     oprot writeMessageBegin:
       (TCallMessage new
@@ -235,7 +235,7 @@ sendSetInactivityTimeoutPeriodPeriodInSeconds: periodInSeconds
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvSetInactivityTimeoutPeriod
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -256,14 +256,14 @@ recvSetInactivityTimeoutPeriod
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 shutdownStatus: status
     "status: i32"
     self sendShutdownStatus: status.
     ^ self recvShutdown success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendShutdownStatus: status
     oprot writeMessageBegin:
       (TCallMessage new
@@ -276,7 +276,7 @@ sendShutdownStatus: status
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvShutdown
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -297,14 +297,14 @@ recvShutdown
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 createPath: path
     "path: Pathname"
     self sendCreatePath: path.
     ^ self recvCreate success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendCreatePath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -321,7 +321,7 @@ sendCreatePath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvCreate
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -365,14 +365,14 @@ recvCreate
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 createFilePath: path mode: mode overwrite: overwrite bufferSize: bufferSize block_replication: block_replication blocksize: blocksize
     "path: Pathname, mode: i16, overwrite: bool, bufferSize: i32, block_replication: i16, blocksize: i64"
     self sendCreateFilePath: path mode: mode overwrite: overwrite bufferSize: bufferSize block_replication: block_replication blocksize: blocksize.
     ^ self recvCreateFile success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendCreateFilePath: path mode: mode overwrite: overwrite bufferSize: bufferSize block_replication: block_replication blocksize: blocksize
     oprot writeMessageBegin:
       (TCallMessage new
@@ -404,7 +404,7 @@ sendCreateFilePath: path mode: mode overwrite: overwrite bufferSize: bufferSize 
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvCreateFile
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -448,14 +448,14 @@ recvCreateFile
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 openPath: path
     "path: Pathname"
     self sendOpenPath: path.
     ^ self recvOpen success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendOpenPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -472,7 +472,7 @@ sendOpenPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvOpen
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -516,14 +516,14 @@ recvOpen
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 appendPath: path
     "path: Pathname"
     self sendAppendPath: path.
     ^ self recvAppend success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendAppendPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -540,7 +540,7 @@ sendAppendPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvAppend
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -584,20 +584,23 @@ recvAppend
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
-writeHandle: handle data: data
-    "handle: ThriftHandle, data: string"
-    self sendWriteHandle: handle data: data.
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
+writeData: data handle: handle
+    "data: string, handle: ThriftHandle"
+    self sendWriteData: data handle: handle.
     ^ self recvWrite success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
-sendWriteHandle: handle data: data
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
+sendWriteData: data handle: handle
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'write'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Write_args').
+    oprot writeFieldBegin: (TField new name: 'data'; type: TType string; id: -1).
+    iprot writeString: data.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'handle'; type: TType struct; id: 1).
     [oprot writeStructBegin: (TStruct new name: 'ThriftHandle').
       oprot writeFieldBegin: (TField new name: 'id'; type: TType i64; id: -1).
@@ -605,13 +608,10 @@ sendWriteHandle: handle data: data
       oprot writeFieldEnd.
       oprot writeFieldStop; writeStructEnd] value.
     oprot writeFieldEnd.
-    oprot writeFieldBegin: (TField new name: 'data'; type: TType string; id: -1).
-    iprot writeString: data.
-    oprot writeFieldEnd.
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvWrite
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -645,20 +645,26 @@ recvWrite
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
-readHandle: handle offset: offset size: size
-    "handle: ThriftHandle, offset: i64, size: i32"
-    self sendReadHandle: handle offset: offset size: size.
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
+readSize: size offset: offset handle: handle
+    "size: i32, offset: i64, handle: ThriftHandle"
+    self sendReadSize: size offset: offset handle: handle.
     ^ self recvRead success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
-sendReadHandle: handle offset: offset size: size
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
+sendReadSize: size offset: offset handle: handle
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'read'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Read_args').
+    oprot writeFieldBegin: (TField new name: 'size'; type: TType i32; id: -2).
+    iprot writeI32: size asInteger.
+    oprot writeFieldEnd.
+    oprot writeFieldBegin: (TField new name: 'offset'; type: TType i64; id: -1).
+    iprot writeI64: offset asInteger.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'handle'; type: TType struct; id: 1).
     [oprot writeStructBegin: (TStruct new name: 'ThriftHandle').
       oprot writeFieldBegin: (TField new name: 'id'; type: TType i64; id: -1).
@@ -666,16 +672,10 @@ sendReadHandle: handle offset: offset size: size
       oprot writeFieldEnd.
       oprot writeFieldStop; writeStructEnd] value.
     oprot writeFieldEnd.
-    oprot writeFieldBegin: (TField new name: 'offset'; type: TType i64; id: -1).
-    iprot writeI64: offset asInteger.
-    oprot writeFieldEnd.
-    oprot writeFieldBegin: (TField new name: 'size'; type: TType i32; id: -2).
-    iprot writeI32: size asInteger.
-    oprot writeFieldEnd.
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvRead
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -709,14 +709,14 @@ recvRead
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 closeOut: out
     "out: ThriftHandle"
     self sendCloseOut: out.
     ^ self recvClose success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendCloseOut: out
     oprot writeMessageBegin:
       (TCallMessage new
@@ -733,7 +733,7 @@ sendCloseOut: out
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvClose
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -767,14 +767,14 @@ recvClose
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 rmPath: path recursive: recursive
     "path: Pathname, recursive: bool"
     self sendRmPath: path recursive: recursive.
     ^ self recvRm success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendRmPath: path recursive: recursive
     oprot writeMessageBegin:
       (TCallMessage new
@@ -794,7 +794,7 @@ sendRmPath: path recursive: recursive
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvRm
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -828,14 +828,14 @@ recvRm
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 renamePath: path dest: dest
     "path: Pathname, dest: Pathname"
     self sendRenamePath: path dest: dest.
     ^ self recvRename success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendRenamePath: path dest: dest
     oprot writeMessageBegin:
       (TCallMessage new
@@ -859,7 +859,7 @@ sendRenamePath: path dest: dest
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvRename
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -893,14 +893,14 @@ recvRename
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 mkdirsPath: path
     "path: Pathname"
     self sendMkdirsPath: path.
     ^ self recvMkdirs success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendMkdirsPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -917,7 +917,7 @@ sendMkdirsPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvMkdirs
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -951,14 +951,14 @@ recvMkdirs
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 existsPath: path
     "path: Pathname"
     self sendExistsPath: path.
     ^ self recvExists success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendExistsPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -975,7 +975,7 @@ sendExistsPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvExists
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1009,14 +1009,14 @@ recvExists
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 statPath: path
     "path: Pathname"
     self sendStatPath: path.
     ^ self recvStat success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendStatPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1033,7 +1033,7 @@ sendStatPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvStat
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1101,14 +1101,14 @@ recvStat
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 listStatusPath: path
     "path: Pathname"
     self sendListStatusPath: path.
     ^ self recvListStatus success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendListStatusPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1125,7 +1125,7 @@ sendListStatusPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvListStatus
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1198,14 +1198,14 @@ recvListStatus
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 chmodPath: path mode: mode
     "path: Pathname, mode: i16"
     self sendChmodPath: path mode: mode.
     ^ self recvChmod success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendChmodPath: path mode: mode
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1225,7 +1225,7 @@ sendChmodPath: path mode: mode
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvChmod
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1259,14 +1259,14 @@ recvChmod
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 chownPath: path owner: owner group: group
     "path: Pathname, owner: string, group: string"
     self sendChownPath: path owner: owner group: group.
     ^ self recvChown success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendChownPath: path owner: owner group: group
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1289,7 +1289,7 @@ sendChownPath: path owner: owner group: group
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvChown
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1323,14 +1323,14 @@ recvChown
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 setReplicationPath: path replication: replication
     "path: Pathname, replication: i16"
     self sendSetReplicationPath: path replication: replication.
     ^ self recvSetReplication success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendSetReplicationPath: path replication: replication
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1350,7 +1350,7 @@ sendSetReplicationPath: path replication: replication
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvSetReplication
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1384,14 +1384,14 @@ recvSetReplication
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 getFileBlockLocationsPath: path start: start length: length
     "path: Pathname, start: i64, length: i64"
     self sendGetFileBlockLocationsPath: path start: start length: length.
     ^ self recvGetFileBlockLocations success 
 ! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 sendGetFileBlockLocationsPath: path start: start length: length
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1414,7 +1414,7 @@ sendGetFileBlockLocationsPath: path start: start length: length
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 08/27/2008 14:54'!
+!ThriftHadoopFileSystemClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/04/2009 17:55'!
 recvGetFileBlockLocations
     | f msg res | 
     msg := oprot readMessageBegin.

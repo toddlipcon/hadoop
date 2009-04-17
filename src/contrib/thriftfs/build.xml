@@ -25,40 +25,70 @@ to call at top-level: ant deploy-contrib compile-core-test
 
   <import file="../build-contrib.xml"/>
 
+  <property name="test.available" value="true" />
+  
   <!-- create the list of files to add to the classpath -->
   <fileset dir="${hadoop.root}/lib" id="class.path">
     <include name="**/*.jar" />
     <exclude name="**/excluded/" />
   </fileset>
 
-  <!-- Override jar target to specify main class -->
+  <target name="compile-gen" depends="init, ivy-retrieve-common"
+          unless="skip.contrib">
+    <echo message="contrib: ${name}"/>
+    <javac encoding="${build.encoding}"
+      srcdir="gen-java"
+      includes="**/*.java"
+      destdir="${build.classes}"
+      debug="${javac.debug}"
+      deprecation="${javac.deprecation}">
+     <classpath refid="contrib-classpath" />
+    </javac>
+  </target>
+
+  <!-- Override 'compile' to include both 'src' and 'gen-java' directories -->
+  <target name="compile" depends="init, ivy-retrieve-common, compile-gen"
+  	 unless="skip.contrib">
+    <echo message="contrib: ${name}"/>
+    <javac
+     encoding="${build.encoding}"
+     srcdir="${src.dir}"
+     includes="**/*.java"
+     destdir="${build.classes}"
+     debug="${javac.debug}"
+     deprecation="${javac.deprecation}">
+     <classpath refid="contrib-classpath"/>
+    </javac>
+  </target>
+	
+  <!-- Override jar target to specify main class, and to include default
+       configuration file -->
   <target name="jar" depends="compile">
-    <jar
-      jarfile="${build.dir}/hadoop-${version}-${name}.jar"
-      basedir="${build.classes}"      
-    >
-  	<manifest>
-	    <attribute name="Main-Class" value="org.apache.hadoop.thriftfs.HadooopThriftServer"/>
-	</manifest>
+    <jar jarfile="${build.dir}/hadoop-${version}-${name}.jar"
+         basedir="${build.classes}">
+      <manifest>
+      	<attribute name="Main-Class"
+      	           value="org.apache.hadoop.thriftfs.HadooopThriftServer"/>
+      </manifest>
+      <fileset dir="${src.dir}">
+      	<include name="thriftfs-default.xml" />
+      </fileset>
     </jar>
   </target>
 
-  <!-- Run only pure-Java unit tests. superdottest -->
-  <target name="test">
-   <antcall target="hadoopbuildcontrib.test"> 
-     <param name="test.exclude" value="TestStreamedMerge"/>
-   </antcall>
-  </target>  
- 
-  <!-- Run all unit tests
-  This is not called as part of the nightly build
-  because it will only run on platforms that have standard 
-  Unix utilities available. 
-  -->
- <target name="test-unix">
-   <antcall target="hadoopbuildcontrib.test">
-   </antcall>
- </target>  
-
-
+  <!-- Override 'package' to include 'libthrift.jar' and Thrift IDL file -->
+  <target name="package" depends="jar, jar-examples" unless="skip.contrib"> 
+    <mkdir dir="${dist.dir}/contrib/${name}"/>
+      <copy todir="${dist.dir}/contrib/${name}" includeEmptyDirs="false" flatten="true">
+        <fileset dir="${build.dir}">
+          <include name="hadoop-${version}-${name}.jar" />
+        </fileset>
+      	<fileset dir="lib">
+      	  <include name="libthrift.jar" />
+      	</fileset>
+      	<fileset dir="if">
+      	  <include name="hdfs.thrift" />
+        </fileset>
+      </copy>
+  </target>
 </project>
