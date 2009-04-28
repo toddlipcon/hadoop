@@ -100,8 +100,19 @@ public class DatanodePlugin
         }
         LOG.debug("readBlock(" + block.blockId + ", " + offset + ", " + length
             + "): Read " + n + " bytes");
-        ret.data = new byte[n];
-        System.arraycopy(buf, 0, ret.data, 0, n);
+
+        if (n == length) {
+            // If we read exactly the same number of bytes that was asked for,
+            // we can simply return the buffer directly
+            ret.data = buf;
+        } else {
+            assert n < length;
+            // If we read fewer bytes than they asked for, we need to write
+            // back a smaller byte array. With the appropriate thrift hook
+            // we could avoid this copy, too.
+            ret.data = new byte[n];
+            System.arraycopy(buf, 0, ret.data, 0, n);
+        }
         ret.length = n;
 
         summer.update(ret.data);
