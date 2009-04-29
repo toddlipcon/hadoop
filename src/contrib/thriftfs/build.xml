@@ -67,11 +67,11 @@ to call at top-level: ant deploy-contrib compile-core-test
     <jar jarfile="${build.dir}/hadoop-${version}-${name}.jar"
          basedir="${build.classes}">
       <manifest>
-      	<attribute name="Main-Class"
-      	           value="org.apache.hadoop.thriftfs.HadooopThriftServer"/>
+        <attribute name="Main-Class"
+                   value="org.apache.hadoop.thriftfs.HadooopThriftServer"/>
       </manifest>
       <fileset dir="${src.dir}">
-      	<include name="thriftfs-default.xml" />
+        <include name="thriftfs-default.xml" />
       </fileset>
     </jar>
   </target>
@@ -83,11 +83,11 @@ to call at top-level: ant deploy-contrib compile-core-test
         <fileset dir="${build.dir}">
           <include name="hadoop-${version}-${name}.jar" />
         </fileset>
-      	<fileset dir="lib">
-      	  <include name="libthrift.jar" />
-      	</fileset>
-      	<fileset dir="if">
-      	  <include name="hdfs.thrift" />
+        <fileset dir="lib">
+          <include name="libthrift.jar" />
+        </fileset>
+        <fileset dir="if">
+          <include name="hdfs.thrift" />
         </fileset>
       </copy>
   </target>
