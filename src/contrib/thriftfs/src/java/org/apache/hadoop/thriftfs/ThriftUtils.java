@@ -109,7 +109,7 @@ public class ThriftUtils {
     }
 
     DatanodeInfo ret = new DatanodeInfo();
-    ret.name = node.getHostName();
+    ret.name = node.getName();
     ret.storageID = node.storageID;
     ret.host = node.getHost();
     Integer p = thriftPorts.get(node);
