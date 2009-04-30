@@ -51,6 +51,7 @@
       <fileset dir="." includes="fairscheduler/build.xml"/>
       <fileset dir="." includes="capacity-scheduler/build.xml"/>
       <fileset dir="." includes="mrunit/build.xml"/>
+      <fileset dir="." includes="thriftfs/build.xml"/>
     </subant>
   </target>
   
