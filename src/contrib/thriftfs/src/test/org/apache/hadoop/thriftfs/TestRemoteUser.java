@@ -142,7 +142,7 @@ public class TestRemoteUser {
     Socket sock = new Socket();
     sock.connect(new InetSocketAddress(targetPort));
     
-    String uid = ThriftPluginServer.getRemoteUser(sock, identServer.port, 0);
+    String uid = ThriftServerContext.getRemoteUserFromIdent(sock, identServer.port, 0);
     assertEquals(this.uid, uid);
   }
 }

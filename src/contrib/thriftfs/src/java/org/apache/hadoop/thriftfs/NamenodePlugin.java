@@ -18,7 +18,6 @@
 package org.apache.hadoop.thriftfs;
 
 import java.io.FileNotFoundException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,9 +76,11 @@ public class NamenodePlugin
 
 
   /** Java server-side implementation of the 'Namenode' Thrift interface. */
-  class ThriftHandler implements Namenode.Iface {
+  class ThriftHandler extends ThriftHandlerBase implements Namenode.Iface {
 
-    public ThriftHandler() {}
+    public ThriftHandler(ThriftServerContext context) {
+      super(context);
+    }
 
     public void chmod(String path, short mode) throws IOException, TException {
       LOG.debug("chmod(" + path + ", " + mode + "): Entering");
@@ -474,8 +475,9 @@ public class NamenodePlugin
 
     @Override
     public TProcessor getProcessor(TTransport t) {
-      ThriftHandler impl = new ThriftHandler();
-      UserGroupInformation ugi = thriftServer.getUserGroupInformation(t);
+      ThriftServerContext context = new ThriftServerContext(t);
+      ThriftHandler impl = new ThriftHandler(context);
+      UserGroupInformation ugi = impl.getUserGroupInformation();
       UserGroupInformation.setCurrentUser(ugi);
       LOG.info("Connection from user " + ugi);
       return new Namenode.Processor(impl);

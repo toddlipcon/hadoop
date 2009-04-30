@@ -380,9 +380,13 @@ public class TestNamenodePlugin {
     assertEquals(REPLICATION, st.replication);
     assertEquals(0, st.length);
 
-    st = namenode.stat("/not-there");
-    // XXX I would expect st == null.
-    assertNull(st.path);
+    try {
+      st = namenode.stat("/not-there");
+      fail("No exception thrown for statting a non-existent file. " +
+           "Instead, got: " + String.valueOf(st));
+    } catch (IOException fne) {
+      assertEquals("java.io.FileNotFoundException", fne.clazz);
+    }
   }
 
   @Test

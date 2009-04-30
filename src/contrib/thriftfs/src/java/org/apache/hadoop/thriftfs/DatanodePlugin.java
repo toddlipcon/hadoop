@@ -69,14 +69,13 @@ public class DatanodePlugin
   }
 
 
-  class ThriftHandler implements Datanode.Iface {
+  class ThriftHandler extends ThriftHandlerBase implements Datanode.Iface {
 
-    private String clientName;
     private int bufferSize;
     private CRC32 summer;
 
-    public ThriftHandler(String clientName) {
-      this.clientName = clientName;
+    public ThriftHandler(ThriftServerContext context) {
+      super(context);
       this.bufferSize = conf.getInt("io.file.buffer.size", 4096);
       this.summer = new CRC32();
     }
@@ -91,7 +90,7 @@ public class DatanodePlugin
       try {
         reader = DFSClient.BlockReader.newBlockReader(getSocket(), block.path,
             block.blockId, block.genStamp, offset, length, bufferSize, true,
-            clientName);
+            serverContext.getClientName());
         byte[] buf = new byte[length];
         int n = reader.read(buf, 0, length);
         if (n == -1) {
@@ -237,8 +236,9 @@ public class DatanodePlugin
 
     @Override
     public TProcessor getProcessor(TTransport t) {
-      ThriftHandler impl = new ThriftHandler(thriftServer.getClientName(t));
-      UserGroupInformation ugi = thriftServer.getUserGroupInformation(t);
+      ThriftServerContext context = new ThriftServerContext(t);
+      ThriftHandler impl = new ThriftHandler(context);
+      UserGroupInformation ugi = impl.getUserGroupInformation();
       UserGroupInformation.setCurrentUser(ugi);
       LOG.info("Connection from user " + ugi);
       return new Datanode.Processor(impl);
