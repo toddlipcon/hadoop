@@ -1061,6 +1061,156 @@ sub write {
   return $xfer;
 }
 
+package Hadoop::API::Namenode_getHealthReport_args;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::Namenode_getHealthReport_args->mk_accessors( qw( ctx ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{ctx} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'Namenode_getHealthReport_args';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Namenode_getHealthReport_args');
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::Namenode_getHealthReport_result;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::Namenode_getHealthReport_result->mk_accessors( qw( success ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{success} = undef;
+$self->{err} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{success}) {
+      $self->{success} = $vals->{success};
+    }
+    if (defined $vals->{err}) {
+      $self->{err} = $vals->{err};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'Namenode_getHealthReport_result';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^0$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{success} = new Hadoop::API::DFSHealthReport();
+        $xfer += $self->{success}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{err} = new Hadoop::API::IOException();
+        $xfer += $self->{err}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('Namenode_getHealthReport_result');
+  if (defined $self->{success}) {
+    $xfer += $output->writeFieldBegin('success', TType::STRUCT, 0);
+    $xfer += $self->{success}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{err}) {
+    $xfer += $output->writeFieldBegin('err', TType::STRUCT, 1);
+    $xfer += $self->{err}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Hadoop::API::Namenode_getPreferredBlockSize_args;
 use Class::Accessor;
 use base('Class::Accessor');
@@ -3573,6 +3723,12 @@ sub getDatanodeReport{
 
   die 'implement interface';
 }
+sub getHealthReport{
+  my $self = shift;
+  my $ctx = shift;
+
+  die 'implement interface';
+}
 sub getPreferredBlockSize{
   my $self = shift;
   my $ctx = shift;
@@ -3750,6 +3906,14 @@ sub getDatanodeReport{
   my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $type = ($request->{'type'}) ? $request->{'type'} : undef;
   return $self->{impl}->getDatanodeReport($ctx, $type);
+}
+
+sub getHealthReport{
+  my $self = shift;
+  my $request = shift;
+
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  return $self->{impl}->getHealthReport($ctx);
 }
 
 sub getPreferredBlockSize{
@@ -4201,6 +4365,52 @@ sub recv_getDatanodeReport{
     die $result->{err};
   }
   die "getDatanodeReport failed: unknown result";
+}
+sub getHealthReport{
+  my $self = shift;
+  my $ctx = shift;
+
+    $self->send_getHealthReport($ctx);
+  return $self->recv_getHealthReport();
+}
+
+sub send_getHealthReport{
+  my $self = shift;
+  my $ctx = shift;
+
+  $self->{output}->writeMessageBegin('getHealthReport', TMessageType::CALL, $self->{seqid});
+  my $args = new Hadoop::API::Namenode_getHealthReport_args();
+  $args->{ctx} = $ctx;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_getHealthReport{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new Hadoop::API::Namenode_getHealthReport_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{success} ) {
+    return $result->{success};
+  }
+  if (defined $result->{err}) {
+    die $result->{err};
+  }
+  die "getHealthReport failed: unknown result";
 }
 sub getPreferredBlockSize{
   my $self = shift;
@@ -5058,6 +5268,22 @@ $result->{success} = $self->{handler}->getDatanodeReport($args->ctx, $args->type
 $result->{err} = $@;
 }
 $output->writeMessageBegin('getDatanodeReport', TMessageType::REPLY, $seqid);
+$result->write($output);
+$output->getTransport()->flush();
+}
+sub process_getHealthReport{
+my $self = shift;
+my ($seqid, $input, $output); 
+my $args = new Hadoop::API::Namenode_getHealthReport_args();
+$args->read($input);
+$input->readMessageEnd();
+my $result = new Hadoop::API::Namenode_getHealthReport_result();
+eval {
+$result->{success} = $self->{handler}->getHealthReport($args->ctx);
+}; if( UNIVERSAL::isa($@,'IOException') ){ 
+$result->{err} = $@;
+}
+$output->writeMessageBegin('getHealthReport', TMessageType::REPLY, $seqid);
 $result->write($output);
 $output->getTransport()->flush();
 }

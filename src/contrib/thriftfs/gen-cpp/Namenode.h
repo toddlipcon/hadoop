@@ -20,6 +20,7 @@ class NamenodeIf {
   virtual void enterSafeMode(const RequestContext& ctx) = 0;
   virtual void getBlocks(std::vector<Block> & _return, const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length) = 0;
   virtual void getDatanodeReport(std::vector<DatanodeInfo> & _return, const RequestContext& ctx, const DatanodeReportType type) = 0;
+  virtual void getHealthReport(DFSHealthReport& _return, const RequestContext& ctx) = 0;
   virtual int64_t getPreferredBlockSize(const RequestContext& ctx, const std::string& path) = 0;
   virtual bool isInSafeMode(const RequestContext& ctx) = 0;
   virtual void leaveSafeMode(const RequestContext& ctx) = 0;
@@ -56,6 +57,9 @@ class NamenodeNull : virtual public NamenodeIf {
     return;
   }
   void getDatanodeReport(std::vector<DatanodeInfo> & /* _return */, const RequestContext& /* ctx */, const DatanodeReportType /* type */) {
+    return;
+  }
+  void getHealthReport(DFSHealthReport& /* _return */, const RequestContext& /* ctx */) {
     return;
   }
   int64_t getPreferredBlockSize(const RequestContext& /* ctx */, const std::string& /* path */) {
@@ -720,6 +724,105 @@ class Namenode_getDatanodeReport_presult {
   virtual ~Namenode_getDatanodeReport_presult() throw() {}
 
   std::vector<DatanodeInfo> * success;
+  IOException err;
+
+  struct __isset {
+    __isset() : success(false), err(false) {}
+    bool success;
+    bool err;
+  } __isset;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+
+};
+
+class Namenode_getHealthReport_args {
+ public:
+
+  Namenode_getHealthReport_args() {
+  }
+
+  virtual ~Namenode_getHealthReport_args() throw() {}
+
+  RequestContext ctx;
+
+  struct __isset {
+    __isset() : ctx(false) {}
+    bool ctx;
+  } __isset;
+
+  bool operator == (const Namenode_getHealthReport_args & rhs) const
+  {
+    if (!(ctx == rhs.ctx))
+      return false;
+    return true;
+  }
+  bool operator != (const Namenode_getHealthReport_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const Namenode_getHealthReport_args & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class Namenode_getHealthReport_pargs {
+ public:
+
+
+  virtual ~Namenode_getHealthReport_pargs() throw() {}
+
+  const RequestContext* ctx;
+
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class Namenode_getHealthReport_result {
+ public:
+
+  Namenode_getHealthReport_result() {
+  }
+
+  virtual ~Namenode_getHealthReport_result() throw() {}
+
+  DFSHealthReport success;
+  IOException err;
+
+  struct __isset {
+    __isset() : success(false), err(false) {}
+    bool success;
+    bool err;
+  } __isset;
+
+  bool operator == (const Namenode_getHealthReport_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    if (!(err == rhs.err))
+      return false;
+    return true;
+  }
+  bool operator != (const Namenode_getHealthReport_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const Namenode_getHealthReport_result & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class Namenode_getHealthReport_presult {
+ public:
+
+
+  virtual ~Namenode_getHealthReport_presult() throw() {}
+
+  DFSHealthReport* success;
   IOException err;
 
   struct __isset {
@@ -2295,6 +2398,9 @@ class NamenodeClient : virtual public NamenodeIf {
   void getDatanodeReport(std::vector<DatanodeInfo> & _return, const RequestContext& ctx, const DatanodeReportType type);
   void send_getDatanodeReport(const RequestContext& ctx, const DatanodeReportType type);
   void recv_getDatanodeReport(std::vector<DatanodeInfo> & _return);
+  void getHealthReport(DFSHealthReport& _return, const RequestContext& ctx);
+  void send_getHealthReport(const RequestContext& ctx);
+  void recv_getHealthReport(DFSHealthReport& _return);
   int64_t getPreferredBlockSize(const RequestContext& ctx, const std::string& path);
   void send_getPreferredBlockSize(const RequestContext& ctx, const std::string& path);
   int64_t recv_getPreferredBlockSize();
@@ -2359,6 +2465,7 @@ class NamenodeProcessor : virtual public apache::thrift::TProcessor {
   void process_enterSafeMode(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
   void process_getBlocks(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
   void process_getDatanodeReport(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
+  void process_getHealthReport(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
   void process_getPreferredBlockSize(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
   void process_isInSafeMode(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
   void process_leaveSafeMode(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
@@ -2383,6 +2490,7 @@ class NamenodeProcessor : virtual public apache::thrift::TProcessor {
     processMap_["enterSafeMode"] = &NamenodeProcessor::process_enterSafeMode;
     processMap_["getBlocks"] = &NamenodeProcessor::process_getBlocks;
     processMap_["getDatanodeReport"] = &NamenodeProcessor::process_getDatanodeReport;
+    processMap_["getHealthReport"] = &NamenodeProcessor::process_getHealthReport;
     processMap_["getPreferredBlockSize"] = &NamenodeProcessor::process_getPreferredBlockSize;
     processMap_["isInSafeMode"] = &NamenodeProcessor::process_isInSafeMode;
     processMap_["leaveSafeMode"] = &NamenodeProcessor::process_leaveSafeMode;
@@ -2469,6 +2577,18 @@ class NamenodeMultiface : virtual public NamenodeIf {
         return;
       } else {
         ifaces_[i]->getDatanodeReport(_return, ctx, type);
+      }
+    }
+  }
+
+  void getHealthReport(DFSHealthReport& _return, const RequestContext& ctx) {
+    uint32_t sz = ifaces_.size();
+    for (uint32_t i = 0; i < sz; ++i) {
+      if (i == sz - 1) {
+        ifaces_[i]->getHealthReport(_return, ctx);
+        return;
+      } else {
+        ifaces_[i]->getHealthReport(_return, ctx);
       }
     }
   }

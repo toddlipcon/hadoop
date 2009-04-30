@@ -27,6 +27,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '  void enterSafeMode(RequestContext ctx)'
   print '   getBlocks(RequestContext ctx, string path, i64 offset, i64 length)'
   print '   getDatanodeReport(RequestContext ctx, DatanodeReportType type)'
+  print '  DFSHealthReport getHealthReport(RequestContext ctx)'
   print '  i64 getPreferredBlockSize(RequestContext ctx, string path)'
   print '  bool isInSafeMode(RequestContext ctx)'
   print '  void leaveSafeMode(RequestContext ctx)'
@@ -125,6 +126,12 @@ elif cmd == 'getDatanodeReport':
     print 'getDatanodeReport requires 2 args'
     sys.exit(1)
   pp.pprint(client.getDatanodeReport(eval(args[0]),eval(args[1]),))
+
+elif cmd == 'getHealthReport':
+  if len(args) != 1:
+    print 'getHealthReport requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.getHealthReport(eval(args[0]),))
 
 elif cmd == 'getPreferredBlockSize':
   if len(args) != 2:

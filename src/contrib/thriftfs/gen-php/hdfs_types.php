@@ -931,6 +931,335 @@ class hadoop_api_Stat {
 
 }
 
+class hadoop_api_UpgradeStatusReport {
+  static $_TSPEC;
+
+  public $version = null;
+  public $percentComplete = null;
+  public $finalized = null;
+  public $statusText = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'version',
+          'type' => TType::I32,
+          ),
+        2 => array(
+          'var' => 'percentComplete',
+          'type' => TType::I16,
+          ),
+        3 => array(
+          'var' => 'finalized',
+          'type' => TType::BOOL,
+          ),
+        4 => array(
+          'var' => 'statusText',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['version'])) {
+        $this->version = $vals['version'];
+      }
+      if (isset($vals['percentComplete'])) {
+        $this->percentComplete = $vals['percentComplete'];
+      }
+      if (isset($vals['finalized'])) {
+        $this->finalized = $vals['finalized'];
+      }
+      if (isset($vals['statusText'])) {
+        $this->statusText = $vals['statusText'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'UpgradeStatusReport';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::I32) {
+            $xfer += $input->readI32($this->version);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 2:
+          if ($ftype == TType::I16) {
+            $xfer += $input->readI16($this->percentComplete);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::BOOL) {
+            $xfer += $input->readBool($this->finalized);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 4:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->statusText);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('UpgradeStatusReport');
+    if ($this->version !== null) {
+      $xfer += $output->writeFieldBegin('version', TType::I32, 1);
+      $xfer += $output->writeI32($this->version);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->percentComplete !== null) {
+      $xfer += $output->writeFieldBegin('percentComplete', TType::I16, 2);
+      $xfer += $output->writeI16($this->percentComplete);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->finalized !== null) {
+      $xfer += $output->writeFieldBegin('finalized', TType::BOOL, 3);
+      $xfer += $output->writeBool($this->finalized);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->statusText !== null) {
+      $xfer += $output->writeFieldBegin('statusText', TType::STRING, 4);
+      $xfer += $output->writeString($this->statusText);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_DFSHealthReport {
+  static $_TSPEC;
+
+  public $bytesTotal = null;
+  public $bytesUsed = null;
+  public $bytesRemaining = null;
+  public $bytesNonDfs = null;
+  public $numLiveDataNodes = null;
+  public $numDeadDataNodes = null;
+  public $upgradeStatus = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'bytesTotal',
+          'type' => TType::I64,
+          ),
+        2 => array(
+          'var' => 'bytesUsed',
+          'type' => TType::I64,
+          ),
+        3 => array(
+          'var' => 'bytesRemaining',
+          'type' => TType::I64,
+          ),
+        4 => array(
+          'var' => 'bytesNonDfs',
+          'type' => TType::I64,
+          ),
+        5 => array(
+          'var' => 'numLiveDataNodes',
+          'type' => TType::I32,
+          ),
+        6 => array(
+          'var' => 'numDeadDataNodes',
+          'type' => TType::I32,
+          ),
+        7 => array(
+          'var' => 'upgradeStatus',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_UpgradeStatusReport',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['bytesTotal'])) {
+        $this->bytesTotal = $vals['bytesTotal'];
+      }
+      if (isset($vals['bytesUsed'])) {
+        $this->bytesUsed = $vals['bytesUsed'];
+      }
+      if (isset($vals['bytesRemaining'])) {
+        $this->bytesRemaining = $vals['bytesRemaining'];
+      }
+      if (isset($vals['bytesNonDfs'])) {
+        $this->bytesNonDfs = $vals['bytesNonDfs'];
+      }
+      if (isset($vals['numLiveDataNodes'])) {
+        $this->numLiveDataNodes = $vals['numLiveDataNodes'];
+      }
+      if (isset($vals['numDeadDataNodes'])) {
+        $this->numDeadDataNodes = $vals['numDeadDataNodes'];
+      }
+      if (isset($vals['upgradeStatus'])) {
+        $this->upgradeStatus = $vals['upgradeStatus'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'DFSHealthReport';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->bytesTotal);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 2:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->bytesUsed);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->bytesRemaining);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 4:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->bytesNonDfs);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 5:
+          if ($ftype == TType::I32) {
+            $xfer += $input->readI32($this->numLiveDataNodes);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 6:
+          if ($ftype == TType::I32) {
+            $xfer += $input->readI32($this->numDeadDataNodes);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 7:
+          if ($ftype == TType::STRUCT) {
+            $this->upgradeStatus = new hadoop_api_UpgradeStatusReport();
+            $xfer += $this->upgradeStatus->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('DFSHealthReport');
+    if ($this->bytesTotal !== null) {
+      $xfer += $output->writeFieldBegin('bytesTotal', TType::I64, 1);
+      $xfer += $output->writeI64($this->bytesTotal);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->bytesUsed !== null) {
+      $xfer += $output->writeFieldBegin('bytesUsed', TType::I64, 2);
+      $xfer += $output->writeI64($this->bytesUsed);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->bytesRemaining !== null) {
+      $xfer += $output->writeFieldBegin('bytesRemaining', TType::I64, 3);
+      $xfer += $output->writeI64($this->bytesRemaining);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->bytesNonDfs !== null) {
+      $xfer += $output->writeFieldBegin('bytesNonDfs', TType::I64, 4);
+      $xfer += $output->writeI64($this->bytesNonDfs);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->numLiveDataNodes !== null) {
+      $xfer += $output->writeFieldBegin('numLiveDataNodes', TType::I32, 5);
+      $xfer += $output->writeI32($this->numLiveDataNodes);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->numDeadDataNodes !== null) {
+      $xfer += $output->writeFieldBegin('numDeadDataNodes', TType::I32, 6);
+      $xfer += $output->writeI32($this->numDeadDataNodes);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->upgradeStatus !== null) {
+      if (!is_object($this->upgradeStatus)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('upgradeStatus', TType::STRUCT, 7);
+      $xfer += $this->upgradeStatus->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
 class hadoop_api_IOException extends TException {
   static $_TSPEC;
 

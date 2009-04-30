@@ -274,6 +274,112 @@ class Stat {
 
 };
 
+class UpgradeStatusReport {
+ public:
+
+  static const char* ascii_fingerprint; // = "0A41605BC06C1358EE032339772FB61E";
+  static const uint8_t binary_fingerprint[16]; // = {0x0A,0x41,0x60,0x5B,0xC0,0x6C,0x13,0x58,0xEE,0x03,0x23,0x39,0x77,0x2F,0xB6,0x1E};
+
+  UpgradeStatusReport() : version(0), percentComplete(0), finalized(0), statusText("") {
+  }
+
+  virtual ~UpgradeStatusReport() throw() {}
+
+  int32_t version;
+  int16_t percentComplete;
+  bool finalized;
+  std::string statusText;
+
+  struct __isset {
+    __isset() : version(false), percentComplete(false), finalized(false), statusText(false) {}
+    bool version;
+    bool percentComplete;
+    bool finalized;
+    bool statusText;
+  } __isset;
+
+  bool operator == (const UpgradeStatusReport & rhs) const
+  {
+    if (!(version == rhs.version))
+      return false;
+    if (!(percentComplete == rhs.percentComplete))
+      return false;
+    if (!(finalized == rhs.finalized))
+      return false;
+    if (!(statusText == rhs.statusText))
+      return false;
+    return true;
+  }
+  bool operator != (const UpgradeStatusReport &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const UpgradeStatusReport & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class DFSHealthReport {
+ public:
+
+  static const char* ascii_fingerprint; // = "65FF16815727A17D0DBB605ADEEB0B8F";
+  static const uint8_t binary_fingerprint[16]; // = {0x65,0xFF,0x16,0x81,0x57,0x27,0xA1,0x7D,0x0D,0xBB,0x60,0x5A,0xDE,0xEB,0x0B,0x8F};
+
+  DFSHealthReport() : bytesTotal(0), bytesUsed(0), bytesRemaining(0), bytesNonDfs(0), numLiveDataNodes(0), numDeadDataNodes(0) {
+  }
+
+  virtual ~DFSHealthReport() throw() {}
+
+  int64_t bytesTotal;
+  int64_t bytesUsed;
+  int64_t bytesRemaining;
+  int64_t bytesNonDfs;
+  int32_t numLiveDataNodes;
+  int32_t numDeadDataNodes;
+  UpgradeStatusReport upgradeStatus;
+
+  struct __isset {
+    __isset() : bytesTotal(false), bytesUsed(false), bytesRemaining(false), bytesNonDfs(false), numLiveDataNodes(false), numDeadDataNodes(false), upgradeStatus(false) {}
+    bool bytesTotal;
+    bool bytesUsed;
+    bool bytesRemaining;
+    bool bytesNonDfs;
+    bool numLiveDataNodes;
+    bool numDeadDataNodes;
+    bool upgradeStatus;
+  } __isset;
+
+  bool operator == (const DFSHealthReport & rhs) const
+  {
+    if (!(bytesTotal == rhs.bytesTotal))
+      return false;
+    if (!(bytesUsed == rhs.bytesUsed))
+      return false;
+    if (!(bytesRemaining == rhs.bytesRemaining))
+      return false;
+    if (!(bytesNonDfs == rhs.bytesNonDfs))
+      return false;
+    if (!(numLiveDataNodes == rhs.numLiveDataNodes))
+      return false;
+    if (!(numDeadDataNodes == rhs.numDeadDataNodes))
+      return false;
+    if (!(upgradeStatus == rhs.upgradeStatus))
+      return false;
+    return true;
+  }
+  bool operator != (const DFSHealthReport &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const DFSHealthReport & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
 class IOException : public apache::thrift::TException {
  public:
 

@@ -566,6 +566,213 @@ uint32_t Stat::write(apache::thrift::protocol::TProtocol* oprot) const {
   return xfer;
 }
 
+const char* UpgradeStatusReport::ascii_fingerprint = "0A41605BC06C1358EE032339772FB61E";
+const uint8_t UpgradeStatusReport::binary_fingerprint[16] = {0x0A,0x41,0x60,0x5B,0xC0,0x6C,0x13,0x58,0xEE,0x03,0x23,0x39,0x77,0x2F,0xB6,0x1E};
+
+uint32_t UpgradeStatusReport::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->version);
+          this->__isset.version = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == apache::thrift::protocol::T_I16) {
+          xfer += iprot->readI16(this->percentComplete);
+          this->__isset.percentComplete = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->finalized);
+          this->__isset.finalized = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 4:
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->statusText);
+          this->__isset.statusText = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t UpgradeStatusReport::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("UpgradeStatusReport");
+  xfer += oprot->writeFieldBegin("version", apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32(this->version);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("percentComplete", apache::thrift::protocol::T_I16, 2);
+  xfer += oprot->writeI16(this->percentComplete);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("finalized", apache::thrift::protocol::T_BOOL, 3);
+  xfer += oprot->writeBool(this->finalized);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("statusText", apache::thrift::protocol::T_STRING, 4);
+  xfer += oprot->writeString(this->statusText);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+const char* DFSHealthReport::ascii_fingerprint = "65FF16815727A17D0DBB605ADEEB0B8F";
+const uint8_t DFSHealthReport::binary_fingerprint[16] = {0x65,0xFF,0x16,0x81,0x57,0x27,0xA1,0x7D,0x0D,0xBB,0x60,0x5A,0xDE,0xEB,0x0B,0x8F};
+
+uint32_t DFSHealthReport::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->bytesTotal);
+          this->__isset.bytesTotal = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->bytesUsed);
+          this->__isset.bytesUsed = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->bytesRemaining);
+          this->__isset.bytesRemaining = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 4:
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->bytesNonDfs);
+          this->__isset.bytesNonDfs = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 5:
+        if (ftype == apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->numLiveDataNodes);
+          this->__isset.numLiveDataNodes = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 6:
+        if (ftype == apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->numDeadDataNodes);
+          this->__isset.numDeadDataNodes = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 7:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->upgradeStatus.read(iprot);
+          this->__isset.upgradeStatus = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t DFSHealthReport::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("DFSHealthReport");
+  xfer += oprot->writeFieldBegin("bytesTotal", apache::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeI64(this->bytesTotal);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("bytesUsed", apache::thrift::protocol::T_I64, 2);
+  xfer += oprot->writeI64(this->bytesUsed);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("bytesRemaining", apache::thrift::protocol::T_I64, 3);
+  xfer += oprot->writeI64(this->bytesRemaining);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("bytesNonDfs", apache::thrift::protocol::T_I64, 4);
+  xfer += oprot->writeI64(this->bytesNonDfs);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("numLiveDataNodes", apache::thrift::protocol::T_I32, 5);
+  xfer += oprot->writeI32(this->numLiveDataNodes);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("numDeadDataNodes", apache::thrift::protocol::T_I32, 6);
+  xfer += oprot->writeI32(this->numDeadDataNodes);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("upgradeStatus", apache::thrift::protocol::T_STRUCT, 7);
+  xfer += this->upgradeStatus.write(oprot);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
 const char* IOException::ascii_fingerprint = "AB879940BD15B6B25691265F7384B271";
 const uint8_t IOException::binary_fingerprint[16] = {0xAB,0x87,0x99,0x40,0xBD,0x15,0xB6,0xB2,0x56,0x91,0x26,0x5F,0x73,0x84,0xB2,0x71};
 

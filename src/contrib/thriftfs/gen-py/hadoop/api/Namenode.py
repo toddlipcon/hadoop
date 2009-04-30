@@ -92,6 +92,15 @@ class Iface:
     """
     pass
 
+  def getHealthReport(self, ctx):
+    """
+    Get a health report of DFS
+    
+    Parameters:
+     - ctx
+    """
+    pass
+
   def getPreferredBlockSize(self, ctx, path):
     """
     Get the preferred block size for the given file.
@@ -521,6 +530,40 @@ class Client(Iface):
     if result.err != None:
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "getDatanodeReport failed: unknown result");
+
+  def getHealthReport(self, ctx):
+    """
+    Get a health report of DFS
+    
+    Parameters:
+     - ctx
+    """
+    self.send_getHealthReport(ctx)
+    return self.recv_getHealthReport()
+
+  def send_getHealthReport(self, ctx):
+    self._oprot.writeMessageBegin('getHealthReport', TMessageType.CALL, self._seqid)
+    args = getHealthReport_args()
+    args.ctx = ctx
+    args.write(self._oprot)
+    self._oprot.writeMessageEnd()
+    self._oprot.trans.flush()
+
+  def recv_getHealthReport(self, ):
+    (fname, mtype, rseqid) = self._iprot.readMessageBegin()
+    if mtype == TMessageType.EXCEPTION:
+      x = TApplicationException()
+      x.read(self._iprot)
+      self._iprot.readMessageEnd()
+      raise x
+    result = getHealthReport_result()
+    result.read(self._iprot)
+    self._iprot.readMessageEnd()
+    if result.success != None:
+      return result.success
+    if result.err != None:
+      raise result.err
+    raise TApplicationException(TApplicationException.MISSING_RESULT, "getHealthReport failed: unknown result");
 
   def getPreferredBlockSize(self, ctx, path):
     """
@@ -1105,6 +1148,7 @@ class Processor(Iface, TProcessor):
     self._processMap["enterSafeMode"] = Processor.process_enterSafeMode
     self._processMap["getBlocks"] = Processor.process_getBlocks
     self._processMap["getDatanodeReport"] = Processor.process_getDatanodeReport
+    self._processMap["getHealthReport"] = Processor.process_getHealthReport
     self._processMap["getPreferredBlockSize"] = Processor.process_getPreferredBlockSize
     self._processMap["isInSafeMode"] = Processor.process_isInSafeMode
     self._processMap["leaveSafeMode"] = Processor.process_leaveSafeMode
@@ -1216,6 +1260,20 @@ class Processor(Iface, TProcessor):
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("getDatanodeReport", TMessageType.REPLY, seqid)
+    result.write(oprot)
+    oprot.writeMessageEnd()
+    oprot.trans.flush()
+
+  def process_getHealthReport(self, seqid, iprot, oprot):
+    args = getHealthReport_args()
+    args.read(iprot)
+    iprot.readMessageEnd()
+    result = getHealthReport_result()
+    try:
+      result.success = self._handler.getHealthReport(args.ctx)
+    except IOException, err:
+      result.err = err
+    oprot.writeMessageBegin("getHealthReport", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
     oprot.trans.flush()
@@ -2305,6 +2363,141 @@ class getDatanodeReport_result:
       for iter36 in self.success:
         iter36.write(oprot)
       oprot.writeListEnd()
+      oprot.writeFieldEnd()
+    if self.err != None:
+      oprot.writeFieldBegin('err', TType.STRUCT, 1)
+      self.err.write(oprot)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class getHealthReport_args:
+  """
+  Attributes:
+   - ctx
+  """
+
+  thrift_spec = (
+    None, # 0
+    None, # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
+  )
+
+  def __init__(self, ctx=None,):
+    self.ctx = ctx
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('getHealthReport_args')
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class getHealthReport_result:
+  """
+  Attributes:
+   - success
+   - err
+  """
+
+  thrift_spec = (
+    (0, TType.STRUCT, 'success', (DFSHealthReport, DFSHealthReport.thrift_spec), None, ), # 0
+    (1, TType.STRUCT, 'err', (IOException, IOException.thrift_spec), None, ), # 1
+  )
+
+  def __init__(self, success=None, err=None,):
+    self.success = success
+    self.err = err
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 0:
+        if ftype == TType.STRUCT:
+          self.success = DFSHealthReport()
+          self.success.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
+        if ftype == TType.STRUCT:
+          self.err = IOException()
+          self.err.read(iprot)
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('getHealthReport_result')
+    if self.success != None:
+      oprot.writeFieldBegin('success', TType.STRUCT, 0)
+      self.success.write(oprot)
       oprot.writeFieldEnd()
     if self.err != None:
       oprot.writeFieldBegin('err', TType.STRUCT, 1)

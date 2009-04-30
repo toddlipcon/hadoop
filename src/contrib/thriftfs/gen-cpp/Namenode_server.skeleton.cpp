@@ -52,6 +52,11 @@ class NamenodeHandler : virtual public NamenodeIf {
     printf("getDatanodeReport\n");
   }
 
+  void getHealthReport(DFSHealthReport& _return, const RequestContext& ctx) {
+    // Your implementation goes here
+    printf("getHealthReport\n");
+  }
+
   int64_t getPreferredBlockSize(const RequestContext& ctx, const std::string& path) {
     // Your implementation goes here
     printf("getPreferredBlockSize\n");

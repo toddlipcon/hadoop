@@ -253,6 +253,94 @@ enum DatanodeState {
 
 @end
 
+@interface UpgradeStatusReport : NSObject {
+  int32_t __version;
+  int16_t __percentComplete;
+  BOOL __finalized;
+  NSString * __statusText;
+
+  BOOL __version_isset;
+  BOOL __percentComplete_isset;
+  BOOL __finalized_isset;
+  BOOL __statusText_isset;
+}
+
+- (id) initWithVersion: (int32_t) version percentComplete: (int16_t) percentComplete finalized: (BOOL) finalized statusText: (NSString *) statusText;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (int32_t) version;
+- (void) setVersion: (int32_t) version;
+- (BOOL) versionIsSet;
+
+- (int16_t) percentComplete;
+- (void) setPercentComplete: (int16_t) percentComplete;
+- (BOOL) percentCompleteIsSet;
+
+- (BOOL) finalized;
+- (void) setFinalized: (BOOL) finalized;
+- (BOOL) finalizedIsSet;
+
+- (NSString *) statusText;
+- (void) setStatusText: (NSString *) statusText;
+- (BOOL) statusTextIsSet;
+
+@end
+
+@interface DFSHealthReport : NSObject {
+  int64_t __bytesTotal;
+  int64_t __bytesUsed;
+  int64_t __bytesRemaining;
+  int64_t __bytesNonDfs;
+  int32_t __numLiveDataNodes;
+  int32_t __numDeadDataNodes;
+  UpgradeStatusReport * __upgradeStatus;
+
+  BOOL __bytesTotal_isset;
+  BOOL __bytesUsed_isset;
+  BOOL __bytesRemaining_isset;
+  BOOL __bytesNonDfs_isset;
+  BOOL __numLiveDataNodes_isset;
+  BOOL __numDeadDataNodes_isset;
+  BOOL __upgradeStatus_isset;
+}
+
+- (id) initWithBytesTotal: (int64_t) bytesTotal bytesUsed: (int64_t) bytesUsed bytesRemaining: (int64_t) bytesRemaining bytesNonDfs: (int64_t) bytesNonDfs numLiveDataNodes: (int32_t) numLiveDataNodes numDeadDataNodes: (int32_t) numDeadDataNodes upgradeStatus: (UpgradeStatusReport *) upgradeStatus;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (int64_t) bytesTotal;
+- (void) setBytesTotal: (int64_t) bytesTotal;
+- (BOOL) bytesTotalIsSet;
+
+- (int64_t) bytesUsed;
+- (void) setBytesUsed: (int64_t) bytesUsed;
+- (BOOL) bytesUsedIsSet;
+
+- (int64_t) bytesRemaining;
+- (void) setBytesRemaining: (int64_t) bytesRemaining;
+- (BOOL) bytesRemainingIsSet;
+
+- (int64_t) bytesNonDfs;
+- (void) setBytesNonDfs: (int64_t) bytesNonDfs;
+- (BOOL) bytesNonDfsIsSet;
+
+- (int32_t) numLiveDataNodes;
+- (void) setNumLiveDataNodes: (int32_t) numLiveDataNodes;
+- (BOOL) numLiveDataNodesIsSet;
+
+- (int32_t) numDeadDataNodes;
+- (void) setNumDeadDataNodes: (int32_t) numDeadDataNodes;
+- (BOOL) numDeadDataNodesIsSet;
+
+- (UpgradeStatusReport *) upgradeStatus;
+- (void) setUpgradeStatus: (UpgradeStatusReport *) upgradeStatus;
+- (BOOL) upgradeStatusIsSet;
+
+@end
+
 @interface IOException : NSException {
   NSString * __msg;
   NSString * __stack;
@@ -341,6 +429,7 @@ enum DatanodeState {
 - (void) enterSafeMode: (RequestContext *) ctx;  // throws IOException *, TException
 - (NSArray *) getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length;  // throws IOException *, TException
 - (NSArray *) getDatanodeReport: (RequestContext *) ctx : (int) type;  // throws IOException *, TException
+- (DFSHealthReport *) getHealthReport: (RequestContext *) ctx;  // throws IOException *, TException
 - (int64_t) getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path;  // throws IOException *, TException
 - (BOOL) isInSafeMode: (RequestContext *) ctx;  // throws IOException *, TException
 - (void) leaveSafeMode: (RequestContext *) ctx;  // throws IOException *, TException

@@ -191,6 +191,38 @@ struct Stat {
   15: i16 replication
 }
 
+
+struct UpgradeStatusReport {
+  1: i32 version
+  2: i16 percentComplete
+  3: bool finalized
+
+  /** The informative text that is the same as is shown on the NN web UI */
+  4: string statusText
+}
+
+/**
+ * Information that mirrors the "health report" information available on the
+ * NameNode web UI
+ */
+struct DFSHealthReport {
+  1: i64 bytesTotal
+  2: i64 bytesUsed
+  3: i64 bytesRemaining
+  4: i64 bytesNonDfs
+
+  /** How many datanodes are considered live */
+  5: i32 numLiveDataNodes
+  /** How many datanodes are considered dead */
+  6: i32 numDeadDataNodes
+
+  /**
+   * Status of the current running upgrade. If no upgrade
+   * is running, this will be null.
+   */
+  7: UpgradeStatusReport upgradeStatus
+}
+
 /** Generic I/O error */
 exception IOException {
   /** Error message. */
@@ -276,6 +308,9 @@ service Namenode {
                                         */
                                        1: DatanodeReportType type)
                                           throws (1: IOException err),
+
+  /** Get a health report of DFS */
+  DFSHealthReport getHealthReport(10: RequestContext ctx) throws (1: IOException err),
 
   /**
    * Get the preferred block size for the given file.

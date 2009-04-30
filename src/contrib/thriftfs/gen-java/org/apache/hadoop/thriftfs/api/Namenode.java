@@ -91,6 +91,13 @@ public class Namenode {
     public List<DatanodeInfo> getDatanodeReport(RequestContext ctx, int type) throws IOException, TException;
 
     /**
+     * Get a health report of DFS
+     * 
+     * @param ctx
+     */
+    public DFSHealthReport getHealthReport(RequestContext ctx) throws IOException, TException;
+
+    /**
      * Get the preferred block size for the given file.
      * 
      * The path must exist, or IOException is thrown.
@@ -508,6 +515,42 @@ public class Namenode {
         throw result.err;
       }
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "getDatanodeReport failed: unknown result");
+    }
+
+    public DFSHealthReport getHealthReport(RequestContext ctx) throws IOException, TException
+    {
+      send_getHealthReport(ctx);
+      return recv_getHealthReport();
+    }
+
+    public void send_getHealthReport(RequestContext ctx) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("getHealthReport", TMessageType.CALL, seqid_));
+      getHealthReport_args args = new getHealthReport_args();
+      args.ctx = ctx;
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public DFSHealthReport recv_getHealthReport() throws IOException, TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      getHealthReport_result result = new getHealthReport_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.err != null) {
+        throw result.err;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "getHealthReport failed: unknown result");
     }
 
     public long getPreferredBlockSize(RequestContext ctx, String path) throws IOException, TException
@@ -1056,6 +1099,7 @@ public class Namenode {
       processMap_.put("enterSafeMode", new enterSafeMode());
       processMap_.put("getBlocks", new getBlocks());
       processMap_.put("getDatanodeReport", new getDatanodeReport());
+      processMap_.put("getHealthReport", new getHealthReport());
       processMap_.put("getPreferredBlockSize", new getPreferredBlockSize());
       processMap_.put("isInSafeMode", new isInSafeMode());
       processMap_.put("leaveSafeMode", new leaveSafeMode());
@@ -1211,6 +1255,26 @@ public class Namenode {
           result.err = err;
         }
         oprot.writeMessageBegin(new TMessage("getDatanodeReport", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
+    private class getHealthReport implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        getHealthReport_args args = new getHealthReport_args();
+        args.read(iprot);
+        iprot.readMessageEnd();
+        getHealthReport_result result = new getHealthReport_result();
+        try {
+          result.success = iface_.getHealthReport(args.ctx);
+        } catch (IOException err) {
+          result.err = err;
+        }
+        oprot.writeMessageBegin(new TMessage("getHealthReport", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
         oprot.getTransport().flush();
@@ -4966,6 +5030,480 @@ public class Namenode {
     @Override
     public String toString() {
       StringBuilder sb = new StringBuilder("getDatanodeReport_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("err:");
+      if (this.err == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.err);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+      // check that fields of type enum have valid values
+    }
+
+  }
+
+  public static class getHealthReport_args implements TBase, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("getHealthReport_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
+
+    public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
+    }});
+
+    static {
+      FieldMetaData.addStructMetaDataMap(getHealthReport_args.class, metaDataMap);
+    }
+
+    public getHealthReport_args() {
+    }
+
+    public getHealthReport_args(
+      RequestContext ctx)
+    {
+      this();
+      this.ctx = ctx;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getHealthReport_args(getHealthReport_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
+    }
+
+    @Override
+    public getHealthReport_args clone() {
+      return new getHealthReport_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
+    public void setFieldValue(int fieldID, Object value) {
+      switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    public Object getFieldValue(int fieldID) {
+      switch (fieldID) {
+      case CTX:
+        return getCtx();
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
+    public boolean isSet(int fieldID) {
+      switch (fieldID) {
+      case CTX:
+        return isSetCtx();
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getHealthReport_args)
+        return this.equals((getHealthReport_args)that);
+      return false;
+    }
+
+    public boolean equals(getHealthReport_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id)
+        {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+            break;
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getHealthReport_args(");
+      boolean first = true;
+
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+      // check that fields of type enum have valid values
+    }
+
+  }
+
+  public static class getHealthReport_result implements TBase, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("getHealthReport_result");
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.STRUCT, (short)0);
+    private static final TField ERR_FIELD_DESC = new TField("err", TType.STRUCT, (short)1);
+
+    public DFSHealthReport success;
+    public static final int SUCCESS = 0;
+    public IOException err;
+    public static final int ERR = 1;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
+
+    public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, DFSHealthReport.class)));
+      put(ERR, new FieldMetaData("err", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRUCT)));
+    }});
+
+    static {
+      FieldMetaData.addStructMetaDataMap(getHealthReport_result.class, metaDataMap);
+    }
+
+    public getHealthReport_result() {
+    }
+
+    public getHealthReport_result(
+      DFSHealthReport success,
+      IOException err)
+    {
+      this();
+      this.success = success;
+      this.err = err;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getHealthReport_result(getHealthReport_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new DFSHealthReport(other.success);
+      }
+      if (other.isSetErr()) {
+        this.err = new IOException(other.err);
+      }
+    }
+
+    @Override
+    public getHealthReport_result clone() {
+      return new getHealthReport_result(this);
+    }
+
+    public DFSHealthReport getSuccess() {
+      return this.success;
+    }
+
+    public void setSuccess(DFSHealthReport success) {
+      this.success = success;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    // Returns true if field success is set (has been asigned a value) and false otherwise
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public IOException getErr() {
+      return this.err;
+    }
+
+    public void setErr(IOException err) {
+      this.err = err;
+    }
+
+    public void unsetErr() {
+      this.err = null;
+    }
+
+    // Returns true if field err is set (has been asigned a value) and false otherwise
+    public boolean isSetErr() {
+      return this.err != null;
+    }
+
+    public void setErrIsSet(boolean value) {
+      if (!value) {
+        this.err = null;
+      }
+    }
+
+    public void setFieldValue(int fieldID, Object value) {
+      switch (fieldID) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((DFSHealthReport)value);
+        }
+        break;
+
+      case ERR:
+        if (value == null) {
+          unsetErr();
+        } else {
+          setErr((IOException)value);
+        }
+        break;
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    public Object getFieldValue(int fieldID) {
+      switch (fieldID) {
+      case SUCCESS:
+        return getSuccess();
+
+      case ERR:
+        return getErr();
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
+    public boolean isSet(int fieldID) {
+      switch (fieldID) {
+      case SUCCESS:
+        return isSetSuccess();
+      case ERR:
+        return isSetErr();
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getHealthReport_result)
+        return this.equals((getHealthReport_result)that);
+      return false;
+    }
+
+    public boolean equals(getHealthReport_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_err = true && this.isSetErr();
+      boolean that_present_err = true && that.isSetErr();
+      if (this_present_err || that_present_err) {
+        if (!(this_present_err && that_present_err))
+          return false;
+        if (!this.err.equals(that.err))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id)
+        {
+          case SUCCESS:
+            if (field.type == TType.STRUCT) {
+              this.success = new DFSHealthReport();
+              this.success.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case ERR:
+            if (field.type == TType.STRUCT) {
+              this.err = new IOException();
+              this.err.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+            break;
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        this.success.write(oprot);
+        oprot.writeFieldEnd();
+      } else if (this.isSetErr()) {
+        oprot.writeFieldBegin(ERR_FIELD_DESC);
+        this.err.write(oprot);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getHealthReport_result(");
       boolean first = true;
 
       sb.append("success:");

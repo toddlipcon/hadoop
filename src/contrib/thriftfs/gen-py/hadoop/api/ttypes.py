@@ -610,6 +610,231 @@ class Stat:
   def __ne__(self, other):
     return not (self == other)
 
+class UpgradeStatusReport:
+  """
+  Attributes:
+   - version
+   - percentComplete
+   - finalized
+   - statusText: The informative text that is the same as is shown on the NN web UI
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.I32, 'version', None, None, ), # 1
+    (2, TType.I16, 'percentComplete', None, None, ), # 2
+    (3, TType.BOOL, 'finalized', None, None, ), # 3
+    (4, TType.STRING, 'statusText', None, None, ), # 4
+  )
+
+  def __init__(self, version=None, percentComplete=None, finalized=None, statusText=None,):
+    self.version = version
+    self.percentComplete = percentComplete
+    self.finalized = finalized
+    self.statusText = statusText
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.I32:
+          self.version = iprot.readI32();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.I16:
+          self.percentComplete = iprot.readI16();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.BOOL:
+          self.finalized = iprot.readBool();
+        else:
+          iprot.skip(ftype)
+      elif fid == 4:
+        if ftype == TType.STRING:
+          self.statusText = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('UpgradeStatusReport')
+    if self.version != None:
+      oprot.writeFieldBegin('version', TType.I32, 1)
+      oprot.writeI32(self.version)
+      oprot.writeFieldEnd()
+    if self.percentComplete != None:
+      oprot.writeFieldBegin('percentComplete', TType.I16, 2)
+      oprot.writeI16(self.percentComplete)
+      oprot.writeFieldEnd()
+    if self.finalized != None:
+      oprot.writeFieldBegin('finalized', TType.BOOL, 3)
+      oprot.writeBool(self.finalized)
+      oprot.writeFieldEnd()
+    if self.statusText != None:
+      oprot.writeFieldBegin('statusText', TType.STRING, 4)
+      oprot.writeString(self.statusText)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class DFSHealthReport:
+  """
+  Information that mirrors the "health report" information available on the
+  NameNode web UI
+  
+  Attributes:
+   - bytesTotal
+   - bytesUsed
+   - bytesRemaining
+   - bytesNonDfs
+   - numLiveDataNodes: How many datanodes are considered live
+   - numDeadDataNodes: How many datanodes are considered dead
+   - upgradeStatus: Status of the current running upgrade. If no upgrade
+  is running, this will be null.
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.I64, 'bytesTotal', None, None, ), # 1
+    (2, TType.I64, 'bytesUsed', None, None, ), # 2
+    (3, TType.I64, 'bytesRemaining', None, None, ), # 3
+    (4, TType.I64, 'bytesNonDfs', None, None, ), # 4
+    (5, TType.I32, 'numLiveDataNodes', None, None, ), # 5
+    (6, TType.I32, 'numDeadDataNodes', None, None, ), # 6
+    (7, TType.STRUCT, 'upgradeStatus', (UpgradeStatusReport, UpgradeStatusReport.thrift_spec), None, ), # 7
+  )
+
+  def __init__(self, bytesTotal=None, bytesUsed=None, bytesRemaining=None, bytesNonDfs=None, numLiveDataNodes=None, numDeadDataNodes=None, upgradeStatus=None,):
+    self.bytesTotal = bytesTotal
+    self.bytesUsed = bytesUsed
+    self.bytesRemaining = bytesRemaining
+    self.bytesNonDfs = bytesNonDfs
+    self.numLiveDataNodes = numLiveDataNodes
+    self.numDeadDataNodes = numDeadDataNodes
+    self.upgradeStatus = upgradeStatus
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.I64:
+          self.bytesTotal = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.I64:
+          self.bytesUsed = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.I64:
+          self.bytesRemaining = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      elif fid == 4:
+        if ftype == TType.I64:
+          self.bytesNonDfs = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      elif fid == 5:
+        if ftype == TType.I32:
+          self.numLiveDataNodes = iprot.readI32();
+        else:
+          iprot.skip(ftype)
+      elif fid == 6:
+        if ftype == TType.I32:
+          self.numDeadDataNodes = iprot.readI32();
+        else:
+          iprot.skip(ftype)
+      elif fid == 7:
+        if ftype == TType.STRUCT:
+          self.upgradeStatus = UpgradeStatusReport()
+          self.upgradeStatus.read(iprot)
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('DFSHealthReport')
+    if self.bytesTotal != None:
+      oprot.writeFieldBegin('bytesTotal', TType.I64, 1)
+      oprot.writeI64(self.bytesTotal)
+      oprot.writeFieldEnd()
+    if self.bytesUsed != None:
+      oprot.writeFieldBegin('bytesUsed', TType.I64, 2)
+      oprot.writeI64(self.bytesUsed)
+      oprot.writeFieldEnd()
+    if self.bytesRemaining != None:
+      oprot.writeFieldBegin('bytesRemaining', TType.I64, 3)
+      oprot.writeI64(self.bytesRemaining)
+      oprot.writeFieldEnd()
+    if self.bytesNonDfs != None:
+      oprot.writeFieldBegin('bytesNonDfs', TType.I64, 4)
+      oprot.writeI64(self.bytesNonDfs)
+      oprot.writeFieldEnd()
+    if self.numLiveDataNodes != None:
+      oprot.writeFieldBegin('numLiveDataNodes', TType.I32, 5)
+      oprot.writeI32(self.numLiveDataNodes)
+      oprot.writeFieldEnd()
+    if self.numDeadDataNodes != None:
+      oprot.writeFieldBegin('numDeadDataNodes', TType.I32, 6)
+      oprot.writeI32(self.numDeadDataNodes)
+      oprot.writeFieldEnd()
+    if self.upgradeStatus != None:
+      oprot.writeFieldBegin('upgradeStatus', TType.STRUCT, 7)
+      self.upgradeStatus.write(oprot)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
 class IOException(Exception):
   """
   Generic I/O error

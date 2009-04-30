@@ -732,6 +732,274 @@ sub write {
   return $xfer;
 }
 
+package Hadoop::API::UpgradeStatusReport;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::UpgradeStatusReport->mk_accessors( qw( version percentComplete finalized statusText ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{version} = undef;
+$self->{percentComplete} = undef;
+$self->{finalized} = undef;
+$self->{statusText} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{version}) {
+      $self->{version} = $vals->{version};
+    }
+    if (defined $vals->{percentComplete}) {
+      $self->{percentComplete} = $vals->{percentComplete};
+    }
+    if (defined $vals->{finalized}) {
+      $self->{finalized} = $vals->{finalized};
+    }
+    if (defined $vals->{statusText}) {
+      $self->{statusText} = $vals->{statusText};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'UpgradeStatusReport';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{version});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::I16) {
+        $xfer += $input->readI16(\$self->{percentComplete});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::BOOL) {
+        $xfer += $input->readBool(\$self->{finalized});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{statusText});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('UpgradeStatusReport');
+  if (defined $self->{version}) {
+    $xfer += $output->writeFieldBegin('version', TType::I32, 1);
+    $xfer += $output->writeI32($self->{version});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{percentComplete}) {
+    $xfer += $output->writeFieldBegin('percentComplete', TType::I16, 2);
+    $xfer += $output->writeI16($self->{percentComplete});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{finalized}) {
+    $xfer += $output->writeFieldBegin('finalized', TType::BOOL, 3);
+    $xfer += $output->writeBool($self->{finalized});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{statusText}) {
+    $xfer += $output->writeFieldBegin('statusText', TType::STRING, 4);
+    $xfer += $output->writeString($self->{statusText});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::DFSHealthReport;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::DFSHealthReport->mk_accessors( qw( bytesTotal bytesUsed bytesRemaining bytesNonDfs numLiveDataNodes numDeadDataNodes upgradeStatus ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{bytesTotal} = undef;
+$self->{bytesUsed} = undef;
+$self->{bytesRemaining} = undef;
+$self->{bytesNonDfs} = undef;
+$self->{numLiveDataNodes} = undef;
+$self->{numDeadDataNodes} = undef;
+$self->{upgradeStatus} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{bytesTotal}) {
+      $self->{bytesTotal} = $vals->{bytesTotal};
+    }
+    if (defined $vals->{bytesUsed}) {
+      $self->{bytesUsed} = $vals->{bytesUsed};
+    }
+    if (defined $vals->{bytesRemaining}) {
+      $self->{bytesRemaining} = $vals->{bytesRemaining};
+    }
+    if (defined $vals->{bytesNonDfs}) {
+      $self->{bytesNonDfs} = $vals->{bytesNonDfs};
+    }
+    if (defined $vals->{numLiveDataNodes}) {
+      $self->{numLiveDataNodes} = $vals->{numLiveDataNodes};
+    }
+    if (defined $vals->{numDeadDataNodes}) {
+      $self->{numDeadDataNodes} = $vals->{numDeadDataNodes};
+    }
+    if (defined $vals->{upgradeStatus}) {
+      $self->{upgradeStatus} = $vals->{upgradeStatus};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'DFSHealthReport';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{bytesTotal});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{bytesUsed});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{bytesRemaining});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{bytesNonDfs});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^5$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{numLiveDataNodes});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^6$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{numDeadDataNodes});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^7$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{upgradeStatus} = new Hadoop::API::UpgradeStatusReport();
+        $xfer += $self->{upgradeStatus}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('DFSHealthReport');
+  if (defined $self->{bytesTotal}) {
+    $xfer += $output->writeFieldBegin('bytesTotal', TType::I64, 1);
+    $xfer += $output->writeI64($self->{bytesTotal});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{bytesUsed}) {
+    $xfer += $output->writeFieldBegin('bytesUsed', TType::I64, 2);
+    $xfer += $output->writeI64($self->{bytesUsed});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{bytesRemaining}) {
+    $xfer += $output->writeFieldBegin('bytesRemaining', TType::I64, 3);
+    $xfer += $output->writeI64($self->{bytesRemaining});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{bytesNonDfs}) {
+    $xfer += $output->writeFieldBegin('bytesNonDfs', TType::I64, 4);
+    $xfer += $output->writeI64($self->{bytesNonDfs});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{numLiveDataNodes}) {
+    $xfer += $output->writeFieldBegin('numLiveDataNodes', TType::I32, 5);
+    $xfer += $output->writeI32($self->{numLiveDataNodes});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{numDeadDataNodes}) {
+    $xfer += $output->writeFieldBegin('numDeadDataNodes', TType::I32, 6);
+    $xfer += $output->writeI32($self->{numDeadDataNodes});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{upgradeStatus}) {
+    $xfer += $output->writeFieldBegin('upgradeStatus', TType::STRUCT, 7);
+    $xfer += $self->{upgradeStatus}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Hadoop::API::IOException;
 use base('Thrift::TException');
 use Class::Accessor;

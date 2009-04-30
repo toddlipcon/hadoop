@@ -1388,6 +1388,496 @@ static int64_t QUOTA_RESET = -1;
 
 @end
 
+@implementation UpgradeStatusReport
+- (id) initWithVersion: (int32_t) version percentComplete: (int16_t) percentComplete finalized: (BOOL) finalized statusText: (NSString *) statusText
+{
+  self = [super init];
+  __version = version;
+  __version_isset = YES;
+  __percentComplete = percentComplete;
+  __percentComplete_isset = YES;
+  __finalized = finalized;
+  __finalized_isset = YES;
+  __statusText = [statusText retain];
+  __statusText_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__statusText release];
+  [super dealloc];
+}
+
+- (int32_t) version {
+  return __version;
+}
+
+- (void) setVersion: (int32_t) version {
+  __version = version;
+  __version_isset = YES;
+}
+
+- (BOOL) versionIsSet {
+  return __version_isset;
+}
+
+- (void) unsetVersion {
+  __version_isset = NO;
+}
+
+- (int16_t) percentComplete {
+  return __percentComplete;
+}
+
+- (void) setPercentComplete: (int16_t) percentComplete {
+  __percentComplete = percentComplete;
+  __percentComplete_isset = YES;
+}
+
+- (BOOL) percentCompleteIsSet {
+  return __percentComplete_isset;
+}
+
+- (void) unsetPercentComplete {
+  __percentComplete_isset = NO;
+}
+
+- (BOOL) finalized {
+  return __finalized;
+}
+
+- (void) setFinalized: (BOOL) finalized {
+  __finalized = finalized;
+  __finalized_isset = YES;
+}
+
+- (BOOL) finalizedIsSet {
+  return __finalized_isset;
+}
+
+- (void) unsetFinalized {
+  __finalized_isset = NO;
+}
+
+- (NSString *) statusText {
+  return [[__statusText retain] autorelease];
+}
+
+- (void) setStatusText: (NSString *) statusText {
+  [statusText retain];
+  [__statusText release];
+  __statusText = statusText;
+  __statusText_isset = YES;
+}
+
+- (BOOL) statusTextIsSet {
+  return __statusText_isset;
+}
+
+- (void) unsetStatusText {
+  [__statusText release];
+  __statusText = nil;
+  __statusText_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setVersion: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_I16) {
+          int16_t fieldValue = [inProtocol readI16];
+          [self setPercentComplete: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_BOOL) {
+          BOOL fieldValue = [inProtocol readBool];
+          [self setFinalized: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setStatusText: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"UpgradeStatusReport"];
+  if (__version_isset) {
+    [outProtocol writeFieldBeginWithName: @"version" type: TType_I32 fieldID: 1];
+    [outProtocol writeI32: __version];
+    [outProtocol writeFieldEnd];
+  }
+  if (__percentComplete_isset) {
+    [outProtocol writeFieldBeginWithName: @"percentComplete" type: TType_I16 fieldID: 2];
+    [outProtocol writeI16: __percentComplete];
+    [outProtocol writeFieldEnd];
+  }
+  if (__finalized_isset) {
+    [outProtocol writeFieldBeginWithName: @"finalized" type: TType_BOOL fieldID: 3];
+    [outProtocol writeBool: __finalized];
+    [outProtocol writeFieldEnd];
+  }
+  if (__statusText_isset) {
+    if (__statusText != nil) {
+      [outProtocol writeFieldBeginWithName: @"statusText" type: TType_STRING fieldID: 4];
+      [outProtocol writeString: __statusText];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"UpgradeStatusReport("];
+  [ms appendString: @"version:"];
+  [ms appendFormat: @"%i", __version];
+  [ms appendString: @",percentComplete:"];
+  [ms appendFormat: @"%hi", __percentComplete];
+  [ms appendString: @",finalized:"];
+  [ms appendFormat: @"%i", __finalized];
+  [ms appendString: @",statusText:"];
+  [ms appendFormat: @"\"%@\"", __statusText];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
+@implementation DFSHealthReport
+- (id) initWithBytesTotal: (int64_t) bytesTotal bytesUsed: (int64_t) bytesUsed bytesRemaining: (int64_t) bytesRemaining bytesNonDfs: (int64_t) bytesNonDfs numLiveDataNodes: (int32_t) numLiveDataNodes numDeadDataNodes: (int32_t) numDeadDataNodes upgradeStatus: (UpgradeStatusReport *) upgradeStatus
+{
+  self = [super init];
+  __bytesTotal = bytesTotal;
+  __bytesTotal_isset = YES;
+  __bytesUsed = bytesUsed;
+  __bytesUsed_isset = YES;
+  __bytesRemaining = bytesRemaining;
+  __bytesRemaining_isset = YES;
+  __bytesNonDfs = bytesNonDfs;
+  __bytesNonDfs_isset = YES;
+  __numLiveDataNodes = numLiveDataNodes;
+  __numLiveDataNodes_isset = YES;
+  __numDeadDataNodes = numDeadDataNodes;
+  __numDeadDataNodes_isset = YES;
+  __upgradeStatus = [upgradeStatus retain];
+  __upgradeStatus_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__upgradeStatus release];
+  [super dealloc];
+}
+
+- (int64_t) bytesTotal {
+  return __bytesTotal;
+}
+
+- (void) setBytesTotal: (int64_t) bytesTotal {
+  __bytesTotal = bytesTotal;
+  __bytesTotal_isset = YES;
+}
+
+- (BOOL) bytesTotalIsSet {
+  return __bytesTotal_isset;
+}
+
+- (void) unsetBytesTotal {
+  __bytesTotal_isset = NO;
+}
+
+- (int64_t) bytesUsed {
+  return __bytesUsed;
+}
+
+- (void) setBytesUsed: (int64_t) bytesUsed {
+  __bytesUsed = bytesUsed;
+  __bytesUsed_isset = YES;
+}
+
+- (BOOL) bytesUsedIsSet {
+  return __bytesUsed_isset;
+}
+
+- (void) unsetBytesUsed {
+  __bytesUsed_isset = NO;
+}
+
+- (int64_t) bytesRemaining {
+  return __bytesRemaining;
+}
+
+- (void) setBytesRemaining: (int64_t) bytesRemaining {
+  __bytesRemaining = bytesRemaining;
+  __bytesRemaining_isset = YES;
+}
+
+- (BOOL) bytesRemainingIsSet {
+  return __bytesRemaining_isset;
+}
+
+- (void) unsetBytesRemaining {
+  __bytesRemaining_isset = NO;
+}
+
+- (int64_t) bytesNonDfs {
+  return __bytesNonDfs;
+}
+
+- (void) setBytesNonDfs: (int64_t) bytesNonDfs {
+  __bytesNonDfs = bytesNonDfs;
+  __bytesNonDfs_isset = YES;
+}
+
+- (BOOL) bytesNonDfsIsSet {
+  return __bytesNonDfs_isset;
+}
+
+- (void) unsetBytesNonDfs {
+  __bytesNonDfs_isset = NO;
+}
+
+- (int32_t) numLiveDataNodes {
+  return __numLiveDataNodes;
+}
+
+- (void) setNumLiveDataNodes: (int32_t) numLiveDataNodes {
+  __numLiveDataNodes = numLiveDataNodes;
+  __numLiveDataNodes_isset = YES;
+}
+
+- (BOOL) numLiveDataNodesIsSet {
+  return __numLiveDataNodes_isset;
+}
+
+- (void) unsetNumLiveDataNodes {
+  __numLiveDataNodes_isset = NO;
+}
+
+- (int32_t) numDeadDataNodes {
+  return __numDeadDataNodes;
+}
+
+- (void) setNumDeadDataNodes: (int32_t) numDeadDataNodes {
+  __numDeadDataNodes = numDeadDataNodes;
+  __numDeadDataNodes_isset = YES;
+}
+
+- (BOOL) numDeadDataNodesIsSet {
+  return __numDeadDataNodes_isset;
+}
+
+- (void) unsetNumDeadDataNodes {
+  __numDeadDataNodes_isset = NO;
+}
+
+- (UpgradeStatusReport *) upgradeStatus {
+  return [[__upgradeStatus retain] autorelease];
+}
+
+- (void) setUpgradeStatus: (UpgradeStatusReport *) upgradeStatus {
+  [upgradeStatus retain];
+  [__upgradeStatus release];
+  __upgradeStatus = upgradeStatus;
+  __upgradeStatus_isset = YES;
+}
+
+- (BOOL) upgradeStatusIsSet {
+  return __upgradeStatus_isset;
+}
+
+- (void) unsetUpgradeStatus {
+  [__upgradeStatus release];
+  __upgradeStatus = nil;
+  __upgradeStatus_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setBytesTotal: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setBytesUsed: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setBytesRemaining: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setBytesNonDfs: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setNumLiveDataNodes: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 6:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setNumDeadDataNodes: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 7:
+        if (fieldType == TType_STRUCT) {
+          UpgradeStatusReport *fieldValue = [[UpgradeStatusReport alloc] init];
+          [fieldValue read: inProtocol];
+          [self setUpgradeStatus: fieldValue];
+          [fieldValue release];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"DFSHealthReport"];
+  if (__bytesTotal_isset) {
+    [outProtocol writeFieldBeginWithName: @"bytesTotal" type: TType_I64 fieldID: 1];
+    [outProtocol writeI64: __bytesTotal];
+    [outProtocol writeFieldEnd];
+  }
+  if (__bytesUsed_isset) {
+    [outProtocol writeFieldBeginWithName: @"bytesUsed" type: TType_I64 fieldID: 2];
+    [outProtocol writeI64: __bytesUsed];
+    [outProtocol writeFieldEnd];
+  }
+  if (__bytesRemaining_isset) {
+    [outProtocol writeFieldBeginWithName: @"bytesRemaining" type: TType_I64 fieldID: 3];
+    [outProtocol writeI64: __bytesRemaining];
+    [outProtocol writeFieldEnd];
+  }
+  if (__bytesNonDfs_isset) {
+    [outProtocol writeFieldBeginWithName: @"bytesNonDfs" type: TType_I64 fieldID: 4];
+    [outProtocol writeI64: __bytesNonDfs];
+    [outProtocol writeFieldEnd];
+  }
+  if (__numLiveDataNodes_isset) {
+    [outProtocol writeFieldBeginWithName: @"numLiveDataNodes" type: TType_I32 fieldID: 5];
+    [outProtocol writeI32: __numLiveDataNodes];
+    [outProtocol writeFieldEnd];
+  }
+  if (__numDeadDataNodes_isset) {
+    [outProtocol writeFieldBeginWithName: @"numDeadDataNodes" type: TType_I32 fieldID: 6];
+    [outProtocol writeI32: __numDeadDataNodes];
+    [outProtocol writeFieldEnd];
+  }
+  if (__upgradeStatus_isset) {
+    if (__upgradeStatus != nil) {
+      [outProtocol writeFieldBeginWithName: @"upgradeStatus" type: TType_STRUCT fieldID: 7];
+      [__upgradeStatus write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"DFSHealthReport("];
+  [ms appendString: @"bytesTotal:"];
+  [ms appendFormat: @"%qi", __bytesTotal];
+  [ms appendString: @",bytesUsed:"];
+  [ms appendFormat: @"%qi", __bytesUsed];
+  [ms appendString: @",bytesRemaining:"];
+  [ms appendFormat: @"%qi", __bytesRemaining];
+  [ms appendString: @",bytesNonDfs:"];
+  [ms appendFormat: @"%qi", __bytesNonDfs];
+  [ms appendString: @",numLiveDataNodes:"];
+  [ms appendFormat: @"%i", __numLiveDataNodes];
+  [ms appendString: @",numDeadDataNodes:"];
+  [ms appendFormat: @"%i", __numDeadDataNodes];
+  [ms appendString: @",upgradeStatus:"];
+  [ms appendFormat: @"%@", __upgradeStatus];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
 @implementation IOException
 - (id) init
 {
@@ -2710,6 +3200,165 @@ static int64_t QUOTA_RESET = -1;
 
 - (NSString *) description {
   NSMutableString * ms = [NSMutableString stringWithString: @"GetDatanodeReportResult_("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @",err:"];
+  [ms appendFormat: @"%@", __err];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
+@interface GetHealthReportResult_ : NSObject {
+  DFSHealthReport * __success;
+  IOException * __err;
+
+  BOOL __success_isset;
+  BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (DFSHealthReport *) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (DFSHealthReport *) success;
+- (void) setSuccess: (DFSHealthReport *) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation GetHealthReportResult_
+- (id) initWithSuccess: (DFSHealthReport *) success err: (IOException *) err
+{
+  self = [super init];
+  __success = [success retain];
+  __success_isset = YES;
+  __err = [err retain];
+  __err_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__success release];
+  [__err release];
+  [super dealloc];
+}
+
+- (DFSHealthReport *) success {
+  return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (DFSHealthReport *) success {
+  [success retain];
+  [__success release];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (IOException *) err {
+  return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+  [err retain];
+  [__err release];
+  __err = err;
+  __err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+  return __err_isset;
+}
+
+- (void) unsetErr {
+  [__err release];
+  __err = nil;
+  __err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          DFSHealthReport *fieldValue = [[DFSHealthReport alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 1:
+        if (fieldType == TType_STRUCT) {
+          IOException *fieldValue = [[IOException alloc] init];
+          [fieldValue read: inProtocol];
+          [self setErr: fieldValue];
+          [fieldValue release];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"GetHealthReportResult_"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  } else if (__err_isset) {
+    if (__err != nil) {
+      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+      [__err write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetHealthReportResult_("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%@", __success];
   [ms appendString: @",err:"];
@@ -4910,6 +5559,49 @@ static int64_t QUOTA_RESET = -1;
 {
   [self send_getDatanodeReport: ctx : type];
   return [self recv_getDatanodeReport];
+}
+
+- (void) send_getHealthReport: (RequestContext *) ctx
+{
+  [outProtocol writeMessageBeginWithName: @"getHealthReport" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getHealthReport_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (DFSHealthReport *) recv_getHealthReport
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  GetHealthReportResult_ * result = [[[GetHealthReportResult_ alloc] init] autorelease];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  if ([result errIsSet]) {
+    @throw [result err];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"getHealthReport failed: unknown result"];
+}
+
+- (DFSHealthReport *) getHealthReport: (RequestContext *) ctx
+{
+  [self send_getHealthReport: ctx];
+  return [self recv_getHealthReport];
 }
 
 - (void) send_getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path

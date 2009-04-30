@@ -188,6 +188,63 @@ module Hadoop
 
         end
 
+        class UpgradeStatusReport
+          include ::Thrift::Struct
+          VERSION = 1
+          PERCENTCOMPLETE = 2
+          FINALIZED = 3
+          STATUSTEXT = 4
+
+          ::Thrift::Struct.field_accessor self, :version, :percentComplete, :finalized, :statusText
+          FIELDS = {
+            VERSION => {:type => ::Thrift::Types::I32, :name => 'version'},
+            PERCENTCOMPLETE => {:type => ::Thrift::Types::I16, :name => 'percentComplete'},
+            FINALIZED => {:type => ::Thrift::Types::BOOL, :name => 'finalized'},
+            # The informative text that is the same as is shown on the NN web UI
+            STATUSTEXT => {:type => ::Thrift::Types::STRING, :name => 'statusText'}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
+        # Information that mirrors the "health report" information available on the
+        # NameNode web UI
+        class DFSHealthReport
+          include ::Thrift::Struct
+          BYTESTOTAL = 1
+          BYTESUSED = 2
+          BYTESREMAINING = 3
+          BYTESNONDFS = 4
+          NUMLIVEDATANODES = 5
+          NUMDEADDATANODES = 6
+          UPGRADESTATUS = 7
+
+          ::Thrift::Struct.field_accessor self, :bytesTotal, :bytesUsed, :bytesRemaining, :bytesNonDfs, :numLiveDataNodes, :numDeadDataNodes, :upgradeStatus
+          FIELDS = {
+            BYTESTOTAL => {:type => ::Thrift::Types::I64, :name => 'bytesTotal'},
+            BYTESUSED => {:type => ::Thrift::Types::I64, :name => 'bytesUsed'},
+            BYTESREMAINING => {:type => ::Thrift::Types::I64, :name => 'bytesRemaining'},
+            BYTESNONDFS => {:type => ::Thrift::Types::I64, :name => 'bytesNonDfs'},
+            # How many datanodes are considered live
+            NUMLIVEDATANODES => {:type => ::Thrift::Types::I32, :name => 'numLiveDataNodes'},
+            # How many datanodes are considered dead
+            NUMDEADDATANODES => {:type => ::Thrift::Types::I32, :name => 'numDeadDataNodes'},
+            # Status of the current running upgrade. If no upgrade
+            # is running, this will be null.
+            UPGRADESTATUS => {:type => ::Thrift::Types::STRUCT, :name => 'upgradeStatus', :class => Hadoop::API::UpgradeStatusReport}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
         # Generic I/O error
         class IOException < ::Thrift::Exception
           include ::Thrift::Struct

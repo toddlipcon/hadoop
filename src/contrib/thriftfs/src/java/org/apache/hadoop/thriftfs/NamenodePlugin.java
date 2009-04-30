@@ -36,16 +36,20 @@ import org.apache.hadoop.hdfs.protocol.FSConstants;
 import org.apache.hadoop.hdfs.protocol.LocatedBlock;
 import org.apache.hadoop.hdfs.protocol.LocatedBlocks;
 import org.apache.hadoop.hdfs.protocol.FSConstants.SafeModeAction;
+import org.apache.hadoop.hdfs.server.namenode.DatanodeDescriptor;
+import org.apache.hadoop.hdfs.server.namenode.FSNamesystem;
 import org.apache.hadoop.hdfs.server.namenode.NameNode;
 import org.apache.hadoop.net.NetUtils;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.thriftfs.api.Block;
 import org.apache.hadoop.thriftfs.api.Constants;
 import org.apache.hadoop.thriftfs.api.DatanodeInfo;
+import org.apache.hadoop.thriftfs.api.DFSHealthReport;
 import org.apache.hadoop.thriftfs.api.IOException;
 import org.apache.hadoop.thriftfs.api.Namenode;
 import org.apache.hadoop.thriftfs.api.RequestContext;
 import org.apache.hadoop.thriftfs.api.Stat;
+import org.apache.hadoop.thriftfs.api.UpgradeStatusReport;
 import org.apache.hadoop.util.ServicePlugin;
 import org.apache.thrift.TException;
 import org.apache.thrift.TProcessor;
@@ -164,6 +168,41 @@ public class NamenodePlugin
             + "): Failed", t);
         throw ThriftUtils.toThrift(t);
       }
+    }
+
+    public DFSHealthReport getHealthReport(RequestContext ctx) throws IOException {
+      assumeUserContext(ctx);
+
+      DFSHealthReport hr = new DFSHealthReport();
+      long[] fsnStats = namenode.getStats();
+      hr.bytesTotal = fsnStats[0];
+      hr.bytesRemaining = fsnStats[2];
+      hr.bytesUsed = fsnStats[1];
+      hr.bytesNonDfs = hr.bytesTotal - hr.bytesRemaining - hr.bytesUsed;
+
+      ArrayList<DatanodeDescriptor> live = new ArrayList<DatanodeDescriptor>();
+      ArrayList<DatanodeDescriptor> dead = new ArrayList<DatanodeDescriptor>();
+
+      namenode.getNamesystem().DFSNodesStatus(live, dead);
+
+      hr.numLiveDataNodes = live.size();
+      hr.numDeadDataNodes = dead.size();
+
+      try {
+        org.apache.hadoop.hdfs.server.common.UpgradeStatusReport usr =
+          namenode.distributedUpgradeProgress(FSConstants.UpgradeAction.DETAILED_STATUS);
+        if (usr != null) {
+          hr.upgradeStatus = new UpgradeStatusReport();
+          hr.upgradeStatus.version = usr.getVersion();
+          hr.upgradeStatus.percentComplete = usr.getUpgradeStatus();
+          hr.upgradeStatus.finalized = usr.isFinalized();
+          hr.upgradeStatus.statusText = usr.getStatusText(true);
+        }
+      } catch (java.io.IOException ioe) {
+        LOG.info("getHealthReport() failed", ioe);
+        throw ThriftUtils.toThrift(ioe);
+      }
+      return hr;
     }
 
     public List<DatanodeInfo> getDatanodeReport(RequestContext ctx, int type) throws IOException,
