@@ -205,7 +205,7 @@ sub write {
 package Hadoop::API::Block;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Block->mk_accessors( qw( blockId path numBytes genStamp nodes ) );
+Hadoop::API::Block->mk_accessors( qw( blockId path numBytes genStamp startOffset nodes ) );
 sub new {
 my $classname = shift;
 my $self      = {};
@@ -214,6 +214,7 @@ $self->{blockId} = undef;
 $self->{path} = undef;
 $self->{numBytes} = undef;
 $self->{genStamp} = undef;
+$self->{startOffset} = undef;
 $self->{nodes} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{blockId}) {
@@ -227,6 +228,9 @@ $self->{nodes} = undef;
     }
     if (defined $vals->{genStamp}) {
       $self->{genStamp} = $vals->{genStamp};
+    }
+    if (defined $vals->{startOffset}) {
+      $self->{startOffset} = $vals->{startOffset};
     }
     if (defined $vals->{nodes}) {
       $self->{nodes} = $vals->{nodes};
@@ -275,6 +279,12 @@ sub read {
       last; };
       /^4$/ && do{      if ($ftype == TType::I64) {
         $xfer += $input->readI64(\$self->{genStamp});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^6$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{startOffset});
       } else {
         $xfer += $input->skip($ftype);
       }
@@ -343,6 +353,11 @@ sub write {
       }
       $output->writeListEnd();
     }
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{startOffset}) {
+    $xfer += $output->writeFieldBegin('startOffset', TType::I64, 6);
+    $xfer += $output->writeI64($self->{startOffset});
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -630,19 +645,23 @@ package Hadoop::API::IOException;
 use base('Thrift::TException');
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::IOException->mk_accessors( qw( msg stack ) );
+Hadoop::API::IOException->mk_accessors( qw( msg stack clazz ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
 $self->{msg} = undef;
 $self->{stack} = undef;
+$self->{clazz} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
     if (defined $vals->{msg}) {
       $self->{msg} = $vals->{msg};
     }
     if (defined $vals->{stack}) {
       $self->{stack} = $vals->{stack};
+    }
+    if (defined $vals->{clazz}) {
+      $self->{clazz} = $vals->{clazz};
     }
   }
 return bless($self,$classname);
@@ -680,6 +699,12 @@ sub read {
         $xfer += $input->skip($ftype);
       }
       last; };
+      /^3$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{clazz});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -701,6 +726,11 @@ sub write {
   if (defined $self->{stack}) {
     $xfer += $output->writeFieldBegin('stack', TType::STRING, 2);
     $xfer += $output->writeString($self->{stack});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{clazz}) {
+    $xfer += $output->writeFieldBegin('clazz', TType::STRING, 3);
+    $xfer += $output->writeString($self->{clazz});
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();

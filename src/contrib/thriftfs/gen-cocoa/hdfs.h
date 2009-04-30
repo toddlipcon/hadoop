@@ -93,16 +93,18 @@ enum DatanodeState {
   NSString * __path;
   int64_t __numBytes;
   int64_t __genStamp;
+  int64_t __startOffset;
   NSArray * __nodes;
 
   BOOL __blockId_isset;
   BOOL __path_isset;
   BOOL __numBytes_isset;
   BOOL __genStamp_isset;
+  BOOL __startOffset_isset;
   BOOL __nodes_isset;
 }
 
-- (id) initWithBlockId: (int64_t) blockId path: (NSString *) path numBytes: (int64_t) numBytes genStamp: (int64_t) genStamp nodes: (NSArray *) nodes;
+- (id) initWithBlockId: (int64_t) blockId path: (NSString *) path numBytes: (int64_t) numBytes genStamp: (int64_t) genStamp startOffset: (int64_t) startOffset nodes: (NSArray *) nodes;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -122,6 +124,10 @@ enum DatanodeState {
 - (int64_t) genStamp;
 - (void) setGenStamp: (int64_t) genStamp;
 - (BOOL) genStampIsSet;
+
+- (int64_t) startOffset;
+- (void) setStartOffset: (int64_t) startOffset;
+- (BOOL) startOffsetIsSet;
 
 - (NSArray *) nodes;
 - (void) setNodes: (NSArray *) nodes;
@@ -233,12 +239,14 @@ enum DatanodeState {
 @interface IOException : NSException {
   NSString * __msg;
   NSString * __stack;
+  NSString * __clazz;
 
   BOOL __msg_isset;
   BOOL __stack_isset;
+  BOOL __clazz_isset;
 }
 
-- (id) initWithMsg: (NSString *) msg stack: (NSString *) stack;
+- (id) initWithMsg: (NSString *) msg stack: (NSString *) stack clazz: (NSString *) clazz;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -250,6 +258,10 @@ enum DatanodeState {
 - (NSString *) stack;
 - (void) setStack: (NSString *) stack;
 - (BOOL) stackIsSet;
+
+- (NSString *) clazz;
+- (void) setClazz: (NSString *) clazz;
+- (BOOL) clazzIsSet;
 
 @end
 

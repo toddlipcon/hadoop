@@ -78,9 +78,10 @@ module Hadoop
           PATH = 2
           NUMBYTES = 3
           GENSTAMP = 4
+          STARTOFFSET = 6
           NODES = 5
 
-          ::Thrift::Struct.field_accessor self, :blockId, :path, :numBytes, :genStamp, :nodes
+          ::Thrift::Struct.field_accessor self, :blockId, :path, :numBytes, :genStamp, :startOffset, :nodes
           FIELDS = {
             # Block ID (unique among all blocks in a filesystem).
             BLOCKID => {:type => ::Thrift::Types::I64, :name => 'blockId'},
@@ -90,6 +91,8 @@ module Hadoop
             NUMBYTES => {:type => ::Thrift::Types::I64, :name => 'numBytes'},
             # Generational stamp of this block.
             GENSTAMP => {:type => ::Thrift::Types::I64, :name => 'genStamp'},
+            # Offset of the first byte of the block relative to the start of the file
+            STARTOFFSET => {:type => ::Thrift::Types::I64, :name => 'startOffset'},
             # List of data nodes with copies  of this block.
             NODES => {:type => ::Thrift::Types::LIST, :name => 'nodes', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::DatanodeInfo}}
           }
@@ -170,13 +173,16 @@ module Hadoop
           include ::Thrift::Struct
           MSG = 1
           STACK = 2
+          CLAZZ = 3
 
-          ::Thrift::Struct.field_accessor self, :msg, :stack
+          ::Thrift::Struct.field_accessor self, :msg, :stack, :clazz
           FIELDS = {
             # Error message.
             MSG => {:type => ::Thrift::Types::STRING, :name => 'msg'},
             # Textual representation of the call stack.
-            STACK => {:type => ::Thrift::Types::STRING, :name => 'stack'}
+            STACK => {:type => ::Thrift::Types::STRING, :name => 'stack'},
+            # The Java class of the Exception (may be a subclass)
+            CLAZZ => {:type => ::Thrift::Types::STRING, :name => 'clazz'}
           }
 
           def struct_fields; FIELDS; end

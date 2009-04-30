@@ -12,19 +12,19 @@ Object subclass: #Hdfs
 Hdfs class
 	instanceVariableNames: 'constants enums'!
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 enums: anObject
     enums := anObject! !
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 enums
     ^ enums! !
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 constants: anObject
     constants := anObject! !
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 constants
     ^ constants! !
 
@@ -67,122 +67,130 @@ Object subclass: #DatanodeInfo
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 name: aString
     name := aString! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 name
     ^ name! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 storageID: aString
     storageID := aString! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 storageID
     ^ storageID! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 host: aString
     host := aString! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 host
     ^ host! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 thriftPort: anI32
     thriftPort := anI32! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 thriftPort
     ^ thriftPort! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 capacity: anI64
     capacity := anI64! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 capacity
     ^ capacity! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 dfsUsed: anI64
     dfsUsed := anI64! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 dfsUsed
     ^ dfsUsed! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 remaining: anI64
     remaining := anI64! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 remaining
     ^ remaining! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 xceiverCount: anI32
     xceiverCount := anI32! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 xceiverCount
     ^ xceiverCount! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 state: aDatanodeState
     state := aDatanodeState! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 state
     ^ state! !
 
 
 Object subclass: #Block
-	instanceVariableNames: 'blockId path numBytes genStamp nodes'
+	instanceVariableNames: 'blockId path numBytes genStamp startOffset nodes'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 blockId: anI64
     blockId := anI64! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 blockId
     ^ blockId! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 path: aString
     path := aString! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 path
     ^ path! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 numBytes: anI64
     numBytes := anI64! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 numBytes
     ^ numBytes! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 genStamp: anI64
     genStamp := anI64! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 genStamp
     ^ genStamp! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+startOffset: anI64
+    startOffset := anI64! !
+
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+startOffset
+    ^ startOffset! !
+
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 nodes: a
     nodes := a! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 nodes
     ^ nodes! !
 
@@ -193,148 +201,156 @@ Object subclass: #Stat
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 path: aString
     path := aString! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 path
     ^ path! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 isDir: aBool
     isDir := aBool! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 isDir
     ^ isDir! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 atime: anI64
     atime := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 atime
     ^ atime! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 mtime: anI64
     mtime := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 mtime
     ^ mtime! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 perms: anI16
     perms := anI16! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 perms
     ^ perms! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 owner: aString
     owner := aString! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 owner
     ^ owner! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 group: aString
     group := aString! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 group
     ^ group! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 fileCount: anI64
     fileCount := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 fileCount
     ^ fileCount! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 directoryCount: anI64
     directoryCount := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 directoryCount
     ^ directoryCount! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 quota: anI64
     quota := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 quota
     ^ quota! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 spaceConsumed: anI64
     spaceConsumed := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 spaceConsumed
     ^ spaceConsumed! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 spaceQuota: anI64
     spaceQuota := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 spaceQuota
     ^ spaceQuota! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 length: anI64
     length := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 length
     ^ length! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 blockSize: anI64
     blockSize := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 blockSize
     ^ blockSize! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 replication: anI16
     replication := anI16! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 replication
     ^ replication! !
 
 
 Error subclass: #IOException
-	instanceVariableNames: 'msg stack'
+	instanceVariableNames: 'msg stack clazz'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 msg: aString
     msg := aString! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 msg
     ^ msg! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 stack: aString
     stack := aString! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 stack
     ^ stack! !
+
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+clazz: aString
+    clazz := aString! !
+
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+clazz
+    ^ clazz! !
 
 
 Error subclass: #QuotaException
@@ -343,19 +359,19 @@ Error subclass: #QuotaException
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 msg: aString
     msg := aString! !
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 msg
     ^ msg! !
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 stack: aString
     stack := aString! !
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 stack
     ^ stack! !
 
@@ -366,27 +382,27 @@ Object subclass: #BlockData
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 crc: anI32
     crc := anI32! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 crc
     ^ crc! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 length: anI32
     length := anI32! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 length
     ^ length! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 data: aString
     data := aString! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 data
     ^ data! !
 
@@ -397,14 +413,14 @@ TClient subclass: #NamenodeClient
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 chmodPath: path perms: perms
     "path: string, perms: i16"
     self sendChmodPath: path perms: perms.
     ^ self recvChmod success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendChmodPath: path perms: perms
     oprot writeMessageBegin:
       (TCallMessage new
@@ -420,7 +436,7 @@ sendChmodPath: path perms: perms
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvChmod
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -446,6 +462,9 @@ recvChmod
               temp4 id = 2 ifTrue: [
                 temp5 := true.
                 temp3 stack: iprot readString].
+              temp4 id = 3 ifTrue: [
+                temp5 := true.
+                temp3 clazz: iprot readString].
               temp5 ifNil: [iprot skip: temp4 type]].
             oprot readStructEnd.
             temp3] value].
@@ -457,14 +476,14 @@ recvChmod
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 chownPath: path owner: owner group: group
     "path: string, owner: string, group: string"
     self sendChownPath: path owner: owner group: group.
     ^ self recvChown success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendChownPath: path owner: owner group: group
     oprot writeMessageBegin:
       (TCallMessage new
@@ -483,7 +502,7 @@ sendChownPath: path owner: owner group: group
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvChown
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -509,6 +528,9 @@ recvChown
               temp10 id = 2 ifTrue: [
                 temp11 := true.
                 temp9 stack: iprot readString].
+              temp10 id = 3 ifTrue: [
+                temp11 := true.
+                temp9 clazz: iprot readString].
               temp11 ifNil: [iprot skip: temp10 type]].
             oprot readStructEnd.
             temp9] value].
@@ -520,14 +542,14 @@ recvChown
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 df
     ""
     self sendDf.
     ^ self recvDf success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendDf
     oprot writeMessageBegin:
       (TCallMessage new
@@ -537,7 +559,7 @@ sendDf
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvDf
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -568,6 +590,9 @@ recvDf
               temp18 id = 2 ifTrue: [
                 temp19 := true.
                 temp17 stack: iprot readString].
+              temp18 id = 3 ifTrue: [
+                temp19 := true.
+                temp17 clazz: iprot readString].
               temp19 ifNil: [iprot skip: temp18 type]].
             oprot readStructEnd.
             temp17] value].
@@ -579,14 +604,14 @@ recvDf
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 enterSafeMode
     ""
     self sendEnterSafeMode.
     ^ self recvEnterSafeMode success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendEnterSafeMode
     oprot writeMessageBegin:
       (TCallMessage new
@@ -596,7 +621,7 @@ sendEnterSafeMode
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvEnterSafeMode
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -622,6 +647,9 @@ recvEnterSafeMode
               temp24 id = 2 ifTrue: [
                 temp25 := true.
                 temp23 stack: iprot readString].
+              temp24 id = 3 ifTrue: [
+                temp25 := true.
+                temp23 clazz: iprot readString].
               temp25 ifNil: [iprot skip: temp24 type]].
             oprot readStructEnd.
             temp23] value].
@@ -633,14 +661,14 @@ recvEnterSafeMode
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 getBlocksPath: path offset: offset length: length
     "path: string, offset: i64, length: i64"
     self sendGetBlocksPath: path offset: offset length: length.
     ^ self recvGetBlocks success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendGetBlocksPath: path offset: offset length: length
     oprot writeMessageBegin:
       (TCallMessage new
@@ -659,7 +687,7 @@ sendGetBlocksPath: path offset: offset length: length
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvGetBlocks
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -691,6 +719,9 @@ recvGetBlocks
                   temp32 id = 4 ifTrue: [
                     temp33 := true.
                     temp31 genStamp: iprot readI64].
+                  temp32 id = 6 ifTrue: [
+                    temp33 := true.
+                    temp31 startOffset: iprot readI64].
                   temp32 id = 5 ifTrue: [
                     temp33 := true.
                     temp31 nodes: [|temp34 temp35| temp34 := iprot readListBegin.
@@ -751,6 +782,9 @@ recvGetBlocks
               temp40 id = 2 ifTrue: [
                 temp41 := true.
                 temp39 stack: iprot readString].
+              temp40 id = 3 ifTrue: [
+                temp41 := true.
+                temp39 clazz: iprot readString].
               temp41 ifNil: [iprot skip: temp40 type]].
             oprot readStructEnd.
             temp39] value].
@@ -762,14 +796,14 @@ recvGetBlocks
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 getDatanodeReportType: type
     "type: DatanodeReportType"
     self sendGetDatanodeReportType: type.
     ^ self recvGetDatanodeReport success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendGetDatanodeReportType: type
     oprot writeMessageBegin:
       (TCallMessage new
@@ -782,7 +816,7 @@ sendGetDatanodeReportType: type
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvGetDatanodeReport
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -847,6 +881,9 @@ recvGetDatanodeReport
               temp51 id = 2 ifTrue: [
                 temp52 := true.
                 temp50 stack: iprot readString].
+              temp51 id = 3 ifTrue: [
+                temp52 := true.
+                temp50 clazz: iprot readString].
               temp52 ifNil: [iprot skip: temp51 type]].
             oprot readStructEnd.
             temp50] value].
@@ -858,14 +895,14 @@ recvGetDatanodeReport
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 getPreferredBlockSizePath: path
     "path: string"
     self sendGetPreferredBlockSizePath: path.
     ^ self recvGetPreferredBlockSize success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendGetPreferredBlockSizePath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -878,7 +915,7 @@ sendGetPreferredBlockSizePath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvGetPreferredBlockSize
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -904,6 +941,9 @@ recvGetPreferredBlockSize
               temp57 id = 2 ifTrue: [
                 temp58 := true.
                 temp56 stack: iprot readString].
+              temp57 id = 3 ifTrue: [
+                temp58 := true.
+                temp56 clazz: iprot readString].
               temp58 ifNil: [iprot skip: temp57 type]].
             oprot readStructEnd.
             temp56] value].
@@ -915,14 +955,14 @@ recvGetPreferredBlockSize
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 isInSafeMode
     ""
     self sendIsInSafeMode.
     ^ self recvIsInSafeMode success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendIsInSafeMode
     oprot writeMessageBegin:
       (TCallMessage new
@@ -932,7 +972,7 @@ sendIsInSafeMode
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvIsInSafeMode
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -958,6 +998,9 @@ recvIsInSafeMode
               temp63 id = 2 ifTrue: [
                 temp64 := true.
                 temp62 stack: iprot readString].
+              temp63 id = 3 ifTrue: [
+                temp64 := true.
+                temp62 clazz: iprot readString].
               temp64 ifNil: [iprot skip: temp63 type]].
             oprot readStructEnd.
             temp62] value].
@@ -969,14 +1012,14 @@ recvIsInSafeMode
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 leaveSafeMode
     ""
     self sendLeaveSafeMode.
     ^ self recvLeaveSafeMode success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendLeaveSafeMode
     oprot writeMessageBegin:
       (TCallMessage new
@@ -986,7 +1029,7 @@ sendLeaveSafeMode
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvLeaveSafeMode
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1012,6 +1055,9 @@ recvLeaveSafeMode
               temp69 id = 2 ifTrue: [
                 temp70 := true.
                 temp68 stack: iprot readString].
+              temp69 id = 3 ifTrue: [
+                temp70 := true.
+                temp68 clazz: iprot readString].
               temp70 ifNil: [iprot skip: temp69 type]].
             oprot readStructEnd.
             temp68] value].
@@ -1023,14 +1069,14 @@ recvLeaveSafeMode
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 lsPath: path
     "path: string"
     self sendLsPath: path.
     ^ self recvLs success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendLsPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1043,7 +1089,7 @@ sendLsPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvLs
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1126,6 +1172,9 @@ recvLs
               temp80 id = 2 ifTrue: [
                 temp81 := true.
                 temp79 stack: iprot readString].
+              temp80 id = 3 ifTrue: [
+                temp81 := true.
+                temp79 clazz: iprot readString].
               temp81 ifNil: [iprot skip: temp80 type]].
             oprot readStructEnd.
             temp79] value].
@@ -1137,14 +1186,14 @@ recvLs
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 mkdirhierPath: path perms: perms
     "path: string, perms: i16"
     self sendMkdirhierPath: path perms: perms.
     ^ self recvMkdirhier success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendMkdirhierPath: path perms: perms
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1160,7 +1209,7 @@ sendMkdirhierPath: path perms: perms
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvMkdirhier
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1186,6 +1235,9 @@ recvMkdirhier
               temp86 id = 2 ifTrue: [
                 temp87 := true.
                 temp85 stack: iprot readString].
+              temp86 id = 3 ifTrue: [
+                temp87 := true.
+                temp85 clazz: iprot readString].
               temp87 ifNil: [iprot skip: temp86 type]].
             oprot readStructEnd.
             temp85] value].
@@ -1197,14 +1249,14 @@ recvMkdirhier
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 refreshNodes
     ""
     self sendRefreshNodes.
     ^ self recvRefreshNodes success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendRefreshNodes
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1214,7 +1266,7 @@ sendRefreshNodes
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvRefreshNodes
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1240,6 +1292,9 @@ recvRefreshNodes
               temp92 id = 2 ifTrue: [
                 temp93 := true.
                 temp91 stack: iprot readString].
+              temp92 id = 3 ifTrue: [
+                temp93 := true.
+                temp91 clazz: iprot readString].
               temp93 ifNil: [iprot skip: temp92 type]].
             oprot readStructEnd.
             temp91] value].
@@ -1251,14 +1306,14 @@ recvRefreshNodes
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 renamePath: path newPath: newPath
     "path: string, newPath: string"
     self sendRenamePath: path newPath: newPath.
     ^ self recvRename success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendRenamePath: path newPath: newPath
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1274,7 +1329,7 @@ sendRenamePath: path newPath: newPath
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvRename
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1300,6 +1355,9 @@ recvRename
               temp98 id = 2 ifTrue: [
                 temp99 := true.
                 temp97 stack: iprot readString].
+              temp98 id = 3 ifTrue: [
+                temp99 := true.
+                temp97 clazz: iprot readString].
               temp99 ifNil: [iprot skip: temp98 type]].
             oprot readStructEnd.
             temp97] value].
@@ -1311,14 +1369,14 @@ recvRename
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 reportBadBlocksBlocks: blocks
     "blocks: "
     self sendReportBadBlocksBlocks: blocks.
     ^ self recvReportBadBlocks success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendReportBadBlocksBlocks: blocks
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1376,6 +1434,9 @@ sendReportBadBlocksBlocks: blocks
 ].
             oprot writeListEnd] value.
           oprot writeFieldEnd.
+          oprot writeFieldBegin: (TField new name: 'startOffset'; type: TType i64; id: 6).
+          iprot writeI64: temp100 startOffset asInteger.
+          oprot writeFieldEnd.
           oprot writeFieldStop; writeStructEnd] value
 ].
       oprot writeListEnd] value.
@@ -1383,7 +1444,7 @@ sendReportBadBlocksBlocks: blocks
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvReportBadBlocks
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1409,6 +1470,9 @@ recvReportBadBlocks
               temp106 id = 2 ifTrue: [
                 temp107 := true.
                 temp105 stack: iprot readString].
+              temp106 id = 3 ifTrue: [
+                temp107 := true.
+                temp105 clazz: iprot readString].
               temp107 ifNil: [iprot skip: temp106 type]].
             oprot readStructEnd.
             temp105] value].
@@ -1420,14 +1484,14 @@ recvReportBadBlocks
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 statPath: path
     "path: string"
     self sendStatPath: path.
     ^ self recvStat success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendStatPath: path
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1440,7 +1504,7 @@ sendStatPath: path
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvStat
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1518,6 +1582,9 @@ recvStat
               temp115 id = 2 ifTrue: [
                 temp116 := true.
                 temp114 stack: iprot readString].
+              temp115 id = 3 ifTrue: [
+                temp116 := true.
+                temp114 clazz: iprot readString].
               temp116 ifNil: [iprot skip: temp115 type]].
             oprot readStructEnd.
             temp114] value].
@@ -1529,14 +1596,14 @@ recvStat
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 setQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota
     "path: string, namespaceQuota: i64, diskspaceQuota: i64"
     self sendSetQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota.
     ^ self recvSetQuota success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendSetQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1555,7 +1622,7 @@ sendSetQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQ
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvSetQuota
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1581,6 +1648,9 @@ recvSetQuota
               temp121 id = 2 ifTrue: [
                 temp122 := true.
                 temp120 stack: iprot readString].
+              temp121 id = 3 ifTrue: [
+                temp122 := true.
+                temp120 clazz: iprot readString].
               temp122 ifNil: [iprot skip: temp121 type]].
             oprot readStructEnd.
             temp120] value].
@@ -1592,14 +1662,14 @@ recvSetQuota
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 setReplicationPath: path replication: replication
     "path: string, replication: i16"
     self sendSetReplicationPath: path replication: replication.
     ^ self recvSetReplication success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendSetReplicationPath: path replication: replication
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1615,7 +1685,7 @@ sendSetReplicationPath: path replication: replication
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvSetReplication
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1641,6 +1711,9 @@ recvSetReplication
               temp127 id = 2 ifTrue: [
                 temp128 := true.
                 temp126 stack: iprot readString].
+              temp127 id = 3 ifTrue: [
+                temp128 := true.
+                temp126 clazz: iprot readString].
               temp128 ifNil: [iprot skip: temp127 type]].
             oprot readStructEnd.
             temp126] value].
@@ -1652,14 +1725,14 @@ recvSetReplication
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 unlinkPath: path recursive: recursive
     "path: string, recursive: bool"
     self sendUnlinkPath: path recursive: recursive.
     ^ self recvUnlink success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendUnlinkPath: path recursive: recursive
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1675,7 +1748,7 @@ sendUnlinkPath: path recursive: recursive
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvUnlink
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1701,6 +1774,9 @@ recvUnlink
               temp133 id = 2 ifTrue: [
                 temp134 := true.
                 temp132 stack: iprot readString].
+              temp133 id = 3 ifTrue: [
+                temp134 := true.
+                temp132 clazz: iprot readString].
               temp134 ifNil: [iprot skip: temp133 type]].
             oprot readStructEnd.
             temp132] value].
@@ -1712,14 +1788,14 @@ recvUnlink
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 utimePath: path atime: atime mtime: mtime
     "path: string, atime: i64, mtime: i64"
     self sendUtimePath: path atime: atime mtime: mtime.
     ^ self recvUtime success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendUtimePath: path atime: atime mtime: mtime
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1738,7 +1814,7 @@ sendUtimePath: path atime: atime mtime: mtime
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvUtime
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1764,6 +1840,9 @@ recvUtime
               temp139 id = 2 ifTrue: [
                 temp140 := true.
                 temp138 stack: iprot readString].
+              temp139 id = 3 ifTrue: [
+                temp140 := true.
+                temp138 clazz: iprot readString].
               temp140 ifNil: [iprot skip: temp139 type]].
             oprot readStructEnd.
             temp138] value].
@@ -1775,14 +1854,14 @@ recvUtime
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 datanodeUpName: name storage: storage thriftPort: thriftPort
     "name: string, storage: string, thriftPort: i32"
     self sendDatanodeUpName: name storage: storage thriftPort: thriftPort.
     ^ self recvDatanodeUp success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendDatanodeUpName: name storage: storage thriftPort: thriftPort
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1801,7 +1880,7 @@ sendDatanodeUpName: name storage: storage thriftPort: thriftPort
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvDatanodeUp
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1822,14 +1901,14 @@ recvDatanodeUp
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 datanodeDownName: name storage: storage thriftPort: thriftPort
     "name: string, storage: string, thriftPort: i32"
     self sendDatanodeDownName: name storage: storage thriftPort: thriftPort.
     ^ self recvDatanodeDown success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendDatanodeDownName: name storage: storage thriftPort: thriftPort
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1848,7 +1927,7 @@ sendDatanodeDownName: name storage: storage thriftPort: thriftPort
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvDatanodeDown
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1875,14 +1954,14 @@ TClient subclass: #DatanodeClient
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 readBlockBlock: block offset: offset length: length
     "block: Block, offset: i64, length: i32"
     self sendReadBlockBlock: block offset: offset length: length.
     ^ self recvReadBlock success 
 ! !
 
-!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 sendReadBlockBlock: block offset: offset length: length
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1938,6 +2017,9 @@ sendReadBlockBlock: block offset: offset length: length
 ].
         oprot writeListEnd] value.
       oprot writeFieldEnd.
+      oprot writeFieldBegin: (TField new name: 'startOffset'; type: TType i64; id: 6).
+      iprot writeI64: block startOffset asInteger.
+      oprot writeFieldEnd.
       oprot writeFieldStop; writeStructEnd] value.
     oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'offset'; type: TType i64; id: 2).
@@ -1949,7 +2031,7 @@ sendReadBlockBlock: block offset: offset length: length
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/17/2009 14:13'!
+!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
 recvReadBlock
     | f msg res | 
     msg := oprot readMessageBegin.
@@ -1991,6 +2073,9 @@ recvReadBlock
               temp155 id = 2 ifTrue: [
                 temp156 := true.
                 temp154 stack: iprot readString].
+              temp155 id = 3 ifTrue: [
+                temp156 := true.
+                temp154 clazz: iprot readString].
               temp156 ifNil: [iprot skip: temp155 type]].
             oprot readStructEnd.
             temp154] value].

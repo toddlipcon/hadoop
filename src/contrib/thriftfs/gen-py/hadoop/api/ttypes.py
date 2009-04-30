@@ -192,6 +192,7 @@ class Block:
    - path: Path of the file which this block belongs to.
    - numBytes: Length of this block.
    - genStamp: Generational stamp of this block.
+   - startOffset: Offset of the first byte of the block relative to the start of the file
    - nodes: List of data nodes with copies  of this block.
   """
 
@@ -202,13 +203,15 @@ class Block:
     (3, TType.I64, 'numBytes', None, None, ), # 3
     (4, TType.I64, 'genStamp', None, None, ), # 4
     (5, TType.LIST, 'nodes', (TType.STRUCT,(DatanodeInfo, DatanodeInfo.thrift_spec)), None, ), # 5
+    (6, TType.I64, 'startOffset', None, None, ), # 6
   )
 
-  def __init__(self, blockId=None, path=None, numBytes=None, genStamp=None, nodes=None,):
+  def __init__(self, blockId=None, path=None, numBytes=None, genStamp=None, startOffset=None, nodes=None,):
     self.blockId = blockId
     self.path = path
     self.numBytes = numBytes
     self.genStamp = genStamp
+    self.startOffset = startOffset
     self.nodes = nodes
 
   def read(self, iprot):
@@ -238,6 +241,11 @@ class Block:
       elif fid == 4:
         if ftype == TType.I64:
           self.genStamp = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      elif fid == 6:
+        if ftype == TType.I64:
+          self.startOffset = iprot.readI64();
         else:
           iprot.skip(ftype)
       elif fid == 5:
@@ -283,6 +291,10 @@ class Block:
       for iter6 in self.nodes:
         iter6.write(oprot)
       oprot.writeListEnd()
+      oprot.writeFieldEnd()
+    if self.startOffset != None:
+      oprot.writeFieldBegin('startOffset', TType.I64, 6)
+      oprot.writeI64(self.startOffset)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -535,17 +547,20 @@ class IOException(Exception):
   Attributes:
    - msg: Error message.
    - stack: Textual representation of the call stack.
+   - clazz: The Java class of the Exception (may be a subclass)
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'msg', None, None, ), # 1
     (2, TType.STRING, 'stack', None, None, ), # 2
+    (3, TType.STRING, 'clazz', None, None, ), # 3
   )
 
-  def __init__(self, msg=None, stack=None,):
+  def __init__(self, msg=None, stack=None, clazz=None,):
     self.msg = msg
     self.stack = stack
+    self.clazz = clazz
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -566,6 +581,11 @@ class IOException(Exception):
           self.stack = iprot.readString();
         else:
           iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.STRING:
+          self.clazz = iprot.readString();
+        else:
+          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
@@ -584,8 +604,15 @@ class IOException(Exception):
       oprot.writeFieldBegin('stack', TType.STRING, 2)
       oprot.writeString(self.stack)
       oprot.writeFieldEnd()
+    if self.clazz != None:
+      oprot.writeFieldBegin('clazz', TType.STRING, 3)
+      oprot.writeString(self.clazz)
+      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
+
+  def __str__(self):
+    return repr(self)
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -656,6 +683,9 @@ class QuotaException(Exception):
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
+
+  def __str__(self):
+    return repr(self)
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)

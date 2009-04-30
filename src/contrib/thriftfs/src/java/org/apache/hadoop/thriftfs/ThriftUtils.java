@@ -78,7 +78,7 @@ public class ThriftUtils {
 
     org.apache.hadoop.hdfs.protocol.Block b = block.getBlock();
     return new Block(b.getBlockId(), path, b.getNumBytes(),
-        b.getGenerationStamp(), nodes);
+                     b.getGenerationStamp(), block.getStartOffset(), nodes);
   }
 
   public static org.apache.hadoop.hdfs.protocol.DatanodeInfo fromThrift(
@@ -136,6 +136,7 @@ public class ThriftUtils {
     }
 
     IOException ret = new IOException();
+    ret.clazz = t.getClass().getName();
     ret.msg = t.getMessage();
     ret.stack = "";
     for (StackTraceElement frame : t.getStackTrace()) {

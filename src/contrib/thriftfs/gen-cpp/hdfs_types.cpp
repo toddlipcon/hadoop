@@ -151,8 +151,8 @@ uint32_t DatanodeInfo::write(apache::thrift::protocol::TProtocol* oprot) const {
   return xfer;
 }
 
-const char* Block::ascii_fingerprint = "DC05DB32945F8E863495794EF27CF3CC";
-const uint8_t Block::binary_fingerprint[16] = {0xDC,0x05,0xDB,0x32,0x94,0x5F,0x8E,0x86,0x34,0x95,0x79,0x4E,0xF2,0x7C,0xF3,0xCC};
+const char* Block::ascii_fingerprint = "0CD779906D65E6F556A55905C2D4E505";
+const uint8_t Block::binary_fingerprint[16] = {0x0C,0xD7,0x79,0x90,0x6D,0x65,0xE6,0xF5,0x56,0xA5,0x59,0x05,0xC2,0xD4,0xE5,0x05};
 
 uint32_t Block::read(apache::thrift::protocol::TProtocol* iprot) {
 
@@ -202,6 +202,14 @@ uint32_t Block::read(apache::thrift::protocol::TProtocol* iprot) {
         if (ftype == apache::thrift::protocol::T_I64) {
           xfer += iprot->readI64(this->genStamp);
           this->__isset.genStamp = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 6:
+        if (ftype == apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->startOffset);
+          this->__isset.startOffset = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -263,6 +271,9 @@ uint32_t Block::write(apache::thrift::protocol::TProtocol* oprot) const {
     }
     xfer += oprot->writeListEnd();
   }
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("startOffset", apache::thrift::protocol::T_I64, 6);
+  xfer += oprot->writeI64(this->startOffset);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -477,8 +488,8 @@ uint32_t Stat::write(apache::thrift::protocol::TProtocol* oprot) const {
   return xfer;
 }
 
-const char* IOException::ascii_fingerprint = "07A9615F837F7D0A952B595DD3020972";
-const uint8_t IOException::binary_fingerprint[16] = {0x07,0xA9,0x61,0x5F,0x83,0x7F,0x7D,0x0A,0x95,0x2B,0x59,0x5D,0xD3,0x02,0x09,0x72};
+const char* IOException::ascii_fingerprint = "AB879940BD15B6B25691265F7384B271";
+const uint8_t IOException::binary_fingerprint[16] = {0xAB,0x87,0x99,0x40,0xBD,0x15,0xB6,0xB2,0x56,0x91,0x26,0x5F,0x73,0x84,0xB2,0x71};
 
 uint32_t IOException::read(apache::thrift::protocol::TProtocol* iprot) {
 
@@ -516,6 +527,14 @@ uint32_t IOException::read(apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 3:
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->clazz);
+          this->__isset.clazz = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -536,6 +555,9 @@ uint32_t IOException::write(apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("stack", apache::thrift::protocol::T_STRING, 2);
   xfer += oprot->writeString(this->stack);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("clazz", apache::thrift::protocol::T_STRING, 3);
+  xfer += oprot->writeString(this->clazz);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();

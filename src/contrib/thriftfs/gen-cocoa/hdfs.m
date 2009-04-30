@@ -409,7 +409,7 @@ static int64_t QUOTA_RESET = -1;
 @end
 
 @implementation Block
-- (id) initWithBlockId: (int64_t) blockId path: (NSString *) path numBytes: (int64_t) numBytes genStamp: (int64_t) genStamp nodes: (NSArray *) nodes
+- (id) initWithBlockId: (int64_t) blockId path: (NSString *) path numBytes: (int64_t) numBytes genStamp: (int64_t) genStamp startOffset: (int64_t) startOffset nodes: (NSArray *) nodes
 {
   self = [super init];
   __blockId = blockId;
@@ -420,6 +420,8 @@ static int64_t QUOTA_RESET = -1;
   __numBytes_isset = YES;
   __genStamp = genStamp;
   __genStamp_isset = YES;
+  __startOffset = startOffset;
+  __startOffset_isset = YES;
   __nodes = [nodes retain];
   __nodes_isset = YES;
   return self;
@@ -504,6 +506,23 @@ static int64_t QUOTA_RESET = -1;
   __genStamp_isset = NO;
 }
 
+- (int64_t) startOffset {
+  return __startOffset;
+}
+
+- (void) setStartOffset: (int64_t) startOffset {
+  __startOffset = startOffset;
+  __startOffset_isset = YES;
+}
+
+- (BOOL) startOffsetIsSet {
+  return __startOffset_isset;
+}
+
+- (void) unsetStartOffset {
+  __startOffset_isset = NO;
+}
+
 - (NSArray *) nodes {
   return [[__nodes retain] autorelease];
 }
@@ -572,6 +591,14 @@ static int64_t QUOTA_RESET = -1;
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 6:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setStartOffset: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       case 5:
         if (fieldType == TType_LIST) {
           int _size0;
@@ -624,6 +651,11 @@ static int64_t QUOTA_RESET = -1;
     [outProtocol writeI64: __genStamp];
     [outProtocol writeFieldEnd];
   }
+  if (__startOffset_isset) {
+    [outProtocol writeFieldBeginWithName: @"startOffset" type: TType_I64 fieldID: 6];
+    [outProtocol writeI64: __startOffset];
+    [outProtocol writeFieldEnd];
+  }
   if (__nodes_isset) {
     if (__nodes != nil) {
       [outProtocol writeFieldBeginWithName: @"nodes" type: TType_LIST fieldID: 5];
@@ -653,6 +685,8 @@ static int64_t QUOTA_RESET = -1;
   [ms appendFormat: @"%qi", __numBytes];
   [ms appendString: @",genStamp:"];
   [ms appendFormat: @"%qi", __genStamp];
+  [ms appendString: @",startOffset:"];
+  [ms appendFormat: @"%qi", __startOffset];
   [ms appendString: @",nodes:"];
   [ms appendFormat: @"%@", __nodes];
   [ms appendString: @")"];
@@ -1247,13 +1281,15 @@ static int64_t QUOTA_RESET = -1;
 {
   return [super initWithName: @"IOException" reason: @"unknown" userInfo: nil];
 }
-- (id) initWithMsg: (NSString *) msg stack: (NSString *) stack
+- (id) initWithMsg: (NSString *) msg stack: (NSString *) stack clazz: (NSString *) clazz
 {
   self = [self init];
   __msg = [msg retain];
   __msg_isset = YES;
   __stack = [stack retain];
   __stack_isset = YES;
+  __clazz = [clazz retain];
+  __clazz_isset = YES;
   return self;
 }
 
@@ -1261,6 +1297,7 @@ static int64_t QUOTA_RESET = -1;
 {
   [__msg release];
   [__stack release];
+  [__clazz release];
   [super dealloc];
 }
 
@@ -1306,6 +1343,27 @@ static int64_t QUOTA_RESET = -1;
   __stack_isset = NO;
 }
 
+- (NSString *) clazz {
+  return [[__clazz retain] autorelease];
+}
+
+- (void) setClazz: (NSString *) clazz {
+  [clazz retain];
+  [__clazz release];
+  __clazz = clazz;
+  __clazz_isset = YES;
+}
+
+- (BOOL) clazzIsSet {
+  return __clazz_isset;
+}
+
+- (void) unsetClazz {
+  [__clazz release];
+  __clazz = nil;
+  __clazz_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -1337,6 +1395,14 @@ static int64_t QUOTA_RESET = -1;
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 3:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setClazz: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -1362,6 +1428,13 @@ static int64_t QUOTA_RESET = -1;
       [outProtocol writeFieldEnd];
     }
   }
+  if (__clazz_isset) {
+    if (__clazz != nil) {
+      [outProtocol writeFieldBeginWithName: @"clazz" type: TType_STRING fieldID: 3];
+      [outProtocol writeString: __clazz];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -1372,6 +1445,8 @@ static int64_t QUOTA_RESET = -1;
   [ms appendFormat: @"\"%@\"", __msg];
   [ms appendString: @",stack:"];
   [ms appendFormat: @"\"%@\"", __stack];
+  [ms appendString: @",clazz:"];
+  [ms appendFormat: @"\"%@\"", __clazz];
   [ms appendString: @")"];
   return [ms copy];
 }

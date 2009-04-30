@@ -28,6 +28,7 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
   private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)2);
   private static final TField NUM_BYTES_FIELD_DESC = new TField("numBytes", TType.I64, (short)3);
   private static final TField GEN_STAMP_FIELD_DESC = new TField("genStamp", TType.I64, (short)4);
+  private static final TField START_OFFSET_FIELD_DESC = new TField("startOffset", TType.I64, (short)6);
   private static final TField NODES_FIELD_DESC = new TField("nodes", TType.LIST, (short)5);
 
   /**
@@ -51,6 +52,11 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
   public long genStamp;
   public static final int GENSTAMP = 4;
   /**
+   * Offset of the first byte of the block relative to the start of the file
+   */
+  public long startOffset;
+  public static final int STARTOFFSET = 6;
+  /**
    * List of data nodes with copies  of this block.
    */
   public List<DatanodeInfo> nodes;
@@ -61,6 +67,7 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     public boolean blockId = false;
     public boolean numBytes = false;
     public boolean genStamp = false;
+    public boolean startOffset = false;
   }
 
   public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
@@ -71,6 +78,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     put(NUMBYTES, new FieldMetaData("numBytes", TFieldRequirementType.DEFAULT, 
         new FieldValueMetaData(TType.I64)));
     put(GENSTAMP, new FieldMetaData("genStamp", TFieldRequirementType.DEFAULT, 
+        new FieldValueMetaData(TType.I64)));
+    put(STARTOFFSET, new FieldMetaData("startOffset", TFieldRequirementType.DEFAULT, 
         new FieldValueMetaData(TType.I64)));
     put(NODES, new FieldMetaData("nodes", TFieldRequirementType.DEFAULT, 
         new ListMetaData(TType.LIST, 
@@ -89,6 +98,7 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     String path,
     long numBytes,
     long genStamp,
+    long startOffset,
     List<DatanodeInfo> nodes)
   {
     this();
@@ -99,6 +109,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     this.__isset.numBytes = true;
     this.genStamp = genStamp;
     this.__isset.genStamp = true;
+    this.startOffset = startOffset;
+    this.__isset.startOffset = true;
     this.nodes = nodes;
   }
 
@@ -115,6 +127,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     this.numBytes = other.numBytes;
     __isset.genStamp = other.__isset.genStamp;
     this.genStamp = other.genStamp;
+    __isset.startOffset = other.__isset.startOffset;
+    this.startOffset = other.startOffset;
     if (other.isSetNodes()) {
       List<DatanodeInfo> __this__nodes = new ArrayList<DatanodeInfo>();
       for (DatanodeInfo other_element : other.nodes) {
@@ -242,6 +256,34 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     this.__isset.genStamp = value;
   }
 
+  /**
+   * Offset of the first byte of the block relative to the start of the file
+   */
+  public long getStartOffset() {
+    return this.startOffset;
+  }
+
+  /**
+   * Offset of the first byte of the block relative to the start of the file
+   */
+  public void setStartOffset(long startOffset) {
+    this.startOffset = startOffset;
+    this.__isset.startOffset = true;
+  }
+
+  public void unsetStartOffset() {
+    this.__isset.startOffset = false;
+  }
+
+  // Returns true if field startOffset is set (has been asigned a value) and false otherwise
+  public boolean isSetStartOffset() {
+    return this.__isset.startOffset;
+  }
+
+  public void setStartOffsetIsSet(boolean value) {
+    this.__isset.startOffset = value;
+  }
+
   public int getNodesSize() {
     return (this.nodes == null) ? 0 : this.nodes.size();
   }
@@ -320,6 +362,14 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       }
       break;
 
+    case STARTOFFSET:
+      if (value == null) {
+        unsetStartOffset();
+      } else {
+        setStartOffset((Long)value);
+      }
+      break;
+
     case NODES:
       if (value == null) {
         unsetNodes();
@@ -347,6 +397,9 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     case GENSTAMP:
       return new Long(getGenStamp());
 
+    case STARTOFFSET:
+      return new Long(getStartOffset());
+
     case NODES:
       return getNodes();
 
@@ -366,6 +419,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       return isSetNumBytes();
     case GENSTAMP:
       return isSetGenStamp();
+    case STARTOFFSET:
+      return isSetStartOffset();
     case NODES:
       return isSetNodes();
     default:
@@ -419,6 +474,15 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       if (!(this_present_genStamp && that_present_genStamp))
         return false;
       if (this.genStamp != that.genStamp)
+        return false;
+    }
+
+    boolean this_present_startOffset = true;
+    boolean that_present_startOffset = true;
+    if (this_present_startOffset || that_present_startOffset) {
+      if (!(this_present_startOffset && that_present_startOffset))
+        return false;
+      if (this.startOffset != that.startOffset)
         return false;
     }
 
@@ -477,6 +541,14 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
           if (field.type == TType.I64) {
             this.genStamp = iprot.readI64();
             this.__isset.genStamp = true;
+          } else { 
+            TProtocolUtil.skip(iprot, field.type);
+          }
+          break;
+        case STARTOFFSET:
+          if (field.type == TType.I64) {
+            this.startOffset = iprot.readI64();
+            this.__isset.startOffset = true;
           } else { 
             TProtocolUtil.skip(iprot, field.type);
           }
@@ -541,6 +613,9 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       }
       oprot.writeFieldEnd();
     }
+    oprot.writeFieldBegin(START_OFFSET_FIELD_DESC);
+    oprot.writeI64(this.startOffset);
+    oprot.writeFieldEnd();
     oprot.writeFieldStop();
     oprot.writeStructEnd();
   }
@@ -568,6 +643,10 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     if (!first) sb.append(", ");
     sb.append("genStamp:");
     sb.append(this.genStamp);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("startOffset:");
+    sb.append(this.startOffset);
     first = false;
     if (!first) sb.append(", ");
     sb.append("nodes:");

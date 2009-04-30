@@ -24,6 +24,7 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
   private static final TStruct STRUCT_DESC = new TStruct("IOException");
   private static final TField MSG_FIELD_DESC = new TField("msg", TType.STRING, (short)1);
   private static final TField STACK_FIELD_DESC = new TField("stack", TType.STRING, (short)2);
+  private static final TField CLAZZ_FIELD_DESC = new TField("clazz", TType.STRING, (short)3);
 
   /**
    * Error message.
@@ -35,6 +36,11 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
    */
   public String stack;
   public static final int STACK = 2;
+  /**
+   * The Java class of the Exception (may be a subclass)
+   */
+  public String clazz;
+  public static final int CLAZZ = 3;
 
   private final Isset __isset = new Isset();
   private static final class Isset implements java.io.Serializable {
@@ -44,6 +50,8 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
     put(MSG, new FieldMetaData("msg", TFieldRequirementType.DEFAULT, 
         new FieldValueMetaData(TType.STRING)));
     put(STACK, new FieldMetaData("stack", TFieldRequirementType.DEFAULT, 
+        new FieldValueMetaData(TType.STRING)));
+    put(CLAZZ, new FieldMetaData("clazz", TFieldRequirementType.DEFAULT, 
         new FieldValueMetaData(TType.STRING)));
   }});
 
@@ -56,11 +64,13 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
 
   public IOException(
     String msg,
-    String stack)
+    String stack,
+    String clazz)
   {
     this();
     this.msg = msg;
     this.stack = stack;
+    this.clazz = clazz;
   }
 
   /**
@@ -72,6 +82,9 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
     }
     if (other.isSetStack()) {
       this.stack = other.stack;
+    }
+    if (other.isSetClazz()) {
+      this.clazz = other.clazz;
     }
   }
 
@@ -138,6 +151,35 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
     }
   }
 
+  /**
+   * The Java class of the Exception (may be a subclass)
+   */
+  public String getClazz() {
+    return this.clazz;
+  }
+
+  /**
+   * The Java class of the Exception (may be a subclass)
+   */
+  public void setClazz(String clazz) {
+    this.clazz = clazz;
+  }
+
+  public void unsetClazz() {
+    this.clazz = null;
+  }
+
+  // Returns true if field clazz is set (has been asigned a value) and false otherwise
+  public boolean isSetClazz() {
+    return this.clazz != null;
+  }
+
+  public void setClazzIsSet(boolean value) {
+    if (!value) {
+      this.clazz = null;
+    }
+  }
+
   public void setFieldValue(int fieldID, Object value) {
     switch (fieldID) {
     case MSG:
@@ -156,6 +198,14 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
       }
       break;
 
+    case CLAZZ:
+      if (value == null) {
+        unsetClazz();
+      } else {
+        setClazz((String)value);
+      }
+      break;
+
     default:
       throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
     }
@@ -169,6 +219,9 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
     case STACK:
       return getStack();
 
+    case CLAZZ:
+      return getClazz();
+
     default:
       throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
     }
@@ -181,6 +234,8 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
       return isSetMsg();
     case STACK:
       return isSetStack();
+    case CLAZZ:
+      return isSetClazz();
     default:
       throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
     }
@@ -217,6 +272,15 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
         return false;
     }
 
+    boolean this_present_clazz = true && this.isSetClazz();
+    boolean that_present_clazz = true && that.isSetClazz();
+    if (this_present_clazz || that_present_clazz) {
+      if (!(this_present_clazz && that_present_clazz))
+        return false;
+      if (!this.clazz.equals(that.clazz))
+        return false;
+    }
+
     return true;
   }
 
@@ -250,6 +314,13 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
             TProtocolUtil.skip(iprot, field.type);
           }
           break;
+        case CLAZZ:
+          if (field.type == TType.STRING) {
+            this.clazz = iprot.readString();
+          } else { 
+            TProtocolUtil.skip(iprot, field.type);
+          }
+          break;
         default:
           TProtocolUtil.skip(iprot, field.type);
           break;
@@ -277,6 +348,11 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
       oprot.writeString(this.stack);
       oprot.writeFieldEnd();
     }
+    if (this.clazz != null) {
+      oprot.writeFieldBegin(CLAZZ_FIELD_DESC);
+      oprot.writeString(this.clazz);
+      oprot.writeFieldEnd();
+    }
     oprot.writeFieldStop();
     oprot.writeStructEnd();
   }
@@ -299,6 +375,14 @@ public class IOException extends Exception implements TBase, java.io.Serializabl
       sb.append("null");
     } else {
       sb.append(this.stack);
+    }
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("clazz:");
+    if (this.clazz == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.clazz);
     }
     first = false;
     sb.append(")");

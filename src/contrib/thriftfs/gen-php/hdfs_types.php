@@ -280,6 +280,7 @@ class hadoop_api_Block {
   public $path = null;
   public $numBytes = null;
   public $genStamp = null;
+  public $startOffset = null;
   public $nodes = null;
 
   public function __construct($vals=null) {
@@ -299,6 +300,10 @@ class hadoop_api_Block {
           ),
         4 => array(
           'var' => 'genStamp',
+          'type' => TType::I64,
+          ),
+        6 => array(
+          'var' => 'startOffset',
           'type' => TType::I64,
           ),
         5 => array(
@@ -324,6 +329,9 @@ class hadoop_api_Block {
       }
       if (isset($vals['genStamp'])) {
         $this->genStamp = $vals['genStamp'];
+      }
+      if (isset($vals['startOffset'])) {
+        $this->startOffset = $vals['startOffset'];
       }
       if (isset($vals['nodes'])) {
         $this->nodes = $vals['nodes'];
@@ -374,6 +382,13 @@ class hadoop_api_Block {
         case 4:
           if ($ftype == TType::I64) {
             $xfer += $input->readI64($this->genStamp);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 6:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->startOffset);
           } else {
             $xfer += $input->skip($ftype);
           }
@@ -444,6 +459,11 @@ class hadoop_api_Block {
         }
         $output->writeListEnd();
       }
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->startOffset !== null) {
+      $xfer += $output->writeFieldBegin('startOffset', TType::I64, 6);
+      $xfer += $output->writeI64($this->startOffset);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -810,6 +830,7 @@ class hadoop_api_IOException extends TException {
 
   public $msg = null;
   public $stack = null;
+  public $clazz = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
@@ -822,6 +843,10 @@ class hadoop_api_IOException extends TException {
           'var' => 'stack',
           'type' => TType::STRING,
           ),
+        3 => array(
+          'var' => 'clazz',
+          'type' => TType::STRING,
+          ),
         );
     }
     if (is_array($vals)) {
@@ -830,6 +855,9 @@ class hadoop_api_IOException extends TException {
       }
       if (isset($vals['stack'])) {
         $this->stack = $vals['stack'];
+      }
+      if (isset($vals['clazz'])) {
+        $this->clazz = $vals['clazz'];
       }
     }
   }
@@ -867,6 +895,13 @@ class hadoop_api_IOException extends TException {
             $xfer += $input->skip($ftype);
           }
           break;
+        case 3:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->clazz);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -888,6 +923,11 @@ class hadoop_api_IOException extends TException {
     if ($this->stack !== null) {
       $xfer += $output->writeFieldBegin('stack', TType::STRING, 2);
       $xfer += $output->writeString($this->stack);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->clazz !== null) {
+      $xfer += $output->writeFieldBegin('clazz', TType::STRING, 3);
+      $xfer += $output->writeString($this->clazz);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();

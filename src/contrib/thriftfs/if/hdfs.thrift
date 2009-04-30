@@ -108,7 +108,10 @@ struct Block {
   
   /** Generational stamp of this block. */
   4: i64 genStamp,
-  
+
+  /** Offset of the first byte of the block relative to the start of the file */  
+  6: i64 startOffset;
+
   /** List of data nodes with copies  of this block. */
   5: list<DatanodeInfo> nodes
 }
@@ -179,9 +182,12 @@ struct Stat {
 exception IOException {
   /** Error message. */
   1: string msg,
-  
+
   /** Textual representation of the call stack. */
   2: string stack
+
+  /** The Java class of the Exception (may be a subclass) */
+  3: string clazz
 }
 
 /** Quota-related error */

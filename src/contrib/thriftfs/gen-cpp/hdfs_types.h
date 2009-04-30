@@ -96,10 +96,10 @@ class DatanodeInfo {
 class Block {
  public:
 
-  static const char* ascii_fingerprint; // = "DC05DB32945F8E863495794EF27CF3CC";
-  static const uint8_t binary_fingerprint[16]; // = {0xDC,0x05,0xDB,0x32,0x94,0x5F,0x8E,0x86,0x34,0x95,0x79,0x4E,0xF2,0x7C,0xF3,0xCC};
+  static const char* ascii_fingerprint; // = "0CD779906D65E6F556A55905C2D4E505";
+  static const uint8_t binary_fingerprint[16]; // = {0x0C,0xD7,0x79,0x90,0x6D,0x65,0xE6,0xF5,0x56,0xA5,0x59,0x05,0xC2,0xD4,0xE5,0x05};
 
-  Block() : blockId(0), path(""), numBytes(0), genStamp(0) {
+  Block() : blockId(0), path(""), numBytes(0), genStamp(0), startOffset(0) {
   }
 
   virtual ~Block() throw() {}
@@ -108,14 +108,16 @@ class Block {
   std::string path;
   int64_t numBytes;
   int64_t genStamp;
+  int64_t startOffset;
   std::vector<DatanodeInfo>  nodes;
 
   struct __isset {
-    __isset() : blockId(false), path(false), numBytes(false), genStamp(false), nodes(false) {}
+    __isset() : blockId(false), path(false), numBytes(false), genStamp(false), startOffset(false), nodes(false) {}
     bool blockId;
     bool path;
     bool numBytes;
     bool genStamp;
+    bool startOffset;
     bool nodes;
   } __isset;
 
@@ -128,6 +130,8 @@ class Block {
     if (!(numBytes == rhs.numBytes))
       return false;
     if (!(genStamp == rhs.genStamp))
+      return false;
+    if (!(startOffset == rhs.startOffset))
       return false;
     if (!(nodes == rhs.nodes))
       return false;
@@ -238,21 +242,23 @@ class Stat {
 class IOException : public apache::thrift::TException {
  public:
 
-  static const char* ascii_fingerprint; // = "07A9615F837F7D0A952B595DD3020972";
-  static const uint8_t binary_fingerprint[16]; // = {0x07,0xA9,0x61,0x5F,0x83,0x7F,0x7D,0x0A,0x95,0x2B,0x59,0x5D,0xD3,0x02,0x09,0x72};
+  static const char* ascii_fingerprint; // = "AB879940BD15B6B25691265F7384B271";
+  static const uint8_t binary_fingerprint[16]; // = {0xAB,0x87,0x99,0x40,0xBD,0x15,0xB6,0xB2,0x56,0x91,0x26,0x5F,0x73,0x84,0xB2,0x71};
 
-  IOException() : msg(""), stack("") {
+  IOException() : msg(""), stack(""), clazz("") {
   }
 
   virtual ~IOException() throw() {}
 
   std::string msg;
   std::string stack;
+  std::string clazz;
 
   struct __isset {
-    __isset() : msg(false), stack(false) {}
+    __isset() : msg(false), stack(false), clazz(false) {}
     bool msg;
     bool stack;
+    bool clazz;
   } __isset;
 
   bool operator == (const IOException & rhs) const
@@ -260,6 +266,8 @@ class IOException : public apache::thrift::TException {
     if (!(msg == rhs.msg))
       return false;
     if (!(stack == rhs.stack))
+      return false;
+    if (!(clazz == rhs.clazz))
       return false;
     return true;
   }
