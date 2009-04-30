@@ -17,6 +17,7 @@
  */
 package org.apache.hadoop.thriftfs;
 
+import java.io.FileNotFoundException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -229,7 +230,7 @@ public class NamenodePlugin
       List<Stat> ret = new ArrayList<Stat>();
       try {
         for (FileStatus f : namenode.getListing(path)) {
-          ret.add(toThrift(f));
+          ret.add(fileStatusToStat(f));
         }
         LOG.debug("ls(" + path + "): Returning " + ret);
         return ret;
@@ -332,7 +333,7 @@ public class NamenodePlugin
     public Stat stat(String path) throws IOException, TException {
       LOG.debug("stat(" + path + "): Entering");
       try {
-        Stat ret = toThrift(namenode.getFileInfo(path));
+        Stat ret = fileStatusToStat(namenode.getFileInfo(path));
         LOG.debug("stat(" + path + "): Returning " + ret);
         return ret;
       } catch (Throwable t) {
@@ -370,12 +371,12 @@ public class NamenodePlugin
       }
     }
 
-    private Stat toThrift(FileStatus f) throws java.io.IOException {
-      Stat st = new Stat();
+    private Stat fileStatusToStat(FileStatus f) throws java.io.IOException {
       if (f == null) {
-        return st;
+        throw new FileNotFoundException();
       }
 
+      Stat st = new Stat();
       st.path = f.getPath().toString();
       st.isDir = f.isDir();
       st.atime = f.getAccessTime();
