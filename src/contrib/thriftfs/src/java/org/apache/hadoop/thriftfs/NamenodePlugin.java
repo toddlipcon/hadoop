@@ -142,8 +142,11 @@ public class NamenodePlugin
       List<Block> ret = new ArrayList<Block>();
       try {
         LocatedBlocks blocks = namenode.getBlockLocations(path, offset, length);
-        for (LocatedBlock b : blocks.getLocatedBlocks()) {
-          ret.add(ThriftUtils.toThrift(b, path, thriftPorts));
+        if (blocks != null) {
+          // blocks may be null if offset is past the end of the file
+          for (LocatedBlock b : blocks.getLocatedBlocks()) {
+            ret.add(ThriftUtils.toThrift(b, path, thriftPorts));
+          }
         }
         LOG.debug("getBlocks(" + path + "," + offset + "," + length
             + "): Returning " + ret);
