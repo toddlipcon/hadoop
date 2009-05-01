@@ -16,6 +16,7 @@ import org.apache.hadoop.thriftfs.api.BlockData;
 import org.apache.hadoop.thriftfs.api.Datanode;
 import org.apache.hadoop.thriftfs.api.DatanodeInfo;
 import org.apache.hadoop.thriftfs.api.Namenode;
+import org.apache.hadoop.thriftfs.api.RequestContext;
 import org.apache.log4j.Level;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -31,6 +32,7 @@ public class TestDatanodePlugin  {
   private static FileSystem fs;
   private static Namenode.Client namenode;
   private Datanode.Client datanode;
+  private static RequestContext ctx;
 
   private static final String testFile = "/test-file";
   private static Path testFilePath = new Path(testFile);
@@ -54,6 +56,7 @@ public class TestDatanodePlugin  {
     fs = cluster.getFileSystem();
     Configuration conf = Helper.createConf();
     namenode = ThriftUtils.createNamenodeClient(conf);
+    ctx = Helper.createRequestContext(true);
   }
 
   @AfterClass
@@ -65,7 +68,7 @@ public class TestDatanodePlugin  {
   @Test
   public void testRead() throws Exception {
     createFile(32);
-    List<Block> blocks = namenode.getBlocks(testFile, 0, 32);
+    List<Block> blocks = namenode.getBlocks(ctx, testFile, 0, 32);
     assertEquals(1, blocks.size());
 
     Block b = blocks.get(0);
@@ -74,13 +77,13 @@ public class TestDatanodePlugin  {
     DatanodeInfo node = b.nodes.get(0);
     datanode = Helper.createDatanodeClient(node);
 
-    BlockData blockData = datanode.readBlock(b, 0, 32);
+    BlockData blockData = datanode.readBlock(ctx, b, 0, 32);
     LOG.debug("Read block: " + blockData);
     assertEquals("0000 - Thirty-two bytes in a row",
         new String(blockData.data));
 
     createFile(BLOCK_SIZE + 32);
-    blocks = namenode.getBlocks(testFile, 0, BLOCK_SIZE + 32);
+    blocks = namenode.getBlocks(ctx, testFile, 0, BLOCK_SIZE + 32);
     assertEquals(2, blocks.size());
 
     b = blocks.get(0);
@@ -88,19 +91,19 @@ public class TestDatanodePlugin  {
     node = b.nodes.get(0);
     datanode = Helper.createDatanodeClient(node);
 
-    blockData = datanode.readBlock(b, 0, BLOCK_SIZE);
+    blockData = datanode.readBlock(ctx, b, 0, BLOCK_SIZE);
     assertEquals(BLOCK_SIZE, blockData.length);
     String data = new String(blockData.data);
     assertTrue(data.startsWith("0000 - Thirty-two bytes in a row"));
     assertTrue(data.endsWith("0255 - Thirty-two bytes in a row"));
 
-    blockData = datanode.readBlock(b, 32, 32);
+    blockData = datanode.readBlock(ctx, b, 32, 32);
     assertEquals(32, blockData.length);
     assertEquals("0001 - Thirty-two bytes in a row",
         new String(blockData.data));
 
     b = blocks.get(1);
-    blockData = datanode.readBlock(b, 0, 32);
+    blockData = datanode.readBlock(ctx, b, 0, 32);
     assertEquals(32, blockData.length);
     assertEquals("0256 - Thirty-two bytes in a row",
         new String(blockData.data));

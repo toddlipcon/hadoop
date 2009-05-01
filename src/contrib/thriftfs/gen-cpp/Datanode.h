@@ -14,13 +14,13 @@ namespace hadoop { namespace api {
 class DatanodeIf {
  public:
   virtual ~DatanodeIf() {}
-  virtual void readBlock(BlockData& _return, const Block& block, const int64_t offset, const int32_t length) = 0;
+  virtual void readBlock(BlockData& _return, const RequestContext& ctx, const Block& block, const int64_t offset, const int32_t length) = 0;
 };
 
 class DatanodeNull : virtual public DatanodeIf {
  public:
   virtual ~DatanodeNull() {}
-  void readBlock(BlockData& /* _return */, const Block& /* block */, const int64_t /* offset */, const int32_t /* length */) {
+  void readBlock(BlockData& /* _return */, const RequestContext& /* ctx */, const Block& /* block */, const int64_t /* offset */, const int32_t /* length */) {
     return;
   }
 };
@@ -33,12 +33,14 @@ class Datanode_readBlock_args {
 
   virtual ~Datanode_readBlock_args() throw() {}
 
+  RequestContext ctx;
   Block block;
   int64_t offset;
   int32_t length;
 
   struct __isset {
-    __isset() : block(false), offset(false), length(false) {}
+    __isset() : ctx(false), block(false), offset(false), length(false) {}
+    bool ctx;
     bool block;
     bool offset;
     bool length;
@@ -46,6 +48,8 @@ class Datanode_readBlock_args {
 
   bool operator == (const Datanode_readBlock_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(block == rhs.block))
       return false;
     if (!(offset == rhs.offset))
@@ -71,6 +75,7 @@ class Datanode_readBlock_pargs {
 
   virtual ~Datanode_readBlock_pargs() throw() {}
 
+  const RequestContext* ctx;
   const Block* block;
   const int64_t* offset;
   const int32_t* length;
@@ -154,8 +159,8 @@ class DatanodeClient : virtual public DatanodeIf {
   boost::shared_ptr<apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
-  void readBlock(BlockData& _return, const Block& block, const int64_t offset, const int32_t length);
-  void send_readBlock(const Block& block, const int64_t offset, const int32_t length);
+  void readBlock(BlockData& _return, const RequestContext& ctx, const Block& block, const int64_t offset, const int32_t length);
+  void send_readBlock(const RequestContext& ctx, const Block& block, const int64_t offset, const int32_t length);
   void recv_readBlock(BlockData& _return);
  protected:
   boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot_;
@@ -193,14 +198,14 @@ class DatanodeMultiface : virtual public DatanodeIf {
     ifaces_.push_back(iface);
   }
  public:
-  void readBlock(BlockData& _return, const Block& block, const int64_t offset, const int32_t length) {
+  void readBlock(BlockData& _return, const RequestContext& ctx, const Block& block, const int64_t offset, const int32_t length) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        ifaces_[i]->readBlock(_return, block, offset, length);
+        ifaces_[i]->readBlock(_return, ctx, block, offset, length);
         return;
       } else {
-        ifaces_[i]->readBlock(_return, block, offset, length);
+        ifaces_[i]->readBlock(_return, ctx, block, offset, length);
       }
     }
   }

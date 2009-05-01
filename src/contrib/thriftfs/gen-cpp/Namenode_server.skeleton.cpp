@@ -22,97 +22,97 @@ class NamenodeHandler : virtual public NamenodeIf {
     // Your initialization goes here
   }
 
-  void chmod(const std::string& path, const int16_t perms) {
+  void chmod(const RequestContext& ctx, const std::string& path, const int16_t perms) {
     // Your implementation goes here
     printf("chmod\n");
   }
 
-  void chown(const std::string& path, const std::string& owner, const std::string& group) {
+  void chown(const RequestContext& ctx, const std::string& path, const std::string& owner, const std::string& group) {
     // Your implementation goes here
     printf("chown\n");
   }
 
-  void df(std::vector<int64_t> & _return) {
+  void df(std::vector<int64_t> & _return, const RequestContext& ctx) {
     // Your implementation goes here
     printf("df\n");
   }
 
-  void enterSafeMode() {
+  void enterSafeMode(const RequestContext& ctx) {
     // Your implementation goes here
     printf("enterSafeMode\n");
   }
 
-  void getBlocks(std::vector<Block> & _return, const std::string& path, const int64_t offset, const int64_t length) {
+  void getBlocks(std::vector<Block> & _return, const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length) {
     // Your implementation goes here
     printf("getBlocks\n");
   }
 
-  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type) {
+  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const RequestContext& ctx, const DatanodeReportType type) {
     // Your implementation goes here
     printf("getDatanodeReport\n");
   }
 
-  int64_t getPreferredBlockSize(const std::string& path) {
+  int64_t getPreferredBlockSize(const RequestContext& ctx, const std::string& path) {
     // Your implementation goes here
     printf("getPreferredBlockSize\n");
   }
 
-  bool isInSafeMode() {
+  bool isInSafeMode(const RequestContext& ctx) {
     // Your implementation goes here
     printf("isInSafeMode\n");
   }
 
-  void leaveSafeMode() {
+  void leaveSafeMode(const RequestContext& ctx) {
     // Your implementation goes here
     printf("leaveSafeMode\n");
   }
 
-  void ls(std::vector<Stat> & _return, const std::string& path) {
+  void ls(std::vector<Stat> & _return, const RequestContext& ctx, const std::string& path) {
     // Your implementation goes here
     printf("ls\n");
   }
 
-  bool mkdirhier(const std::string& path, const int16_t perms) {
+  bool mkdirhier(const RequestContext& ctx, const std::string& path, const int16_t perms) {
     // Your implementation goes here
     printf("mkdirhier\n");
   }
 
-  void refreshNodes() {
+  void refreshNodes(const RequestContext& ctx) {
     // Your implementation goes here
     printf("refreshNodes\n");
   }
 
-  bool rename(const std::string& path, const std::string& newPath) {
+  bool rename(const RequestContext& ctx, const std::string& path, const std::string& newPath) {
     // Your implementation goes here
     printf("rename\n");
   }
 
-  void reportBadBlocks(const std::vector<Block> & blocks) {
+  void reportBadBlocks(const RequestContext& ctx, const std::vector<Block> & blocks) {
     // Your implementation goes here
     printf("reportBadBlocks\n");
   }
 
-  void stat(Stat& _return, const std::string& path) {
+  void stat(Stat& _return, const RequestContext& ctx, const std::string& path) {
     // Your implementation goes here
     printf("stat\n");
   }
 
-  void setQuota(const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota) {
+  void setQuota(const RequestContext& ctx, const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota) {
     // Your implementation goes here
     printf("setQuota\n");
   }
 
-  bool setReplication(const std::string& path, const int16_t replication) {
+  bool setReplication(const RequestContext& ctx, const std::string& path, const int16_t replication) {
     // Your implementation goes here
     printf("setReplication\n");
   }
 
-  bool unlink(const std::string& path, const bool recursive) {
+  bool unlink(const RequestContext& ctx, const std::string& path, const bool recursive) {
     // Your implementation goes here
     printf("unlink\n");
   }
 
-  void utime(const std::string& path, const int64_t atime, const int64_t mtime) {
+  void utime(const RequestContext& ctx, const std::string& path, const int64_t atime, const int64_t mtime) {
     // Your implementation goes here
     printf("utime\n");
   }

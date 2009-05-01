@@ -21,25 +21,25 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print 'Usage: ' + sys.argv[0] + ' [-h host:port] [-u url] [-f[ramed]] function [arg1 [arg2...]]'
   print ''
   print 'Functions:'
-  print '  void chmod(string path, i16 perms)'
-  print '  void chown(string path, string owner, string group)'
-  print '   df()'
-  print '  void enterSafeMode()'
-  print '   getBlocks(string path, i64 offset, i64 length)'
-  print '   getDatanodeReport(DatanodeReportType type)'
-  print '  i64 getPreferredBlockSize(string path)'
-  print '  bool isInSafeMode()'
-  print '  void leaveSafeMode()'
-  print '   ls(string path)'
-  print '  bool mkdirhier(string path, i16 perms)'
-  print '  void refreshNodes()'
-  print '  bool rename(string path, string newPath)'
-  print '  void reportBadBlocks( blocks)'
-  print '  Stat stat(string path)'
-  print '  void setQuota(string path, i64 namespaceQuota, i64 diskspaceQuota)'
-  print '  bool setReplication(string path, i16 replication)'
-  print '  bool unlink(string path, bool recursive)'
-  print '  void utime(string path, i64 atime, i64 mtime)'
+  print '  void chmod(RequestContext ctx, string path, i16 perms)'
+  print '  void chown(RequestContext ctx, string path, string owner, string group)'
+  print '   df(RequestContext ctx)'
+  print '  void enterSafeMode(RequestContext ctx)'
+  print '   getBlocks(RequestContext ctx, string path, i64 offset, i64 length)'
+  print '   getDatanodeReport(RequestContext ctx, DatanodeReportType type)'
+  print '  i64 getPreferredBlockSize(RequestContext ctx, string path)'
+  print '  bool isInSafeMode(RequestContext ctx)'
+  print '  void leaveSafeMode(RequestContext ctx)'
+  print '   ls(RequestContext ctx, string path)'
+  print '  bool mkdirhier(RequestContext ctx, string path, i16 perms)'
+  print '  void refreshNodes(RequestContext ctx)'
+  print '  bool rename(RequestContext ctx, string path, string newPath)'
+  print '  void reportBadBlocks(RequestContext ctx,  blocks)'
+  print '  Stat stat(RequestContext ctx, string path)'
+  print '  void setQuota(RequestContext ctx, string path, i64 namespaceQuota, i64 diskspaceQuota)'
+  print '  bool setReplication(RequestContext ctx, string path, i16 replication)'
+  print '  bool unlink(RequestContext ctx, string path, bool recursive)'
+  print '  void utime(RequestContext ctx, string path, i64 atime, i64 mtime)'
   print '  void datanodeUp(string name, string storage, i32 thriftPort)'
   print '  void datanodeDown(string name, string storage, i32 thriftPort)'
   print ''
@@ -91,118 +91,118 @@ client = Namenode.Client(protocol)
 transport.open()
 
 if cmd == 'chmod':
-  if len(args) != 2:
-    print 'chmod requires 2 args'
+  if len(args) != 3:
+    print 'chmod requires 3 args'
     sys.exit(1)
-  pp.pprint(client.chmod(args[0],eval(args[1]),))
+  pp.pprint(client.chmod(eval(args[0]),args[1],eval(args[2]),))
 
 elif cmd == 'chown':
-  if len(args) != 3:
-    print 'chown requires 3 args'
+  if len(args) != 4:
+    print 'chown requires 4 args'
     sys.exit(1)
-  pp.pprint(client.chown(args[0],args[1],args[2],))
+  pp.pprint(client.chown(eval(args[0]),args[1],args[2],args[3],))
 
 elif cmd == 'df':
-  if len(args) != 0:
-    print 'df requires 0 args'
+  if len(args) != 1:
+    print 'df requires 1 args'
     sys.exit(1)
-  pp.pprint(client.df())
+  pp.pprint(client.df(eval(args[0]),))
 
 elif cmd == 'enterSafeMode':
-  if len(args) != 0:
-    print 'enterSafeMode requires 0 args'
+  if len(args) != 1:
+    print 'enterSafeMode requires 1 args'
     sys.exit(1)
-  pp.pprint(client.enterSafeMode())
+  pp.pprint(client.enterSafeMode(eval(args[0]),))
 
 elif cmd == 'getBlocks':
-  if len(args) != 3:
-    print 'getBlocks requires 3 args'
+  if len(args) != 4:
+    print 'getBlocks requires 4 args'
     sys.exit(1)
-  pp.pprint(client.getBlocks(args[0],eval(args[1]),eval(args[2]),))
+  pp.pprint(client.getBlocks(eval(args[0]),args[1],eval(args[2]),eval(args[3]),))
 
 elif cmd == 'getDatanodeReport':
-  if len(args) != 1:
-    print 'getDatanodeReport requires 1 args'
+  if len(args) != 2:
+    print 'getDatanodeReport requires 2 args'
     sys.exit(1)
-  pp.pprint(client.getDatanodeReport(eval(args[0]),))
+  pp.pprint(client.getDatanodeReport(eval(args[0]),eval(args[1]),))
 
 elif cmd == 'getPreferredBlockSize':
-  if len(args) != 1:
-    print 'getPreferredBlockSize requires 1 args'
+  if len(args) != 2:
+    print 'getPreferredBlockSize requires 2 args'
     sys.exit(1)
-  pp.pprint(client.getPreferredBlockSize(args[0],))
+  pp.pprint(client.getPreferredBlockSize(eval(args[0]),args[1],))
 
 elif cmd == 'isInSafeMode':
-  if len(args) != 0:
-    print 'isInSafeMode requires 0 args'
+  if len(args) != 1:
+    print 'isInSafeMode requires 1 args'
     sys.exit(1)
-  pp.pprint(client.isInSafeMode())
+  pp.pprint(client.isInSafeMode(eval(args[0]),))
 
 elif cmd == 'leaveSafeMode':
-  if len(args) != 0:
-    print 'leaveSafeMode requires 0 args'
+  if len(args) != 1:
+    print 'leaveSafeMode requires 1 args'
     sys.exit(1)
-  pp.pprint(client.leaveSafeMode())
+  pp.pprint(client.leaveSafeMode(eval(args[0]),))
 
 elif cmd == 'ls':
-  if len(args) != 1:
-    print 'ls requires 1 args'
+  if len(args) != 2:
+    print 'ls requires 2 args'
     sys.exit(1)
-  pp.pprint(client.ls(args[0],))
+  pp.pprint(client.ls(eval(args[0]),args[1],))
 
 elif cmd == 'mkdirhier':
-  if len(args) != 2:
-    print 'mkdirhier requires 2 args'
+  if len(args) != 3:
+    print 'mkdirhier requires 3 args'
     sys.exit(1)
-  pp.pprint(client.mkdirhier(args[0],eval(args[1]),))
+  pp.pprint(client.mkdirhier(eval(args[0]),args[1],eval(args[2]),))
 
 elif cmd == 'refreshNodes':
-  if len(args) != 0:
-    print 'refreshNodes requires 0 args'
+  if len(args) != 1:
+    print 'refreshNodes requires 1 args'
     sys.exit(1)
-  pp.pprint(client.refreshNodes())
+  pp.pprint(client.refreshNodes(eval(args[0]),))
 
 elif cmd == 'rename':
-  if len(args) != 2:
-    print 'rename requires 2 args'
+  if len(args) != 3:
+    print 'rename requires 3 args'
     sys.exit(1)
-  pp.pprint(client.rename(args[0],args[1],))
+  pp.pprint(client.rename(eval(args[0]),args[1],args[2],))
 
 elif cmd == 'reportBadBlocks':
-  if len(args) != 1:
-    print 'reportBadBlocks requires 1 args'
+  if len(args) != 2:
+    print 'reportBadBlocks requires 2 args'
     sys.exit(1)
-  pp.pprint(client.reportBadBlocks(eval(args[0]),))
+  pp.pprint(client.reportBadBlocks(eval(args[0]),eval(args[1]),))
 
 elif cmd == 'stat':
-  if len(args) != 1:
-    print 'stat requires 1 args'
+  if len(args) != 2:
+    print 'stat requires 2 args'
     sys.exit(1)
-  pp.pprint(client.stat(args[0],))
+  pp.pprint(client.stat(eval(args[0]),args[1],))
 
 elif cmd == 'setQuota':
-  if len(args) != 3:
-    print 'setQuota requires 3 args'
+  if len(args) != 4:
+    print 'setQuota requires 4 args'
     sys.exit(1)
-  pp.pprint(client.setQuota(args[0],eval(args[1]),eval(args[2]),))
+  pp.pprint(client.setQuota(eval(args[0]),args[1],eval(args[2]),eval(args[3]),))
 
 elif cmd == 'setReplication':
-  if len(args) != 2:
-    print 'setReplication requires 2 args'
+  if len(args) != 3:
+    print 'setReplication requires 3 args'
     sys.exit(1)
-  pp.pprint(client.setReplication(args[0],eval(args[1]),))
+  pp.pprint(client.setReplication(eval(args[0]),args[1],eval(args[2]),))
 
 elif cmd == 'unlink':
-  if len(args) != 2:
-    print 'unlink requires 2 args'
+  if len(args) != 3:
+    print 'unlink requires 3 args'
     sys.exit(1)
-  pp.pprint(client.unlink(args[0],eval(args[1]),))
+  pp.pprint(client.unlink(eval(args[0]),args[1],eval(args[2]),))
 
 elif cmd == 'utime':
-  if len(args) != 3:
-    print 'utime requires 3 args'
+  if len(args) != 4:
+    print 'utime requires 4 args'
     sys.exit(1)
-  pp.pprint(client.utime(args[0],eval(args[1]),eval(args[2]),))
+  pp.pprint(client.utime(eval(args[0]),args[1],eval(args[2]),eval(args[3]),))
 
 elif cmd == 'datanodeUp':
   if len(args) != 3:

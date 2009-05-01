@@ -27,6 +27,14 @@ uint32_t Datanode_readBlock_args::read(apache::thrift::protocol::TProtocol* ipro
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRUCT) {
           xfer += this->block.read(iprot);
@@ -75,6 +83,9 @@ uint32_t Datanode_readBlock_args::write(apache::thrift::protocol::TProtocol* opr
   xfer += oprot->writeFieldBegin("length", apache::thrift::protocol::T_I32, 3);
   xfer += oprot->writeI32(this->length);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -91,6 +102,9 @@ uint32_t Datanode_readBlock_pargs::write(apache::thrift::protocol::TProtocol* op
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("length", apache::thrift::protocol::T_I32, 3);
   xfer += oprot->writeI32((*(this->length)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -213,18 +227,19 @@ uint32_t Datanode_readBlock_presult::read(apache::thrift::protocol::TProtocol* i
   return xfer;
 }
 
-void DatanodeClient::readBlock(BlockData& _return, const Block& block, const int64_t offset, const int32_t length)
+void DatanodeClient::readBlock(BlockData& _return, const RequestContext& ctx, const Block& block, const int64_t offset, const int32_t length)
 {
-  send_readBlock(block, offset, length);
+  send_readBlock(ctx, block, offset, length);
   recv_readBlock(_return);
 }
 
-void DatanodeClient::send_readBlock(const Block& block, const int64_t offset, const int32_t length)
+void DatanodeClient::send_readBlock(const RequestContext& ctx, const Block& block, const int64_t offset, const int32_t length)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("readBlock", apache::thrift::protocol::T_CALL, cseqid);
 
   Datanode_readBlock_pargs args;
+  args.ctx = &ctx;
   args.block = &block;
   args.offset = &offset;
   args.length = &length;
@@ -332,7 +347,7 @@ void DatanodeProcessor::process_readBlock(int32_t seqid, apache::thrift::protoco
 
   Datanode_readBlock_result result;
   try {
-    iface_->readBlock(result.success, args.block, args.offset, args.length);
+    iface_->readBlock(result.success, args.ctx, args.block, args.offset, args.length);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;

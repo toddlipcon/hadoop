@@ -23,13 +23,16 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.util.Map;
 import javax.security.auth.login.LoginException;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.security.UnixUserGroupInformation;
 
+import org.apache.hadoop.thriftfs.api.RequestContext;
 
 /**
  * Base class to provide some utility functions for thrift plugin handlers
@@ -42,15 +45,39 @@ public abstract class ThriftHandlerBase {
     this.serverContext = serverContext;
   }
 
+
   /**
-   * Return information about the user at the other end of the transport.
+   * Should be called by all RPCs on the request context passed in.
+   * This assumes the authentication role of the requester.
+   */
+  protected void assumeUserContext(RequestContext ctx) {
+    UserGroupInformation ugi = null;
+    if (ctx != null && ctx.confOptions != null) {
+      Configuration conf = new Configuration(false);
+      
+      for (Map.Entry<String, String> entry : ctx.confOptions.entrySet()) {
+        conf.set(entry.getKey(), entry.getValue());
+      }
+      try {
+        ugi = UnixUserGroupInformation.readFromConf(
+          conf, UnixUserGroupInformation.UGI_PROPERTY_NAME);
+      } catch (Throwable e) {}
+    }
+    if (ugi == null) {
+      ugi = inferUserGroupInformation();
+    }
+    UserGroupInformation.setCurrentUser(ugi);
+  }
+
+  /**
+   * Infer information about the user at the other end of the transport.
    * 
    * @param t an open Thrift transport.
    * @return the user at the other end, or a sensible default (the current Unix
    *         login user if available, {user:"unknown", groups:["unknown"]}
    *         otherwise.
    */
-  UserGroupInformation getUserGroupInformation() {
+  private UserGroupInformation inferUserGroupInformation() {
     try {
       LOG.info("Trying to get remote user");
       String uid = serverContext.getRemoteUserFromIdent();

@@ -556,14 +556,14 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
         case NODES:
           if (field.type == TType.LIST) {
             {
-              TList _list0 = iprot.readListBegin();
-              this.nodes = new ArrayList<DatanodeInfo>(_list0.size);
-              for (int _i1 = 0; _i1 < _list0.size; ++_i1)
+              TList _list5 = iprot.readListBegin();
+              this.nodes = new ArrayList<DatanodeInfo>(_list5.size);
+              for (int _i6 = 0; _i6 < _list5.size; ++_i6)
               {
-                DatanodeInfo _elem2;
-                _elem2 = new DatanodeInfo();
-                _elem2.read(iprot);
-                this.nodes.add(_elem2);
+                DatanodeInfo _elem7;
+                _elem7 = new DatanodeInfo();
+                _elem7.read(iprot);
+                this.nodes.add(_elem7);
               }
               iprot.readListEnd();
             }
@@ -606,8 +606,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       oprot.writeFieldBegin(NODES_FIELD_DESC);
       {
         oprot.writeListBegin(new TList(TType.STRUCT, this.nodes.size()));
-        for (DatanodeInfo _iter3 : this.nodes)        {
-          _iter3.write(oprot);
+        for (DatanodeInfo _iter8 : this.nodes)        {
+          _iter8.write(oprot);
         }
         oprot.writeListEnd();
       }

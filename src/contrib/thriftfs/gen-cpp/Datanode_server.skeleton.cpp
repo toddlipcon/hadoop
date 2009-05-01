@@ -22,7 +22,7 @@ class DatanodeHandler : virtual public DatanodeIf {
     // Your initialization goes here
   }
 
-  void readBlock(BlockData& _return, const Block& block, const int64_t offset, const int32_t length) {
+  void readBlock(BlockData& _return, const RequestContext& ctx, const Block& block, const int64_t offset, const int32_t length) {
     // Your implementation goes here
     printf("readBlock\n");
   }

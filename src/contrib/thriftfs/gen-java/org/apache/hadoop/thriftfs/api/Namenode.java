@@ -28,11 +28,12 @@ public class Namenode {
     /**
      * Set permissions of an existing file or directory.
      * 
+     * @param ctx
      * @param path Path of the file or directory.
      * 
      * @param perms New permissions for the file or directory.
      */
-    public void chmod(String path, short perms) throws IOException, TException;
+    public void chmod(RequestContext ctx, String path, short perms) throws IOException, TException;
 
     /**
      * Set owner of a file or directory.
@@ -42,71 +43,84 @@ public class Namenode {
      * 
      * Parameters 'owner' and 'group' cannot be both null.
      * 
+     * @param ctx
      * @param path Path to the file or directory
      * 
      * @param owner New owner.
      * 
      * @param group New group.
      */
-    public void chown(String path, String owner, String group) throws IOException, TException;
+    public void chown(RequestContext ctx, String path, String owner, String group) throws IOException, TException;
 
     /**
      * Return a list containing:
      *   (index 0) The total storage capacity of the file system (in bytes).
      *   (index 1) The total used space of the file system (in bytes).
      *   (index 2) The available storage of the file system (in bytes).
+     * 
+     * @param ctx
      */
-    public List<Long> df() throws IOException, TException;
+    public List<Long> df(RequestContext ctx) throws IOException, TException;
 
     /**
      * Enter safe mode.
+     * 
+     * @param ctx
      */
-    public void enterSafeMode() throws IOException, TException;
+    public void enterSafeMode(RequestContext ctx) throws IOException, TException;
 
     /**
      * Get a list of all blocks containing a region of a file
      * 
+     * @param ctx
      * @param path Path to the file.
      * 
      * @param offset Offset of the region.
      * 
      * @param length Length of the region
      */
-    public List<Block> getBlocks(String path, long offset, long length) throws IOException, TException;
+    public List<Block> getBlocks(RequestContext ctx, String path, long offset, long length) throws IOException, TException;
 
     /**
      * Get a report on the system's current data nodes.
      * 
+     * @param ctx
      * @param type Type of data nodes to return
      * information about.
      */
-    public List<DatanodeInfo> getDatanodeReport(int type) throws IOException, TException;
+    public List<DatanodeInfo> getDatanodeReport(RequestContext ctx, int type) throws IOException, TException;
 
     /**
      * Get the preferred block size for the given file.
      * 
      * The path must exist, or IOException is thrown.
      * 
+     * @param ctx
      * @param path Path to the file.
      */
-    public long getPreferredBlockSize(String path) throws IOException, TException;
+    public long getPreferredBlockSize(RequestContext ctx, String path) throws IOException, TException;
 
     /**
      * Returns whether HDFS is in safe mode or not.
+     * 
+     * @param ctx
      */
-    public boolean isInSafeMode() throws IOException, TException;
+    public boolean isInSafeMode(RequestContext ctx) throws IOException, TException;
 
     /**
      * Leave safe mode.
+     * 
+     * @param ctx
      */
-    public void leaveSafeMode() throws IOException, TException;
+    public void leaveSafeMode(RequestContext ctx) throws IOException, TException;
 
     /**
      * Get a listing of the indicated directory.
      * 
+     * @param ctx
      * @param path Path to the directory.
      */
-    public List<Stat> ls(String path) throws IOException, TException;
+    public List<Stat> ls(RequestContext ctx, String path) throws IOException, TException;
 
     /**
      * Create a directory (or hierarchy of directories).
@@ -114,16 +128,19 @@ public class Namenode {
      * Returns false if directory did not exist and could not be created,
      * true otherwise.
      * 
+     * @param ctx
      * @param path Path to the directory.
      * 
      * @param perms Access permissions of the directory.
      */
-    public boolean mkdirhier(String path, short perms) throws IOException, TException;
+    public boolean mkdirhier(RequestContext ctx, String path, short perms) throws IOException, TException;
 
     /**
      * Tells the name node to reread the hosts and exclude files.
+     * 
+     * @param ctx
      */
-    public void refreshNodes() throws IOException, TException;
+    public void refreshNodes(RequestContext ctx) throws IOException, TException;
 
     /**
      * Rename an item in the file system namespace.
@@ -132,27 +149,30 @@ public class Namenode {
      *         false if the old name does not exist or if the new name already
      *               belongs to the namespace.
      * 
+     * @param ctx
      * @param path Path to existing file or directory.
      * 
      * @param newPath New path.
      */
-    public boolean rename(String path, String newPath) throws IOException, TException;
+    public boolean rename(RequestContext ctx, String path, String newPath) throws IOException, TException;
 
     /**
      * Report corrupted blocks.
      * 
+     * @param ctx
      * @param blocks List of corrupted blocks.
      */
-    public void reportBadBlocks(List<Block> blocks) throws IOException, TException;
+    public void reportBadBlocks(RequestContext ctx, List<Block> blocks) throws IOException, TException;
 
     /**
      * Get information about a path in HDFS.
      * 
      * Return value will be nul if path does not exist.
      * 
+     * @param ctx
      * @param path Path of the file or directory.
      */
-    public Stat stat(String path) throws IOException, TException;
+    public Stat stat(RequestContext ctx, String path) throws IOException, TException;
 
     /**
      * Set the quota for a directory.
@@ -165,6 +185,7 @@ public class Namenode {
      * 
      * Any other value is a runtime error.
      * 
+     * @param ctx
      * @param path Path of the directory.
      * 
      * @param namespaceQuota Limit on the number of names in the directory.
@@ -172,7 +193,7 @@ public class Namenode {
      * @param diskspaceQuota Limit on disk space occupied by all the files in the
      * directory.
      */
-    public void setQuota(String path, long namespaceQuota, long diskspaceQuota) throws IOException, TException;
+    public void setQuota(RequestContext ctx, String path, long namespaceQuota, long diskspaceQuota) throws IOException, TException;
 
     /**
      * Set replication factor for an existing file.
@@ -185,22 +206,24 @@ public class Namenode {
      * Returns true if successful, false if file does not exist or is a
      * directory.
      * 
+     * @param ctx
      * @param path Path of the file.
      * 
      * @param replication New replication factor.
      */
-    public boolean setReplication(String path, short replication) throws IOException, TException;
+    public boolean setReplication(RequestContext ctx, String path, short replication) throws IOException, TException;
 
     /**
      * Delete a file or directory from the file system.
      * 
      * Any blocks belonging to the deleted files will be garbage-collected.
      * 
+     * @param ctx
      * @param path Path of the file or directory.
      * 
      * @param recursive Delete a non-empty directory recursively.
      */
-    public boolean unlink(String path, boolean recursive) throws IOException, TException;
+    public boolean unlink(RequestContext ctx, String path, boolean recursive) throws IOException, TException;
 
     /**
      * Sets the modification and access time of a file or directory.
@@ -211,13 +234,14 @@ public class Namenode {
      * Setting *both time parameters* to -1 means both of them must be set to
      * the current time.
      * 
+     * @param ctx
      * @param path Path of the file or directory.
      * 
      * @param atime Access time in milliseconds since 1970-01-01 00:00 UTC
      * 
      * @param mtime Modification time in milliseconds since 1970-01-01 00:00 UTC
      */
-    public void utime(String path, long atime, long mtime) throws IOException, TException;
+    public void utime(RequestContext ctx, String path, long atime, long mtime) throws IOException, TException;
 
     /**
      * Inform the namenode that a datanode process has started.
@@ -270,16 +294,17 @@ public class Namenode {
       return this.oprot_;
     }
 
-    public void chmod(String path, short perms) throws IOException, TException
+    public void chmod(RequestContext ctx, String path, short perms) throws IOException, TException
     {
-      send_chmod(path, perms);
+      send_chmod(ctx, path, perms);
       recv_chmod();
     }
 
-    public void send_chmod(String path, short perms) throws TException
+    public void send_chmod(RequestContext ctx, String path, short perms) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("chmod", TMessageType.CALL, seqid_));
       chmod_args args = new chmod_args();
+      args.ctx = ctx;
       args.path = path;
       args.perms = perms;
       args.write(oprot_);
@@ -304,16 +329,17 @@ public class Namenode {
       return;
     }
 
-    public void chown(String path, String owner, String group) throws IOException, TException
+    public void chown(RequestContext ctx, String path, String owner, String group) throws IOException, TException
     {
-      send_chown(path, owner, group);
+      send_chown(ctx, path, owner, group);
       recv_chown();
     }
 
-    public void send_chown(String path, String owner, String group) throws TException
+    public void send_chown(RequestContext ctx, String path, String owner, String group) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("chown", TMessageType.CALL, seqid_));
       chown_args args = new chown_args();
+      args.ctx = ctx;
       args.path = path;
       args.owner = owner;
       args.group = group;
@@ -339,16 +365,17 @@ public class Namenode {
       return;
     }
 
-    public List<Long> df() throws IOException, TException
+    public List<Long> df(RequestContext ctx) throws IOException, TException
     {
-      send_df();
+      send_df(ctx);
       return recv_df();
     }
 
-    public void send_df() throws TException
+    public void send_df(RequestContext ctx) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("df", TMessageType.CALL, seqid_));
       df_args args = new df_args();
+      args.ctx = ctx;
       args.write(oprot_);
       oprot_.writeMessageEnd();
       oprot_.getTransport().flush();
@@ -374,16 +401,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "df failed: unknown result");
     }
 
-    public void enterSafeMode() throws IOException, TException
+    public void enterSafeMode(RequestContext ctx) throws IOException, TException
     {
-      send_enterSafeMode();
+      send_enterSafeMode(ctx);
       recv_enterSafeMode();
     }
 
-    public void send_enterSafeMode() throws TException
+    public void send_enterSafeMode(RequestContext ctx) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("enterSafeMode", TMessageType.CALL, seqid_));
       enterSafeMode_args args = new enterSafeMode_args();
+      args.ctx = ctx;
       args.write(oprot_);
       oprot_.writeMessageEnd();
       oprot_.getTransport().flush();
@@ -406,16 +434,17 @@ public class Namenode {
       return;
     }
 
-    public List<Block> getBlocks(String path, long offset, long length) throws IOException, TException
+    public List<Block> getBlocks(RequestContext ctx, String path, long offset, long length) throws IOException, TException
     {
-      send_getBlocks(path, offset, length);
+      send_getBlocks(ctx, path, offset, length);
       return recv_getBlocks();
     }
 
-    public void send_getBlocks(String path, long offset, long length) throws TException
+    public void send_getBlocks(RequestContext ctx, String path, long offset, long length) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("getBlocks", TMessageType.CALL, seqid_));
       getBlocks_args args = new getBlocks_args();
+      args.ctx = ctx;
       args.path = path;
       args.offset = offset;
       args.length = length;
@@ -444,16 +473,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "getBlocks failed: unknown result");
     }
 
-    public List<DatanodeInfo> getDatanodeReport(int type) throws IOException, TException
+    public List<DatanodeInfo> getDatanodeReport(RequestContext ctx, int type) throws IOException, TException
     {
-      send_getDatanodeReport(type);
+      send_getDatanodeReport(ctx, type);
       return recv_getDatanodeReport();
     }
 
-    public void send_getDatanodeReport(int type) throws TException
+    public void send_getDatanodeReport(RequestContext ctx, int type) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("getDatanodeReport", TMessageType.CALL, seqid_));
       getDatanodeReport_args args = new getDatanodeReport_args();
+      args.ctx = ctx;
       args.type = type;
       args.write(oprot_);
       oprot_.writeMessageEnd();
@@ -480,16 +510,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "getDatanodeReport failed: unknown result");
     }
 
-    public long getPreferredBlockSize(String path) throws IOException, TException
+    public long getPreferredBlockSize(RequestContext ctx, String path) throws IOException, TException
     {
-      send_getPreferredBlockSize(path);
+      send_getPreferredBlockSize(ctx, path);
       return recv_getPreferredBlockSize();
     }
 
-    public void send_getPreferredBlockSize(String path) throws TException
+    public void send_getPreferredBlockSize(RequestContext ctx, String path) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("getPreferredBlockSize", TMessageType.CALL, seqid_));
       getPreferredBlockSize_args args = new getPreferredBlockSize_args();
+      args.ctx = ctx;
       args.path = path;
       args.write(oprot_);
       oprot_.writeMessageEnd();
@@ -516,16 +547,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "getPreferredBlockSize failed: unknown result");
     }
 
-    public boolean isInSafeMode() throws IOException, TException
+    public boolean isInSafeMode(RequestContext ctx) throws IOException, TException
     {
-      send_isInSafeMode();
+      send_isInSafeMode(ctx);
       return recv_isInSafeMode();
     }
 
-    public void send_isInSafeMode() throws TException
+    public void send_isInSafeMode(RequestContext ctx) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("isInSafeMode", TMessageType.CALL, seqid_));
       isInSafeMode_args args = new isInSafeMode_args();
+      args.ctx = ctx;
       args.write(oprot_);
       oprot_.writeMessageEnd();
       oprot_.getTransport().flush();
@@ -551,16 +583,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "isInSafeMode failed: unknown result");
     }
 
-    public void leaveSafeMode() throws IOException, TException
+    public void leaveSafeMode(RequestContext ctx) throws IOException, TException
     {
-      send_leaveSafeMode();
+      send_leaveSafeMode(ctx);
       recv_leaveSafeMode();
     }
 
-    public void send_leaveSafeMode() throws TException
+    public void send_leaveSafeMode(RequestContext ctx) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("leaveSafeMode", TMessageType.CALL, seqid_));
       leaveSafeMode_args args = new leaveSafeMode_args();
+      args.ctx = ctx;
       args.write(oprot_);
       oprot_.writeMessageEnd();
       oprot_.getTransport().flush();
@@ -583,16 +616,17 @@ public class Namenode {
       return;
     }
 
-    public List<Stat> ls(String path) throws IOException, TException
+    public List<Stat> ls(RequestContext ctx, String path) throws IOException, TException
     {
-      send_ls(path);
+      send_ls(ctx, path);
       return recv_ls();
     }
 
-    public void send_ls(String path) throws TException
+    public void send_ls(RequestContext ctx, String path) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("ls", TMessageType.CALL, seqid_));
       ls_args args = new ls_args();
+      args.ctx = ctx;
       args.path = path;
       args.write(oprot_);
       oprot_.writeMessageEnd();
@@ -619,16 +653,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "ls failed: unknown result");
     }
 
-    public boolean mkdirhier(String path, short perms) throws IOException, TException
+    public boolean mkdirhier(RequestContext ctx, String path, short perms) throws IOException, TException
     {
-      send_mkdirhier(path, perms);
+      send_mkdirhier(ctx, path, perms);
       return recv_mkdirhier();
     }
 
-    public void send_mkdirhier(String path, short perms) throws TException
+    public void send_mkdirhier(RequestContext ctx, String path, short perms) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("mkdirhier", TMessageType.CALL, seqid_));
       mkdirhier_args args = new mkdirhier_args();
+      args.ctx = ctx;
       args.path = path;
       args.perms = perms;
       args.write(oprot_);
@@ -656,16 +691,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "mkdirhier failed: unknown result");
     }
 
-    public void refreshNodes() throws IOException, TException
+    public void refreshNodes(RequestContext ctx) throws IOException, TException
     {
-      send_refreshNodes();
+      send_refreshNodes(ctx);
       recv_refreshNodes();
     }
 
-    public void send_refreshNodes() throws TException
+    public void send_refreshNodes(RequestContext ctx) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("refreshNodes", TMessageType.CALL, seqid_));
       refreshNodes_args args = new refreshNodes_args();
+      args.ctx = ctx;
       args.write(oprot_);
       oprot_.writeMessageEnd();
       oprot_.getTransport().flush();
@@ -688,16 +724,17 @@ public class Namenode {
       return;
     }
 
-    public boolean rename(String path, String newPath) throws IOException, TException
+    public boolean rename(RequestContext ctx, String path, String newPath) throws IOException, TException
     {
-      send_rename(path, newPath);
+      send_rename(ctx, path, newPath);
       return recv_rename();
     }
 
-    public void send_rename(String path, String newPath) throws TException
+    public void send_rename(RequestContext ctx, String path, String newPath) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("rename", TMessageType.CALL, seqid_));
       rename_args args = new rename_args();
+      args.ctx = ctx;
       args.path = path;
       args.newPath = newPath;
       args.write(oprot_);
@@ -725,16 +762,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "rename failed: unknown result");
     }
 
-    public void reportBadBlocks(List<Block> blocks) throws IOException, TException
+    public void reportBadBlocks(RequestContext ctx, List<Block> blocks) throws IOException, TException
     {
-      send_reportBadBlocks(blocks);
+      send_reportBadBlocks(ctx, blocks);
       recv_reportBadBlocks();
     }
 
-    public void send_reportBadBlocks(List<Block> blocks) throws TException
+    public void send_reportBadBlocks(RequestContext ctx, List<Block> blocks) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("reportBadBlocks", TMessageType.CALL, seqid_));
       reportBadBlocks_args args = new reportBadBlocks_args();
+      args.ctx = ctx;
       args.blocks = blocks;
       args.write(oprot_);
       oprot_.writeMessageEnd();
@@ -758,16 +796,17 @@ public class Namenode {
       return;
     }
 
-    public Stat stat(String path) throws IOException, TException
+    public Stat stat(RequestContext ctx, String path) throws IOException, TException
     {
-      send_stat(path);
+      send_stat(ctx, path);
       return recv_stat();
     }
 
-    public void send_stat(String path) throws TException
+    public void send_stat(RequestContext ctx, String path) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("stat", TMessageType.CALL, seqid_));
       stat_args args = new stat_args();
+      args.ctx = ctx;
       args.path = path;
       args.write(oprot_);
       oprot_.writeMessageEnd();
@@ -794,16 +833,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "stat failed: unknown result");
     }
 
-    public void setQuota(String path, long namespaceQuota, long diskspaceQuota) throws IOException, TException
+    public void setQuota(RequestContext ctx, String path, long namespaceQuota, long diskspaceQuota) throws IOException, TException
     {
-      send_setQuota(path, namespaceQuota, diskspaceQuota);
+      send_setQuota(ctx, path, namespaceQuota, diskspaceQuota);
       recv_setQuota();
     }
 
-    public void send_setQuota(String path, long namespaceQuota, long diskspaceQuota) throws TException
+    public void send_setQuota(RequestContext ctx, String path, long namespaceQuota, long diskspaceQuota) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("setQuota", TMessageType.CALL, seqid_));
       setQuota_args args = new setQuota_args();
+      args.ctx = ctx;
       args.path = path;
       args.namespaceQuota = namespaceQuota;
       args.diskspaceQuota = diskspaceQuota;
@@ -829,16 +869,17 @@ public class Namenode {
       return;
     }
 
-    public boolean setReplication(String path, short replication) throws IOException, TException
+    public boolean setReplication(RequestContext ctx, String path, short replication) throws IOException, TException
     {
-      send_setReplication(path, replication);
+      send_setReplication(ctx, path, replication);
       return recv_setReplication();
     }
 
-    public void send_setReplication(String path, short replication) throws TException
+    public void send_setReplication(RequestContext ctx, String path, short replication) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("setReplication", TMessageType.CALL, seqid_));
       setReplication_args args = new setReplication_args();
+      args.ctx = ctx;
       args.path = path;
       args.replication = replication;
       args.write(oprot_);
@@ -866,16 +907,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "setReplication failed: unknown result");
     }
 
-    public boolean unlink(String path, boolean recursive) throws IOException, TException
+    public boolean unlink(RequestContext ctx, String path, boolean recursive) throws IOException, TException
     {
-      send_unlink(path, recursive);
+      send_unlink(ctx, path, recursive);
       return recv_unlink();
     }
 
-    public void send_unlink(String path, boolean recursive) throws TException
+    public void send_unlink(RequestContext ctx, String path, boolean recursive) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("unlink", TMessageType.CALL, seqid_));
       unlink_args args = new unlink_args();
+      args.ctx = ctx;
       args.path = path;
       args.recursive = recursive;
       args.write(oprot_);
@@ -903,16 +945,17 @@ public class Namenode {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "unlink failed: unknown result");
     }
 
-    public void utime(String path, long atime, long mtime) throws IOException, TException
+    public void utime(RequestContext ctx, String path, long atime, long mtime) throws IOException, TException
     {
-      send_utime(path, atime, mtime);
+      send_utime(ctx, path, atime, mtime);
       recv_utime();
     }
 
-    public void send_utime(String path, long atime, long mtime) throws TException
+    public void send_utime(RequestContext ctx, String path, long atime, long mtime) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("utime", TMessageType.CALL, seqid_));
       utime_args args = new utime_args();
+      args.ctx = ctx;
       args.path = path;
       args.atime = atime;
       args.mtime = mtime;
@@ -1063,7 +1106,7 @@ public class Namenode {
         iprot.readMessageEnd();
         chmod_result result = new chmod_result();
         try {
-          iface_.chmod(args.path, args.perms);
+          iface_.chmod(args.ctx, args.path, args.perms);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1083,7 +1126,7 @@ public class Namenode {
         iprot.readMessageEnd();
         chown_result result = new chown_result();
         try {
-          iface_.chown(args.path, args.owner, args.group);
+          iface_.chown(args.ctx, args.path, args.owner, args.group);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1103,7 +1146,7 @@ public class Namenode {
         iprot.readMessageEnd();
         df_result result = new df_result();
         try {
-          result.success = iface_.df();
+          result.success = iface_.df(args.ctx);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1123,7 +1166,7 @@ public class Namenode {
         iprot.readMessageEnd();
         enterSafeMode_result result = new enterSafeMode_result();
         try {
-          iface_.enterSafeMode();
+          iface_.enterSafeMode(args.ctx);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1143,7 +1186,7 @@ public class Namenode {
         iprot.readMessageEnd();
         getBlocks_result result = new getBlocks_result();
         try {
-          result.success = iface_.getBlocks(args.path, args.offset, args.length);
+          result.success = iface_.getBlocks(args.ctx, args.path, args.offset, args.length);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1163,7 +1206,7 @@ public class Namenode {
         iprot.readMessageEnd();
         getDatanodeReport_result result = new getDatanodeReport_result();
         try {
-          result.success = iface_.getDatanodeReport(args.type);
+          result.success = iface_.getDatanodeReport(args.ctx, args.type);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1183,7 +1226,7 @@ public class Namenode {
         iprot.readMessageEnd();
         getPreferredBlockSize_result result = new getPreferredBlockSize_result();
         try {
-          result.success = iface_.getPreferredBlockSize(args.path);
+          result.success = iface_.getPreferredBlockSize(args.ctx, args.path);
           result.__isset.success = true;
         } catch (IOException err) {
           result.err = err;
@@ -1204,7 +1247,7 @@ public class Namenode {
         iprot.readMessageEnd();
         isInSafeMode_result result = new isInSafeMode_result();
         try {
-          result.success = iface_.isInSafeMode();
+          result.success = iface_.isInSafeMode(args.ctx);
           result.__isset.success = true;
         } catch (IOException err) {
           result.err = err;
@@ -1225,7 +1268,7 @@ public class Namenode {
         iprot.readMessageEnd();
         leaveSafeMode_result result = new leaveSafeMode_result();
         try {
-          iface_.leaveSafeMode();
+          iface_.leaveSafeMode(args.ctx);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1245,7 +1288,7 @@ public class Namenode {
         iprot.readMessageEnd();
         ls_result result = new ls_result();
         try {
-          result.success = iface_.ls(args.path);
+          result.success = iface_.ls(args.ctx, args.path);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1265,7 +1308,7 @@ public class Namenode {
         iprot.readMessageEnd();
         mkdirhier_result result = new mkdirhier_result();
         try {
-          result.success = iface_.mkdirhier(args.path, args.perms);
+          result.success = iface_.mkdirhier(args.ctx, args.path, args.perms);
           result.__isset.success = true;
         } catch (IOException err) {
           result.err = err;
@@ -1286,7 +1329,7 @@ public class Namenode {
         iprot.readMessageEnd();
         refreshNodes_result result = new refreshNodes_result();
         try {
-          iface_.refreshNodes();
+          iface_.refreshNodes(args.ctx);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1306,7 +1349,7 @@ public class Namenode {
         iprot.readMessageEnd();
         rename_result result = new rename_result();
         try {
-          result.success = iface_.rename(args.path, args.newPath);
+          result.success = iface_.rename(args.ctx, args.path, args.newPath);
           result.__isset.success = true;
         } catch (IOException err) {
           result.err = err;
@@ -1327,7 +1370,7 @@ public class Namenode {
         iprot.readMessageEnd();
         reportBadBlocks_result result = new reportBadBlocks_result();
         try {
-          iface_.reportBadBlocks(args.blocks);
+          iface_.reportBadBlocks(args.ctx, args.blocks);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1347,7 +1390,7 @@ public class Namenode {
         iprot.readMessageEnd();
         stat_result result = new stat_result();
         try {
-          result.success = iface_.stat(args.path);
+          result.success = iface_.stat(args.ctx, args.path);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1367,7 +1410,7 @@ public class Namenode {
         iprot.readMessageEnd();
         setQuota_result result = new setQuota_result();
         try {
-          iface_.setQuota(args.path, args.namespaceQuota, args.diskspaceQuota);
+          iface_.setQuota(args.ctx, args.path, args.namespaceQuota, args.diskspaceQuota);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1387,7 +1430,7 @@ public class Namenode {
         iprot.readMessageEnd();
         setReplication_result result = new setReplication_result();
         try {
-          result.success = iface_.setReplication(args.path, args.replication);
+          result.success = iface_.setReplication(args.ctx, args.path, args.replication);
           result.__isset.success = true;
         } catch (IOException err) {
           result.err = err;
@@ -1408,7 +1451,7 @@ public class Namenode {
         iprot.readMessageEnd();
         unlink_result result = new unlink_result();
         try {
-          result.success = iface_.unlink(args.path, args.recursive);
+          result.success = iface_.unlink(args.ctx, args.path, args.recursive);
           result.__isset.success = true;
         } catch (IOException err) {
           result.err = err;
@@ -1429,7 +1472,7 @@ public class Namenode {
         iprot.readMessageEnd();
         utime_result result = new utime_result();
         try {
-          iface_.utime(args.path, args.atime, args.mtime);
+          iface_.utime(args.ctx, args.path, args.atime, args.mtime);
         } catch (IOException err) {
           result.err = err;
         }
@@ -1477,9 +1520,12 @@ public class Namenode {
 
   public static class chmod_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("chmod_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField PERMS_FIELD_DESC = new TField("perms", TType.I16, (short)2);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path of the file or directory.
      */
@@ -1497,6 +1543,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(PERMS, new FieldMetaData("perms", TFieldRequirementType.DEFAULT, 
@@ -1511,10 +1559,12 @@ public class Namenode {
     }
 
     public chmod_args(
+      RequestContext ctx,
       String path,
       short perms)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.perms = perms;
       this.__isset.perms = true;
@@ -1524,6 +1574,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public chmod_args(chmod_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -1534,6 +1587,29 @@ public class Namenode {
     @Override
     public chmod_args clone() {
       return new chmod_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -1595,6 +1671,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -1618,6 +1702,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -1632,6 +1719,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case PERMS:
@@ -1653,6 +1742,15 @@ public class Namenode {
     public boolean equals(chmod_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -1691,6 +1789,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -1731,6 +1837,11 @@ public class Namenode {
       oprot.writeFieldBegin(PERMS_FIELD_DESC);
       oprot.writeI16(this.perms);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -1740,6 +1851,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("chmod_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -1963,10 +2082,13 @@ public class Namenode {
 
   public static class chown_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("chown_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField OWNER_FIELD_DESC = new TField("owner", TType.STRING, (short)2);
     private static final TField GROUP_FIELD_DESC = new TField("group", TType.STRING, (short)3);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path to the file or directory
      */
@@ -1988,6 +2110,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(OWNER, new FieldMetaData("owner", TFieldRequirementType.DEFAULT, 
@@ -2004,11 +2128,13 @@ public class Namenode {
     }
 
     public chown_args(
+      RequestContext ctx,
       String path,
       String owner,
       String group)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.owner = owner;
       this.group = group;
@@ -2018,6 +2144,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public chown_args(chown_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -2032,6 +2161,29 @@ public class Namenode {
     @Override
     public chown_args clone() {
       return new chown_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -2123,6 +2275,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -2154,6 +2314,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -2171,6 +2334,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case OWNER:
@@ -2194,6 +2359,15 @@ public class Namenode {
     public boolean equals(chown_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -2241,6 +2415,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -2294,6 +2476,11 @@ public class Namenode {
         oprot.writeString(this.group);
         oprot.writeFieldEnd();
       }
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -2303,6 +2490,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("chown_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -2538,8 +2733,18 @@ public class Namenode {
 
   public static class df_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("df_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
     }});
 
     static {
@@ -2549,10 +2754,20 @@ public class Namenode {
     public df_args() {
     }
 
+    public df_args(
+      RequestContext ctx)
+    {
+      this();
+      this.ctx = ctx;
+    }
+
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public df_args(df_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
     }
 
     @Override
@@ -2560,8 +2775,39 @@ public class Namenode {
       return new df_args(this);
     }
 
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -2569,6 +2815,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -2577,6 +2826,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -2594,6 +2845,15 @@ public class Namenode {
     public boolean equals(df_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       return true;
     }
@@ -2614,6 +2874,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           default:
             TProtocolUtil.skip(iprot, field.type);
             break;
@@ -2631,6 +2899,11 @@ public class Namenode {
       validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -2640,6 +2913,13 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("df_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -2872,13 +3152,13 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list4 = iprot.readListBegin();
-                this.success = new ArrayList<Long>(_list4.size);
-                for (int _i5 = 0; _i5 < _list4.size; ++_i5)
+                TList _list9 = iprot.readListBegin();
+                this.success = new ArrayList<Long>(_list9.size);
+                for (int _i10 = 0; _i10 < _list9.size; ++_i10)
                 {
-                  long _elem6;
-                  _elem6 = iprot.readI64();
-                  this.success.add(_elem6);
+                  long _elem11;
+                  _elem11 = iprot.readI64();
+                  this.success.add(_elem11);
                 }
                 iprot.readListEnd();
               }
@@ -2914,8 +3194,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.I64, this.success.size()));
-          for (long _iter7 : this.success)          {
-            oprot.writeI64(_iter7);
+          for (long _iter12 : this.success)          {
+            oprot.writeI64(_iter12);
           }
           oprot.writeListEnd();
         }
@@ -2962,8 +3242,18 @@ public class Namenode {
 
   public static class enterSafeMode_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("enterSafeMode_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
     }});
 
     static {
@@ -2973,10 +3263,20 @@ public class Namenode {
     public enterSafeMode_args() {
     }
 
+    public enterSafeMode_args(
+      RequestContext ctx)
+    {
+      this();
+      this.ctx = ctx;
+    }
+
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public enterSafeMode_args(enterSafeMode_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
     }
 
     @Override
@@ -2984,8 +3284,39 @@ public class Namenode {
       return new enterSafeMode_args(this);
     }
 
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -2993,6 +3324,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -3001,6 +3335,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -3018,6 +3354,15 @@ public class Namenode {
     public boolean equals(enterSafeMode_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       return true;
     }
@@ -3038,6 +3383,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           default:
             TProtocolUtil.skip(iprot, field.type);
             break;
@@ -3055,6 +3408,11 @@ public class Namenode {
       validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -3064,6 +3422,13 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("enterSafeMode_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -3276,10 +3641,13 @@ public class Namenode {
 
   public static class getBlocks_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("getBlocks_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField OFFSET_FIELD_DESC = new TField("offset", TType.I64, (short)2);
     private static final TField LENGTH_FIELD_DESC = new TField("length", TType.I64, (short)3);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path to the file.
      */
@@ -3303,6 +3671,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(OFFSET, new FieldMetaData("offset", TFieldRequirementType.DEFAULT, 
@@ -3319,11 +3689,13 @@ public class Namenode {
     }
 
     public getBlocks_args(
+      RequestContext ctx,
       String path,
       long offset,
       long length)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.offset = offset;
       this.__isset.offset = true;
@@ -3335,6 +3707,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public getBlocks_args(getBlocks_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -3347,6 +3722,29 @@ public class Namenode {
     @Override
     public getBlocks_args clone() {
       return new getBlocks_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -3436,6 +3834,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -3467,6 +3873,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -3484,6 +3893,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case OFFSET:
@@ -3507,6 +3918,15 @@ public class Namenode {
     public boolean equals(getBlocks_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -3554,6 +3974,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -3605,6 +4033,11 @@ public class Namenode {
       oprot.writeFieldBegin(LENGTH_FIELD_DESC);
       oprot.writeI64(this.length);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -3614,6 +4047,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("getBlocks_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -3861,14 +4302,14 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list8 = iprot.readListBegin();
-                this.success = new ArrayList<Block>(_list8.size);
-                for (int _i9 = 0; _i9 < _list8.size; ++_i9)
+                TList _list13 = iprot.readListBegin();
+                this.success = new ArrayList<Block>(_list13.size);
+                for (int _i14 = 0; _i14 < _list13.size; ++_i14)
                 {
-                  Block _elem10;
-                  _elem10 = new Block();
-                  _elem10.read(iprot);
-                  this.success.add(_elem10);
+                  Block _elem15;
+                  _elem15 = new Block();
+                  _elem15.read(iprot);
+                  this.success.add(_elem15);
                 }
                 iprot.readListEnd();
               }
@@ -3904,8 +4345,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
-          for (Block _iter11 : this.success)          {
-            _iter11.write(oprot);
+          for (Block _iter16 : this.success)          {
+            _iter16.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -3952,8 +4393,11 @@ public class Namenode {
 
   public static class getDatanodeReport_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("getDatanodeReport_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField TYPE_FIELD_DESC = new TField("type", TType.I32, (short)1);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Type of data nodes to return
      * information about.
@@ -3967,6 +4411,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(TYPE, new FieldMetaData("type", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.I32)));
     }});
@@ -3979,9 +4425,11 @@ public class Namenode {
     }
 
     public getDatanodeReport_args(
+      RequestContext ctx,
       int type)
     {
       this();
+      this.ctx = ctx;
       this.type = type;
       this.__isset.type = true;
     }
@@ -3990,6 +4438,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public getDatanodeReport_args(getDatanodeReport_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       __isset.type = other.__isset.type;
       this.type = other.type;
     }
@@ -3997,6 +4448,29 @@ public class Namenode {
     @Override
     public getDatanodeReport_args clone() {
       return new getDatanodeReport_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -4031,6 +4505,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case TYPE:
         if (value == null) {
           unsetType();
@@ -4046,6 +4528,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case TYPE:
         return getType();
 
@@ -4057,6 +4542,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case TYPE:
         return isSetType();
       default:
@@ -4076,6 +4563,15 @@ public class Namenode {
     public boolean equals(getDatanodeReport_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_type = true;
       boolean that_present_type = true;
@@ -4105,6 +4601,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case TYPE:
             if (field.type == TType.I32) {
               this.type = iprot.readI32();
@@ -4133,6 +4637,11 @@ public class Namenode {
       oprot.writeFieldBegin(TYPE_FIELD_DESC);
       oprot.writeI32(this.type);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -4142,6 +4651,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("getDatanodeReport_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("type:");
       String type_name = DatanodeReportType.VALUES_TO_NAMES.get(this.type);
       if (type_name != null) {
@@ -4388,14 +4905,14 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list12 = iprot.readListBegin();
-                this.success = new ArrayList<DatanodeInfo>(_list12.size);
-                for (int _i13 = 0; _i13 < _list12.size; ++_i13)
+                TList _list17 = iprot.readListBegin();
+                this.success = new ArrayList<DatanodeInfo>(_list17.size);
+                for (int _i18 = 0; _i18 < _list17.size; ++_i18)
                 {
-                  DatanodeInfo _elem14;
-                  _elem14 = new DatanodeInfo();
-                  _elem14.read(iprot);
-                  this.success.add(_elem14);
+                  DatanodeInfo _elem19;
+                  _elem19 = new DatanodeInfo();
+                  _elem19.read(iprot);
+                  this.success.add(_elem19);
                 }
                 iprot.readListEnd();
               }
@@ -4431,8 +4948,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
-          for (DatanodeInfo _iter15 : this.success)          {
-            _iter15.write(oprot);
+          for (DatanodeInfo _iter20 : this.success)          {
+            _iter20.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -4479,8 +4996,11 @@ public class Namenode {
 
   public static class getPreferredBlockSize_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("getPreferredBlockSize_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path to the file.
      */
@@ -4492,6 +5012,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
     }});
@@ -4504,9 +5026,11 @@ public class Namenode {
     }
 
     public getPreferredBlockSize_args(
+      RequestContext ctx,
       String path)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
     }
 
@@ -4514,6 +5038,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public getPreferredBlockSize_args(getPreferredBlockSize_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -4522,6 +5049,29 @@ public class Namenode {
     @Override
     public getPreferredBlockSize_args clone() {
       return new getPreferredBlockSize_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -4555,6 +5105,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -4570,6 +5128,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -4581,6 +5142,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       default:
@@ -4600,6 +5163,15 @@ public class Namenode {
     public boolean equals(getPreferredBlockSize_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -4629,6 +5201,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -4658,6 +5238,11 @@ public class Namenode {
         oprot.writeString(this.path);
         oprot.writeFieldEnd();
       }
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -4667,6 +5252,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("getPreferredBlockSize_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -4957,8 +5550,18 @@ public class Namenode {
 
   public static class isInSafeMode_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("isInSafeMode_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
     }});
 
     static {
@@ -4968,10 +5571,20 @@ public class Namenode {
     public isInSafeMode_args() {
     }
 
+    public isInSafeMode_args(
+      RequestContext ctx)
+    {
+      this();
+      this.ctx = ctx;
+    }
+
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public isInSafeMode_args(isInSafeMode_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
     }
 
     @Override
@@ -4979,8 +5592,39 @@ public class Namenode {
       return new isInSafeMode_args(this);
     }
 
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -4988,6 +5632,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -4996,6 +5643,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -5013,6 +5662,15 @@ public class Namenode {
     public boolean equals(isInSafeMode_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       return true;
     }
@@ -5033,6 +5691,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           default:
             TProtocolUtil.skip(iprot, field.type);
             break;
@@ -5050,6 +5716,11 @@ public class Namenode {
       validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -5059,6 +5730,13 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("isInSafeMode_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -5342,8 +6020,18 @@ public class Namenode {
 
   public static class leaveSafeMode_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("leaveSafeMode_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
     }});
 
     static {
@@ -5353,10 +6041,20 @@ public class Namenode {
     public leaveSafeMode_args() {
     }
 
+    public leaveSafeMode_args(
+      RequestContext ctx)
+    {
+      this();
+      this.ctx = ctx;
+    }
+
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public leaveSafeMode_args(leaveSafeMode_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
     }
 
     @Override
@@ -5364,8 +6062,39 @@ public class Namenode {
       return new leaveSafeMode_args(this);
     }
 
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -5373,6 +6102,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -5381,6 +6113,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -5398,6 +6132,15 @@ public class Namenode {
     public boolean equals(leaveSafeMode_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       return true;
     }
@@ -5418,6 +6161,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           default:
             TProtocolUtil.skip(iprot, field.type);
             break;
@@ -5435,6 +6186,11 @@ public class Namenode {
       validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -5444,6 +6200,13 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("leaveSafeMode_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -5656,8 +6419,11 @@ public class Namenode {
 
   public static class ls_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("ls_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path to the directory.
      */
@@ -5669,6 +6435,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
     }});
@@ -5681,9 +6449,11 @@ public class Namenode {
     }
 
     public ls_args(
+      RequestContext ctx,
       String path)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
     }
 
@@ -5691,6 +6461,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public ls_args(ls_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -5699,6 +6472,29 @@ public class Namenode {
     @Override
     public ls_args clone() {
       return new ls_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -5732,6 +6528,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -5747,6 +6551,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -5758,6 +6565,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       default:
@@ -5777,6 +6586,15 @@ public class Namenode {
     public boolean equals(ls_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -5806,6 +6624,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -5835,6 +6661,11 @@ public class Namenode {
         oprot.writeString(this.path);
         oprot.writeFieldEnd();
       }
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -5844,6 +6675,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("ls_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -6083,14 +6922,14 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list16 = iprot.readListBegin();
-                this.success = new ArrayList<Stat>(_list16.size);
-                for (int _i17 = 0; _i17 < _list16.size; ++_i17)
+                TList _list21 = iprot.readListBegin();
+                this.success = new ArrayList<Stat>(_list21.size);
+                for (int _i22 = 0; _i22 < _list21.size; ++_i22)
                 {
-                  Stat _elem18;
-                  _elem18 = new Stat();
-                  _elem18.read(iprot);
-                  this.success.add(_elem18);
+                  Stat _elem23;
+                  _elem23 = new Stat();
+                  _elem23.read(iprot);
+                  this.success.add(_elem23);
                 }
                 iprot.readListEnd();
               }
@@ -6126,8 +6965,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
-          for (Stat _iter19 : this.success)          {
-            _iter19.write(oprot);
+          for (Stat _iter24 : this.success)          {
+            _iter24.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -6174,9 +7013,12 @@ public class Namenode {
 
   public static class mkdirhier_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("mkdirhier_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField PERMS_FIELD_DESC = new TField("perms", TType.I16, (short)2);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path to the directory.
      */
@@ -6194,6 +7036,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(PERMS, new FieldMetaData("perms", TFieldRequirementType.DEFAULT, 
@@ -6208,10 +7052,12 @@ public class Namenode {
     }
 
     public mkdirhier_args(
+      RequestContext ctx,
       String path,
       short perms)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.perms = perms;
       this.__isset.perms = true;
@@ -6221,6 +7067,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public mkdirhier_args(mkdirhier_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -6231,6 +7080,29 @@ public class Namenode {
     @Override
     public mkdirhier_args clone() {
       return new mkdirhier_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -6292,6 +7164,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -6315,6 +7195,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -6329,6 +7212,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case PERMS:
@@ -6350,6 +7235,15 @@ public class Namenode {
     public boolean equals(mkdirhier_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -6388,6 +7282,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -6428,6 +7330,11 @@ public class Namenode {
       oprot.writeFieldBegin(PERMS_FIELD_DESC);
       oprot.writeI16(this.perms);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -6437,6 +7344,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("mkdirhier_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -6731,8 +7646,18 @@ public class Namenode {
 
   public static class refreshNodes_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("refreshNodes_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
     }});
 
     static {
@@ -6742,10 +7667,20 @@ public class Namenode {
     public refreshNodes_args() {
     }
 
+    public refreshNodes_args(
+      RequestContext ctx)
+    {
+      this();
+      this.ctx = ctx;
+    }
+
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public refreshNodes_args(refreshNodes_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
     }
 
     @Override
@@ -6753,8 +7688,39 @@ public class Namenode {
       return new refreshNodes_args(this);
     }
 
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -6762,6 +7728,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -6770,6 +7739,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       default:
         throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
       }
@@ -6787,6 +7758,15 @@ public class Namenode {
     public boolean equals(refreshNodes_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       return true;
     }
@@ -6807,6 +7787,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           default:
             TProtocolUtil.skip(iprot, field.type);
             break;
@@ -6824,6 +7812,11 @@ public class Namenode {
       validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -6833,6 +7826,13 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("refreshNodes_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -7045,9 +8045,12 @@ public class Namenode {
 
   public static class rename_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("rename_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField NEW_PATH_FIELD_DESC = new TField("newPath", TType.STRING, (short)2);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path to existing file or directory.
      */
@@ -7064,6 +8067,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(NEWPATH, new FieldMetaData("newPath", TFieldRequirementType.DEFAULT, 
@@ -7078,10 +8083,12 @@ public class Namenode {
     }
 
     public rename_args(
+      RequestContext ctx,
       String path,
       String newPath)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.newPath = newPath;
     }
@@ -7090,6 +8097,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public rename_args(rename_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -7101,6 +8111,29 @@ public class Namenode {
     @Override
     public rename_args clone() {
       return new rename_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -7163,6 +8196,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -7186,6 +8227,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -7200,6 +8244,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case NEWPATH:
@@ -7221,6 +8267,15 @@ public class Namenode {
     public boolean equals(rename_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -7259,6 +8314,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -7300,6 +8363,11 @@ public class Namenode {
         oprot.writeString(this.newPath);
         oprot.writeFieldEnd();
       }
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -7309,6 +8377,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("rename_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -7607,8 +8683,11 @@ public class Namenode {
 
   public static class reportBadBlocks_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("reportBadBlocks_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField BLOCKS_FIELD_DESC = new TField("blocks", TType.LIST, (short)1);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * List of corrupted blocks.
      */
@@ -7620,6 +8699,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(BLOCKS, new FieldMetaData("blocks", TFieldRequirementType.DEFAULT, 
           new ListMetaData(TType.LIST, 
               new StructMetaData(TType.STRUCT, Block.class))));
@@ -7633,9 +8714,11 @@ public class Namenode {
     }
 
     public reportBadBlocks_args(
+      RequestContext ctx,
       List<Block> blocks)
     {
       this();
+      this.ctx = ctx;
       this.blocks = blocks;
     }
 
@@ -7643,6 +8726,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public reportBadBlocks_args(reportBadBlocks_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetBlocks()) {
         List<Block> __this__blocks = new ArrayList<Block>();
         for (Block other_element : other.blocks) {
@@ -7655,6 +8741,29 @@ public class Namenode {
     @Override
     public reportBadBlocks_args clone() {
       return new reportBadBlocks_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     public int getBlocksSize() {
@@ -7703,6 +8812,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case BLOCKS:
         if (value == null) {
           unsetBlocks();
@@ -7718,6 +8835,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case BLOCKS:
         return getBlocks();
 
@@ -7729,6 +8849,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case BLOCKS:
         return isSetBlocks();
       default:
@@ -7748,6 +8870,15 @@ public class Namenode {
     public boolean equals(reportBadBlocks_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_blocks = true && this.isSetBlocks();
       boolean that_present_blocks = true && that.isSetBlocks();
@@ -7777,17 +8908,25 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case BLOCKS:
             if (field.type == TType.LIST) {
               {
-                TList _list20 = iprot.readListBegin();
-                this.blocks = new ArrayList<Block>(_list20.size);
-                for (int _i21 = 0; _i21 < _list20.size; ++_i21)
+                TList _list25 = iprot.readListBegin();
+                this.blocks = new ArrayList<Block>(_list25.size);
+                for (int _i26 = 0; _i26 < _list25.size; ++_i26)
                 {
-                  Block _elem22;
-                  _elem22 = new Block();
-                  _elem22.read(iprot);
-                  this.blocks.add(_elem22);
+                  Block _elem27;
+                  _elem27 = new Block();
+                  _elem27.read(iprot);
+                  this.blocks.add(_elem27);
                 }
                 iprot.readListEnd();
               }
@@ -7816,11 +8955,16 @@ public class Namenode {
         oprot.writeFieldBegin(BLOCKS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.blocks.size()));
-          for (Block _iter23 : this.blocks)          {
-            _iter23.write(oprot);
+          for (Block _iter28 : this.blocks)          {
+            _iter28.write(oprot);
           }
           oprot.writeListEnd();
         }
+        oprot.writeFieldEnd();
+      }
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
         oprot.writeFieldEnd();
       }
       oprot.writeFieldStop();
@@ -7832,6 +8976,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("reportBadBlocks_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("blocks:");
       if (this.blocks == null) {
         sb.append("null");
@@ -8051,8 +9203,11 @@ public class Namenode {
 
   public static class stat_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("stat_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path of the file or directory.
      */
@@ -8064,6 +9219,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
     }});
@@ -8076,9 +9233,11 @@ public class Namenode {
     }
 
     public stat_args(
+      RequestContext ctx,
       String path)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
     }
 
@@ -8086,6 +9245,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public stat_args(stat_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -8094,6 +9256,29 @@ public class Namenode {
     @Override
     public stat_args clone() {
       return new stat_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -8127,6 +9312,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -8142,6 +9335,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -8153,6 +9349,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       default:
@@ -8172,6 +9370,15 @@ public class Namenode {
     public boolean equals(stat_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -8201,6 +9408,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -8230,6 +9445,11 @@ public class Namenode {
         oprot.writeString(this.path);
         oprot.writeFieldEnd();
       }
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -8239,6 +9459,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("stat_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -8533,10 +9761,13 @@ public class Namenode {
 
   public static class setQuota_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("setQuota_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField NAMESPACE_QUOTA_FIELD_DESC = new TField("namespaceQuota", TType.I64, (short)2);
     private static final TField DISKSPACE_QUOTA_FIELD_DESC = new TField("diskspaceQuota", TType.I64, (short)3);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path of the directory.
      */
@@ -8561,6 +9792,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(NAMESPACEQUOTA, new FieldMetaData("namespaceQuota", TFieldRequirementType.DEFAULT, 
@@ -8577,11 +9810,13 @@ public class Namenode {
     }
 
     public setQuota_args(
+      RequestContext ctx,
       String path,
       long namespaceQuota,
       long diskspaceQuota)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.namespaceQuota = namespaceQuota;
       this.__isset.namespaceQuota = true;
@@ -8593,6 +9828,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public setQuota_args(setQuota_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -8605,6 +9843,29 @@ public class Namenode {
     @Override
     public setQuota_args clone() {
       return new setQuota_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -8696,6 +9957,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -8727,6 +9996,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -8744,6 +10016,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case NAMESPACEQUOTA:
@@ -8767,6 +10041,15 @@ public class Namenode {
     public boolean equals(setQuota_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -8814,6 +10097,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -8865,6 +10156,11 @@ public class Namenode {
       oprot.writeFieldBegin(DISKSPACE_QUOTA_FIELD_DESC);
       oprot.writeI64(this.diskspaceQuota);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -8874,6 +10170,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("setQuota_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -9101,9 +10405,12 @@ public class Namenode {
 
   public static class setReplication_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("setReplication_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField REPLICATION_FIELD_DESC = new TField("replication", TType.I16, (short)2);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path of the file.
      */
@@ -9121,6 +10428,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(REPLICATION, new FieldMetaData("replication", TFieldRequirementType.DEFAULT, 
@@ -9135,10 +10444,12 @@ public class Namenode {
     }
 
     public setReplication_args(
+      RequestContext ctx,
       String path,
       short replication)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.replication = replication;
       this.__isset.replication = true;
@@ -9148,6 +10459,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public setReplication_args(setReplication_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -9158,6 +10472,29 @@ public class Namenode {
     @Override
     public setReplication_args clone() {
       return new setReplication_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -9219,6 +10556,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -9242,6 +10587,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -9256,6 +10604,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case REPLICATION:
@@ -9277,6 +10627,15 @@ public class Namenode {
     public boolean equals(setReplication_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -9315,6 +10674,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -9355,6 +10722,11 @@ public class Namenode {
       oprot.writeFieldBegin(REPLICATION_FIELD_DESC);
       oprot.writeI16(this.replication);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -9364,6 +10736,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("setReplication_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -9658,9 +11038,12 @@ public class Namenode {
 
   public static class unlink_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("unlink_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField RECURSIVE_FIELD_DESC = new TField("recursive", TType.BOOL, (short)2);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path of the file or directory.
      */
@@ -9678,6 +11061,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(RECURSIVE, new FieldMetaData("recursive", TFieldRequirementType.DEFAULT, 
@@ -9692,10 +11077,12 @@ public class Namenode {
     }
 
     public unlink_args(
+      RequestContext ctx,
       String path,
       boolean recursive)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.recursive = recursive;
       this.__isset.recursive = true;
@@ -9705,6 +11092,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public unlink_args(unlink_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -9715,6 +11105,29 @@ public class Namenode {
     @Override
     public unlink_args clone() {
       return new unlink_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -9776,6 +11189,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -9799,6 +11220,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -9813,6 +11237,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case RECURSIVE:
@@ -9834,6 +11260,15 @@ public class Namenode {
     public boolean equals(unlink_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -9872,6 +11307,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -9912,6 +11355,11 @@ public class Namenode {
       oprot.writeFieldBegin(RECURSIVE_FIELD_DESC);
       oprot.writeBool(this.recursive);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -9921,6 +11369,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("unlink_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");
@@ -10215,10 +11671,13 @@ public class Namenode {
 
   public static class utime_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("utime_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField PATH_FIELD_DESC = new TField("path", TType.STRING, (short)1);
     private static final TField ATIME_FIELD_DESC = new TField("atime", TType.I64, (short)2);
     private static final TField MTIME_FIELD_DESC = new TField("mtime", TType.I64, (short)3);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Path of the file or directory.
      */
@@ -10242,6 +11701,8 @@ public class Namenode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(PATH, new FieldMetaData("path", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       put(ATIME, new FieldMetaData("atime", TFieldRequirementType.DEFAULT, 
@@ -10258,11 +11719,13 @@ public class Namenode {
     }
 
     public utime_args(
+      RequestContext ctx,
       String path,
       long atime,
       long mtime)
     {
       this();
+      this.ctx = ctx;
       this.path = path;
       this.atime = atime;
       this.__isset.atime = true;
@@ -10274,6 +11737,9 @@ public class Namenode {
      * Performs a deep copy on <i>other</i>.
      */
     public utime_args(utime_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetPath()) {
         this.path = other.path;
       }
@@ -10286,6 +11752,29 @@ public class Namenode {
     @Override
     public utime_args clone() {
       return new utime_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -10375,6 +11864,14 @@ public class Namenode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case PATH:
         if (value == null) {
           unsetPath();
@@ -10406,6 +11903,9 @@ public class Namenode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case PATH:
         return getPath();
 
@@ -10423,6 +11923,8 @@ public class Namenode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case PATH:
         return isSetPath();
       case ATIME:
@@ -10446,6 +11948,15 @@ public class Namenode {
     public boolean equals(utime_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_path = true && this.isSetPath();
       boolean that_present_path = true && that.isSetPath();
@@ -10493,6 +12004,14 @@ public class Namenode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case PATH:
             if (field.type == TType.STRING) {
               this.path = iprot.readString();
@@ -10544,6 +12063,11 @@ public class Namenode {
       oprot.writeFieldBegin(MTIME_FIELD_DESC);
       oprot.writeI64(this.mtime);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -10553,6 +12077,14 @@ public class Namenode {
       StringBuilder sb = new StringBuilder("utime_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("path:");
       if (this.path == null) {
         sb.append("null");

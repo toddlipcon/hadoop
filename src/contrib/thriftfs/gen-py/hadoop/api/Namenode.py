@@ -20,17 +20,18 @@ class Iface:
   Provides an interface to a Hadoop Namenode. It is basically a Thrift
   translation of org.apache.hadoop.hdfs.protocol.ClientProtocol.
   """
-  def chmod(self, path, perms):
+  def chmod(self, ctx, path, perms):
     """
     Set permissions of an existing file or directory.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
      - perms: New permissions for the file or directory.
     """
     pass
 
-  def chown(self, path, owner, group):
+  def chown(self, ctx, path, owner, group):
     """
     Set owner of a file or directory.
     
@@ -40,81 +41,98 @@ class Iface:
     Parameters 'owner' and 'group' cannot be both null.
     
     Parameters:
+     - ctx
      - path: Path to the file or directory
      - owner: New owner.
      - group: New group.
     """
     pass
 
-  def df(self, ):
+  def df(self, ctx):
     """
     Return a list containing:
       (index 0) The total storage capacity of the file system (in bytes).
       (index 1) The total used space of the file system (in bytes).
       (index 2) The available storage of the file system (in bytes).
+    
+    Parameters:
+     - ctx
     """
     pass
 
-  def enterSafeMode(self, ):
+  def enterSafeMode(self, ctx):
     """
     Enter safe mode.
+    
+    Parameters:
+     - ctx
     """
     pass
 
-  def getBlocks(self, path, offset, length):
+  def getBlocks(self, ctx, path, offset, length):
     """
     Get a list of all blocks containing a region of a file
     
     Parameters:
+     - ctx
      - path: Path to the file.
      - offset: Offset of the region.
      - length: Length of the region
     """
     pass
 
-  def getDatanodeReport(self, type):
+  def getDatanodeReport(self, ctx, type):
     """
     Get a report on the system's current data nodes.
     
     Parameters:
+     - ctx
      - type: Type of data nodes to return
     information about.
     """
     pass
 
-  def getPreferredBlockSize(self, path):
+  def getPreferredBlockSize(self, ctx, path):
     """
     Get the preferred block size for the given file.
     
     The path must exist, or IOException is thrown.
     
     Parameters:
+     - ctx
      - path: Path to the file.
     """
     pass
 
-  def isInSafeMode(self, ):
+  def isInSafeMode(self, ctx):
     """
     Returns whether HDFS is in safe mode or not.
+    
+    Parameters:
+     - ctx
     """
     pass
 
-  def leaveSafeMode(self, ):
+  def leaveSafeMode(self, ctx):
     """
     Leave safe mode.
+    
+    Parameters:
+     - ctx
     """
     pass
 
-  def ls(self, path):
+  def ls(self, ctx, path):
     """
     Get a listing of the indicated directory.
     
     Parameters:
+     - ctx
      - path: Path to the directory.
     """
     pass
 
-  def mkdirhier(self, path, perms):
+  def mkdirhier(self, ctx, path, perms):
     """
     Create a directory (or hierarchy of directories).
     
@@ -122,18 +140,22 @@ class Iface:
     true otherwise.
     
     Parameters:
+     - ctx
      - path: Path to the directory.
      - perms: Access permissions of the directory.
     """
     pass
 
-  def refreshNodes(self, ):
+  def refreshNodes(self, ctx):
     """
     Tells the name node to reread the hosts and exclude files.
+    
+    Parameters:
+     - ctx
     """
     pass
 
-  def rename(self, path, newPath):
+  def rename(self, ctx, path, newPath):
     """
     Rename an item in the file system namespace.
     
@@ -142,32 +164,35 @@ class Iface:
                   belongs to the namespace.
     
     Parameters:
+     - ctx
      - path: Path to existing file or directory.
      - newPath: New path.
     """
     pass
 
-  def reportBadBlocks(self, blocks):
+  def reportBadBlocks(self, ctx, blocks):
     """
     Report corrupted blocks.
     
     Parameters:
+     - ctx
      - blocks: List of corrupted blocks.
     """
     pass
 
-  def stat(self, path):
+  def stat(self, ctx, path):
     """
     Get information about a path in HDFS.
     
     Return value will be nul if path does not exist.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
     """
     pass
 
-  def setQuota(self, path, namespaceQuota, diskspaceQuota):
+  def setQuota(self, ctx, path, namespaceQuota, diskspaceQuota):
     """
     Set the quota for a directory.
     
@@ -180,6 +205,7 @@ class Iface:
     Any other value is a runtime error.
     
     Parameters:
+     - ctx
      - path: Path of the directory.
      - namespaceQuota: Limit on the number of names in the directory.
      - diskspaceQuota: Limit on disk space occupied by all the files in the
@@ -187,7 +213,7 @@ class Iface:
     """
     pass
 
-  def setReplication(self, path, replication):
+  def setReplication(self, ctx, path, replication):
     """
     Set replication factor for an existing file.
     
@@ -200,24 +226,26 @@ class Iface:
     directory.
     
     Parameters:
+     - ctx
      - path: Path of the file.
      - replication: New replication factor.
     """
     pass
 
-  def unlink(self, path, recursive):
+  def unlink(self, ctx, path, recursive):
     """
     Delete a file or directory from the file system.
     
     Any blocks belonging to the deleted files will be garbage-collected.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
      - recursive: Delete a non-empty directory recursively.
     """
     pass
 
-  def utime(self, path, atime, mtime):
+  def utime(self, ctx, path, atime, mtime):
     """
     Sets the modification and access time of a file or directory.
     
@@ -228,6 +256,7 @@ class Iface:
     the current time.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
      - atime: Access time in milliseconds since 1970-01-01 00:00 UTC
      - mtime: Modification time in milliseconds since 1970-01-01 00:00 UTC
@@ -268,20 +297,22 @@ class Client(Iface):
       self._oprot = oprot
     self._seqid = 0
 
-  def chmod(self, path, perms):
+  def chmod(self, ctx, path, perms):
     """
     Set permissions of an existing file or directory.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
      - perms: New permissions for the file or directory.
     """
-    self.send_chmod(path, perms)
+    self.send_chmod(ctx, path, perms)
     self.recv_chmod()
 
-  def send_chmod(self, path, perms):
+  def send_chmod(self, ctx, path, perms):
     self._oprot.writeMessageBegin('chmod', TMessageType.CALL, self._seqid)
     args = chmod_args()
+    args.ctx = ctx
     args.path = path
     args.perms = perms
     args.write(self._oprot)
@@ -302,7 +333,7 @@ class Client(Iface):
       raise result.err
     return
 
-  def chown(self, path, owner, group):
+  def chown(self, ctx, path, owner, group):
     """
     Set owner of a file or directory.
     
@@ -312,16 +343,18 @@ class Client(Iface):
     Parameters 'owner' and 'group' cannot be both null.
     
     Parameters:
+     - ctx
      - path: Path to the file or directory
      - owner: New owner.
      - group: New group.
     """
-    self.send_chown(path, owner, group)
+    self.send_chown(ctx, path, owner, group)
     self.recv_chown()
 
-  def send_chown(self, path, owner, group):
+  def send_chown(self, ctx, path, owner, group):
     self._oprot.writeMessageBegin('chown', TMessageType.CALL, self._seqid)
     args = chown_args()
+    args.ctx = ctx
     args.path = path
     args.owner = owner
     args.group = group
@@ -343,19 +376,23 @@ class Client(Iface):
       raise result.err
     return
 
-  def df(self, ):
+  def df(self, ctx):
     """
     Return a list containing:
       (index 0) The total storage capacity of the file system (in bytes).
       (index 1) The total used space of the file system (in bytes).
       (index 2) The available storage of the file system (in bytes).
+    
+    Parameters:
+     - ctx
     """
-    self.send_df()
+    self.send_df(ctx)
     return self.recv_df()
 
-  def send_df(self, ):
+  def send_df(self, ctx):
     self._oprot.writeMessageBegin('df', TMessageType.CALL, self._seqid)
     args = df_args()
+    args.ctx = ctx
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -376,16 +413,20 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "df failed: unknown result");
 
-  def enterSafeMode(self, ):
+  def enterSafeMode(self, ctx):
     """
     Enter safe mode.
+    
+    Parameters:
+     - ctx
     """
-    self.send_enterSafeMode()
+    self.send_enterSafeMode(ctx)
     self.recv_enterSafeMode()
 
-  def send_enterSafeMode(self, ):
+  def send_enterSafeMode(self, ctx):
     self._oprot.writeMessageBegin('enterSafeMode', TMessageType.CALL, self._seqid)
     args = enterSafeMode_args()
+    args.ctx = ctx
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -404,21 +445,23 @@ class Client(Iface):
       raise result.err
     return
 
-  def getBlocks(self, path, offset, length):
+  def getBlocks(self, ctx, path, offset, length):
     """
     Get a list of all blocks containing a region of a file
     
     Parameters:
+     - ctx
      - path: Path to the file.
      - offset: Offset of the region.
      - length: Length of the region
     """
-    self.send_getBlocks(path, offset, length)
+    self.send_getBlocks(ctx, path, offset, length)
     return self.recv_getBlocks()
 
-  def send_getBlocks(self, path, offset, length):
+  def send_getBlocks(self, ctx, path, offset, length):
     self._oprot.writeMessageBegin('getBlocks', TMessageType.CALL, self._seqid)
     args = getBlocks_args()
+    args.ctx = ctx
     args.path = path
     args.offset = offset
     args.length = length
@@ -442,20 +485,22 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "getBlocks failed: unknown result");
 
-  def getDatanodeReport(self, type):
+  def getDatanodeReport(self, ctx, type):
     """
     Get a report on the system's current data nodes.
     
     Parameters:
+     - ctx
      - type: Type of data nodes to return
     information about.
     """
-    self.send_getDatanodeReport(type)
+    self.send_getDatanodeReport(ctx, type)
     return self.recv_getDatanodeReport()
 
-  def send_getDatanodeReport(self, type):
+  def send_getDatanodeReport(self, ctx, type):
     self._oprot.writeMessageBegin('getDatanodeReport', TMessageType.CALL, self._seqid)
     args = getDatanodeReport_args()
+    args.ctx = ctx
     args.type = type
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -477,21 +522,23 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "getDatanodeReport failed: unknown result");
 
-  def getPreferredBlockSize(self, path):
+  def getPreferredBlockSize(self, ctx, path):
     """
     Get the preferred block size for the given file.
     
     The path must exist, or IOException is thrown.
     
     Parameters:
+     - ctx
      - path: Path to the file.
     """
-    self.send_getPreferredBlockSize(path)
+    self.send_getPreferredBlockSize(ctx, path)
     return self.recv_getPreferredBlockSize()
 
-  def send_getPreferredBlockSize(self, path):
+  def send_getPreferredBlockSize(self, ctx, path):
     self._oprot.writeMessageBegin('getPreferredBlockSize', TMessageType.CALL, self._seqid)
     args = getPreferredBlockSize_args()
+    args.ctx = ctx
     args.path = path
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -513,16 +560,20 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "getPreferredBlockSize failed: unknown result");
 
-  def isInSafeMode(self, ):
+  def isInSafeMode(self, ctx):
     """
     Returns whether HDFS is in safe mode or not.
+    
+    Parameters:
+     - ctx
     """
-    self.send_isInSafeMode()
+    self.send_isInSafeMode(ctx)
     return self.recv_isInSafeMode()
 
-  def send_isInSafeMode(self, ):
+  def send_isInSafeMode(self, ctx):
     self._oprot.writeMessageBegin('isInSafeMode', TMessageType.CALL, self._seqid)
     args = isInSafeMode_args()
+    args.ctx = ctx
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -543,16 +594,20 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "isInSafeMode failed: unknown result");
 
-  def leaveSafeMode(self, ):
+  def leaveSafeMode(self, ctx):
     """
     Leave safe mode.
+    
+    Parameters:
+     - ctx
     """
-    self.send_leaveSafeMode()
+    self.send_leaveSafeMode(ctx)
     self.recv_leaveSafeMode()
 
-  def send_leaveSafeMode(self, ):
+  def send_leaveSafeMode(self, ctx):
     self._oprot.writeMessageBegin('leaveSafeMode', TMessageType.CALL, self._seqid)
     args = leaveSafeMode_args()
+    args.ctx = ctx
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -571,19 +626,21 @@ class Client(Iface):
       raise result.err
     return
 
-  def ls(self, path):
+  def ls(self, ctx, path):
     """
     Get a listing of the indicated directory.
     
     Parameters:
+     - ctx
      - path: Path to the directory.
     """
-    self.send_ls(path)
+    self.send_ls(ctx, path)
     return self.recv_ls()
 
-  def send_ls(self, path):
+  def send_ls(self, ctx, path):
     self._oprot.writeMessageBegin('ls', TMessageType.CALL, self._seqid)
     args = ls_args()
+    args.ctx = ctx
     args.path = path
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -605,7 +662,7 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "ls failed: unknown result");
 
-  def mkdirhier(self, path, perms):
+  def mkdirhier(self, ctx, path, perms):
     """
     Create a directory (or hierarchy of directories).
     
@@ -613,15 +670,17 @@ class Client(Iface):
     true otherwise.
     
     Parameters:
+     - ctx
      - path: Path to the directory.
      - perms: Access permissions of the directory.
     """
-    self.send_mkdirhier(path, perms)
+    self.send_mkdirhier(ctx, path, perms)
     return self.recv_mkdirhier()
 
-  def send_mkdirhier(self, path, perms):
+  def send_mkdirhier(self, ctx, path, perms):
     self._oprot.writeMessageBegin('mkdirhier', TMessageType.CALL, self._seqid)
     args = mkdirhier_args()
+    args.ctx = ctx
     args.path = path
     args.perms = perms
     args.write(self._oprot)
@@ -644,16 +703,20 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "mkdirhier failed: unknown result");
 
-  def refreshNodes(self, ):
+  def refreshNodes(self, ctx):
     """
     Tells the name node to reread the hosts and exclude files.
+    
+    Parameters:
+     - ctx
     """
-    self.send_refreshNodes()
+    self.send_refreshNodes(ctx)
     self.recv_refreshNodes()
 
-  def send_refreshNodes(self, ):
+  def send_refreshNodes(self, ctx):
     self._oprot.writeMessageBegin('refreshNodes', TMessageType.CALL, self._seqid)
     args = refreshNodes_args()
+    args.ctx = ctx
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -672,7 +735,7 @@ class Client(Iface):
       raise result.err
     return
 
-  def rename(self, path, newPath):
+  def rename(self, ctx, path, newPath):
     """
     Rename an item in the file system namespace.
     
@@ -681,15 +744,17 @@ class Client(Iface):
                   belongs to the namespace.
     
     Parameters:
+     - ctx
      - path: Path to existing file or directory.
      - newPath: New path.
     """
-    self.send_rename(path, newPath)
+    self.send_rename(ctx, path, newPath)
     return self.recv_rename()
 
-  def send_rename(self, path, newPath):
+  def send_rename(self, ctx, path, newPath):
     self._oprot.writeMessageBegin('rename', TMessageType.CALL, self._seqid)
     args = rename_args()
+    args.ctx = ctx
     args.path = path
     args.newPath = newPath
     args.write(self._oprot)
@@ -712,19 +777,21 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "rename failed: unknown result");
 
-  def reportBadBlocks(self, blocks):
+  def reportBadBlocks(self, ctx, blocks):
     """
     Report corrupted blocks.
     
     Parameters:
+     - ctx
      - blocks: List of corrupted blocks.
     """
-    self.send_reportBadBlocks(blocks)
+    self.send_reportBadBlocks(ctx, blocks)
     self.recv_reportBadBlocks()
 
-  def send_reportBadBlocks(self, blocks):
+  def send_reportBadBlocks(self, ctx, blocks):
     self._oprot.writeMessageBegin('reportBadBlocks', TMessageType.CALL, self._seqid)
     args = reportBadBlocks_args()
+    args.ctx = ctx
     args.blocks = blocks
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -744,21 +811,23 @@ class Client(Iface):
       raise result.err
     return
 
-  def stat(self, path):
+  def stat(self, ctx, path):
     """
     Get information about a path in HDFS.
     
     Return value will be nul if path does not exist.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
     """
-    self.send_stat(path)
+    self.send_stat(ctx, path)
     return self.recv_stat()
 
-  def send_stat(self, path):
+  def send_stat(self, ctx, path):
     self._oprot.writeMessageBegin('stat', TMessageType.CALL, self._seqid)
     args = stat_args()
+    args.ctx = ctx
     args.path = path
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -780,7 +849,7 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "stat failed: unknown result");
 
-  def setQuota(self, path, namespaceQuota, diskspaceQuota):
+  def setQuota(self, ctx, path, namespaceQuota, diskspaceQuota):
     """
     Set the quota for a directory.
     
@@ -793,17 +862,19 @@ class Client(Iface):
     Any other value is a runtime error.
     
     Parameters:
+     - ctx
      - path: Path of the directory.
      - namespaceQuota: Limit on the number of names in the directory.
      - diskspaceQuota: Limit on disk space occupied by all the files in the
     directory.
     """
-    self.send_setQuota(path, namespaceQuota, diskspaceQuota)
+    self.send_setQuota(ctx, path, namespaceQuota, diskspaceQuota)
     self.recv_setQuota()
 
-  def send_setQuota(self, path, namespaceQuota, diskspaceQuota):
+  def send_setQuota(self, ctx, path, namespaceQuota, diskspaceQuota):
     self._oprot.writeMessageBegin('setQuota', TMessageType.CALL, self._seqid)
     args = setQuota_args()
+    args.ctx = ctx
     args.path = path
     args.namespaceQuota = namespaceQuota
     args.diskspaceQuota = diskspaceQuota
@@ -825,7 +896,7 @@ class Client(Iface):
       raise result.err
     return
 
-  def setReplication(self, path, replication):
+  def setReplication(self, ctx, path, replication):
     """
     Set replication factor for an existing file.
     
@@ -838,15 +909,17 @@ class Client(Iface):
     directory.
     
     Parameters:
+     - ctx
      - path: Path of the file.
      - replication: New replication factor.
     """
-    self.send_setReplication(path, replication)
+    self.send_setReplication(ctx, path, replication)
     return self.recv_setReplication()
 
-  def send_setReplication(self, path, replication):
+  def send_setReplication(self, ctx, path, replication):
     self._oprot.writeMessageBegin('setReplication', TMessageType.CALL, self._seqid)
     args = setReplication_args()
+    args.ctx = ctx
     args.path = path
     args.replication = replication
     args.write(self._oprot)
@@ -869,22 +942,24 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "setReplication failed: unknown result");
 
-  def unlink(self, path, recursive):
+  def unlink(self, ctx, path, recursive):
     """
     Delete a file or directory from the file system.
     
     Any blocks belonging to the deleted files will be garbage-collected.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
      - recursive: Delete a non-empty directory recursively.
     """
-    self.send_unlink(path, recursive)
+    self.send_unlink(ctx, path, recursive)
     return self.recv_unlink()
 
-  def send_unlink(self, path, recursive):
+  def send_unlink(self, ctx, path, recursive):
     self._oprot.writeMessageBegin('unlink', TMessageType.CALL, self._seqid)
     args = unlink_args()
+    args.ctx = ctx
     args.path = path
     args.recursive = recursive
     args.write(self._oprot)
@@ -907,7 +982,7 @@ class Client(Iface):
       raise result.err
     raise TApplicationException(TApplicationException.MISSING_RESULT, "unlink failed: unknown result");
 
-  def utime(self, path, atime, mtime):
+  def utime(self, ctx, path, atime, mtime):
     """
     Sets the modification and access time of a file or directory.
     
@@ -918,16 +993,18 @@ class Client(Iface):
     the current time.
     
     Parameters:
+     - ctx
      - path: Path of the file or directory.
      - atime: Access time in milliseconds since 1970-01-01 00:00 UTC
      - mtime: Modification time in milliseconds since 1970-01-01 00:00 UTC
     """
-    self.send_utime(path, atime, mtime)
+    self.send_utime(ctx, path, atime, mtime)
     self.recv_utime()
 
-  def send_utime(self, path, atime, mtime):
+  def send_utime(self, ctx, path, atime, mtime):
     self._oprot.writeMessageBegin('utime', TMessageType.CALL, self._seqid)
     args = utime_args()
+    args.ctx = ctx
     args.path = path
     args.atime = atime
     args.mtime = mtime
@@ -1065,7 +1142,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = chmod_result()
     try:
-      self._handler.chmod(args.path, args.perms)
+      self._handler.chmod(args.ctx, args.path, args.perms)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("chmod", TMessageType.REPLY, seqid)
@@ -1079,7 +1156,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = chown_result()
     try:
-      self._handler.chown(args.path, args.owner, args.group)
+      self._handler.chown(args.ctx, args.path, args.owner, args.group)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("chown", TMessageType.REPLY, seqid)
@@ -1093,7 +1170,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = df_result()
     try:
-      result.success = self._handler.df()
+      result.success = self._handler.df(args.ctx)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("df", TMessageType.REPLY, seqid)
@@ -1107,7 +1184,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = enterSafeMode_result()
     try:
-      self._handler.enterSafeMode()
+      self._handler.enterSafeMode(args.ctx)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("enterSafeMode", TMessageType.REPLY, seqid)
@@ -1121,7 +1198,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = getBlocks_result()
     try:
-      result.success = self._handler.getBlocks(args.path, args.offset, args.length)
+      result.success = self._handler.getBlocks(args.ctx, args.path, args.offset, args.length)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("getBlocks", TMessageType.REPLY, seqid)
@@ -1135,7 +1212,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = getDatanodeReport_result()
     try:
-      result.success = self._handler.getDatanodeReport(args.type)
+      result.success = self._handler.getDatanodeReport(args.ctx, args.type)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("getDatanodeReport", TMessageType.REPLY, seqid)
@@ -1149,7 +1226,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = getPreferredBlockSize_result()
     try:
-      result.success = self._handler.getPreferredBlockSize(args.path)
+      result.success = self._handler.getPreferredBlockSize(args.ctx, args.path)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("getPreferredBlockSize", TMessageType.REPLY, seqid)
@@ -1163,7 +1240,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = isInSafeMode_result()
     try:
-      result.success = self._handler.isInSafeMode()
+      result.success = self._handler.isInSafeMode(args.ctx)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("isInSafeMode", TMessageType.REPLY, seqid)
@@ -1177,7 +1254,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = leaveSafeMode_result()
     try:
-      self._handler.leaveSafeMode()
+      self._handler.leaveSafeMode(args.ctx)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("leaveSafeMode", TMessageType.REPLY, seqid)
@@ -1191,7 +1268,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = ls_result()
     try:
-      result.success = self._handler.ls(args.path)
+      result.success = self._handler.ls(args.ctx, args.path)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("ls", TMessageType.REPLY, seqid)
@@ -1205,7 +1282,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = mkdirhier_result()
     try:
-      result.success = self._handler.mkdirhier(args.path, args.perms)
+      result.success = self._handler.mkdirhier(args.ctx, args.path, args.perms)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("mkdirhier", TMessageType.REPLY, seqid)
@@ -1219,7 +1296,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = refreshNodes_result()
     try:
-      self._handler.refreshNodes()
+      self._handler.refreshNodes(args.ctx)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("refreshNodes", TMessageType.REPLY, seqid)
@@ -1233,7 +1310,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = rename_result()
     try:
-      result.success = self._handler.rename(args.path, args.newPath)
+      result.success = self._handler.rename(args.ctx, args.path, args.newPath)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("rename", TMessageType.REPLY, seqid)
@@ -1247,7 +1324,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = reportBadBlocks_result()
     try:
-      self._handler.reportBadBlocks(args.blocks)
+      self._handler.reportBadBlocks(args.ctx, args.blocks)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("reportBadBlocks", TMessageType.REPLY, seqid)
@@ -1261,7 +1338,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = stat_result()
     try:
-      result.success = self._handler.stat(args.path)
+      result.success = self._handler.stat(args.ctx, args.path)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("stat", TMessageType.REPLY, seqid)
@@ -1275,7 +1352,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = setQuota_result()
     try:
-      self._handler.setQuota(args.path, args.namespaceQuota, args.diskspaceQuota)
+      self._handler.setQuota(args.ctx, args.path, args.namespaceQuota, args.diskspaceQuota)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("setQuota", TMessageType.REPLY, seqid)
@@ -1289,7 +1366,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = setReplication_result()
     try:
-      result.success = self._handler.setReplication(args.path, args.replication)
+      result.success = self._handler.setReplication(args.ctx, args.path, args.replication)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("setReplication", TMessageType.REPLY, seqid)
@@ -1303,7 +1380,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = unlink_result()
     try:
-      result.success = self._handler.unlink(args.path, args.recursive)
+      result.success = self._handler.unlink(args.ctx, args.path, args.recursive)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("unlink", TMessageType.REPLY, seqid)
@@ -1317,7 +1394,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = utime_result()
     try:
-      self._handler.utime(args.path, args.atime, args.mtime)
+      self._handler.utime(args.ctx, args.path, args.atime, args.mtime)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("utime", TMessageType.REPLY, seqid)
@@ -1353,6 +1430,7 @@ class Processor(Iface, TProcessor):
 class chmod_args:
   """
   Attributes:
+   - ctx
    - path: Path of the file or directory.
    - perms: New permissions for the file or directory.
   """
@@ -1361,9 +1439,18 @@ class chmod_args:
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.I16, 'perms', None, None, ), # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, perms=None,):
+  def __init__(self, ctx=None, path=None, perms=None,):
+    self.ctx = ctx
     self.path = path
     self.perms = perms
 
@@ -1376,7 +1463,13 @@ class chmod_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -1403,6 +1496,10 @@ class chmod_args:
     if self.perms != None:
       oprot.writeFieldBegin('perms', TType.I16, 2)
       oprot.writeI16(self.perms)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1478,6 +1575,7 @@ class chmod_result:
 class chown_args:
   """
   Attributes:
+   - ctx
    - path: Path to the file or directory
    - owner: New owner.
    - group: New group.
@@ -1488,9 +1586,17 @@ class chown_args:
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.STRING, 'owner', None, None, ), # 2
     (3, TType.STRING, 'group', None, None, ), # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, owner=None, group=None,):
+  def __init__(self, ctx=None, path=None, owner=None, group=None,):
+    self.ctx = ctx
     self.path = path
     self.owner = owner
     self.group = group
@@ -1504,7 +1610,13 @@ class chown_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -1540,6 +1652,10 @@ class chown_args:
     if self.group != None:
       oprot.writeFieldBegin('group', TType.STRING, 3)
       oprot.writeString(self.group)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1613,9 +1729,27 @@ class chown_result:
     return not (self == other)
 
 class df_args:
+  """
+  Attributes:
+   - ctx
+  """
 
   thrift_spec = (
+    None, # 0
+    None, # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
+
+  def __init__(self, ctx=None,):
+    self.ctx = ctx
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -1626,6 +1760,12 @@ class df_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
@@ -1636,6 +1776,10 @@ class df_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('df_args')
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
+      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
 
@@ -1678,10 +1822,10 @@ class df_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype10, _size7) = iprot.readListBegin()
-          for _i11 in xrange(_size7):
-            _elem12 = iprot.readI64();
-            self.success.append(_elem12)
+          (_etype19, _size16) = iprot.readListBegin()
+          for _i20 in xrange(_size16):
+            _elem21 = iprot.readI64();
+            self.success.append(_elem21)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -1704,8 +1848,8 @@ class df_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.I64, len(self.success))
-      for iter13 in self.success:
-        oprot.writeI64(iter13)
+      for iter22 in self.success:
+        oprot.writeI64(iter22)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -1727,9 +1871,27 @@ class df_result:
     return not (self == other)
 
 class enterSafeMode_args:
+  """
+  Attributes:
+   - ctx
+  """
 
   thrift_spec = (
+    None, # 0
+    None, # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
+
+  def __init__(self, ctx=None,):
+    self.ctx = ctx
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -1740,6 +1902,12 @@ class enterSafeMode_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
@@ -1750,6 +1918,10 @@ class enterSafeMode_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('enterSafeMode_args')
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
+      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
 
@@ -1824,6 +1996,7 @@ class enterSafeMode_result:
 class getBlocks_args:
   """
   Attributes:
+   - ctx
    - path: Path to the file.
    - offset: Offset of the region.
    - length: Length of the region
@@ -1834,9 +2007,17 @@ class getBlocks_args:
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.I64, 'offset', None, None, ), # 2
     (3, TType.I64, 'length', None, None, ), # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, offset=None, length=None,):
+  def __init__(self, ctx=None, path=None, offset=None, length=None,):
+    self.ctx = ctx
     self.path = path
     self.offset = offset
     self.length = length
@@ -1850,7 +2031,13 @@ class getBlocks_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -1886,6 +2073,10 @@ class getBlocks_args:
     if self.length != None:
       oprot.writeFieldBegin('length', TType.I64, 3)
       oprot.writeI64(self.length)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1929,11 +2120,11 @@ class getBlocks_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype17, _size14) = iprot.readListBegin()
-          for _i18 in xrange(_size14):
-            _elem19 = Block()
-            _elem19.read(iprot)
-            self.success.append(_elem19)
+          (_etype26, _size23) = iprot.readListBegin()
+          for _i27 in xrange(_size23):
+            _elem28 = Block()
+            _elem28.read(iprot)
+            self.success.append(_elem28)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -1956,8 +2147,8 @@ class getBlocks_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.STRUCT, len(self.success))
-      for iter20 in self.success:
-        iter20.write(oprot)
+      for iter29 in self.success:
+        iter29.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -1981,6 +2172,7 @@ class getBlocks_result:
 class getDatanodeReport_args:
   """
   Attributes:
+   - ctx
    - type: Type of data nodes to return
   information about.
   """
@@ -1988,9 +2180,19 @@ class getDatanodeReport_args:
   thrift_spec = (
     None, # 0
     (1, TType.I32, 'type', None, None, ), # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, type=None,):
+  def __init__(self, ctx=None, type=None,):
+    self.ctx = ctx
     self.type = type
 
   def read(self, iprot):
@@ -2002,7 +2204,13 @@ class getDatanodeReport_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.I32:
           self.type = iprot.readI32();
         else:
@@ -2020,6 +2228,10 @@ class getDatanodeReport_args:
     if self.type != None:
       oprot.writeFieldBegin('type', TType.I32, 1)
       oprot.writeI32(self.type)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2063,11 +2275,11 @@ class getDatanodeReport_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype24, _size21) = iprot.readListBegin()
-          for _i25 in xrange(_size21):
-            _elem26 = DatanodeInfo()
-            _elem26.read(iprot)
-            self.success.append(_elem26)
+          (_etype33, _size30) = iprot.readListBegin()
+          for _i34 in xrange(_size30):
+            _elem35 = DatanodeInfo()
+            _elem35.read(iprot)
+            self.success.append(_elem35)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -2090,8 +2302,8 @@ class getDatanodeReport_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.STRUCT, len(self.success))
-      for iter27 in self.success:
-        iter27.write(oprot)
+      for iter36 in self.success:
+        iter36.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -2115,15 +2327,26 @@ class getDatanodeReport_result:
 class getPreferredBlockSize_args:
   """
   Attributes:
+   - ctx
    - path: Path to the file.
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None,):
+  def __init__(self, ctx=None, path=None,):
+    self.ctx = ctx
     self.path = path
 
   def read(self, iprot):
@@ -2135,7 +2358,13 @@ class getPreferredBlockSize_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -2153,6 +2382,10 @@ class getPreferredBlockSize_args:
     if self.path != None:
       oprot.writeFieldBegin('path', TType.STRING, 1)
       oprot.writeString(self.path)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2237,9 +2470,27 @@ class getPreferredBlockSize_result:
     return not (self == other)
 
 class isInSafeMode_args:
+  """
+  Attributes:
+   - ctx
+  """
 
   thrift_spec = (
+    None, # 0
+    None, # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
+
+  def __init__(self, ctx=None,):
+    self.ctx = ctx
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -2250,6 +2501,12 @@ class isInSafeMode_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
@@ -2260,6 +2517,10 @@ class isInSafeMode_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('isInSafeMode_args')
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
+      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
 
@@ -2343,9 +2604,27 @@ class isInSafeMode_result:
     return not (self == other)
 
 class leaveSafeMode_args:
+  """
+  Attributes:
+   - ctx
+  """
 
   thrift_spec = (
+    None, # 0
+    None, # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
+
+  def __init__(self, ctx=None,):
+    self.ctx = ctx
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -2356,6 +2635,12 @@ class leaveSafeMode_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
@@ -2366,6 +2651,10 @@ class leaveSafeMode_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('leaveSafeMode_args')
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
+      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
 
@@ -2440,15 +2729,26 @@ class leaveSafeMode_result:
 class ls_args:
   """
   Attributes:
+   - ctx
    - path: Path to the directory.
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None,):
+  def __init__(self, ctx=None, path=None,):
+    self.ctx = ctx
     self.path = path
 
   def read(self, iprot):
@@ -2460,7 +2760,13 @@ class ls_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -2478,6 +2784,10 @@ class ls_args:
     if self.path != None:
       oprot.writeFieldBegin('path', TType.STRING, 1)
       oprot.writeString(self.path)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2521,11 +2831,11 @@ class ls_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype31, _size28) = iprot.readListBegin()
-          for _i32 in xrange(_size28):
-            _elem33 = Stat()
-            _elem33.read(iprot)
-            self.success.append(_elem33)
+          (_etype40, _size37) = iprot.readListBegin()
+          for _i41 in xrange(_size37):
+            _elem42 = Stat()
+            _elem42.read(iprot)
+            self.success.append(_elem42)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -2548,8 +2858,8 @@ class ls_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.STRUCT, len(self.success))
-      for iter34 in self.success:
-        iter34.write(oprot)
+      for iter43 in self.success:
+        iter43.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -2573,6 +2883,7 @@ class ls_result:
 class mkdirhier_args:
   """
   Attributes:
+   - ctx
    - path: Path to the directory.
    - perms: Access permissions of the directory.
   """
@@ -2581,9 +2892,18 @@ class mkdirhier_args:
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.I16, 'perms', None, None, ), # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, perms=None,):
+  def __init__(self, ctx=None, path=None, perms=None,):
+    self.ctx = ctx
     self.path = path
     self.perms = perms
 
@@ -2596,7 +2916,13 @@ class mkdirhier_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -2623,6 +2949,10 @@ class mkdirhier_args:
     if self.perms != None:
       oprot.writeFieldBegin('perms', TType.I16, 2)
       oprot.writeI16(self.perms)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2707,9 +3037,27 @@ class mkdirhier_result:
     return not (self == other)
 
 class refreshNodes_args:
+  """
+  Attributes:
+   - ctx
+  """
 
   thrift_spec = (
+    None, # 0
+    None, # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
+
+  def __init__(self, ctx=None,):
+    self.ctx = ctx
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -2720,6 +3068,12 @@ class refreshNodes_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
@@ -2730,6 +3084,10 @@ class refreshNodes_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('refreshNodes_args')
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
+      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
 
@@ -2804,6 +3162,7 @@ class refreshNodes_result:
 class rename_args:
   """
   Attributes:
+   - ctx
    - path: Path to existing file or directory.
    - newPath: New path.
   """
@@ -2812,9 +3171,18 @@ class rename_args:
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.STRING, 'newPath', None, None, ), # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, newPath=None,):
+  def __init__(self, ctx=None, path=None, newPath=None,):
+    self.ctx = ctx
     self.path = path
     self.newPath = newPath
 
@@ -2827,7 +3195,13 @@ class rename_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -2854,6 +3228,10 @@ class rename_args:
     if self.newPath != None:
       oprot.writeFieldBegin('newPath', TType.STRING, 2)
       oprot.writeString(self.newPath)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2940,15 +3318,26 @@ class rename_result:
 class reportBadBlocks_args:
   """
   Attributes:
+   - ctx
    - blocks: List of corrupted blocks.
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.LIST, 'blocks', (TType.STRUCT,(Block, Block.thrift_spec)), None, ), # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, blocks=None,):
+  def __init__(self, ctx=None, blocks=None,):
+    self.ctx = ctx
     self.blocks = blocks
 
   def read(self, iprot):
@@ -2960,14 +3349,20 @@ class reportBadBlocks_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.LIST:
           self.blocks = []
-          (_etype38, _size35) = iprot.readListBegin()
-          for _i39 in xrange(_size35):
-            _elem40 = Block()
-            _elem40.read(iprot)
-            self.blocks.append(_elem40)
+          (_etype47, _size44) = iprot.readListBegin()
+          for _i48 in xrange(_size44):
+            _elem49 = Block()
+            _elem49.read(iprot)
+            self.blocks.append(_elem49)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -2984,9 +3379,13 @@ class reportBadBlocks_args:
     if self.blocks != None:
       oprot.writeFieldBegin('blocks', TType.LIST, 1)
       oprot.writeListBegin(TType.STRUCT, len(self.blocks))
-      for iter41 in self.blocks:
-        iter41.write(oprot)
+      for iter50 in self.blocks:
+        iter50.write(oprot)
       oprot.writeListEnd()
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -3062,15 +3461,26 @@ class reportBadBlocks_result:
 class stat_args:
   """
   Attributes:
+   - ctx
    - path: Path of the file or directory.
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
+    None, # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None,):
+  def __init__(self, ctx=None, path=None,):
+    self.ctx = ctx
     self.path = path
 
   def read(self, iprot):
@@ -3082,7 +3492,13 @@ class stat_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -3100,6 +3516,10 @@ class stat_args:
     if self.path != None:
       oprot.writeFieldBegin('path', TType.STRING, 1)
       oprot.writeString(self.path)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -3187,6 +3607,7 @@ class stat_result:
 class setQuota_args:
   """
   Attributes:
+   - ctx
    - path: Path of the directory.
    - namespaceQuota: Limit on the number of names in the directory.
    - diskspaceQuota: Limit on disk space occupied by all the files in the
@@ -3198,9 +3619,17 @@ class setQuota_args:
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.I64, 'namespaceQuota', None, None, ), # 2
     (3, TType.I64, 'diskspaceQuota', None, None, ), # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, namespaceQuota=None, diskspaceQuota=None,):
+  def __init__(self, ctx=None, path=None, namespaceQuota=None, diskspaceQuota=None,):
+    self.ctx = ctx
     self.path = path
     self.namespaceQuota = namespaceQuota
     self.diskspaceQuota = diskspaceQuota
@@ -3214,7 +3643,13 @@ class setQuota_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -3250,6 +3685,10 @@ class setQuota_args:
     if self.diskspaceQuota != None:
       oprot.writeFieldBegin('diskspaceQuota', TType.I64, 3)
       oprot.writeI64(self.diskspaceQuota)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -3325,6 +3764,7 @@ class setQuota_result:
 class setReplication_args:
   """
   Attributes:
+   - ctx
    - path: Path of the file.
    - replication: New replication factor.
   """
@@ -3333,9 +3773,18 @@ class setReplication_args:
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.I16, 'replication', None, None, ), # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, replication=None,):
+  def __init__(self, ctx=None, path=None, replication=None,):
+    self.ctx = ctx
     self.path = path
     self.replication = replication
 
@@ -3348,7 +3797,13 @@ class setReplication_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -3375,6 +3830,10 @@ class setReplication_args:
     if self.replication != None:
       oprot.writeFieldBegin('replication', TType.I16, 2)
       oprot.writeI16(self.replication)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -3461,6 +3920,7 @@ class setReplication_result:
 class unlink_args:
   """
   Attributes:
+   - ctx
    - path: Path of the file or directory.
    - recursive: Delete a non-empty directory recursively.
   """
@@ -3469,9 +3929,18 @@ class unlink_args:
     None, # 0
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.BOOL, 'recursive', None, None, ), # 2
+    None, # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, recursive=None,):
+  def __init__(self, ctx=None, path=None, recursive=None,):
+    self.ctx = ctx
     self.path = path
     self.recursive = recursive
 
@@ -3484,7 +3953,13 @@ class unlink_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -3511,6 +3986,10 @@ class unlink_args:
     if self.recursive != None:
       oprot.writeFieldBegin('recursive', TType.BOOL, 2)
       oprot.writeBool(self.recursive)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -3597,6 +4076,7 @@ class unlink_result:
 class utime_args:
   """
   Attributes:
+   - ctx
    - path: Path of the file or directory.
    - atime: Access time in milliseconds since 1970-01-01 00:00 UTC
    - mtime: Modification time in milliseconds since 1970-01-01 00:00 UTC
@@ -3607,9 +4087,17 @@ class utime_args:
     (1, TType.STRING, 'path', None, None, ), # 1
     (2, TType.I64, 'atime', None, None, ), # 2
     (3, TType.I64, 'mtime', None, None, ), # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, path=None, atime=None, mtime=None,):
+  def __init__(self, ctx=None, path=None, atime=None, mtime=None,):
+    self.ctx = ctx
     self.path = path
     self.atime = atime
     self.mtime = mtime
@@ -3623,7 +4111,13 @@ class utime_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRING:
           self.path = iprot.readString();
         else:
@@ -3659,6 +4153,10 @@ class utime_args:
     if self.mtime != None:
       oprot.writeFieldBegin('mtime', TType.I64, 3)
       oprot.writeI64(self.mtime)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()

@@ -26,6 +26,41 @@ enum DatanodeState {
   DECOMMISSIONED = 3
 };
 
+class RequestContext {
+ public:
+
+  static const char* ascii_fingerprint; // = "5EA2D527ECA3BA20C77AFC023EE8C05F";
+  static const uint8_t binary_fingerprint[16]; // = {0x5E,0xA2,0xD5,0x27,0xEC,0xA3,0xBA,0x20,0xC7,0x7A,0xFC,0x02,0x3E,0xE8,0xC0,0x5F};
+
+  RequestContext() {
+  }
+
+  virtual ~RequestContext() throw() {}
+
+  std::map<std::string, std::string>  confOptions;
+
+  struct __isset {
+    __isset() : confOptions(false) {}
+    bool confOptions;
+  } __isset;
+
+  bool operator == (const RequestContext & rhs) const
+  {
+    if (!(confOptions == rhs.confOptions))
+      return false;
+    return true;
+  }
+  bool operator != (const RequestContext &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const RequestContext & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
 class DatanodeInfo {
  public:
 

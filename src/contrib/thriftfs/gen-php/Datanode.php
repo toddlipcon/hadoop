@@ -9,7 +9,7 @@ include_once $GLOBALS['THRIFT_ROOT'].'/Thrift.php';
 include_once $GLOBALS['THRIFT_ROOT'].'/packages/hdfs/hdfs_types.php';
 
 interface DatanodeIf {
-  public function readBlock($block, $offset, $length);
+  public function readBlock($ctx, $block, $offset, $length);
 }
 
 class DatanodeClient implements DatanodeIf {
@@ -23,15 +23,16 @@ class DatanodeClient implements DatanodeIf {
     $this->output_ = $output ? $output : $input;
   }
 
-  public function readBlock($block, $offset, $length)
+  public function readBlock($ctx, $block, $offset, $length)
   {
-    $this->send_readBlock($block, $offset, $length);
+    $this->send_readBlock($ctx, $block, $offset, $length);
     return $this->recv_readBlock();
   }
 
-  public function send_readBlock($block, $offset, $length)
+  public function send_readBlock($ctx, $block, $offset, $length)
   {
     $args = new hadoop_api_Datanode_readBlock_args();
+    $args->ctx = $ctx;
     $args->block = $block;
     $args->offset = $offset;
     $args->length = $length;
@@ -86,6 +87,7 @@ class DatanodeClient implements DatanodeIf {
 class hadoop_api_Datanode_readBlock_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $block = null;
   public $offset = null;
   public $length = null;
@@ -93,6 +95,11 @@ class hadoop_api_Datanode_readBlock_args {
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'block',
           'type' => TType::STRUCT,
@@ -109,6 +116,9 @@ class hadoop_api_Datanode_readBlock_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['block'])) {
         $this->block = $vals['block'];
       }
@@ -140,6 +150,14 @@ class hadoop_api_Datanode_readBlock_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRUCT) {
             $this->block = new hadoop_api_Block();
@@ -191,6 +209,14 @@ class hadoop_api_Datanode_readBlock_args {
     if ($this->length !== null) {
       $xfer += $output->writeFieldBegin('length', TType::I32, 3);
       $xfer += $output->writeI32($this->length);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();

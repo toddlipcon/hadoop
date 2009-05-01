@@ -44,6 +44,7 @@ import org.apache.hadoop.thriftfs.api.Constants;
 import org.apache.hadoop.thriftfs.api.DatanodeInfo;
 import org.apache.hadoop.thriftfs.api.IOException;
 import org.apache.hadoop.thriftfs.api.Namenode;
+import org.apache.hadoop.thriftfs.api.RequestContext;
 import org.apache.hadoop.thriftfs.api.Stat;
 import org.apache.hadoop.util.ServicePlugin;
 import org.apache.thrift.TException;
@@ -82,7 +83,8 @@ public class NamenodePlugin
       super(context);
     }
 
-    public void chmod(String path, short mode) throws IOException, TException {
+    public void chmod(RequestContext ctx, String path, short mode) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("chmod(" + path + ", " + mode + "): Entering");
       try {
         namenode.setPermission(path, new FsPermission(mode));
@@ -92,8 +94,9 @@ public class NamenodePlugin
       }
     }
 
-    public void chown(String path, String owner, String group)
+    public void chown(RequestContext ctx, String path, String owner, String group)
         throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("chown(" + path + "," + owner + "," + group + "): Entering");
       try {
         // XXX Looks like namenode.setOwner() does not complain about this...
@@ -108,7 +111,8 @@ public class NamenodePlugin
       }
     }
 
-    public List<Long> df() throws IOException, TException {
+    public List<Long> df(RequestContext ctx) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("Entering df()");
       try {
         long[] stats = namenode.getStats();
@@ -127,7 +131,8 @@ public class NamenodePlugin
       }
     }
 
-    public void enterSafeMode() throws IOException, TException {
+    public void enterSafeMode(RequestContext ctx) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("enterSafeMode(): Entering");
       try {
         namenode.setSafeMode(SafeModeAction.SAFEMODE_ENTER);
@@ -137,8 +142,9 @@ public class NamenodePlugin
       }
     }
 
-    public List<Block> getBlocks(String path, long offset, long length)
+    public List<Block> getBlocks(RequestContext ctx, String path, long offset, long length)
         throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("getBlocks(" + path + "," + offset + "," + length
           + "): Entering");
       List<Block> ret = new ArrayList<Block>();
@@ -160,8 +166,9 @@ public class NamenodePlugin
       }
     }
 
-    public List<DatanodeInfo> getDatanodeReport(int type) throws IOException,
+    public List<DatanodeInfo> getDatanodeReport(RequestContext ctx, int type) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("getDatanodeReport(" + type + "): Entering");
       List<DatanodeInfo> ret = new ArrayList<DatanodeInfo>();
       try {
@@ -191,8 +198,9 @@ public class NamenodePlugin
       }
     }
 
-    public long getPreferredBlockSize(String path) throws IOException,
+    public long getPreferredBlockSize(RequestContext ctx, String path) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("getPreferredBlockSize(" + path + "): Entering");
       try {
         long ret = namenode.getPreferredBlockSize(path);
@@ -204,7 +212,8 @@ public class NamenodePlugin
       }
     }
 
-    public boolean isInSafeMode() throws IOException, TException {
+    public boolean isInSafeMode(RequestContext ctx) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("isInSafeMode(): Entering");
       try {
         boolean ret = namenode.setSafeMode(SafeModeAction.SAFEMODE_GET);
@@ -216,7 +225,8 @@ public class NamenodePlugin
       }
     }
 
-    public void leaveSafeMode() throws IOException, TException {
+    public void leaveSafeMode(RequestContext ctx) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("leaveSafeMode(): Entering");
       try {
         namenode.setSafeMode(SafeModeAction.SAFEMODE_LEAVE);
@@ -226,7 +236,8 @@ public class NamenodePlugin
       }
     }
 
-    public List<Stat> ls(String path) throws IOException, TException {
+    public List<Stat> ls(RequestContext ctx, String path) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("ls(" + path + "):Entering");
       List<Stat> ret = new ArrayList<Stat>();
       try {
@@ -241,8 +252,9 @@ public class NamenodePlugin
       }
     }
 
-    public boolean mkdirhier(String path, short perms) throws IOException,
+    public boolean mkdirhier(RequestContext ctx, String path, short perms) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("mkdirhier(" + path + ", " + perms + "): Entering");
       try {
         boolean ret = namenode.mkdirs(path, new FsPermission(perms));
@@ -254,7 +266,8 @@ public class NamenodePlugin
       }
     }
 
-    public void refreshNodes() throws IOException, TException {
+    public void refreshNodes(RequestContext ctx) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("refreshNodes(): Entering");
       try {
         namenode.refreshNodes();
@@ -264,8 +277,9 @@ public class NamenodePlugin
       }
     }
 
-    public boolean rename(String path, String newPath) throws IOException,
+    public boolean rename(RequestContext ctx, String path, String newPath) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("rename(" + path + ", " + newPath + "): Entering");
       try {
         boolean ret = namenode.rename(path, newPath);
@@ -277,8 +291,9 @@ public class NamenodePlugin
       }
     }
 
-    public void reportBadBlocks(List<Block> blocks) throws IOException,
+    public void reportBadBlocks(RequestContext ctx, List<Block> blocks) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("reportBadBlocks(" + blocks + "): Entering");
       int n = blocks.size();
       LocatedBlock[] lb = new LocatedBlock[n];
@@ -293,8 +308,9 @@ public class NamenodePlugin
       }
     }
 
-    public void setQuota(String path, long namespaceQuota, long diskspaceQuota)
+    public void setQuota(RequestContext ctx, String path, long namespaceQuota, long diskspaceQuota)
         throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("setQuota(" + path + "," + namespaceQuota + ","
           + diskspaceQuota + "): Entering");
       if (namespaceQuota == Constants.QUOTA_DONT_SET) {
@@ -320,8 +336,9 @@ public class NamenodePlugin
       }
     }
 
-    public boolean setReplication(String path, short repl) throws IOException,
+    public boolean setReplication(RequestContext ctx, String path, short repl) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("setReplication(" + path + "," + repl + "): Entering");
       try {
         return namenode.setReplication(path, repl);
@@ -331,7 +348,8 @@ public class NamenodePlugin
       }
     }
 
-    public Stat stat(String path) throws IOException, TException {
+    public Stat stat(RequestContext ctx, String path) throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("stat(" + path + "): Entering");
       try {
         Stat ret = fileStatusToStat(namenode.getFileInfo(path));
@@ -343,8 +361,9 @@ public class NamenodePlugin
       }
     }
 
-    public boolean unlink(String path, boolean recursive) throws IOException,
+    public boolean unlink(RequestContext ctx, String path, boolean recursive) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("unlink(" + path + "," + recursive + "): Entering");
       try {
         boolean ret = namenode.delete(path, recursive);
@@ -356,8 +375,9 @@ public class NamenodePlugin
       }
     }
 
-    public void utime(String path, long atime, long mtime) throws IOException,
+    public void utime(RequestContext ctx, String path, long atime, long mtime) throws IOException,
         TException {
+      assumeUserContext(ctx);
       LOG.debug("utime(" + path + "," + atime + "," + mtime + "): Entering");
       if (mtime == -1 && atime == -1) {
         LOG.debug("utime(" + path + "," + atime + "," + mtime
@@ -413,18 +433,6 @@ public class NamenodePlugin
                "Thrift port " + thriftPort + " open");
       thriftPorts.put(dnId, thriftPort);
     }
-
-    private String normalizeAddress(String name) {
-      String resolved;
-      int i = name.indexOf(':');
-      if (i == -1) {
-        resolved = NetUtils.normalizeHostName(name);
-      } else {
-        resolved = NetUtils.normalizeHostName(name.substring(0, i));
-        resolved += ":" + name.substring(i + 1);
-      }
-      return resolved;
-    }
   }
 
   public NamenodePlugin() {
@@ -477,9 +485,6 @@ public class NamenodePlugin
     public TProcessor getProcessor(TTransport t) {
       ThriftServerContext context = new ThriftServerContext(t);
       ThriftHandler impl = new ThriftHandler(context);
-      UserGroupInformation ugi = impl.getUserGroupInformation();
-      UserGroupInformation.setCurrentUser(ugi);
-      LOG.info("Connection from user " + ugi);
       return new Namenode.Processor(impl);
     }
   }

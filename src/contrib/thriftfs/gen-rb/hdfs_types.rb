@@ -21,6 +21,26 @@ module Hadoop
           VALID_VALUES = Set.new([NORMAL_STATE, DECOMMISSION_INPROGRESS, DECOMMISSIONED]).freeze
         end
 
+        # Context options for every request.
+        class RequestContext
+          include ::Thrift::Struct
+          CONFOPTIONS = 1
+
+          ::Thrift::Struct.field_accessor self, :confOptions
+          FIELDS = {
+            # This map turns into a Configuration object in the server and
+            # is currently used to construct a UserGroupInformation to
+            # authenticate this request.
+            CONFOPTIONS => {:type => ::Thrift::Types::MAP, :name => 'confOptions', :key => {:type => ::Thrift::Types::STRING}, :value => {:type => ::Thrift::Types::STRING}}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
         # Information and state of a data node.
         # 
         # Modelled after org.apache.hadoop.hdfs.protocol.DatanodeInfo

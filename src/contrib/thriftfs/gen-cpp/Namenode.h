@@ -14,25 +14,25 @@ namespace hadoop { namespace api {
 class NamenodeIf {
  public:
   virtual ~NamenodeIf() {}
-  virtual void chmod(const std::string& path, const int16_t perms) = 0;
-  virtual void chown(const std::string& path, const std::string& owner, const std::string& group) = 0;
-  virtual void df(std::vector<int64_t> & _return) = 0;
-  virtual void enterSafeMode() = 0;
-  virtual void getBlocks(std::vector<Block> & _return, const std::string& path, const int64_t offset, const int64_t length) = 0;
-  virtual void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type) = 0;
-  virtual int64_t getPreferredBlockSize(const std::string& path) = 0;
-  virtual bool isInSafeMode() = 0;
-  virtual void leaveSafeMode() = 0;
-  virtual void ls(std::vector<Stat> & _return, const std::string& path) = 0;
-  virtual bool mkdirhier(const std::string& path, const int16_t perms) = 0;
-  virtual void refreshNodes() = 0;
-  virtual bool rename(const std::string& path, const std::string& newPath) = 0;
-  virtual void reportBadBlocks(const std::vector<Block> & blocks) = 0;
-  virtual void stat(Stat& _return, const std::string& path) = 0;
-  virtual void setQuota(const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota) = 0;
-  virtual bool setReplication(const std::string& path, const int16_t replication) = 0;
-  virtual bool unlink(const std::string& path, const bool recursive) = 0;
-  virtual void utime(const std::string& path, const int64_t atime, const int64_t mtime) = 0;
+  virtual void chmod(const RequestContext& ctx, const std::string& path, const int16_t perms) = 0;
+  virtual void chown(const RequestContext& ctx, const std::string& path, const std::string& owner, const std::string& group) = 0;
+  virtual void df(std::vector<int64_t> & _return, const RequestContext& ctx) = 0;
+  virtual void enterSafeMode(const RequestContext& ctx) = 0;
+  virtual void getBlocks(std::vector<Block> & _return, const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length) = 0;
+  virtual void getDatanodeReport(std::vector<DatanodeInfo> & _return, const RequestContext& ctx, const DatanodeReportType type) = 0;
+  virtual int64_t getPreferredBlockSize(const RequestContext& ctx, const std::string& path) = 0;
+  virtual bool isInSafeMode(const RequestContext& ctx) = 0;
+  virtual void leaveSafeMode(const RequestContext& ctx) = 0;
+  virtual void ls(std::vector<Stat> & _return, const RequestContext& ctx, const std::string& path) = 0;
+  virtual bool mkdirhier(const RequestContext& ctx, const std::string& path, const int16_t perms) = 0;
+  virtual void refreshNodes(const RequestContext& ctx) = 0;
+  virtual bool rename(const RequestContext& ctx, const std::string& path, const std::string& newPath) = 0;
+  virtual void reportBadBlocks(const RequestContext& ctx, const std::vector<Block> & blocks) = 0;
+  virtual void stat(Stat& _return, const RequestContext& ctx, const std::string& path) = 0;
+  virtual void setQuota(const RequestContext& ctx, const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota) = 0;
+  virtual bool setReplication(const RequestContext& ctx, const std::string& path, const int16_t replication) = 0;
+  virtual bool unlink(const RequestContext& ctx, const std::string& path, const bool recursive) = 0;
+  virtual void utime(const RequestContext& ctx, const std::string& path, const int64_t atime, const int64_t mtime) = 0;
   virtual void datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort) = 0;
   virtual void datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort) = 0;
 };
@@ -40,67 +40,67 @@ class NamenodeIf {
 class NamenodeNull : virtual public NamenodeIf {
  public:
   virtual ~NamenodeNull() {}
-  void chmod(const std::string& /* path */, const int16_t /* perms */) {
+  void chmod(const RequestContext& /* ctx */, const std::string& /* path */, const int16_t /* perms */) {
     return;
   }
-  void chown(const std::string& /* path */, const std::string& /* owner */, const std::string& /* group */) {
+  void chown(const RequestContext& /* ctx */, const std::string& /* path */, const std::string& /* owner */, const std::string& /* group */) {
     return;
   }
-  void df(std::vector<int64_t> & /* _return */) {
+  void df(std::vector<int64_t> & /* _return */, const RequestContext& /* ctx */) {
     return;
   }
-  void enterSafeMode() {
+  void enterSafeMode(const RequestContext& /* ctx */) {
     return;
   }
-  void getBlocks(std::vector<Block> & /* _return */, const std::string& /* path */, const int64_t /* offset */, const int64_t /* length */) {
+  void getBlocks(std::vector<Block> & /* _return */, const RequestContext& /* ctx */, const std::string& /* path */, const int64_t /* offset */, const int64_t /* length */) {
     return;
   }
-  void getDatanodeReport(std::vector<DatanodeInfo> & /* _return */, const DatanodeReportType /* type */) {
+  void getDatanodeReport(std::vector<DatanodeInfo> & /* _return */, const RequestContext& /* ctx */, const DatanodeReportType /* type */) {
     return;
   }
-  int64_t getPreferredBlockSize(const std::string& /* path */) {
+  int64_t getPreferredBlockSize(const RequestContext& /* ctx */, const std::string& /* path */) {
     int64_t _return = 0;
     return _return;
   }
-  bool isInSafeMode() {
+  bool isInSafeMode(const RequestContext& /* ctx */) {
     bool _return = false;
     return _return;
   }
-  void leaveSafeMode() {
+  void leaveSafeMode(const RequestContext& /* ctx */) {
     return;
   }
-  void ls(std::vector<Stat> & /* _return */, const std::string& /* path */) {
+  void ls(std::vector<Stat> & /* _return */, const RequestContext& /* ctx */, const std::string& /* path */) {
     return;
   }
-  bool mkdirhier(const std::string& /* path */, const int16_t /* perms */) {
+  bool mkdirhier(const RequestContext& /* ctx */, const std::string& /* path */, const int16_t /* perms */) {
     bool _return = false;
     return _return;
   }
-  void refreshNodes() {
+  void refreshNodes(const RequestContext& /* ctx */) {
     return;
   }
-  bool rename(const std::string& /* path */, const std::string& /* newPath */) {
+  bool rename(const RequestContext& /* ctx */, const std::string& /* path */, const std::string& /* newPath */) {
     bool _return = false;
     return _return;
   }
-  void reportBadBlocks(const std::vector<Block> & /* blocks */) {
+  void reportBadBlocks(const RequestContext& /* ctx */, const std::vector<Block> & /* blocks */) {
     return;
   }
-  void stat(Stat& /* _return */, const std::string& /* path */) {
+  void stat(Stat& /* _return */, const RequestContext& /* ctx */, const std::string& /* path */) {
     return;
   }
-  void setQuota(const std::string& /* path */, const int64_t /* namespaceQuota */, const int64_t /* diskspaceQuota */) {
+  void setQuota(const RequestContext& /* ctx */, const std::string& /* path */, const int64_t /* namespaceQuota */, const int64_t /* diskspaceQuota */) {
     return;
   }
-  bool setReplication(const std::string& /* path */, const int16_t /* replication */) {
+  bool setReplication(const RequestContext& /* ctx */, const std::string& /* path */, const int16_t /* replication */) {
     bool _return = false;
     return _return;
   }
-  bool unlink(const std::string& /* path */, const bool /* recursive */) {
+  bool unlink(const RequestContext& /* ctx */, const std::string& /* path */, const bool /* recursive */) {
     bool _return = false;
     return _return;
   }
-  void utime(const std::string& /* path */, const int64_t /* atime */, const int64_t /* mtime */) {
+  void utime(const RequestContext& /* ctx */, const std::string& /* path */, const int64_t /* atime */, const int64_t /* mtime */) {
     return;
   }
   void datanodeUp(const std::string& /* name */, const std::string& /* storage */, const int32_t /* thriftPort */) {
@@ -119,17 +119,21 @@ class Namenode_chmod_args {
 
   virtual ~Namenode_chmod_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   int16_t perms;
 
   struct __isset {
-    __isset() : path(false), perms(false) {}
+    __isset() : ctx(false), path(false), perms(false) {}
+    bool ctx;
     bool path;
     bool perms;
   } __isset;
 
   bool operator == (const Namenode_chmod_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(perms == rhs.perms))
@@ -153,6 +157,7 @@ class Namenode_chmod_pargs {
 
   virtual ~Namenode_chmod_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const int16_t* perms;
 
@@ -217,12 +222,14 @@ class Namenode_chown_args {
 
   virtual ~Namenode_chown_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   std::string owner;
   std::string group;
 
   struct __isset {
-    __isset() : path(false), owner(false), group(false) {}
+    __isset() : ctx(false), path(false), owner(false), group(false) {}
+    bool ctx;
     bool path;
     bool owner;
     bool group;
@@ -230,6 +237,8 @@ class Namenode_chown_args {
 
   bool operator == (const Namenode_chown_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(owner == rhs.owner))
@@ -255,6 +264,7 @@ class Namenode_chown_pargs {
 
   virtual ~Namenode_chown_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const std::string* owner;
   const std::string* group;
@@ -320,9 +330,17 @@ class Namenode_df_args {
 
   virtual ~Namenode_df_args() throw() {}
 
+  RequestContext ctx;
 
-  bool operator == (const Namenode_df_args & /* rhs */) const
+  struct __isset {
+    __isset() : ctx(false) {}
+    bool ctx;
+  } __isset;
+
+  bool operator == (const Namenode_df_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     return true;
   }
   bool operator != (const Namenode_df_args &rhs) const {
@@ -342,6 +360,7 @@ class Namenode_df_pargs {
 
   virtual ~Namenode_df_pargs() throw() {}
 
+  const RequestContext* ctx;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -410,9 +429,17 @@ class Namenode_enterSafeMode_args {
 
   virtual ~Namenode_enterSafeMode_args() throw() {}
 
+  RequestContext ctx;
 
-  bool operator == (const Namenode_enterSafeMode_args & /* rhs */) const
+  struct __isset {
+    __isset() : ctx(false) {}
+    bool ctx;
+  } __isset;
+
+  bool operator == (const Namenode_enterSafeMode_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     return true;
   }
   bool operator != (const Namenode_enterSafeMode_args &rhs) const {
@@ -432,6 +459,7 @@ class Namenode_enterSafeMode_pargs {
 
   virtual ~Namenode_enterSafeMode_pargs() throw() {}
 
+  const RequestContext* ctx;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -494,12 +522,14 @@ class Namenode_getBlocks_args {
 
   virtual ~Namenode_getBlocks_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   int64_t offset;
   int64_t length;
 
   struct __isset {
-    __isset() : path(false), offset(false), length(false) {}
+    __isset() : ctx(false), path(false), offset(false), length(false) {}
+    bool ctx;
     bool path;
     bool offset;
     bool length;
@@ -507,6 +537,8 @@ class Namenode_getBlocks_args {
 
   bool operator == (const Namenode_getBlocks_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(offset == rhs.offset))
@@ -532,6 +564,7 @@ class Namenode_getBlocks_pargs {
 
   virtual ~Namenode_getBlocks_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const int64_t* offset;
   const int64_t* length;
@@ -603,15 +636,19 @@ class Namenode_getDatanodeReport_args {
 
   virtual ~Namenode_getDatanodeReport_args() throw() {}
 
+  RequestContext ctx;
   DatanodeReportType type;
 
   struct __isset {
-    __isset() : type(false) {}
+    __isset() : ctx(false), type(false) {}
+    bool ctx;
     bool type;
   } __isset;
 
   bool operator == (const Namenode_getDatanodeReport_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(type == rhs.type))
       return false;
     return true;
@@ -633,6 +670,7 @@ class Namenode_getDatanodeReport_pargs {
 
   virtual ~Namenode_getDatanodeReport_pargs() throw() {}
 
+  const RequestContext* ctx;
   const DatanodeReportType* type;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
@@ -702,15 +740,19 @@ class Namenode_getPreferredBlockSize_args {
 
   virtual ~Namenode_getPreferredBlockSize_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
 
   struct __isset {
-    __isset() : path(false) {}
+    __isset() : ctx(false), path(false) {}
+    bool ctx;
     bool path;
   } __isset;
 
   bool operator == (const Namenode_getPreferredBlockSize_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     return true;
@@ -732,6 +774,7 @@ class Namenode_getPreferredBlockSize_pargs {
 
   virtual ~Namenode_getPreferredBlockSize_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
@@ -801,9 +844,17 @@ class Namenode_isInSafeMode_args {
 
   virtual ~Namenode_isInSafeMode_args() throw() {}
 
+  RequestContext ctx;
 
-  bool operator == (const Namenode_isInSafeMode_args & /* rhs */) const
+  struct __isset {
+    __isset() : ctx(false) {}
+    bool ctx;
+  } __isset;
+
+  bool operator == (const Namenode_isInSafeMode_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     return true;
   }
   bool operator != (const Namenode_isInSafeMode_args &rhs) const {
@@ -823,6 +874,7 @@ class Namenode_isInSafeMode_pargs {
 
   virtual ~Namenode_isInSafeMode_pargs() throw() {}
 
+  const RequestContext* ctx;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -891,9 +943,17 @@ class Namenode_leaveSafeMode_args {
 
   virtual ~Namenode_leaveSafeMode_args() throw() {}
 
+  RequestContext ctx;
 
-  bool operator == (const Namenode_leaveSafeMode_args & /* rhs */) const
+  struct __isset {
+    __isset() : ctx(false) {}
+    bool ctx;
+  } __isset;
+
+  bool operator == (const Namenode_leaveSafeMode_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     return true;
   }
   bool operator != (const Namenode_leaveSafeMode_args &rhs) const {
@@ -913,6 +973,7 @@ class Namenode_leaveSafeMode_pargs {
 
   virtual ~Namenode_leaveSafeMode_pargs() throw() {}
 
+  const RequestContext* ctx;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -975,15 +1036,19 @@ class Namenode_ls_args {
 
   virtual ~Namenode_ls_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
 
   struct __isset {
-    __isset() : path(false) {}
+    __isset() : ctx(false), path(false) {}
+    bool ctx;
     bool path;
   } __isset;
 
   bool operator == (const Namenode_ls_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     return true;
@@ -1005,6 +1070,7 @@ class Namenode_ls_pargs {
 
   virtual ~Namenode_ls_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
@@ -1074,17 +1140,21 @@ class Namenode_mkdirhier_args {
 
   virtual ~Namenode_mkdirhier_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   int16_t perms;
 
   struct __isset {
-    __isset() : path(false), perms(false) {}
+    __isset() : ctx(false), path(false), perms(false) {}
+    bool ctx;
     bool path;
     bool perms;
   } __isset;
 
   bool operator == (const Namenode_mkdirhier_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(perms == rhs.perms))
@@ -1108,6 +1178,7 @@ class Namenode_mkdirhier_pargs {
 
   virtual ~Namenode_mkdirhier_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const int16_t* perms;
 
@@ -1178,9 +1249,17 @@ class Namenode_refreshNodes_args {
 
   virtual ~Namenode_refreshNodes_args() throw() {}
 
+  RequestContext ctx;
 
-  bool operator == (const Namenode_refreshNodes_args & /* rhs */) const
+  struct __isset {
+    __isset() : ctx(false) {}
+    bool ctx;
+  } __isset;
+
+  bool operator == (const Namenode_refreshNodes_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     return true;
   }
   bool operator != (const Namenode_refreshNodes_args &rhs) const {
@@ -1200,6 +1279,7 @@ class Namenode_refreshNodes_pargs {
 
   virtual ~Namenode_refreshNodes_pargs() throw() {}
 
+  const RequestContext* ctx;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -1262,17 +1342,21 @@ class Namenode_rename_args {
 
   virtual ~Namenode_rename_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   std::string newPath;
 
   struct __isset {
-    __isset() : path(false), newPath(false) {}
+    __isset() : ctx(false), path(false), newPath(false) {}
+    bool ctx;
     bool path;
     bool newPath;
   } __isset;
 
   bool operator == (const Namenode_rename_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(newPath == rhs.newPath))
@@ -1296,6 +1380,7 @@ class Namenode_rename_pargs {
 
   virtual ~Namenode_rename_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const std::string* newPath;
 
@@ -1366,15 +1451,19 @@ class Namenode_reportBadBlocks_args {
 
   virtual ~Namenode_reportBadBlocks_args() throw() {}
 
+  RequestContext ctx;
   std::vector<Block>  blocks;
 
   struct __isset {
-    __isset() : blocks(false) {}
+    __isset() : ctx(false), blocks(false) {}
+    bool ctx;
     bool blocks;
   } __isset;
 
   bool operator == (const Namenode_reportBadBlocks_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(blocks == rhs.blocks))
       return false;
     return true;
@@ -1396,6 +1485,7 @@ class Namenode_reportBadBlocks_pargs {
 
   virtual ~Namenode_reportBadBlocks_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::vector<Block> * blocks;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
@@ -1459,15 +1549,19 @@ class Namenode_stat_args {
 
   virtual ~Namenode_stat_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
 
   struct __isset {
-    __isset() : path(false) {}
+    __isset() : ctx(false), path(false) {}
+    bool ctx;
     bool path;
   } __isset;
 
   bool operator == (const Namenode_stat_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     return true;
@@ -1489,6 +1583,7 @@ class Namenode_stat_pargs {
 
   virtual ~Namenode_stat_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
 
   uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
@@ -1558,12 +1653,14 @@ class Namenode_setQuota_args {
 
   virtual ~Namenode_setQuota_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   int64_t namespaceQuota;
   int64_t diskspaceQuota;
 
   struct __isset {
-    __isset() : path(false), namespaceQuota(false), diskspaceQuota(false) {}
+    __isset() : ctx(false), path(false), namespaceQuota(false), diskspaceQuota(false) {}
+    bool ctx;
     bool path;
     bool namespaceQuota;
     bool diskspaceQuota;
@@ -1571,6 +1668,8 @@ class Namenode_setQuota_args {
 
   bool operator == (const Namenode_setQuota_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(namespaceQuota == rhs.namespaceQuota))
@@ -1596,6 +1695,7 @@ class Namenode_setQuota_pargs {
 
   virtual ~Namenode_setQuota_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const int64_t* namespaceQuota;
   const int64_t* diskspaceQuota;
@@ -1661,17 +1761,21 @@ class Namenode_setReplication_args {
 
   virtual ~Namenode_setReplication_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   int16_t replication;
 
   struct __isset {
-    __isset() : path(false), replication(false) {}
+    __isset() : ctx(false), path(false), replication(false) {}
+    bool ctx;
     bool path;
     bool replication;
   } __isset;
 
   bool operator == (const Namenode_setReplication_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(replication == rhs.replication))
@@ -1695,6 +1799,7 @@ class Namenode_setReplication_pargs {
 
   virtual ~Namenode_setReplication_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const int16_t* replication;
 
@@ -1765,17 +1870,21 @@ class Namenode_unlink_args {
 
   virtual ~Namenode_unlink_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   bool recursive;
 
   struct __isset {
-    __isset() : path(false), recursive(false) {}
+    __isset() : ctx(false), path(false), recursive(false) {}
+    bool ctx;
     bool path;
     bool recursive;
   } __isset;
 
   bool operator == (const Namenode_unlink_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(recursive == rhs.recursive))
@@ -1799,6 +1908,7 @@ class Namenode_unlink_pargs {
 
   virtual ~Namenode_unlink_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const bool* recursive;
 
@@ -1869,12 +1979,14 @@ class Namenode_utime_args {
 
   virtual ~Namenode_utime_args() throw() {}
 
+  RequestContext ctx;
   std::string path;
   int64_t atime;
   int64_t mtime;
 
   struct __isset {
-    __isset() : path(false), atime(false), mtime(false) {}
+    __isset() : ctx(false), path(false), atime(false), mtime(false) {}
+    bool ctx;
     bool path;
     bool atime;
     bool mtime;
@@ -1882,6 +1994,8 @@ class Namenode_utime_args {
 
   bool operator == (const Namenode_utime_args & rhs) const
   {
+    if (!(ctx == rhs.ctx))
+      return false;
     if (!(path == rhs.path))
       return false;
     if (!(atime == rhs.atime))
@@ -1907,6 +2021,7 @@ class Namenode_utime_pargs {
 
   virtual ~Namenode_utime_pargs() throw() {}
 
+  const RequestContext* ctx;
   const std::string* path;
   const int64_t* atime;
   const int64_t* mtime;
@@ -2162,62 +2277,62 @@ class NamenodeClient : virtual public NamenodeIf {
   boost::shared_ptr<apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
-  void chmod(const std::string& path, const int16_t perms);
-  void send_chmod(const std::string& path, const int16_t perms);
+  void chmod(const RequestContext& ctx, const std::string& path, const int16_t perms);
+  void send_chmod(const RequestContext& ctx, const std::string& path, const int16_t perms);
   void recv_chmod();
-  void chown(const std::string& path, const std::string& owner, const std::string& group);
-  void send_chown(const std::string& path, const std::string& owner, const std::string& group);
+  void chown(const RequestContext& ctx, const std::string& path, const std::string& owner, const std::string& group);
+  void send_chown(const RequestContext& ctx, const std::string& path, const std::string& owner, const std::string& group);
   void recv_chown();
-  void df(std::vector<int64_t> & _return);
-  void send_df();
+  void df(std::vector<int64_t> & _return, const RequestContext& ctx);
+  void send_df(const RequestContext& ctx);
   void recv_df(std::vector<int64_t> & _return);
-  void enterSafeMode();
-  void send_enterSafeMode();
+  void enterSafeMode(const RequestContext& ctx);
+  void send_enterSafeMode(const RequestContext& ctx);
   void recv_enterSafeMode();
-  void getBlocks(std::vector<Block> & _return, const std::string& path, const int64_t offset, const int64_t length);
-  void send_getBlocks(const std::string& path, const int64_t offset, const int64_t length);
+  void getBlocks(std::vector<Block> & _return, const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length);
+  void send_getBlocks(const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length);
   void recv_getBlocks(std::vector<Block> & _return);
-  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type);
-  void send_getDatanodeReport(const DatanodeReportType type);
+  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const RequestContext& ctx, const DatanodeReportType type);
+  void send_getDatanodeReport(const RequestContext& ctx, const DatanodeReportType type);
   void recv_getDatanodeReport(std::vector<DatanodeInfo> & _return);
-  int64_t getPreferredBlockSize(const std::string& path);
-  void send_getPreferredBlockSize(const std::string& path);
+  int64_t getPreferredBlockSize(const RequestContext& ctx, const std::string& path);
+  void send_getPreferredBlockSize(const RequestContext& ctx, const std::string& path);
   int64_t recv_getPreferredBlockSize();
-  bool isInSafeMode();
-  void send_isInSafeMode();
+  bool isInSafeMode(const RequestContext& ctx);
+  void send_isInSafeMode(const RequestContext& ctx);
   bool recv_isInSafeMode();
-  void leaveSafeMode();
-  void send_leaveSafeMode();
+  void leaveSafeMode(const RequestContext& ctx);
+  void send_leaveSafeMode(const RequestContext& ctx);
   void recv_leaveSafeMode();
-  void ls(std::vector<Stat> & _return, const std::string& path);
-  void send_ls(const std::string& path);
+  void ls(std::vector<Stat> & _return, const RequestContext& ctx, const std::string& path);
+  void send_ls(const RequestContext& ctx, const std::string& path);
   void recv_ls(std::vector<Stat> & _return);
-  bool mkdirhier(const std::string& path, const int16_t perms);
-  void send_mkdirhier(const std::string& path, const int16_t perms);
+  bool mkdirhier(const RequestContext& ctx, const std::string& path, const int16_t perms);
+  void send_mkdirhier(const RequestContext& ctx, const std::string& path, const int16_t perms);
   bool recv_mkdirhier();
-  void refreshNodes();
-  void send_refreshNodes();
+  void refreshNodes(const RequestContext& ctx);
+  void send_refreshNodes(const RequestContext& ctx);
   void recv_refreshNodes();
-  bool rename(const std::string& path, const std::string& newPath);
-  void send_rename(const std::string& path, const std::string& newPath);
+  bool rename(const RequestContext& ctx, const std::string& path, const std::string& newPath);
+  void send_rename(const RequestContext& ctx, const std::string& path, const std::string& newPath);
   bool recv_rename();
-  void reportBadBlocks(const std::vector<Block> & blocks);
-  void send_reportBadBlocks(const std::vector<Block> & blocks);
+  void reportBadBlocks(const RequestContext& ctx, const std::vector<Block> & blocks);
+  void send_reportBadBlocks(const RequestContext& ctx, const std::vector<Block> & blocks);
   void recv_reportBadBlocks();
-  void stat(Stat& _return, const std::string& path);
-  void send_stat(const std::string& path);
+  void stat(Stat& _return, const RequestContext& ctx, const std::string& path);
+  void send_stat(const RequestContext& ctx, const std::string& path);
   void recv_stat(Stat& _return);
-  void setQuota(const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota);
-  void send_setQuota(const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota);
+  void setQuota(const RequestContext& ctx, const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota);
+  void send_setQuota(const RequestContext& ctx, const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota);
   void recv_setQuota();
-  bool setReplication(const std::string& path, const int16_t replication);
-  void send_setReplication(const std::string& path, const int16_t replication);
+  bool setReplication(const RequestContext& ctx, const std::string& path, const int16_t replication);
+  void send_setReplication(const RequestContext& ctx, const std::string& path, const int16_t replication);
   bool recv_setReplication();
-  bool unlink(const std::string& path, const bool recursive);
-  void send_unlink(const std::string& path, const bool recursive);
+  bool unlink(const RequestContext& ctx, const std::string& path, const bool recursive);
+  void send_unlink(const RequestContext& ctx, const std::string& path, const bool recursive);
   bool recv_unlink();
-  void utime(const std::string& path, const int64_t atime, const int64_t mtime);
-  void send_utime(const std::string& path, const int64_t atime, const int64_t mtime);
+  void utime(const RequestContext& ctx, const std::string& path, const int64_t atime, const int64_t mtime);
+  void send_utime(const RequestContext& ctx, const std::string& path, const int64_t atime, const int64_t mtime);
   void recv_utime();
   void datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort);
   void send_datanodeUp(const std::string& name, const std::string& storage, const int32_t thriftPort);
@@ -2301,185 +2416,185 @@ class NamenodeMultiface : virtual public NamenodeIf {
     ifaces_.push_back(iface);
   }
  public:
-  void chmod(const std::string& path, const int16_t perms) {
+  void chmod(const RequestContext& ctx, const std::string& path, const int16_t perms) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->chmod(path, perms);
+      ifaces_[i]->chmod(ctx, path, perms);
     }
   }
 
-  void chown(const std::string& path, const std::string& owner, const std::string& group) {
+  void chown(const RequestContext& ctx, const std::string& path, const std::string& owner, const std::string& group) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->chown(path, owner, group);
+      ifaces_[i]->chown(ctx, path, owner, group);
     }
   }
 
-  void df(std::vector<int64_t> & _return) {
+  void df(std::vector<int64_t> & _return, const RequestContext& ctx) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        ifaces_[i]->df(_return);
+        ifaces_[i]->df(_return, ctx);
         return;
       } else {
-        ifaces_[i]->df(_return);
+        ifaces_[i]->df(_return, ctx);
       }
     }
   }
 
-  void enterSafeMode() {
+  void enterSafeMode(const RequestContext& ctx) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->enterSafeMode();
+      ifaces_[i]->enterSafeMode(ctx);
     }
   }
 
-  void getBlocks(std::vector<Block> & _return, const std::string& path, const int64_t offset, const int64_t length) {
+  void getBlocks(std::vector<Block> & _return, const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        ifaces_[i]->getBlocks(_return, path, offset, length);
+        ifaces_[i]->getBlocks(_return, ctx, path, offset, length);
         return;
       } else {
-        ifaces_[i]->getBlocks(_return, path, offset, length);
+        ifaces_[i]->getBlocks(_return, ctx, path, offset, length);
       }
     }
   }
 
-  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type) {
+  void getDatanodeReport(std::vector<DatanodeInfo> & _return, const RequestContext& ctx, const DatanodeReportType type) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        ifaces_[i]->getDatanodeReport(_return, type);
+        ifaces_[i]->getDatanodeReport(_return, ctx, type);
         return;
       } else {
-        ifaces_[i]->getDatanodeReport(_return, type);
+        ifaces_[i]->getDatanodeReport(_return, ctx, type);
       }
     }
   }
 
-  int64_t getPreferredBlockSize(const std::string& path) {
+  int64_t getPreferredBlockSize(const RequestContext& ctx, const std::string& path) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        return ifaces_[i]->getPreferredBlockSize(path);
+        return ifaces_[i]->getPreferredBlockSize(ctx, path);
       } else {
-        ifaces_[i]->getPreferredBlockSize(path);
+        ifaces_[i]->getPreferredBlockSize(ctx, path);
       }
     }
   }
 
-  bool isInSafeMode() {
+  bool isInSafeMode(const RequestContext& ctx) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        return ifaces_[i]->isInSafeMode();
+        return ifaces_[i]->isInSafeMode(ctx);
       } else {
-        ifaces_[i]->isInSafeMode();
+        ifaces_[i]->isInSafeMode(ctx);
       }
     }
   }
 
-  void leaveSafeMode() {
+  void leaveSafeMode(const RequestContext& ctx) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->leaveSafeMode();
+      ifaces_[i]->leaveSafeMode(ctx);
     }
   }
 
-  void ls(std::vector<Stat> & _return, const std::string& path) {
+  void ls(std::vector<Stat> & _return, const RequestContext& ctx, const std::string& path) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        ifaces_[i]->ls(_return, path);
+        ifaces_[i]->ls(_return, ctx, path);
         return;
       } else {
-        ifaces_[i]->ls(_return, path);
+        ifaces_[i]->ls(_return, ctx, path);
       }
     }
   }
 
-  bool mkdirhier(const std::string& path, const int16_t perms) {
+  bool mkdirhier(const RequestContext& ctx, const std::string& path, const int16_t perms) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        return ifaces_[i]->mkdirhier(path, perms);
+        return ifaces_[i]->mkdirhier(ctx, path, perms);
       } else {
-        ifaces_[i]->mkdirhier(path, perms);
+        ifaces_[i]->mkdirhier(ctx, path, perms);
       }
     }
   }
 
-  void refreshNodes() {
+  void refreshNodes(const RequestContext& ctx) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->refreshNodes();
+      ifaces_[i]->refreshNodes(ctx);
     }
   }
 
-  bool rename(const std::string& path, const std::string& newPath) {
+  bool rename(const RequestContext& ctx, const std::string& path, const std::string& newPath) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        return ifaces_[i]->rename(path, newPath);
+        return ifaces_[i]->rename(ctx, path, newPath);
       } else {
-        ifaces_[i]->rename(path, newPath);
+        ifaces_[i]->rename(ctx, path, newPath);
       }
     }
   }
 
-  void reportBadBlocks(const std::vector<Block> & blocks) {
+  void reportBadBlocks(const RequestContext& ctx, const std::vector<Block> & blocks) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->reportBadBlocks(blocks);
+      ifaces_[i]->reportBadBlocks(ctx, blocks);
     }
   }
 
-  void stat(Stat& _return, const std::string& path) {
+  void stat(Stat& _return, const RequestContext& ctx, const std::string& path) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        ifaces_[i]->stat(_return, path);
+        ifaces_[i]->stat(_return, ctx, path);
         return;
       } else {
-        ifaces_[i]->stat(_return, path);
+        ifaces_[i]->stat(_return, ctx, path);
       }
     }
   }
 
-  void setQuota(const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota) {
+  void setQuota(const RequestContext& ctx, const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->setQuota(path, namespaceQuota, diskspaceQuota);
+      ifaces_[i]->setQuota(ctx, path, namespaceQuota, diskspaceQuota);
     }
   }
 
-  bool setReplication(const std::string& path, const int16_t replication) {
+  bool setReplication(const RequestContext& ctx, const std::string& path, const int16_t replication) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        return ifaces_[i]->setReplication(path, replication);
+        return ifaces_[i]->setReplication(ctx, path, replication);
       } else {
-        ifaces_[i]->setReplication(path, replication);
+        ifaces_[i]->setReplication(ctx, path, replication);
       }
     }
   }
 
-  bool unlink(const std::string& path, const bool recursive) {
+  bool unlink(const RequestContext& ctx, const std::string& path, const bool recursive) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
       if (i == sz - 1) {
-        return ifaces_[i]->unlink(path, recursive);
+        return ifaces_[i]->unlink(ctx, path, recursive);
       } else {
-        ifaces_[i]->unlink(path, recursive);
+        ifaces_[i]->unlink(ctx, path, recursive);
       }
     }
   }
 
-  void utime(const std::string& path, const int64_t atime, const int64_t mtime) {
+  void utime(const RequestContext& ctx, const std::string& path, const int64_t atime, const int64_t mtime) {
     uint32_t sz = ifaces_.size();
     for (uint32_t i = 0; i < sz; ++i) {
-      ifaces_[i]->utime(path, atime, mtime);
+      ifaces_[i]->utime(ctx, path, atime, mtime);
     }
   }
 

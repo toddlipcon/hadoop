@@ -16,6 +16,97 @@ package Hadoop::API::DatanodeState;
 use constant NORMAL_STATE => 1;
 use constant DECOMMISSION_INPROGRESS => 2;
 use constant DECOMMISSIONED => 3;
+package Hadoop::API::RequestContext;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::RequestContext->mk_accessors( qw( confOptions ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{confOptions} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{confOptions}) {
+      $self->{confOptions} = $vals->{confOptions};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'RequestContext';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::MAP) {
+        {
+          my $_size0 = 0;
+          $self->{confOptions} = {};
+          my $_ktype1 = 0;
+          my $_vtype2 = 0;
+          $xfer += $input->readMapBegin(\$_ktype1, \$_vtype2, \$_size0);
+          for (my $_i4 = 0; $_i4 < $_size0; ++$_i4)
+          {
+            my $key5 = '';
+            my $val6 = '';
+            $xfer += $input->readString(\$key5);
+            $xfer += $input->readString(\$val6);
+            $self->{confOptions}->{$key5} = $val6;
+          }
+          $xfer += $input->readMapEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('RequestContext');
+  if (defined $self->{confOptions}) {
+    $xfer += $output->writeFieldBegin('confOptions', TType::MAP, 1);
+    {
+      $output->writeMapBegin(TType::STRING, TType::STRING, scalar(keys %{$self->{confOptions}}));
+      {
+        while( my ($kiter7,$viter8) = each %{$self->{confOptions}}) 
+        {
+          $xfer += $output->writeString($kiter7);
+          $xfer += $output->writeString($viter8);
+        }
+      }
+      $output->writeMapEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Hadoop::API::DatanodeInfo;
 use Class::Accessor;
 use base('Class::Accessor');
@@ -291,16 +382,16 @@ sub read {
       last; };
       /^5$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size0 = 0;
+          my $_size9 = 0;
           $self->{nodes} = [];
-          my $_etype3 = 0;
-          $xfer += $input->readListBegin(\$_etype3, \$_size0);
-          for (my $_i4 = 0; $_i4 < $_size0; ++$_i4)
+          my $_etype12 = 0;
+          $xfer += $input->readListBegin(\$_etype12, \$_size9);
+          for (my $_i13 = 0; $_i13 < $_size9; ++$_i13)
           {
-            my $elem5 = undef;
-            $elem5 = new Hadoop::API::DatanodeInfo();
-            $xfer += $elem5->read($input);
-            push(@{$self->{nodes}},$elem5);
+            my $elem14 = undef;
+            $elem14 = new Hadoop::API::DatanodeInfo();
+            $xfer += $elem14->read($input);
+            push(@{$self->{nodes}},$elem14);
           }
           $xfer += $input->readListEnd();
         }
@@ -346,9 +437,9 @@ sub write {
     {
       $output->writeListBegin(TType::STRUCT, scalar(@{$self->{nodes}}));
       {
-        foreach my $iter6 (@{$self->{nodes}}) 
+        foreach my $iter15 (@{$self->{nodes}}) 
         {
-          $xfer += ${iter6}->write($output);
+          $xfer += ${iter15}->write($output);
         }
       }
       $output->writeListEnd();

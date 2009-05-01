@@ -35,6 +35,7 @@ import org.apache.hadoop.thriftfs.api.BlockData;
 import org.apache.hadoop.thriftfs.api.Datanode;
 import org.apache.hadoop.thriftfs.api.IOException;
 import org.apache.hadoop.thriftfs.api.Namenode;
+import org.apache.hadoop.thriftfs.api.RequestContext;
 import org.apache.hadoop.util.ServicePlugin;
 import org.apache.thrift.TException;
 import org.apache.thrift.TProcessor;
@@ -80,8 +81,9 @@ public class DatanodePlugin
       this.summer = new CRC32();
     }
 
-    public BlockData readBlock(Block block, long offset, int length)
+    public BlockData readBlock(RequestContext ctx, Block block, long offset, int length)
         throws IOException, TException {
+      assumeUserContext(ctx);
       LOG.debug("readBlock(" + block.blockId + "," + offset + "," + length
           + "): Entering");
 
@@ -238,9 +240,6 @@ public class DatanodePlugin
     public TProcessor getProcessor(TTransport t) {
       ThriftServerContext context = new ThriftServerContext(t);
       ThriftHandler impl = new ThriftHandler(context);
-      UserGroupInformation ugi = impl.getUserGroupInformation();
-      UserGroupInformation.setCurrentUser(ugi);
-      LOG.info("Connection from user " + ugi);
       return new Datanode.Processor(impl);
     }
   }

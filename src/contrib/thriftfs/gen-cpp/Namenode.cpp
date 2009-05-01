@@ -27,6 +27,14 @@ uint32_t Namenode_chmod_args::read(apache::thrift::protocol::TProtocol* iprot) {
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -64,6 +72,9 @@ uint32_t Namenode_chmod_args::write(apache::thrift::protocol::TProtocol* oprot) 
   xfer += oprot->writeFieldBegin("perms", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16(this->perms);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -77,6 +88,9 @@ uint32_t Namenode_chmod_pargs::write(apache::thrift::protocol::TProtocol* oprot)
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("perms", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16((*(this->perms)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -199,6 +213,14 @@ uint32_t Namenode_chown_args::read(apache::thrift::protocol::TProtocol* iprot) {
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -247,6 +269,9 @@ uint32_t Namenode_chown_args::write(apache::thrift::protocol::TProtocol* oprot) 
   xfer += oprot->writeFieldBegin("group", apache::thrift::protocol::T_STRING, 3);
   xfer += oprot->writeString(this->group);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -263,6 +288,9 @@ uint32_t Namenode_chown_pargs::write(apache::thrift::protocol::TProtocol* oprot)
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("group", apache::thrift::protocol::T_STRING, 3);
   xfer += oprot->writeString((*(this->group)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -385,6 +413,14 @@ uint32_t Namenode_df_args::read(apache::thrift::protocol::TProtocol* iprot) {
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -400,6 +436,9 @@ uint32_t Namenode_df_args::read(apache::thrift::protocol::TProtocol* iprot) {
 uint32_t Namenode_df_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_df_args");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -408,6 +447,9 @@ uint32_t Namenode_df_args::write(apache::thrift::protocol::TProtocol* oprot) con
 uint32_t Namenode_df_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_df_pargs");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -437,14 +479,14 @@ uint32_t Namenode_df_result::read(apache::thrift::protocol::TProtocol* iprot) {
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size7;
-            apache::thrift::protocol::TType _etype10;
-            iprot->readListBegin(_etype10, _size7);
-            this->success.resize(_size7);
-            uint32_t _i11;
-            for (_i11 = 0; _i11 < _size7; ++_i11)
+            uint32_t _size15;
+            apache::thrift::protocol::TType _etype18;
+            iprot->readListBegin(_etype18, _size15);
+            this->success.resize(_size15);
+            uint32_t _i19;
+            for (_i19 = 0; _i19 < _size15; ++_i19)
             {
-              xfer += iprot->readI64(this->success[_i11]);
+              xfer += iprot->readI64(this->success[_i19]);
             }
             iprot->readListEnd();
           }
@@ -483,10 +525,10 @@ uint32_t Namenode_df_result::write(apache::thrift::protocol::TProtocol* oprot) c
     xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(apache::thrift::protocol::T_I64, this->success.size());
-      std::vector<int64_t> ::const_iterator _iter12;
-      for (_iter12 = this->success.begin(); _iter12 != this->success.end(); ++_iter12)
+      std::vector<int64_t> ::const_iterator _iter20;
+      for (_iter20 = this->success.begin(); _iter20 != this->success.end(); ++_iter20)
       {
-        xfer += oprot->writeI64((*_iter12));
+        xfer += oprot->writeI64((*_iter20));
       }
       xfer += oprot->writeListEnd();
     }
@@ -525,14 +567,14 @@ uint32_t Namenode_df_presult::read(apache::thrift::protocol::TProtocol* iprot) {
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size13;
-            apache::thrift::protocol::TType _etype16;
-            iprot->readListBegin(_etype16, _size13);
-            (*(this->success)).resize(_size13);
-            uint32_t _i17;
-            for (_i17 = 0; _i17 < _size13; ++_i17)
+            uint32_t _size21;
+            apache::thrift::protocol::TType _etype24;
+            iprot->readListBegin(_etype24, _size21);
+            (*(this->success)).resize(_size21);
+            uint32_t _i25;
+            for (_i25 = 0; _i25 < _size21; ++_i25)
             {
-              xfer += iprot->readI64((*(this->success))[_i17]);
+              xfer += iprot->readI64((*(this->success))[_i25]);
             }
             iprot->readListEnd();
           }
@@ -581,6 +623,14 @@ uint32_t Namenode_enterSafeMode_args::read(apache::thrift::protocol::TProtocol* 
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -596,6 +646,9 @@ uint32_t Namenode_enterSafeMode_args::read(apache::thrift::protocol::TProtocol* 
 uint32_t Namenode_enterSafeMode_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_enterSafeMode_args");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -604,6 +657,9 @@ uint32_t Namenode_enterSafeMode_args::write(apache::thrift::protocol::TProtocol*
 uint32_t Namenode_enterSafeMode_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_enterSafeMode_pargs");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -725,6 +781,14 @@ uint32_t Namenode_getBlocks_args::read(apache::thrift::protocol::TProtocol* ipro
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -773,6 +837,9 @@ uint32_t Namenode_getBlocks_args::write(apache::thrift::protocol::TProtocol* opr
   xfer += oprot->writeFieldBegin("length", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64(this->length);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -789,6 +856,9 @@ uint32_t Namenode_getBlocks_pargs::write(apache::thrift::protocol::TProtocol* op
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("length", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64((*(this->length)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -819,14 +889,14 @@ uint32_t Namenode_getBlocks_result::read(apache::thrift::protocol::TProtocol* ip
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size18;
-            apache::thrift::protocol::TType _etype21;
-            iprot->readListBegin(_etype21, _size18);
-            this->success.resize(_size18);
-            uint32_t _i22;
-            for (_i22 = 0; _i22 < _size18; ++_i22)
+            uint32_t _size26;
+            apache::thrift::protocol::TType _etype29;
+            iprot->readListBegin(_etype29, _size26);
+            this->success.resize(_size26);
+            uint32_t _i30;
+            for (_i30 = 0; _i30 < _size26; ++_i30)
             {
-              xfer += this->success[_i22].read(iprot);
+              xfer += this->success[_i30].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -865,10 +935,10 @@ uint32_t Namenode_getBlocks_result::write(apache::thrift::protocol::TProtocol* o
     xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
-      std::vector<Block> ::const_iterator _iter23;
-      for (_iter23 = this->success.begin(); _iter23 != this->success.end(); ++_iter23)
+      std::vector<Block> ::const_iterator _iter31;
+      for (_iter31 = this->success.begin(); _iter31 != this->success.end(); ++_iter31)
       {
-        xfer += (*_iter23).write(oprot);
+        xfer += (*_iter31).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -907,14 +977,14 @@ uint32_t Namenode_getBlocks_presult::read(apache::thrift::protocol::TProtocol* i
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size24;
-            apache::thrift::protocol::TType _etype27;
-            iprot->readListBegin(_etype27, _size24);
-            (*(this->success)).resize(_size24);
-            uint32_t _i28;
-            for (_i28 = 0; _i28 < _size24; ++_i28)
+            uint32_t _size32;
+            apache::thrift::protocol::TType _etype35;
+            iprot->readListBegin(_etype35, _size32);
+            (*(this->success)).resize(_size32);
+            uint32_t _i36;
+            for (_i36 = 0; _i36 < _size32; ++_i36)
             {
-              xfer += (*(this->success))[_i28].read(iprot);
+              xfer += (*(this->success))[_i36].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -963,11 +1033,19 @@ uint32_t Namenode_getDatanodeReport_args::read(apache::thrift::protocol::TProtoc
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_I32) {
-          int32_t ecast29;
-          xfer += iprot->readI32(ecast29);
-          this->type = (DatanodeReportType)ecast29;
+          int32_t ecast37;
+          xfer += iprot->readI32(ecast37);
+          this->type = (DatanodeReportType)ecast37;
           this->__isset.type = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -991,6 +1069,9 @@ uint32_t Namenode_getDatanodeReport_args::write(apache::thrift::protocol::TProto
   xfer += oprot->writeFieldBegin("type", apache::thrift::protocol::T_I32, 1);
   xfer += oprot->writeI32((int32_t)this->type);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1001,6 +1082,9 @@ uint32_t Namenode_getDatanodeReport_pargs::write(apache::thrift::protocol::TProt
   xfer += oprot->writeStructBegin("Namenode_getDatanodeReport_pargs");
   xfer += oprot->writeFieldBegin("type", apache::thrift::protocol::T_I32, 1);
   xfer += oprot->writeI32((int32_t)(*(this->type)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -1031,14 +1115,14 @@ uint32_t Namenode_getDatanodeReport_result::read(apache::thrift::protocol::TProt
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size30;
-            apache::thrift::protocol::TType _etype33;
-            iprot->readListBegin(_etype33, _size30);
-            this->success.resize(_size30);
-            uint32_t _i34;
-            for (_i34 = 0; _i34 < _size30; ++_i34)
+            uint32_t _size38;
+            apache::thrift::protocol::TType _etype41;
+            iprot->readListBegin(_etype41, _size38);
+            this->success.resize(_size38);
+            uint32_t _i42;
+            for (_i42 = 0; _i42 < _size38; ++_i42)
             {
-              xfer += this->success[_i34].read(iprot);
+              xfer += this->success[_i42].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -1077,10 +1161,10 @@ uint32_t Namenode_getDatanodeReport_result::write(apache::thrift::protocol::TPro
     xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
-      std::vector<DatanodeInfo> ::const_iterator _iter35;
-      for (_iter35 = this->success.begin(); _iter35 != this->success.end(); ++_iter35)
+      std::vector<DatanodeInfo> ::const_iterator _iter43;
+      for (_iter43 = this->success.begin(); _iter43 != this->success.end(); ++_iter43)
       {
-        xfer += (*_iter35).write(oprot);
+        xfer += (*_iter43).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -1119,14 +1203,14 @@ uint32_t Namenode_getDatanodeReport_presult::read(apache::thrift::protocol::TPro
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size36;
-            apache::thrift::protocol::TType _etype39;
-            iprot->readListBegin(_etype39, _size36);
-            (*(this->success)).resize(_size36);
-            uint32_t _i40;
-            for (_i40 = 0; _i40 < _size36; ++_i40)
+            uint32_t _size44;
+            apache::thrift::protocol::TType _etype47;
+            iprot->readListBegin(_etype47, _size44);
+            (*(this->success)).resize(_size44);
+            uint32_t _i48;
+            for (_i48 = 0; _i48 < _size44; ++_i48)
             {
-              xfer += (*(this->success))[_i40].read(iprot);
+              xfer += (*(this->success))[_i48].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -1175,6 +1259,14 @@ uint32_t Namenode_getPreferredBlockSize_args::read(apache::thrift::protocol::TPr
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -1201,6 +1293,9 @@ uint32_t Namenode_getPreferredBlockSize_args::write(apache::thrift::protocol::TP
   xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->path);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1211,6 +1306,9 @@ uint32_t Namenode_getPreferredBlockSize_pargs::write(apache::thrift::protocol::T
   xfer += oprot->writeStructBegin("Namenode_getPreferredBlockSize_pargs");
   xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->path)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -1353,6 +1451,14 @@ uint32_t Namenode_isInSafeMode_args::read(apache::thrift::protocol::TProtocol* i
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -1368,6 +1474,9 @@ uint32_t Namenode_isInSafeMode_args::read(apache::thrift::protocol::TProtocol* i
 uint32_t Namenode_isInSafeMode_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_isInSafeMode_args");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1376,6 +1485,9 @@ uint32_t Namenode_isInSafeMode_args::write(apache::thrift::protocol::TProtocol* 
 uint32_t Namenode_isInSafeMode_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_isInSafeMode_pargs");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1517,6 +1629,14 @@ uint32_t Namenode_leaveSafeMode_args::read(apache::thrift::protocol::TProtocol* 
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -1532,6 +1652,9 @@ uint32_t Namenode_leaveSafeMode_args::read(apache::thrift::protocol::TProtocol* 
 uint32_t Namenode_leaveSafeMode_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_leaveSafeMode_args");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1540,6 +1663,9 @@ uint32_t Namenode_leaveSafeMode_args::write(apache::thrift::protocol::TProtocol*
 uint32_t Namenode_leaveSafeMode_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_leaveSafeMode_pargs");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1661,6 +1787,14 @@ uint32_t Namenode_ls_args::read(apache::thrift::protocol::TProtocol* iprot) {
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -1687,6 +1821,9 @@ uint32_t Namenode_ls_args::write(apache::thrift::protocol::TProtocol* oprot) con
   xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->path);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1697,6 +1834,9 @@ uint32_t Namenode_ls_pargs::write(apache::thrift::protocol::TProtocol* oprot) co
   xfer += oprot->writeStructBegin("Namenode_ls_pargs");
   xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->path)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -1727,14 +1867,14 @@ uint32_t Namenode_ls_result::read(apache::thrift::protocol::TProtocol* iprot) {
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size41;
-            apache::thrift::protocol::TType _etype44;
-            iprot->readListBegin(_etype44, _size41);
-            this->success.resize(_size41);
-            uint32_t _i45;
-            for (_i45 = 0; _i45 < _size41; ++_i45)
+            uint32_t _size49;
+            apache::thrift::protocol::TType _etype52;
+            iprot->readListBegin(_etype52, _size49);
+            this->success.resize(_size49);
+            uint32_t _i53;
+            for (_i53 = 0; _i53 < _size49; ++_i53)
             {
-              xfer += this->success[_i45].read(iprot);
+              xfer += this->success[_i53].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -1773,10 +1913,10 @@ uint32_t Namenode_ls_result::write(apache::thrift::protocol::TProtocol* oprot) c
     xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
-      std::vector<Stat> ::const_iterator _iter46;
-      for (_iter46 = this->success.begin(); _iter46 != this->success.end(); ++_iter46)
+      std::vector<Stat> ::const_iterator _iter54;
+      for (_iter54 = this->success.begin(); _iter54 != this->success.end(); ++_iter54)
       {
-        xfer += (*_iter46).write(oprot);
+        xfer += (*_iter54).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -1815,14 +1955,14 @@ uint32_t Namenode_ls_presult::read(apache::thrift::protocol::TProtocol* iprot) {
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size47;
-            apache::thrift::protocol::TType _etype50;
-            iprot->readListBegin(_etype50, _size47);
-            (*(this->success)).resize(_size47);
-            uint32_t _i51;
-            for (_i51 = 0; _i51 < _size47; ++_i51)
+            uint32_t _size55;
+            apache::thrift::protocol::TType _etype58;
+            iprot->readListBegin(_etype58, _size55);
+            (*(this->success)).resize(_size55);
+            uint32_t _i59;
+            for (_i59 = 0; _i59 < _size55; ++_i59)
             {
-              xfer += (*(this->success))[_i51].read(iprot);
+              xfer += (*(this->success))[_i59].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -1871,6 +2011,14 @@ uint32_t Namenode_mkdirhier_args::read(apache::thrift::protocol::TProtocol* ipro
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -1908,6 +2056,9 @@ uint32_t Namenode_mkdirhier_args::write(apache::thrift::protocol::TProtocol* opr
   xfer += oprot->writeFieldBegin("perms", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16(this->perms);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -1921,6 +2072,9 @@ uint32_t Namenode_mkdirhier_pargs::write(apache::thrift::protocol::TProtocol* op
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("perms", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16((*(this->perms)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -2063,6 +2217,14 @@ uint32_t Namenode_refreshNodes_args::read(apache::thrift::protocol::TProtocol* i
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -2078,6 +2240,9 @@ uint32_t Namenode_refreshNodes_args::read(apache::thrift::protocol::TProtocol* i
 uint32_t Namenode_refreshNodes_args::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_refreshNodes_args");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -2086,6 +2251,9 @@ uint32_t Namenode_refreshNodes_args::write(apache::thrift::protocol::TProtocol* 
 uint32_t Namenode_refreshNodes_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("Namenode_refreshNodes_pargs");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -2207,6 +2375,14 @@ uint32_t Namenode_rename_args::read(apache::thrift::protocol::TProtocol* iprot) 
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -2244,6 +2420,9 @@ uint32_t Namenode_rename_args::write(apache::thrift::protocol::TProtocol* oprot)
   xfer += oprot->writeFieldBegin("newPath", apache::thrift::protocol::T_STRING, 2);
   xfer += oprot->writeString(this->newPath);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -2257,6 +2436,9 @@ uint32_t Namenode_rename_pargs::write(apache::thrift::protocol::TProtocol* oprot
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("newPath", apache::thrift::protocol::T_STRING, 2);
   xfer += oprot->writeString((*(this->newPath)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -2399,18 +2581,26 @@ uint32_t Namenode_reportBadBlocks_args::read(apache::thrift::protocol::TProtocol
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->blocks.clear();
-            uint32_t _size52;
-            apache::thrift::protocol::TType _etype55;
-            iprot->readListBegin(_etype55, _size52);
-            this->blocks.resize(_size52);
-            uint32_t _i56;
-            for (_i56 = 0; _i56 < _size52; ++_i56)
+            uint32_t _size60;
+            apache::thrift::protocol::TType _etype63;
+            iprot->readListBegin(_etype63, _size60);
+            this->blocks.resize(_size60);
+            uint32_t _i64;
+            for (_i64 = 0; _i64 < _size60; ++_i64)
             {
-              xfer += this->blocks[_i56].read(iprot);
+              xfer += this->blocks[_i64].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -2437,13 +2627,16 @@ uint32_t Namenode_reportBadBlocks_args::write(apache::thrift::protocol::TProtoco
   xfer += oprot->writeFieldBegin("blocks", apache::thrift::protocol::T_LIST, 1);
   {
     xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->blocks.size());
-    std::vector<Block> ::const_iterator _iter57;
-    for (_iter57 = this->blocks.begin(); _iter57 != this->blocks.end(); ++_iter57)
+    std::vector<Block> ::const_iterator _iter65;
+    for (_iter65 = this->blocks.begin(); _iter65 != this->blocks.end(); ++_iter65)
     {
-      xfer += (*_iter57).write(oprot);
+      xfer += (*_iter65).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -2456,13 +2649,16 @@ uint32_t Namenode_reportBadBlocks_pargs::write(apache::thrift::protocol::TProtoc
   xfer += oprot->writeFieldBegin("blocks", apache::thrift::protocol::T_LIST, 1);
   {
     xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, (*(this->blocks)).size());
-    std::vector<Block> ::const_iterator _iter58;
-    for (_iter58 = (*(this->blocks)).begin(); _iter58 != (*(this->blocks)).end(); ++_iter58)
+    std::vector<Block> ::const_iterator _iter66;
+    for (_iter66 = (*(this->blocks)).begin(); _iter66 != (*(this->blocks)).end(); ++_iter66)
     {
-      xfer += (*_iter58).write(oprot);
+      xfer += (*_iter66).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -2585,6 +2781,14 @@ uint32_t Namenode_stat_args::read(apache::thrift::protocol::TProtocol* iprot) {
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -2611,6 +2815,9 @@ uint32_t Namenode_stat_args::write(apache::thrift::protocol::TProtocol* oprot) c
   xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString(this->path);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -2621,6 +2828,9 @@ uint32_t Namenode_stat_pargs::write(apache::thrift::protocol::TProtocol* oprot) 
   xfer += oprot->writeStructBegin("Namenode_stat_pargs");
   xfer += oprot->writeFieldBegin("path", apache::thrift::protocol::T_STRING, 1);
   xfer += oprot->writeString((*(this->path)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -2763,6 +2973,14 @@ uint32_t Namenode_setQuota_args::read(apache::thrift::protocol::TProtocol* iprot
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -2811,6 +3029,9 @@ uint32_t Namenode_setQuota_args::write(apache::thrift::protocol::TProtocol* opro
   xfer += oprot->writeFieldBegin("diskspaceQuota", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64(this->diskspaceQuota);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -2827,6 +3048,9 @@ uint32_t Namenode_setQuota_pargs::write(apache::thrift::protocol::TProtocol* opr
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("diskspaceQuota", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64((*(this->diskspaceQuota)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -2949,6 +3173,14 @@ uint32_t Namenode_setReplication_args::read(apache::thrift::protocol::TProtocol*
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -2986,6 +3218,9 @@ uint32_t Namenode_setReplication_args::write(apache::thrift::protocol::TProtocol
   xfer += oprot->writeFieldBegin("replication", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16(this->replication);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -2999,6 +3234,9 @@ uint32_t Namenode_setReplication_pargs::write(apache::thrift::protocol::TProtoco
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("replication", apache::thrift::protocol::T_I16, 2);
   xfer += oprot->writeI16((*(this->replication)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -3141,6 +3379,14 @@ uint32_t Namenode_unlink_args::read(apache::thrift::protocol::TProtocol* iprot) 
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -3178,6 +3424,9 @@ uint32_t Namenode_unlink_args::write(apache::thrift::protocol::TProtocol* oprot)
   xfer += oprot->writeFieldBegin("recursive", apache::thrift::protocol::T_BOOL, 2);
   xfer += oprot->writeBool(this->recursive);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -3191,6 +3440,9 @@ uint32_t Namenode_unlink_pargs::write(apache::thrift::protocol::TProtocol* oprot
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("recursive", apache::thrift::protocol::T_BOOL, 2);
   xfer += oprot->writeBool((*(this->recursive)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -3333,6 +3585,14 @@ uint32_t Namenode_utime_args::read(apache::thrift::protocol::TProtocol* iprot) {
     }
     switch (fid)
     {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       case 1:
         if (ftype == apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->path);
@@ -3381,6 +3641,9 @@ uint32_t Namenode_utime_args::write(apache::thrift::protocol::TProtocol* oprot) 
   xfer += oprot->writeFieldBegin("mtime", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64(this->mtime);
   xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -3397,6 +3660,9 @@ uint32_t Namenode_utime_pargs::write(apache::thrift::protocol::TProtocol* oprot)
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldBegin("mtime", apache::thrift::protocol::T_I64, 3);
   xfer += oprot->writeI64((*(this->mtime)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
   xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
@@ -3829,18 +4095,19 @@ uint32_t Namenode_datanodeDown_presult::read(apache::thrift::protocol::TProtocol
   return xfer;
 }
 
-void NamenodeClient::chmod(const std::string& path, const int16_t perms)
+void NamenodeClient::chmod(const RequestContext& ctx, const std::string& path, const int16_t perms)
 {
-  send_chmod(path, perms);
+  send_chmod(ctx, path, perms);
   recv_chmod();
 }
 
-void NamenodeClient::send_chmod(const std::string& path, const int16_t perms)
+void NamenodeClient::send_chmod(const RequestContext& ctx, const std::string& path, const int16_t perms)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("chmod", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_chmod_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.perms = &perms;
   args.write(oprot_);
@@ -3888,18 +4155,19 @@ void NamenodeClient::recv_chmod()
   return;
 }
 
-void NamenodeClient::chown(const std::string& path, const std::string& owner, const std::string& group)
+void NamenodeClient::chown(const RequestContext& ctx, const std::string& path, const std::string& owner, const std::string& group)
 {
-  send_chown(path, owner, group);
+  send_chown(ctx, path, owner, group);
   recv_chown();
 }
 
-void NamenodeClient::send_chown(const std::string& path, const std::string& owner, const std::string& group)
+void NamenodeClient::send_chown(const RequestContext& ctx, const std::string& path, const std::string& owner, const std::string& group)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("chown", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_chown_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.owner = &owner;
   args.group = &group;
@@ -3948,18 +4216,19 @@ void NamenodeClient::recv_chown()
   return;
 }
 
-void NamenodeClient::df(std::vector<int64_t> & _return)
+void NamenodeClient::df(std::vector<int64_t> & _return, const RequestContext& ctx)
 {
-  send_df();
+  send_df(ctx);
   recv_df(_return);
 }
 
-void NamenodeClient::send_df()
+void NamenodeClient::send_df(const RequestContext& ctx)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("df", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_df_pargs args;
+  args.ctx = &ctx;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -4010,18 +4279,19 @@ void NamenodeClient::recv_df(std::vector<int64_t> & _return)
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "df failed: unknown result");
 }
 
-void NamenodeClient::enterSafeMode()
+void NamenodeClient::enterSafeMode(const RequestContext& ctx)
 {
-  send_enterSafeMode();
+  send_enterSafeMode(ctx);
   recv_enterSafeMode();
 }
 
-void NamenodeClient::send_enterSafeMode()
+void NamenodeClient::send_enterSafeMode(const RequestContext& ctx)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("enterSafeMode", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_enterSafeMode_pargs args;
+  args.ctx = &ctx;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -4067,18 +4337,19 @@ void NamenodeClient::recv_enterSafeMode()
   return;
 }
 
-void NamenodeClient::getBlocks(std::vector<Block> & _return, const std::string& path, const int64_t offset, const int64_t length)
+void NamenodeClient::getBlocks(std::vector<Block> & _return, const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length)
 {
-  send_getBlocks(path, offset, length);
+  send_getBlocks(ctx, path, offset, length);
   recv_getBlocks(_return);
 }
 
-void NamenodeClient::send_getBlocks(const std::string& path, const int64_t offset, const int64_t length)
+void NamenodeClient::send_getBlocks(const RequestContext& ctx, const std::string& path, const int64_t offset, const int64_t length)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("getBlocks", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_getBlocks_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.offset = &offset;
   args.length = &length;
@@ -4132,18 +4403,19 @@ void NamenodeClient::recv_getBlocks(std::vector<Block> & _return)
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "getBlocks failed: unknown result");
 }
 
-void NamenodeClient::getDatanodeReport(std::vector<DatanodeInfo> & _return, const DatanodeReportType type)
+void NamenodeClient::getDatanodeReport(std::vector<DatanodeInfo> & _return, const RequestContext& ctx, const DatanodeReportType type)
 {
-  send_getDatanodeReport(type);
+  send_getDatanodeReport(ctx, type);
   recv_getDatanodeReport(_return);
 }
 
-void NamenodeClient::send_getDatanodeReport(const DatanodeReportType type)
+void NamenodeClient::send_getDatanodeReport(const RequestContext& ctx, const DatanodeReportType type)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("getDatanodeReport", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_getDatanodeReport_pargs args;
+  args.ctx = &ctx;
   args.type = &type;
   args.write(oprot_);
 
@@ -4195,18 +4467,19 @@ void NamenodeClient::recv_getDatanodeReport(std::vector<DatanodeInfo> & _return)
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "getDatanodeReport failed: unknown result");
 }
 
-int64_t NamenodeClient::getPreferredBlockSize(const std::string& path)
+int64_t NamenodeClient::getPreferredBlockSize(const RequestContext& ctx, const std::string& path)
 {
-  send_getPreferredBlockSize(path);
+  send_getPreferredBlockSize(ctx, path);
   return recv_getPreferredBlockSize();
 }
 
-void NamenodeClient::send_getPreferredBlockSize(const std::string& path)
+void NamenodeClient::send_getPreferredBlockSize(const RequestContext& ctx, const std::string& path)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("getPreferredBlockSize", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_getPreferredBlockSize_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.write(oprot_);
 
@@ -4258,18 +4531,19 @@ int64_t NamenodeClient::recv_getPreferredBlockSize()
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "getPreferredBlockSize failed: unknown result");
 }
 
-bool NamenodeClient::isInSafeMode()
+bool NamenodeClient::isInSafeMode(const RequestContext& ctx)
 {
-  send_isInSafeMode();
+  send_isInSafeMode(ctx);
   return recv_isInSafeMode();
 }
 
-void NamenodeClient::send_isInSafeMode()
+void NamenodeClient::send_isInSafeMode(const RequestContext& ctx)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("isInSafeMode", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_isInSafeMode_pargs args;
+  args.ctx = &ctx;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -4320,18 +4594,19 @@ bool NamenodeClient::recv_isInSafeMode()
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "isInSafeMode failed: unknown result");
 }
 
-void NamenodeClient::leaveSafeMode()
+void NamenodeClient::leaveSafeMode(const RequestContext& ctx)
 {
-  send_leaveSafeMode();
+  send_leaveSafeMode(ctx);
   recv_leaveSafeMode();
 }
 
-void NamenodeClient::send_leaveSafeMode()
+void NamenodeClient::send_leaveSafeMode(const RequestContext& ctx)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("leaveSafeMode", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_leaveSafeMode_pargs args;
+  args.ctx = &ctx;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -4377,18 +4652,19 @@ void NamenodeClient::recv_leaveSafeMode()
   return;
 }
 
-void NamenodeClient::ls(std::vector<Stat> & _return, const std::string& path)
+void NamenodeClient::ls(std::vector<Stat> & _return, const RequestContext& ctx, const std::string& path)
 {
-  send_ls(path);
+  send_ls(ctx, path);
   recv_ls(_return);
 }
 
-void NamenodeClient::send_ls(const std::string& path)
+void NamenodeClient::send_ls(const RequestContext& ctx, const std::string& path)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("ls", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_ls_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.write(oprot_);
 
@@ -4440,18 +4716,19 @@ void NamenodeClient::recv_ls(std::vector<Stat> & _return)
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "ls failed: unknown result");
 }
 
-bool NamenodeClient::mkdirhier(const std::string& path, const int16_t perms)
+bool NamenodeClient::mkdirhier(const RequestContext& ctx, const std::string& path, const int16_t perms)
 {
-  send_mkdirhier(path, perms);
+  send_mkdirhier(ctx, path, perms);
   return recv_mkdirhier();
 }
 
-void NamenodeClient::send_mkdirhier(const std::string& path, const int16_t perms)
+void NamenodeClient::send_mkdirhier(const RequestContext& ctx, const std::string& path, const int16_t perms)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("mkdirhier", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_mkdirhier_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.perms = &perms;
   args.write(oprot_);
@@ -4504,18 +4781,19 @@ bool NamenodeClient::recv_mkdirhier()
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "mkdirhier failed: unknown result");
 }
 
-void NamenodeClient::refreshNodes()
+void NamenodeClient::refreshNodes(const RequestContext& ctx)
 {
-  send_refreshNodes();
+  send_refreshNodes(ctx);
   recv_refreshNodes();
 }
 
-void NamenodeClient::send_refreshNodes()
+void NamenodeClient::send_refreshNodes(const RequestContext& ctx)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("refreshNodes", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_refreshNodes_pargs args;
+  args.ctx = &ctx;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -4561,18 +4839,19 @@ void NamenodeClient::recv_refreshNodes()
   return;
 }
 
-bool NamenodeClient::rename(const std::string& path, const std::string& newPath)
+bool NamenodeClient::rename(const RequestContext& ctx, const std::string& path, const std::string& newPath)
 {
-  send_rename(path, newPath);
+  send_rename(ctx, path, newPath);
   return recv_rename();
 }
 
-void NamenodeClient::send_rename(const std::string& path, const std::string& newPath)
+void NamenodeClient::send_rename(const RequestContext& ctx, const std::string& path, const std::string& newPath)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("rename", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_rename_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.newPath = &newPath;
   args.write(oprot_);
@@ -4625,18 +4904,19 @@ bool NamenodeClient::recv_rename()
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "rename failed: unknown result");
 }
 
-void NamenodeClient::reportBadBlocks(const std::vector<Block> & blocks)
+void NamenodeClient::reportBadBlocks(const RequestContext& ctx, const std::vector<Block> & blocks)
 {
-  send_reportBadBlocks(blocks);
+  send_reportBadBlocks(ctx, blocks);
   recv_reportBadBlocks();
 }
 
-void NamenodeClient::send_reportBadBlocks(const std::vector<Block> & blocks)
+void NamenodeClient::send_reportBadBlocks(const RequestContext& ctx, const std::vector<Block> & blocks)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("reportBadBlocks", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_reportBadBlocks_pargs args;
+  args.ctx = &ctx;
   args.blocks = &blocks;
   args.write(oprot_);
 
@@ -4683,18 +4963,19 @@ void NamenodeClient::recv_reportBadBlocks()
   return;
 }
 
-void NamenodeClient::stat(Stat& _return, const std::string& path)
+void NamenodeClient::stat(Stat& _return, const RequestContext& ctx, const std::string& path)
 {
-  send_stat(path);
+  send_stat(ctx, path);
   recv_stat(_return);
 }
 
-void NamenodeClient::send_stat(const std::string& path)
+void NamenodeClient::send_stat(const RequestContext& ctx, const std::string& path)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("stat", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_stat_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.write(oprot_);
 
@@ -4746,18 +5027,19 @@ void NamenodeClient::recv_stat(Stat& _return)
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "stat failed: unknown result");
 }
 
-void NamenodeClient::setQuota(const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota)
+void NamenodeClient::setQuota(const RequestContext& ctx, const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota)
 {
-  send_setQuota(path, namespaceQuota, diskspaceQuota);
+  send_setQuota(ctx, path, namespaceQuota, diskspaceQuota);
   recv_setQuota();
 }
 
-void NamenodeClient::send_setQuota(const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota)
+void NamenodeClient::send_setQuota(const RequestContext& ctx, const std::string& path, const int64_t namespaceQuota, const int64_t diskspaceQuota)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("setQuota", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_setQuota_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.namespaceQuota = &namespaceQuota;
   args.diskspaceQuota = &diskspaceQuota;
@@ -4806,18 +5088,19 @@ void NamenodeClient::recv_setQuota()
   return;
 }
 
-bool NamenodeClient::setReplication(const std::string& path, const int16_t replication)
+bool NamenodeClient::setReplication(const RequestContext& ctx, const std::string& path, const int16_t replication)
 {
-  send_setReplication(path, replication);
+  send_setReplication(ctx, path, replication);
   return recv_setReplication();
 }
 
-void NamenodeClient::send_setReplication(const std::string& path, const int16_t replication)
+void NamenodeClient::send_setReplication(const RequestContext& ctx, const std::string& path, const int16_t replication)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("setReplication", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_setReplication_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.replication = &replication;
   args.write(oprot_);
@@ -4870,18 +5153,19 @@ bool NamenodeClient::recv_setReplication()
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "setReplication failed: unknown result");
 }
 
-bool NamenodeClient::unlink(const std::string& path, const bool recursive)
+bool NamenodeClient::unlink(const RequestContext& ctx, const std::string& path, const bool recursive)
 {
-  send_unlink(path, recursive);
+  send_unlink(ctx, path, recursive);
   return recv_unlink();
 }
 
-void NamenodeClient::send_unlink(const std::string& path, const bool recursive)
+void NamenodeClient::send_unlink(const RequestContext& ctx, const std::string& path, const bool recursive)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("unlink", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_unlink_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.recursive = &recursive;
   args.write(oprot_);
@@ -4934,18 +5218,19 @@ bool NamenodeClient::recv_unlink()
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "unlink failed: unknown result");
 }
 
-void NamenodeClient::utime(const std::string& path, const int64_t atime, const int64_t mtime)
+void NamenodeClient::utime(const RequestContext& ctx, const std::string& path, const int64_t atime, const int64_t mtime)
 {
-  send_utime(path, atime, mtime);
+  send_utime(ctx, path, atime, mtime);
   recv_utime();
 }
 
-void NamenodeClient::send_utime(const std::string& path, const int64_t atime, const int64_t mtime)
+void NamenodeClient::send_utime(const RequestContext& ctx, const std::string& path, const int64_t atime, const int64_t mtime)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("utime", apache::thrift::protocol::T_CALL, cseqid);
 
   Namenode_utime_pargs args;
+  args.ctx = &ctx;
   args.path = &path;
   args.atime = &atime;
   args.mtime = &mtime;
@@ -5162,7 +5447,7 @@ void NamenodeProcessor::process_chmod(int32_t seqid, apache::thrift::protocol::T
 
   Namenode_chmod_result result;
   try {
-    iface_->chmod(args.path, args.perms);
+    iface_->chmod(args.ctx, args.path, args.perms);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;
@@ -5192,7 +5477,7 @@ void NamenodeProcessor::process_chown(int32_t seqid, apache::thrift::protocol::T
 
   Namenode_chown_result result;
   try {
-    iface_->chown(args.path, args.owner, args.group);
+    iface_->chown(args.ctx, args.path, args.owner, args.group);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;
@@ -5222,7 +5507,7 @@ void NamenodeProcessor::process_df(int32_t seqid, apache::thrift::protocol::TPro
 
   Namenode_df_result result;
   try {
-    iface_->df(result.success);
+    iface_->df(result.success, args.ctx);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5253,7 +5538,7 @@ void NamenodeProcessor::process_enterSafeMode(int32_t seqid, apache::thrift::pro
 
   Namenode_enterSafeMode_result result;
   try {
-    iface_->enterSafeMode();
+    iface_->enterSafeMode(args.ctx);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;
@@ -5283,7 +5568,7 @@ void NamenodeProcessor::process_getBlocks(int32_t seqid, apache::thrift::protoco
 
   Namenode_getBlocks_result result;
   try {
-    iface_->getBlocks(result.success, args.path, args.offset, args.length);
+    iface_->getBlocks(result.success, args.ctx, args.path, args.offset, args.length);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5314,7 +5599,7 @@ void NamenodeProcessor::process_getDatanodeReport(int32_t seqid, apache::thrift:
 
   Namenode_getDatanodeReport_result result;
   try {
-    iface_->getDatanodeReport(result.success, args.type);
+    iface_->getDatanodeReport(result.success, args.ctx, args.type);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5345,7 +5630,7 @@ void NamenodeProcessor::process_getPreferredBlockSize(int32_t seqid, apache::thr
 
   Namenode_getPreferredBlockSize_result result;
   try {
-    result.success = iface_->getPreferredBlockSize(args.path);
+    result.success = iface_->getPreferredBlockSize(args.ctx, args.path);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5376,7 +5661,7 @@ void NamenodeProcessor::process_isInSafeMode(int32_t seqid, apache::thrift::prot
 
   Namenode_isInSafeMode_result result;
   try {
-    result.success = iface_->isInSafeMode();
+    result.success = iface_->isInSafeMode(args.ctx);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5407,7 +5692,7 @@ void NamenodeProcessor::process_leaveSafeMode(int32_t seqid, apache::thrift::pro
 
   Namenode_leaveSafeMode_result result;
   try {
-    iface_->leaveSafeMode();
+    iface_->leaveSafeMode(args.ctx);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;
@@ -5437,7 +5722,7 @@ void NamenodeProcessor::process_ls(int32_t seqid, apache::thrift::protocol::TPro
 
   Namenode_ls_result result;
   try {
-    iface_->ls(result.success, args.path);
+    iface_->ls(result.success, args.ctx, args.path);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5468,7 +5753,7 @@ void NamenodeProcessor::process_mkdirhier(int32_t seqid, apache::thrift::protoco
 
   Namenode_mkdirhier_result result;
   try {
-    result.success = iface_->mkdirhier(args.path, args.perms);
+    result.success = iface_->mkdirhier(args.ctx, args.path, args.perms);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5499,7 +5784,7 @@ void NamenodeProcessor::process_refreshNodes(int32_t seqid, apache::thrift::prot
 
   Namenode_refreshNodes_result result;
   try {
-    iface_->refreshNodes();
+    iface_->refreshNodes(args.ctx);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;
@@ -5529,7 +5814,7 @@ void NamenodeProcessor::process_rename(int32_t seqid, apache::thrift::protocol::
 
   Namenode_rename_result result;
   try {
-    result.success = iface_->rename(args.path, args.newPath);
+    result.success = iface_->rename(args.ctx, args.path, args.newPath);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5560,7 +5845,7 @@ void NamenodeProcessor::process_reportBadBlocks(int32_t seqid, apache::thrift::p
 
   Namenode_reportBadBlocks_result result;
   try {
-    iface_->reportBadBlocks(args.blocks);
+    iface_->reportBadBlocks(args.ctx, args.blocks);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;
@@ -5590,7 +5875,7 @@ void NamenodeProcessor::process_stat(int32_t seqid, apache::thrift::protocol::TP
 
   Namenode_stat_result result;
   try {
-    iface_->stat(result.success, args.path);
+    iface_->stat(result.success, args.ctx, args.path);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5621,7 +5906,7 @@ void NamenodeProcessor::process_setQuota(int32_t seqid, apache::thrift::protocol
 
   Namenode_setQuota_result result;
   try {
-    iface_->setQuota(args.path, args.namespaceQuota, args.diskspaceQuota);
+    iface_->setQuota(args.ctx, args.path, args.namespaceQuota, args.diskspaceQuota);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;
@@ -5651,7 +5936,7 @@ void NamenodeProcessor::process_setReplication(int32_t seqid, apache::thrift::pr
 
   Namenode_setReplication_result result;
   try {
-    result.success = iface_->setReplication(args.path, args.replication);
+    result.success = iface_->setReplication(args.ctx, args.path, args.replication);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5682,7 +5967,7 @@ void NamenodeProcessor::process_unlink(int32_t seqid, apache::thrift::protocol::
 
   Namenode_unlink_result result;
   try {
-    result.success = iface_->unlink(args.path, args.recursive);
+    result.success = iface_->unlink(args.ctx, args.path, args.recursive);
     result.__isset.success = true;
   } catch (IOException &err) {
     result.err = err;
@@ -5713,7 +5998,7 @@ void NamenodeProcessor::process_utime(int32_t seqid, apache::thrift::protocol::T
 
   Namenode_utime_result result;
   try {
-    iface_->utime(args.path, args.atime, args.mtime);
+    iface_->utime(args.ctx, args.path, args.atime, args.mtime);
   } catch (IOException &err) {
     result.err = err;
     result.__isset.err = true;

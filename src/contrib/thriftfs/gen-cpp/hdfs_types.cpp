@@ -7,6 +7,84 @@
 
 namespace hadoop { namespace api {
 
+const char* RequestContext::ascii_fingerprint = "5EA2D527ECA3BA20C77AFC023EE8C05F";
+const uint8_t RequestContext::binary_fingerprint[16] = {0x5E,0xA2,0xD5,0x27,0xEC,0xA3,0xBA,0x20,0xC7,0x7A,0xFC,0x02,0x3E,0xE8,0xC0,0x5F};
+
+uint32_t RequestContext::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == apache::thrift::protocol::T_MAP) {
+          {
+            this->confOptions.clear();
+            uint32_t _size0;
+            apache::thrift::protocol::TType _ktype1;
+            apache::thrift::protocol::TType _vtype2;
+            iprot->readMapBegin(_ktype1, _vtype2, _size0);
+            uint32_t _i4;
+            for (_i4 = 0; _i4 < _size0; ++_i4)
+            {
+              std::string _key5;
+              xfer += iprot->readString(_key5);
+              std::string& _val6 = this->confOptions[_key5];
+              xfer += iprot->readString(_val6);
+            }
+            iprot->readMapEnd();
+          }
+          this->__isset.confOptions = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t RequestContext::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("RequestContext");
+  xfer += oprot->writeFieldBegin("confOptions", apache::thrift::protocol::T_MAP, 1);
+  {
+    xfer += oprot->writeMapBegin(apache::thrift::protocol::T_STRING, apache::thrift::protocol::T_STRING, this->confOptions.size());
+    std::map<std::string, std::string> ::const_iterator _iter7;
+    for (_iter7 = this->confOptions.begin(); _iter7 != this->confOptions.end(); ++_iter7)
+    {
+      xfer += oprot->writeString(_iter7->first);
+      xfer += oprot->writeString(_iter7->second);
+    }
+    xfer += oprot->writeMapEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
 const char* DatanodeInfo::ascii_fingerprint = "B94C24DED41ECFF96DC7A3570D59C2AC";
 const uint8_t DatanodeInfo::binary_fingerprint[16] = {0xB9,0x4C,0x24,0xDE,0xD4,0x1E,0xCF,0xF9,0x6D,0xC7,0xA3,0x57,0x0D,0x59,0xC2,0xAC};
 
@@ -96,9 +174,9 @@ uint32_t DatanodeInfo::read(apache::thrift::protocol::TProtocol* iprot) {
         break;
       case 9:
         if (ftype == apache::thrift::protocol::T_I32) {
-          int32_t ecast0;
-          xfer += iprot->readI32(ecast0);
-          this->state = (DatanodeState)ecast0;
+          int32_t ecast8;
+          xfer += iprot->readI32(ecast8);
+          this->state = (DatanodeState)ecast8;
           this->__isset.state = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -218,14 +296,14 @@ uint32_t Block::read(apache::thrift::protocol::TProtocol* iprot) {
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->nodes.clear();
-            uint32_t _size1;
-            apache::thrift::protocol::TType _etype4;
-            iprot->readListBegin(_etype4, _size1);
-            this->nodes.resize(_size1);
-            uint32_t _i5;
-            for (_i5 = 0; _i5 < _size1; ++_i5)
+            uint32_t _size9;
+            apache::thrift::protocol::TType _etype12;
+            iprot->readListBegin(_etype12, _size9);
+            this->nodes.resize(_size9);
+            uint32_t _i13;
+            for (_i13 = 0; _i13 < _size9; ++_i13)
             {
-              xfer += this->nodes[_i5].read(iprot);
+              xfer += this->nodes[_i13].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -264,10 +342,10 @@ uint32_t Block::write(apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeFieldBegin("nodes", apache::thrift::protocol::T_LIST, 5);
   {
     xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->nodes.size());
-    std::vector<DatanodeInfo> ::const_iterator _iter6;
-    for (_iter6 = this->nodes.begin(); _iter6 != this->nodes.end(); ++_iter6)
+    std::vector<DatanodeInfo> ::const_iterator _iter14;
+    for (_iter14 = this->nodes.begin(); _iter14 != this->nodes.end(); ++_iter14)
     {
-      xfer += (*_iter6).write(oprot);
+      xfer += (*_iter14).write(oprot);
     }
     xfer += oprot->writeListEnd();
   }

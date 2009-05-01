@@ -23,6 +23,23 @@ enum DatanodeState {
   DatanodeState_DECOMMISSIONED = 3
 };
 
+@interface RequestContext : NSObject {
+  NSDictionary * __confOptions;
+
+  BOOL __confOptions_isset;
+}
+
+- (id) initWithConfOptions: (NSDictionary *) confOptions;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSDictionary *) confOptions;
+- (void) setConfOptions: (NSDictionary *) confOptions;
+- (BOOL) confOptionsIsSet;
+
+@end
+
 @interface DatanodeInfo : NSObject {
   NSString * __name;
   NSString * __storageID;
@@ -318,25 +335,25 @@ enum DatanodeState {
 @end
 
 @protocol Namenode <NSObject>
-- (void) chmod: (NSString *) path : (int16_t) perms;  // throws IOException *, TException
-- (void) chown: (NSString *) path : (NSString *) owner : (NSString *) group;  // throws IOException *, TException
-- (NSArray *) df;  // throws IOException *, TException
-- (void) enterSafeMode;  // throws IOException *, TException
-- (NSArray *) getBlocks: (NSString *) path : (int64_t) offset : (int64_t) length;  // throws IOException *, TException
-- (NSArray *) getDatanodeReport: (int) type;  // throws IOException *, TException
-- (int64_t) getPreferredBlockSize: (NSString *) path;  // throws IOException *, TException
-- (BOOL) isInSafeMode;  // throws IOException *, TException
-- (void) leaveSafeMode;  // throws IOException *, TException
-- (NSArray *) ls: (NSString *) path;  // throws IOException *, TException
-- (BOOL) mkdirhier: (NSString *) path : (int16_t) perms;  // throws IOException *, TException
-- (void) refreshNodes;  // throws IOException *, TException
-- (BOOL) rename: (NSString *) path : (NSString *) newPath;  // throws IOException *, TException
-- (void) reportBadBlocks: (NSArray *) blocks;  // throws IOException *, TException
-- (Stat *) stat: (NSString *) path;  // throws IOException *, TException
-- (void) setQuota: (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota;  // throws IOException *, TException
-- (BOOL) setReplication: (NSString *) path : (int16_t) replication;  // throws IOException *, TException
-- (BOOL) unlink: (NSString *) path : (BOOL) recursive;  // throws IOException *, TException
-- (void) utime: (NSString *) path : (int64_t) atime : (int64_t) mtime;  // throws IOException *, TException
+- (void) chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms;  // throws IOException *, TException
+- (void) chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group;  // throws IOException *, TException
+- (NSArray *) df: (RequestContext *) ctx;  // throws IOException *, TException
+- (void) enterSafeMode: (RequestContext *) ctx;  // throws IOException *, TException
+- (NSArray *) getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length;  // throws IOException *, TException
+- (NSArray *) getDatanodeReport: (RequestContext *) ctx : (int) type;  // throws IOException *, TException
+- (int64_t) getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path;  // throws IOException *, TException
+- (BOOL) isInSafeMode: (RequestContext *) ctx;  // throws IOException *, TException
+- (void) leaveSafeMode: (RequestContext *) ctx;  // throws IOException *, TException
+- (NSArray *) ls: (RequestContext *) ctx : (NSString *) path;  // throws IOException *, TException
+- (BOOL) mkdirhier: (RequestContext *) ctx : (NSString *) path : (int16_t) perms;  // throws IOException *, TException
+- (void) refreshNodes: (RequestContext *) ctx;  // throws IOException *, TException
+- (BOOL) rename: (RequestContext *) ctx : (NSString *) path : (NSString *) newPath;  // throws IOException *, TException
+- (void) reportBadBlocks: (RequestContext *) ctx : (NSArray *) blocks;  // throws IOException *, TException
+- (Stat *) stat: (RequestContext *) ctx : (NSString *) path;  // throws IOException *, TException
+- (void) setQuota: (RequestContext *) ctx : (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota;  // throws IOException *, TException
+- (BOOL) setReplication: (RequestContext *) ctx : (NSString *) path : (int16_t) replication;  // throws IOException *, TException
+- (BOOL) unlink: (RequestContext *) ctx : (NSString *) path : (BOOL) recursive;  // throws IOException *, TException
+- (void) utime: (RequestContext *) ctx : (NSString *) path : (int64_t) atime : (int64_t) mtime;  // throws IOException *, TException
 - (void) datanodeUp: (NSString *) name : (NSString *) storage : (int32_t) thriftPort;  // throws TException
 - (void) datanodeDown: (NSString *) name : (NSString *) storage : (int32_t) thriftPort;  // throws TException
 @end
@@ -350,7 +367,7 @@ enum DatanodeState {
 @end
 
 @protocol Datanode <NSObject>
-- (BlockData *) readBlock: (Block *) block : (int64_t) offset : (int32_t) length;  // throws IOException *, TException
+- (BlockData *) readBlock: (RequestContext *) ctx : (Block *) block : (int64_t) offset : (int32_t) length;  // throws IOException *, TException
 @end
 
 @interface DatanodeClient : NSObject <Datanode> {

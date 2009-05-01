@@ -56,6 +56,19 @@ const i64 QUOTA_DONT_SET = -2
 const i64 QUOTA_RESET = -1
 
 
+/**
+ * Context options for every request.
+ */
+struct RequestContext {
+  /**
+   * This map turns into a Configuration object in the server and
+   * is currently used to construct a UserGroupInformation to
+   * authenticate this request.
+   */
+  1:map<string, string> confOptions
+}
+
+
 /** 
  * Information and state of a data node.
  *
@@ -206,7 +219,8 @@ exception QuotaException {
 service Namenode {
 
   /** Set permissions of an existing file or directory. */
-  void chmod(/** Path of the file or directory. */
+  void chmod(10: RequestContext ctx,
+             /** Path of the file or directory. */
              1:  string path,
              
              /** New permissions for the file or directory. */
@@ -220,7 +234,8 @@ service Namenode {
    *
    * Parameters 'owner' and 'group' cannot be both null.
    */
-  void chown(/** Path to the file or directory */
+  void chown(10: RequestContext ctx,
+             /** Path to the file or directory */
              1:  string path,
              
              /** New owner. */
@@ -235,15 +250,16 @@ service Namenode {
    *   (index 1) The total used space of the file system (in bytes).
    *   (index 2) The available storage of the file system (in bytes).
    */
-  list<i64> df() throws (1: IOException err),
+  list<i64> df(10: RequestContext ctx) throws (1: IOException err),
 
   /**
    * Enter safe mode.
    */
-  void enterSafeMode() throws (1: IOException err),
+  void enterSafeMode(10: RequestContext ctx) throws (1: IOException err),
 
   /** Get a list of all blocks containing a region of a file */
-  list<Block> getBlocks(/** Path to the file. */
+  list<Block> getBlocks(10: RequestContext ctx,
+                        /** Path to the file. */
                         1:  string path,
                         
                         /** Offset of the region. */
@@ -253,7 +269,8 @@ service Namenode {
                         3:  i64 length) throws (1: IOException err),
   
   /** Get a report on the system's current data nodes. */
-  list<DatanodeInfo> getDatanodeReport(/**
+  list<DatanodeInfo> getDatanodeReport(10: RequestContext ctx,
+                                       /**
                                         * Type of data nodes to return
                                         * information about.
                                         */
@@ -265,21 +282,23 @@ service Namenode {
    *
    * The path must exist, or IOException is thrown.
    */
-  i64 getPreferredBlockSize(/** Path to the file. */
+  i64 getPreferredBlockSize(10: RequestContext ctx,
+                            /** Path to the file. */
                             1:  string path) throws (1: IOException err),
                             
   /**
    * Returns whether HDFS is in safe mode or not.
    */
-  bool isInSafeMode() throws (1: IOException err),
+  bool isInSafeMode(10: RequestContext ctx) throws (1: IOException err),
 
   /**
    * Leave safe mode.
    */
-  void leaveSafeMode() throws (1: IOException err),
+  void leaveSafeMode(10: RequestContext ctx) throws (1: IOException err),
 
   /** Get a listing of the indicated directory. */
-  list<Stat> ls(/** Path to the directory. */
+  list<Stat> ls(10: RequestContext ctx,
+                /** Path to the directory. */
                 1:  string path) throws (1: IOException err),
 
   /**
@@ -288,14 +307,15 @@ service Namenode {
    * Returns false if directory did not exist and could not be created,
    * true otherwise.
    */
-  bool mkdirhier(/** Path to the directory. */
+  bool mkdirhier(10: RequestContext ctx,
+                 /** Path to the directory. */
                  1:  string path,
                  
                  /** Access permissions of the directory. */
                  2:  i16    perms) throws (1: IOException err),
 
   /** Tells the name node to reread the hosts and exclude files. */
-  void refreshNodes() throws (1: IOException err),
+  void refreshNodes(10: RequestContext ctx) throws (1: IOException err),
 
   /**
    * Rename an item in the file system namespace.
@@ -304,14 +324,16 @@ service Namenode {
    *         false if the old name does not exist or if the new name already
    *               belongs to the namespace.
    */
-  bool rename(/** Path to existing file or directory. */
+  bool rename(10: RequestContext ctx,
+              /** Path to existing file or directory. */
               1:  string path,
               
               /** New path. */
               2:  string newPath) throws (1: IOException err),
   
   /**  Report corrupted blocks. */
-  void reportBadBlocks(/** List of corrupted blocks. */
+  void reportBadBlocks(10: RequestContext ctx,
+                       /** List of corrupted blocks. */
                        1:  list<Block> blocks) throws (1: IOException err),
 
   /**
@@ -319,7 +341,8 @@ service Namenode {
    *
    * Return value will be nul if path does not exist.
    */
-  Stat stat(/** Path of the file or directory. */
+  Stat stat(10: RequestContext ctx,
+            /** Path of the file or directory. */
             1:  string path)  throws (1: IOException err),
   
   /**
@@ -333,7 +356,8 @@ service Namenode {
    *
    * Any other value is a runtime error.
    */
-  void setQuota(/** Path of the directory. */
+  void setQuota(10: RequestContext ctx,
+                /** Path of the directory. */
                 1:  string path,
                 
                 /** Limit on the number of names in the directory. */
@@ -356,7 +380,8 @@ service Namenode {
    * Returns true if successful, false if file does not exist or is a
    * directory.
    */
-  bool setReplication(/** Path of the file. */
+  bool setReplication(10: RequestContext ctx,
+                      /** Path of the file. */
                       1:  string path,
                       
                       /** New replication factor. */
@@ -367,7 +392,8 @@ service Namenode {
    *
    * Any blocks belonging to the deleted files will be garbage-collected.
    */
-  bool unlink(/** Path of the file or directory. */
+  bool unlink(10: RequestContext ctx,
+              /** Path of the file or directory. */
               1:  string path,
               
               /** Delete a non-empty directory recursively. */
@@ -382,7 +408,8 @@ service Namenode {
    * Setting *both time parameters* to -1 means both of them must be set to
    * the current time.
    */
-  void utime(/** Path of the file or directory. */
+  void utime(10: RequestContext ctx,
+             /** Path of the file or directory. */
              1:  string path,
              
              /** Access time in milliseconds since 1970-01-01 00:00 UTC */
@@ -439,7 +466,8 @@ service Datanode {
    *
    * Only 2^31 - 1 bytes may be read on a single call to this method.
    */
-  BlockData readBlock(/** Block to be read from. */
+  BlockData readBlock(10: RequestContext ctx,
+                      /** Block to be read from. */
                       1:  Block block,
                    
                       /** Offset within the block where read must start from. */

@@ -15,15 +15,19 @@ use Hadoop::API::Types;
 package Hadoop::API::Datanode_readBlock_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Datanode_readBlock_args->mk_accessors( qw( block offset length ) );
+Hadoop::API::Datanode_readBlock_args->mk_accessors( qw( ctx block offset length ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{block} = undef;
 $self->{offset} = undef;
 $self->{length} = undef;
 if (UNIVERSAL::isa($vals,'HASH')) {
+if (defined $vals->{ctx}) {
+  $self->{ctx} = $vals->{ctx};
+}
 if (defined $vals->{block}) {
   $self->{block} = $vals->{block};
 }
@@ -57,6 +61,13 @@ last;
 }
 SWITCH: for($fid)
 {
+/^10$/ && do{if ($ftype == TType::STRUCT) {
+$self->{ctx} = new Hadoop::API::RequestContext();
+$xfer += $self->{ctx}->read($input);
+} else {
+  $xfer += $input->skip($ftype);
+}
+last; };
 /^1$/ && do{if ($ftype == TType::STRUCT) {
 $self->{block} = new Hadoop::API::Block();
 $xfer += $self->{block}->read($input);
@@ -102,6 +113,11 @@ $xfer += $output->writeFieldEnd();
 if (defined $self->{length}) {
 $xfer += $output->writeFieldBegin('length', TType::I32, 3);
 $xfer += $output->writeI32($self->{length});
+$xfer += $output->writeFieldEnd();
+}
+if (defined $self->{ctx}) {
+$xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+$xfer += $self->{ctx}->write($output);
 $xfer += $output->writeFieldEnd();
 }
 $xfer += $output->writeFieldStop();
@@ -196,6 +212,7 @@ package Hadoop::API::DatanodeIf;
 
 sub readBlock{
   my $self = shift;
+  my $ctx = shift;
   my $block = shift;
   my $offset = shift;
   my $length = shift;
@@ -216,10 +233,11 @@ sub readBlock{
 my $self = shift;
 my $request = shift;
 
+my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
 my $block = ($request->{'block'}) ? $request->{'block'} : undef;
 my $offset = ($request->{'offset'}) ? $request->{'offset'} : undef;
 my $length = ($request->{'length'}) ? $request->{'length'} : undef;
-return $self->{impl}->readBlock($block, $offset, $length);
+return $self->{impl}->readBlock($ctx, $block, $offset, $length);
 }
 
 package Hadoop::API::DatanodeClient;
@@ -238,22 +256,25 @@ return bless($self,$classname);
 
 sub readBlock{
   my $self = shift;
+  my $ctx = shift;
   my $block = shift;
   my $offset = shift;
   my $length = shift;
 
-$self->send_readBlock($block, $offset, $length);
+$self->send_readBlock($ctx, $block, $offset, $length);
 return $self->recv_readBlock();
 }
 
 sub send_readBlock{
   my $self = shift;
+  my $ctx = shift;
   my $block = shift;
   my $offset = shift;
   my $length = shift;
 
 $self->{output}->writeMessageBegin('readBlock', TMessageType::CALL, $self->{seqid});
 my $args = new Hadoop::API::Datanode_readBlock_args();
+$args->{ctx} = $ctx;
 $args->{block} = $block;
 $args->{offset} = $offset;
 $args->{length} = $length;
@@ -330,7 +351,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Datanode_readBlock_result();
 eval {
-$result->{success} = $self->{handler}->readBlock($args->block, $args->offset, $args->length);
+$result->{success} = $self->{handler}->readBlock($args->ctx, $args->block, $args->offset, $args->length);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }

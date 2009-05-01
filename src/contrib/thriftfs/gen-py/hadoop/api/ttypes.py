@@ -24,6 +24,76 @@ class DatanodeState:
   DECOMMISSION_INPROGRESS = 2
   DECOMMISSIONED = 3
 
+class RequestContext:
+  """
+  Context options for every request.
+  
+  Attributes:
+   - confOptions: This map turns into a Configuration object in the server and
+  is currently used to construct a UserGroupInformation to
+  authenticate this request.
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.MAP, 'confOptions', (TType.STRING,None,TType.STRING,None), None, ), # 1
+  )
+
+  def __init__(self, confOptions=None,):
+    self.confOptions = confOptions
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.MAP:
+          self.confOptions = {}
+          (_ktype1, _vtype2, _size0 ) = iprot.readMapBegin() 
+          for _i4 in xrange(_size0):
+            _key5 = iprot.readString();
+            _val6 = iprot.readString();
+            self.confOptions[_key5] = _val6
+          iprot.readMapEnd()
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('RequestContext')
+    if self.confOptions != None:
+      oprot.writeFieldBegin('confOptions', TType.MAP, 1)
+      oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.confOptions))
+      for kiter7,viter8 in self.confOptions.items():
+        oprot.writeString(kiter7)
+        oprot.writeString(viter8)
+      oprot.writeMapEnd()
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
 class DatanodeInfo:
   """
   Information and state of a data node.
@@ -251,11 +321,11 @@ class Block:
       elif fid == 5:
         if ftype == TType.LIST:
           self.nodes = []
-          (_etype3, _size0) = iprot.readListBegin()
-          for _i4 in xrange(_size0):
-            _elem5 = DatanodeInfo()
-            _elem5.read(iprot)
-            self.nodes.append(_elem5)
+          (_etype12, _size9) = iprot.readListBegin()
+          for _i13 in xrange(_size9):
+            _elem14 = DatanodeInfo()
+            _elem14.read(iprot)
+            self.nodes.append(_elem14)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -288,8 +358,8 @@ class Block:
     if self.nodes != None:
       oprot.writeFieldBegin('nodes', TType.LIST, 5)
       oprot.writeListBegin(TType.STRUCT, len(self.nodes))
-      for iter6 in self.nodes:
-        iter6.write(oprot)
+      for iter15 in self.nodes:
+        iter15.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.startOffset != None:

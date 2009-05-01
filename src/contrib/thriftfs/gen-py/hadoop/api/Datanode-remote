@@ -21,7 +21,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print 'Usage: ' + sys.argv[0] + ' [-h host:port] [-u url] [-f[ramed]] function [arg1 [arg2...]]'
   print ''
   print 'Functions:'
-  print '  BlockData readBlock(Block block, i64 offset, i32 length)'
+  print '  BlockData readBlock(RequestContext ctx, Block block, i64 offset, i32 length)'
   print ''
   sys.exit(0)
 
@@ -71,9 +71,9 @@ client = Datanode.Client(protocol)
 transport.open()
 
 if cmd == 'readBlock':
-  if len(args) != 3:
-    print 'readBlock requires 3 args'
+  if len(args) != 4:
+    print 'readBlock requires 4 args'
     sys.exit(1)
-  pp.pprint(client.readBlock(eval(args[0]),eval(args[1]),eval(args[2]),))
+  pp.pprint(client.readBlock(eval(args[0]),eval(args[1]),eval(args[2]),eval(args[3]),))
 
 transport.close()

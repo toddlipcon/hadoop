@@ -31,6 +31,118 @@ static int64_t QUOTA_RESET = -1;
 }
 @end
 
+@implementation RequestContext
+- (id) initWithConfOptions: (NSDictionary *) confOptions
+{
+  self = [super init];
+  __confOptions = [confOptions retain];
+  __confOptions_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__confOptions release];
+  [super dealloc];
+}
+
+- (NSDictionary *) confOptions {
+  return [[__confOptions retain] autorelease];
+}
+
+- (void) setConfOptions: (NSDictionary *) confOptions {
+  [confOptions retain];
+  [__confOptions release];
+  __confOptions = confOptions;
+  __confOptions_isset = YES;
+}
+
+- (BOOL) confOptionsIsSet {
+  return __confOptions_isset;
+}
+
+- (void) unsetConfOptions {
+  [__confOptions release];
+  __confOptions = nil;
+  __confOptions_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_MAP) {
+          int _size0;
+          [inProtocol readMapBeginReturningKeyType: NULL valueType: NULL size: &_size0];
+          NSMutableDictionary * fieldValue = [[NSMutableDictionary alloc] initWithCapacity: _size0];
+          int _i1;
+          for (_i1 = 0; _i1 < _size0; ++_i1)
+          {
+            NSString * _key2 = [inProtocol readString];
+            NSString * _val3 = [inProtocol readString];
+            [fieldValue setObject: _val3 forKey: _key2];
+          }
+          [inProtocol readMapEnd];
+          [self setConfOptions: fieldValue];
+          [fieldValue release];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"RequestContext"];
+  if (__confOptions_isset) {
+    if (__confOptions != nil) {
+      [outProtocol writeFieldBeginWithName: @"confOptions" type: TType_MAP fieldID: 1];
+      {
+        [outProtocol writeMapBeginWithKeyType: TType_STRING valueType: TType_STRING size: [__confOptions count]];
+        NSEnumerator * _iter4 = [__confOptions keyEnumerator];
+        id key5;
+        while ((key5 = [_iter4 nextObject]))
+        {
+          [outProtocol writeString: key5];
+          [outProtocol writeString: [__confOptions objectForKey: key5]];
+        }
+        [outProtocol writeMapEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"RequestContext("];
+  [ms appendString: @"confOptions:"];
+  [ms appendFormat: @"%@", __confOptions];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
 @implementation DatanodeInfo
 - (id) initWithName: (NSString *) name storageID: (NSString *) storageID host: (NSString *) host thriftPort: (int32_t) thriftPort capacity: (int64_t) capacity dfsUsed: (int64_t) dfsUsed remaining: (int64_t) remaining xceiverCount: (int32_t) xceiverCount state: (int) state
 {
@@ -601,15 +713,15 @@ static int64_t QUOTA_RESET = -1;
         break;
       case 5:
         if (fieldType == TType_LIST) {
-          int _size0;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size0];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size0];
-          int _i1;
-          for (_i1 = 0; _i1 < _size0; ++_i1)
+          int _size6;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size6];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size6];
+          int _i7;
+          for (_i7 = 0; _i7 < _size6; ++_i7)
           {
-            DatanodeInfo *_elem2 = [[DatanodeInfo alloc] init];
-            [_elem2 read: inProtocol];
-            [fieldValue addObject: _elem2];
+            DatanodeInfo *_elem8 = [[DatanodeInfo alloc] init];
+            [_elem8 read: inProtocol];
+            [fieldValue addObject: _elem8];
           }
           [inProtocol readListEnd];
           [self setNodes: fieldValue];
@@ -661,10 +773,10 @@ static int64_t QUOTA_RESET = -1;
       [outProtocol writeFieldBeginWithName: @"nodes" type: TType_LIST fieldID: 5];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__nodes count]];
-        int i4;
-        for (i4 = 0; i4 < [__nodes count]; i4++)
+        int i10;
+        for (i10 = 0; i10 < [__nodes count]; i10++)
         {
-          [[__nodes objectAtIndex: i4] write: outProtocol];
+          [[__nodes objectAtIndex: i10] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -2070,14 +2182,14 @@ static int64_t QUOTA_RESET = -1;
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size5;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size5];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size5];
-          int _i6;
-          for (_i6 = 0; _i6 < _size5; ++_i6)
+          int _size11;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size11];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size11];
+          int _i12;
+          for (_i12 = 0; _i12 < _size11; ++_i12)
           {
-            int64_t _elem7 = [inProtocol readI64];
-            [fieldValue addObject: [NSNumber numberWithLongLong: _elem7]];
+            int64_t _elem13 = [inProtocol readI64];
+            [fieldValue addObject: [NSNumber numberWithLongLong: _elem13]];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -2113,10 +2225,10 @@ static int64_t QUOTA_RESET = -1;
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_I64 size: [__success count]];
-        int i9;
-        for (i9 = 0; i9 < [__success count]; i9++)
+        int i15;
+        for (i15 = 0; i15 < [__success count]; i15++)
         {
-          [outProtocol writeI64: [[__success objectAtIndex: i9] longLongValue]];
+          [outProtocol writeI64: [[__success objectAtIndex: i15] longLongValue]];
         }
         [outProtocol writeListEnd];
       }
@@ -2356,15 +2468,15 @@ static int64_t QUOTA_RESET = -1;
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size10;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size10];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size10];
-          int _i11;
-          for (_i11 = 0; _i11 < _size10; ++_i11)
+          int _size16;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size16];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size16];
+          int _i17;
+          for (_i17 = 0; _i17 < _size16; ++_i17)
           {
-            Block *_elem12 = [[Block alloc] init];
-            [_elem12 read: inProtocol];
-            [fieldValue addObject: _elem12];
+            Block *_elem18 = [[Block alloc] init];
+            [_elem18 read: inProtocol];
+            [fieldValue addObject: _elem18];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -2400,10 +2512,10 @@ static int64_t QUOTA_RESET = -1;
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i14;
-        for (i14 = 0; i14 < [__success count]; i14++)
+        int i20;
+        for (i20 = 0; i20 < [__success count]; i20++)
         {
-          [[__success objectAtIndex: i14] write: outProtocol];
+          [[__success objectAtIndex: i20] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -2532,15 +2644,15 @@ static int64_t QUOTA_RESET = -1;
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size15;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size15];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size15];
-          int _i16;
-          for (_i16 = 0; _i16 < _size15; ++_i16)
+          int _size21;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size21];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size21];
+          int _i22;
+          for (_i22 = 0; _i22 < _size21; ++_i22)
           {
-            DatanodeInfo *_elem17 = [[DatanodeInfo alloc] init];
-            [_elem17 read: inProtocol];
-            [fieldValue addObject: _elem17];
+            DatanodeInfo *_elem23 = [[DatanodeInfo alloc] init];
+            [_elem23 read: inProtocol];
+            [fieldValue addObject: _elem23];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -2576,10 +2688,10 @@ static int64_t QUOTA_RESET = -1;
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i19;
-        for (i19 = 0; i19 < [__success count]; i19++)
+        int i25;
+        for (i25 = 0; i25 < [__success count]; i25++)
         {
-          [[__success objectAtIndex: i19] write: outProtocol];
+          [[__success objectAtIndex: i25] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -3119,15 +3231,15 @@ static int64_t QUOTA_RESET = -1;
     {
       case 0:
         if (fieldType == TType_LIST) {
-          int _size20;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size20];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size20];
-          int _i21;
-          for (_i21 = 0; _i21 < _size20; ++_i21)
+          int _size26;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size26];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size26];
+          int _i27;
+          for (_i27 = 0; _i27 < _size26; ++_i27)
           {
-            Stat *_elem22 = [[Stat alloc] init];
-            [_elem22 read: inProtocol];
-            [fieldValue addObject: _elem22];
+            Stat *_elem28 = [[Stat alloc] init];
+            [_elem28 read: inProtocol];
+            [fieldValue addObject: _elem28];
           }
           [inProtocol readListEnd];
           [self setSuccess: fieldValue];
@@ -3163,10 +3275,10 @@ static int64_t QUOTA_RESET = -1;
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i24;
-        for (i24 = 0; i24 < [__success count]; i24++)
+        int i30;
+        for (i30 = 0; i30 < [__success count]; i30++)
         {
-          [[__success objectAtIndex: i24] write: outProtocol];
+          [[__success objectAtIndex: i30] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -4517,10 +4629,15 @@ static int64_t QUOTA_RESET = -1;
   [super dealloc];
 }
 
-- (void) send_chmod: (NSString *) path : (int16_t) perms
+- (void) send_chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
 {
   [outProtocol writeMessageBeginWithName: @"chmod" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"chmod_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -4553,16 +4670,21 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) chmod: (NSString *) path : (int16_t) perms
+- (void) chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
 {
-  [self send_chmod: path : perms];
+  [self send_chmod: ctx : path : perms];
   [self recv_chmod];
 }
 
-- (void) send_chown: (NSString *) path : (NSString *) owner : (NSString *) group
+- (void) send_chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group
 {
   [outProtocol writeMessageBeginWithName: @"chown" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"chown_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -4602,16 +4724,21 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) chown: (NSString *) path : (NSString *) owner : (NSString *) group
+- (void) chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group
 {
-  [self send_chown: path : owner : group];
+  [self send_chown: ctx : path : owner : group];
   [self recv_chown];
 }
 
-- (void) send_df
+- (void) send_df: (RequestContext *) ctx
 {
   [outProtocol writeMessageBeginWithName: @"df" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"df_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
@@ -4640,16 +4767,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"df failed: unknown result"];
 }
 
-- (NSArray *) df
+- (NSArray *) df: (RequestContext *) ctx
 {
-  [self send_df];
+  [self send_df: ctx];
   return [self recv_df];
 }
 
-- (void) send_enterSafeMode
+- (void) send_enterSafeMode: (RequestContext *) ctx
 {
   [outProtocol writeMessageBeginWithName: @"enterSafeMode" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"enterSafeMode_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
@@ -4674,16 +4806,21 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) enterSafeMode
+- (void) enterSafeMode: (RequestContext *) ctx
 {
-  [self send_enterSafeMode];
+  [self send_enterSafeMode: ctx];
   [self recv_enterSafeMode];
 }
 
-- (void) send_getBlocks: (NSString *) path : (int64_t) offset : (int64_t) length
+- (void) send_getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length
 {
   [outProtocol writeMessageBeginWithName: @"getBlocks" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"getBlocks_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -4723,16 +4860,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"getBlocks failed: unknown result"];
 }
 
-- (NSArray *) getBlocks: (NSString *) path : (int64_t) offset : (int64_t) length
+- (NSArray *) getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length
 {
-  [self send_getBlocks: path : offset : length];
+  [self send_getBlocks: ctx : path : offset : length];
   return [self recv_getBlocks];
 }
 
-- (void) send_getDatanodeReport: (int) type
+- (void) send_getDatanodeReport: (RequestContext *) ctx : (int) type
 {
   [outProtocol writeMessageBeginWithName: @"getDatanodeReport" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"getDatanodeReport_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldBeginWithName: @"type" type: TType_I32 fieldID: 1];
   [outProtocol writeI32: type];
   [outProtocol writeFieldEnd];
@@ -4764,16 +4906,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"getDatanodeReport failed: unknown result"];
 }
 
-- (NSArray *) getDatanodeReport: (int) type
+- (NSArray *) getDatanodeReport: (RequestContext *) ctx : (int) type
 {
-  [self send_getDatanodeReport: type];
+  [self send_getDatanodeReport: ctx : type];
   return [self recv_getDatanodeReport];
 }
 
-- (void) send_getPreferredBlockSize: (NSString *) path
+- (void) send_getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path
 {
   [outProtocol writeMessageBeginWithName: @"getPreferredBlockSize" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"getPreferredBlockSize_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -4807,16 +4954,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"getPreferredBlockSize failed: unknown result"];
 }
 
-- (int64_t) getPreferredBlockSize: (NSString *) path
+- (int64_t) getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path
 {
-  [self send_getPreferredBlockSize: path];
+  [self send_getPreferredBlockSize: ctx : path];
   return [self recv_getPreferredBlockSize];
 }
 
-- (void) send_isInSafeMode
+- (void) send_isInSafeMode: (RequestContext *) ctx
 {
   [outProtocol writeMessageBeginWithName: @"isInSafeMode" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"isInSafeMode_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
@@ -4845,16 +4997,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"isInSafeMode failed: unknown result"];
 }
 
-- (BOOL) isInSafeMode
+- (BOOL) isInSafeMode: (RequestContext *) ctx
 {
-  [self send_isInSafeMode];
+  [self send_isInSafeMode: ctx];
   return [self recv_isInSafeMode];
 }
 
-- (void) send_leaveSafeMode
+- (void) send_leaveSafeMode: (RequestContext *) ctx
 {
   [outProtocol writeMessageBeginWithName: @"leaveSafeMode" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"leaveSafeMode_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
@@ -4879,16 +5036,21 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) leaveSafeMode
+- (void) leaveSafeMode: (RequestContext *) ctx
 {
-  [self send_leaveSafeMode];
+  [self send_leaveSafeMode: ctx];
   [self recv_leaveSafeMode];
 }
 
-- (void) send_ls: (NSString *) path
+- (void) send_ls: (RequestContext *) ctx : (NSString *) path
 {
   [outProtocol writeMessageBeginWithName: @"ls" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"ls_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -4922,16 +5084,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"ls failed: unknown result"];
 }
 
-- (NSArray *) ls: (NSString *) path
+- (NSArray *) ls: (RequestContext *) ctx : (NSString *) path
 {
-  [self send_ls: path];
+  [self send_ls: ctx : path];
   return [self recv_ls];
 }
 
-- (void) send_mkdirhier: (NSString *) path : (int16_t) perms
+- (void) send_mkdirhier: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
 {
   [outProtocol writeMessageBeginWithName: @"mkdirhier" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"mkdirhier_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -4968,16 +5135,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"mkdirhier failed: unknown result"];
 }
 
-- (BOOL) mkdirhier: (NSString *) path : (int16_t) perms
+- (BOOL) mkdirhier: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
 {
-  [self send_mkdirhier: path : perms];
+  [self send_mkdirhier: ctx : path : perms];
   return [self recv_mkdirhier];
 }
 
-- (void) send_refreshNodes
+- (void) send_refreshNodes: (RequestContext *) ctx
 {
   [outProtocol writeMessageBeginWithName: @"refreshNodes" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"refreshNodes_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
@@ -5002,16 +5174,21 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) refreshNodes
+- (void) refreshNodes: (RequestContext *) ctx
 {
-  [self send_refreshNodes];
+  [self send_refreshNodes: ctx];
   [self recv_refreshNodes];
 }
 
-- (void) send_rename: (NSString *) path : (NSString *) newPath
+- (void) send_rename: (RequestContext *) ctx : (NSString *) path : (NSString *) newPath
 {
   [outProtocol writeMessageBeginWithName: @"rename" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"rename_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -5050,24 +5227,29 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"rename failed: unknown result"];
 }
 
-- (BOOL) rename: (NSString *) path : (NSString *) newPath
+- (BOOL) rename: (RequestContext *) ctx : (NSString *) path : (NSString *) newPath
 {
-  [self send_rename: path : newPath];
+  [self send_rename: ctx : path : newPath];
   return [self recv_rename];
 }
 
-- (void) send_reportBadBlocks: (NSArray *) blocks
+- (void) send_reportBadBlocks: (RequestContext *) ctx : (NSArray *) blocks
 {
   [outProtocol writeMessageBeginWithName: @"reportBadBlocks" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"reportBadBlocks_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (blocks != nil)  {
     [outProtocol writeFieldBeginWithName: @"blocks" type: TType_LIST fieldID: 1];
     {
       [outProtocol writeListBeginWithElementType: TType_STRUCT size: [blocks count]];
-      int i26;
-      for (i26 = 0; i26 < [blocks count]; i26++)
+      int i32;
+      for (i32 = 0; i32 < [blocks count]; i32++)
       {
-        [[blocks objectAtIndex: i26] write: outProtocol];
+        [[blocks objectAtIndex: i32] write: outProtocol];
       }
       [outProtocol writeListEnd];
     }
@@ -5097,16 +5279,21 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) reportBadBlocks: (NSArray *) blocks
+- (void) reportBadBlocks: (RequestContext *) ctx : (NSArray *) blocks
 {
-  [self send_reportBadBlocks: blocks];
+  [self send_reportBadBlocks: ctx : blocks];
   [self recv_reportBadBlocks];
 }
 
-- (void) send_stat: (NSString *) path
+- (void) send_stat: (RequestContext *) ctx : (NSString *) path
 {
   [outProtocol writeMessageBeginWithName: @"stat" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"stat_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -5140,16 +5327,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"stat failed: unknown result"];
 }
 
-- (Stat *) stat: (NSString *) path
+- (Stat *) stat: (RequestContext *) ctx : (NSString *) path
 {
-  [self send_stat: path];
+  [self send_stat: ctx : path];
   return [self recv_stat];
 }
 
-- (void) send_setQuota: (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota
+- (void) send_setQuota: (RequestContext *) ctx : (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota
 {
   [outProtocol writeMessageBeginWithName: @"setQuota" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"setQuota_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -5185,16 +5377,21 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) setQuota: (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota
+- (void) setQuota: (RequestContext *) ctx : (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota
 {
-  [self send_setQuota: path : namespaceQuota : diskspaceQuota];
+  [self send_setQuota: ctx : path : namespaceQuota : diskspaceQuota];
   [self recv_setQuota];
 }
 
-- (void) send_setReplication: (NSString *) path : (int16_t) replication
+- (void) send_setReplication: (RequestContext *) ctx : (NSString *) path : (int16_t) replication
 {
   [outProtocol writeMessageBeginWithName: @"setReplication" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"setReplication_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -5231,16 +5428,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"setReplication failed: unknown result"];
 }
 
-- (BOOL) setReplication: (NSString *) path : (int16_t) replication
+- (BOOL) setReplication: (RequestContext *) ctx : (NSString *) path : (int16_t) replication
 {
-  [self send_setReplication: path : replication];
+  [self send_setReplication: ctx : path : replication];
   return [self recv_setReplication];
 }
 
-- (void) send_unlink: (NSString *) path : (BOOL) recursive
+- (void) send_unlink: (RequestContext *) ctx : (NSString *) path : (BOOL) recursive
 {
   [outProtocol writeMessageBeginWithName: @"unlink" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"unlink_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -5277,16 +5479,21 @@ static int64_t QUOTA_RESET = -1;
                                            reason: @"unlink failed: unknown result"];
 }
 
-- (BOOL) unlink: (NSString *) path : (BOOL) recursive
+- (BOOL) unlink: (RequestContext *) ctx : (NSString *) path : (BOOL) recursive
 {
-  [self send_unlink: path : recursive];
+  [self send_unlink: ctx : path : recursive];
   return [self recv_unlink];
 }
 
-- (void) send_utime: (NSString *) path : (int64_t) atime : (int64_t) mtime
+- (void) send_utime: (RequestContext *) ctx : (NSString *) path : (int64_t) atime : (int64_t) mtime
 {
   [outProtocol writeMessageBeginWithName: @"utime" type: TMessageType_CALL sequenceID: 0];
   [outProtocol writeStructBeginWithName: @"utime_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
   if (path != nil)  {
     [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
     [outProtocol writeString: path];
@@ -5322,9 +5529,9 @@ static int64_t QUOTA_RESET = -1;
   return;
 }
 
-- (void) utime: (NSString *) path : (int64_t) atime : (int64_t) mtime
+- (void) utime: (RequestContext *) ctx : (NSString *) path : (int64_t) atime : (int64_t) mtime
 {
-  [self send_utime: path : atime : mtime];
+  [self send_utime: ctx : path : atime : mtime];
   [self recv_utime];
 }
 
@@ -5598,10 +5805,15 @@ return self;
 [super dealloc];
 }
 
-- (void) send_readBlock: (Block *) block : (int64_t) offset : (int32_t) length
+- (void) send_readBlock: (RequestContext *) ctx : (Block *) block : (int64_t) offset : (int32_t) length
 {
 [outProtocol writeMessageBeginWithName: @"readBlock" type: TMessageType_CALL sequenceID: 0];
 [outProtocol writeStructBeginWithName: @"readBlock_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
 if (block != nil){
   [outProtocol writeFieldBeginWithName: @"block" type: TType_STRUCT fieldID: 1];
   [block write: outProtocol];
@@ -5641,9 +5853,9 @@ if ([result errIsSet]) {
                                          reason: @"readBlock failed: unknown result"];
 }
 
-- (BlockData *) readBlock: (Block *) block : (int64_t) offset : (int32_t) length
+- (BlockData *) readBlock: (RequestContext *) ctx : (Block *) block : (int64_t) offset : (int32_t) length
 {
-[self send_readBlock: block : offset : length];
+[self send_readBlock: ctx : block : offset : length];
 return [self recv_readBlock];
 }
 

@@ -15,14 +15,18 @@ use Hadoop::API::Types;
 package Hadoop::API::Namenode_chmod_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_chmod_args->mk_accessors( qw( path perms ) );
+Hadoop::API::Namenode_chmod_args->mk_accessors( qw( ctx path perms ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{perms} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -53,6 +57,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -86,6 +97,11 @@ sub write {
   if (defined $self->{perms}) {
     $xfer += $output->writeFieldBegin('perms', TType::I16, 2);
     $xfer += $output->writeI16($self->{perms});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -163,15 +179,19 @@ sub write {
 package Hadoop::API::Namenode_chown_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_chown_args->mk_accessors( qw( path owner group ) );
+Hadoop::API::Namenode_chown_args->mk_accessors( qw( ctx path owner group ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{owner} = undef;
 $self->{group} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -205,6 +225,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -249,6 +276,11 @@ sub write {
   if (defined $self->{group}) {
     $xfer += $output->writeFieldBegin('group', TType::STRING, 3);
     $xfer += $output->writeString($self->{group});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -326,10 +358,17 @@ sub write {
 package Hadoop::API::Namenode_df_args;
 use Class::Accessor;
 use base('Class::Accessor');
+Hadoop::API::Namenode_df_args->mk_accessors( qw( ctx ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+  }
 return bless($self,$classname);
 }
 
@@ -353,6 +392,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -366,6 +412,11 @@ sub write {
   my $output = shift;
   my $xfer   = 0;
   $xfer += $output->writeStructBegin('Namenode_df_args');
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -414,15 +465,15 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size7 = 0;
+          my $_size16 = 0;
           $self->{success} = [];
-          my $_etype10 = 0;
-          $xfer += $input->readListBegin(\$_etype10, \$_size7);
-          for (my $_i11 = 0; $_i11 < $_size7; ++$_i11)
+          my $_etype19 = 0;
+          $xfer += $input->readListBegin(\$_etype19, \$_size16);
+          for (my $_i20 = 0; $_i20 < $_size16; ++$_i20)
           {
-            my $elem12 = undef;
-            $xfer += $input->readI64(\$elem12);
-            push(@{$self->{success}},$elem12);
+            my $elem21 = undef;
+            $xfer += $input->readI64(\$elem21);
+            push(@{$self->{success}},$elem21);
           }
           $xfer += $input->readListEnd();
         }
@@ -455,9 +506,9 @@ sub write {
     {
       $output->writeListBegin(TType::I64, scalar(@{$self->{success}}));
       {
-        foreach my $iter13 (@{$self->{success}}) 
+        foreach my $iter22 (@{$self->{success}}) 
         {
-          $xfer += $output->writeI64($iter13);
+          $xfer += $output->writeI64($iter22);
         }
       }
       $output->writeListEnd();
@@ -477,10 +528,17 @@ sub write {
 package Hadoop::API::Namenode_enterSafeMode_args;
 use Class::Accessor;
 use base('Class::Accessor');
+Hadoop::API::Namenode_enterSafeMode_args->mk_accessors( qw( ctx ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+  }
 return bless($self,$classname);
 }
 
@@ -504,6 +562,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -517,6 +582,11 @@ sub write {
   my $output = shift;
   my $xfer   = 0;
   $xfer += $output->writeStructBegin('Namenode_enterSafeMode_args');
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -592,15 +662,19 @@ sub write {
 package Hadoop::API::Namenode_getBlocks_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_getBlocks_args->mk_accessors( qw( path offset length ) );
+Hadoop::API::Namenode_getBlocks_args->mk_accessors( qw( ctx path offset length ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{offset} = undef;
 $self->{length} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -634,6 +708,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -678,6 +759,11 @@ sub write {
   if (defined $self->{length}) {
     $xfer += $output->writeFieldBegin('length', TType::I64, 3);
     $xfer += $output->writeI64($self->{length});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -728,16 +814,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size14 = 0;
+          my $_size23 = 0;
           $self->{success} = [];
-          my $_etype17 = 0;
-          $xfer += $input->readListBegin(\$_etype17, \$_size14);
-          for (my $_i18 = 0; $_i18 < $_size14; ++$_i18)
+          my $_etype26 = 0;
+          $xfer += $input->readListBegin(\$_etype26, \$_size23);
+          for (my $_i27 = 0; $_i27 < $_size23; ++$_i27)
           {
-            my $elem19 = undef;
-            $elem19 = new Hadoop::API::Block();
-            $xfer += $elem19->read($input);
-            push(@{$self->{success}},$elem19);
+            my $elem28 = undef;
+            $elem28 = new Hadoop::API::Block();
+            $xfer += $elem28->read($input);
+            push(@{$self->{success}},$elem28);
           }
           $xfer += $input->readListEnd();
         }
@@ -770,9 +856,9 @@ sub write {
     {
       $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter20 (@{$self->{success}}) 
+        foreach my $iter29 (@{$self->{success}}) 
         {
-          $xfer += ${iter20}->write($output);
+          $xfer += ${iter29}->write($output);
         }
       }
       $output->writeListEnd();
@@ -792,13 +878,17 @@ sub write {
 package Hadoop::API::Namenode_getDatanodeReport_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_getDatanodeReport_args->mk_accessors( qw( type ) );
+Hadoop::API::Namenode_getDatanodeReport_args->mk_accessors( qw( ctx type ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{type} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{type}) {
       $self->{type} = $vals->{type};
     }
@@ -826,6 +916,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::I32) {
         $xfer += $input->readI32(\$self->{type});
       } else {
@@ -848,6 +945,11 @@ sub write {
   if (defined $self->{type}) {
     $xfer += $output->writeFieldBegin('type', TType::I32, 1);
     $xfer += $output->writeI32($self->{type});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -898,16 +1000,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size21 = 0;
+          my $_size30 = 0;
           $self->{success} = [];
-          my $_etype24 = 0;
-          $xfer += $input->readListBegin(\$_etype24, \$_size21);
-          for (my $_i25 = 0; $_i25 < $_size21; ++$_i25)
+          my $_etype33 = 0;
+          $xfer += $input->readListBegin(\$_etype33, \$_size30);
+          for (my $_i34 = 0; $_i34 < $_size30; ++$_i34)
           {
-            my $elem26 = undef;
-            $elem26 = new Hadoop::API::DatanodeInfo();
-            $xfer += $elem26->read($input);
-            push(@{$self->{success}},$elem26);
+            my $elem35 = undef;
+            $elem35 = new Hadoop::API::DatanodeInfo();
+            $xfer += $elem35->read($input);
+            push(@{$self->{success}},$elem35);
           }
           $xfer += $input->readListEnd();
         }
@@ -940,9 +1042,9 @@ sub write {
     {
       $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter27 (@{$self->{success}}) 
+        foreach my $iter36 (@{$self->{success}}) 
         {
-          $xfer += ${iter27}->write($output);
+          $xfer += ${iter36}->write($output);
         }
       }
       $output->writeListEnd();
@@ -962,13 +1064,17 @@ sub write {
 package Hadoop::API::Namenode_getPreferredBlockSize_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_getPreferredBlockSize_args->mk_accessors( qw( path ) );
+Hadoop::API::Namenode_getPreferredBlockSize_args->mk_accessors( qw( ctx path ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -996,6 +1102,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -1018,6 +1131,11 @@ sub write {
   if (defined $self->{path}) {
     $xfer += $output->writeFieldBegin('path', TType::STRING, 1);
     $xfer += $output->writeString($self->{path});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -1110,10 +1228,17 @@ sub write {
 package Hadoop::API::Namenode_isInSafeMode_args;
 use Class::Accessor;
 use base('Class::Accessor');
+Hadoop::API::Namenode_isInSafeMode_args->mk_accessors( qw( ctx ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+  }
 return bless($self,$classname);
 }
 
@@ -1137,6 +1262,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -1150,6 +1282,11 @@ sub write {
   my $output = shift;
   my $xfer   = 0;
   $xfer += $output->writeStructBegin('Namenode_isInSafeMode_args');
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -1240,10 +1377,17 @@ sub write {
 package Hadoop::API::Namenode_leaveSafeMode_args;
 use Class::Accessor;
 use base('Class::Accessor');
+Hadoop::API::Namenode_leaveSafeMode_args->mk_accessors( qw( ctx ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+  }
 return bless($self,$classname);
 }
 
@@ -1267,6 +1411,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -1280,6 +1431,11 @@ sub write {
   my $output = shift;
   my $xfer   = 0;
   $xfer += $output->writeStructBegin('Namenode_leaveSafeMode_args');
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -1355,13 +1511,17 @@ sub write {
 package Hadoop::API::Namenode_ls_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_ls_args->mk_accessors( qw( path ) );
+Hadoop::API::Namenode_ls_args->mk_accessors( qw( ctx path ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -1389,6 +1549,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -1411,6 +1578,11 @@ sub write {
   if (defined $self->{path}) {
     $xfer += $output->writeFieldBegin('path', TType::STRING, 1);
     $xfer += $output->writeString($self->{path});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -1461,16 +1633,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size28 = 0;
+          my $_size37 = 0;
           $self->{success} = [];
-          my $_etype31 = 0;
-          $xfer += $input->readListBegin(\$_etype31, \$_size28);
-          for (my $_i32 = 0; $_i32 < $_size28; ++$_i32)
+          my $_etype40 = 0;
+          $xfer += $input->readListBegin(\$_etype40, \$_size37);
+          for (my $_i41 = 0; $_i41 < $_size37; ++$_i41)
           {
-            my $elem33 = undef;
-            $elem33 = new Hadoop::API::Stat();
-            $xfer += $elem33->read($input);
-            push(@{$self->{success}},$elem33);
+            my $elem42 = undef;
+            $elem42 = new Hadoop::API::Stat();
+            $xfer += $elem42->read($input);
+            push(@{$self->{success}},$elem42);
           }
           $xfer += $input->readListEnd();
         }
@@ -1503,9 +1675,9 @@ sub write {
     {
       $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter34 (@{$self->{success}}) 
+        foreach my $iter43 (@{$self->{success}}) 
         {
-          $xfer += ${iter34}->write($output);
+          $xfer += ${iter43}->write($output);
         }
       }
       $output->writeListEnd();
@@ -1525,14 +1697,18 @@ sub write {
 package Hadoop::API::Namenode_mkdirhier_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_mkdirhier_args->mk_accessors( qw( path perms ) );
+Hadoop::API::Namenode_mkdirhier_args->mk_accessors( qw( ctx path perms ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{perms} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -1563,6 +1739,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -1596,6 +1779,11 @@ sub write {
   if (defined $self->{perms}) {
     $xfer += $output->writeFieldBegin('perms', TType::I16, 2);
     $xfer += $output->writeI16($self->{perms});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -1688,10 +1876,17 @@ sub write {
 package Hadoop::API::Namenode_refreshNodes_args;
 use Class::Accessor;
 use base('Class::Accessor');
+Hadoop::API::Namenode_refreshNodes_args->mk_accessors( qw( ctx ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+  }
 return bless($self,$classname);
 }
 
@@ -1715,6 +1910,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
         $xfer += $input->skip($ftype);
     }
     $xfer += $input->readFieldEnd();
@@ -1728,6 +1930,11 @@ sub write {
   my $output = shift;
   my $xfer   = 0;
   $xfer += $output->writeStructBegin('Namenode_refreshNodes_args');
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
   $xfer += $output->writeFieldStop();
   $xfer += $output->writeStructEnd();
   return $xfer;
@@ -1803,14 +2010,18 @@ sub write {
 package Hadoop::API::Namenode_rename_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_rename_args->mk_accessors( qw( path newPath ) );
+Hadoop::API::Namenode_rename_args->mk_accessors( qw( ctx path newPath ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{newPath} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -1841,6 +2052,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -1874,6 +2092,11 @@ sub write {
   if (defined $self->{newPath}) {
     $xfer += $output->writeFieldBegin('newPath', TType::STRING, 2);
     $xfer += $output->writeString($self->{newPath});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -1966,13 +2189,17 @@ sub write {
 package Hadoop::API::Namenode_reportBadBlocks_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_reportBadBlocks_args->mk_accessors( qw( blocks ) );
+Hadoop::API::Namenode_reportBadBlocks_args->mk_accessors( qw( ctx blocks ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{blocks} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{blocks}) {
       $self->{blocks} = $vals->{blocks};
     }
@@ -2000,18 +2227,25 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size35 = 0;
+          my $_size44 = 0;
           $self->{blocks} = [];
-          my $_etype38 = 0;
-          $xfer += $input->readListBegin(\$_etype38, \$_size35);
-          for (my $_i39 = 0; $_i39 < $_size35; ++$_i39)
+          my $_etype47 = 0;
+          $xfer += $input->readListBegin(\$_etype47, \$_size44);
+          for (my $_i48 = 0; $_i48 < $_size44; ++$_i48)
           {
-            my $elem40 = undef;
-            $elem40 = new Hadoop::API::Block();
-            $xfer += $elem40->read($input);
-            push(@{$self->{blocks}},$elem40);
+            my $elem49 = undef;
+            $elem49 = new Hadoop::API::Block();
+            $xfer += $elem49->read($input);
+            push(@{$self->{blocks}},$elem49);
           }
           $xfer += $input->readListEnd();
         }
@@ -2037,13 +2271,18 @@ sub write {
     {
       $output->writeListBegin(TType::STRUCT, scalar(@{$self->{blocks}}));
       {
-        foreach my $iter41 (@{$self->{blocks}}) 
+        foreach my $iter50 (@{$self->{blocks}}) 
         {
-          $xfer += ${iter41}->write($output);
+          $xfer += ${iter50}->write($output);
         }
       }
       $output->writeListEnd();
     }
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -2121,13 +2360,17 @@ sub write {
 package Hadoop::API::Namenode_stat_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_stat_args->mk_accessors( qw( path ) );
+Hadoop::API::Namenode_stat_args->mk_accessors( qw( ctx path ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -2155,6 +2398,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -2177,6 +2427,11 @@ sub write {
   if (defined $self->{path}) {
     $xfer += $output->writeFieldBegin('path', TType::STRING, 1);
     $xfer += $output->writeString($self->{path});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -2270,15 +2525,19 @@ sub write {
 package Hadoop::API::Namenode_setQuota_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_setQuota_args->mk_accessors( qw( path namespaceQuota diskspaceQuota ) );
+Hadoop::API::Namenode_setQuota_args->mk_accessors( qw( ctx path namespaceQuota diskspaceQuota ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{namespaceQuota} = undef;
 $self->{diskspaceQuota} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -2312,6 +2571,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -2356,6 +2622,11 @@ sub write {
   if (defined $self->{diskspaceQuota}) {
     $xfer += $output->writeFieldBegin('diskspaceQuota', TType::I64, 3);
     $xfer += $output->writeI64($self->{diskspaceQuota});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -2433,14 +2704,18 @@ sub write {
 package Hadoop::API::Namenode_setReplication_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_setReplication_args->mk_accessors( qw( path replication ) );
+Hadoop::API::Namenode_setReplication_args->mk_accessors( qw( ctx path replication ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{replication} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -2471,6 +2746,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -2504,6 +2786,11 @@ sub write {
   if (defined $self->{replication}) {
     $xfer += $output->writeFieldBegin('replication', TType::I16, 2);
     $xfer += $output->writeI16($self->{replication});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -2596,14 +2883,18 @@ sub write {
 package Hadoop::API::Namenode_unlink_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_unlink_args->mk_accessors( qw( path recursive ) );
+Hadoop::API::Namenode_unlink_args->mk_accessors( qw( ctx path recursive ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{recursive} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -2634,6 +2925,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -2667,6 +2965,11 @@ sub write {
   if (defined $self->{recursive}) {
     $xfer += $output->writeFieldBegin('recursive', TType::BOOL, 2);
     $xfer += $output->writeBool($self->{recursive});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -2759,15 +3062,19 @@ sub write {
 package Hadoop::API::Namenode_utime_args;
 use Class::Accessor;
 use base('Class::Accessor');
-Hadoop::API::Namenode_utime_args->mk_accessors( qw( path atime mtime ) );
+Hadoop::API::Namenode_utime_args->mk_accessors( qw( ctx path atime mtime ) );
 sub new {
 my $classname = shift;
 my $self      = {};
 my $vals      = shift || {};
+$self->{ctx} = undef;
 $self->{path} = undef;
 $self->{atime} = undef;
 $self->{mtime} = undef;
   if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
     if (defined $vals->{path}) {
       $self->{path} = $vals->{path};
     }
@@ -2801,6 +3108,13 @@ sub read {
     }
     SWITCH: for($fid)
     {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
       /^1$/ && do{      if ($ftype == TType::STRING) {
         $xfer += $input->readString(\$self->{path});
       } else {
@@ -2845,6 +3159,11 @@ sub write {
   if (defined $self->{mtime}) {
     $xfer += $output->writeFieldBegin('mtime', TType::I64, 3);
     $xfer += $output->writeI64($self->{mtime});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -3211,6 +3530,7 @@ package Hadoop::API::NamenodeIf;
 
 sub chmod{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $perms = shift;
 
@@ -3218,6 +3538,7 @@ sub chmod{
 }
 sub chown{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $owner = shift;
   my $group = shift;
@@ -3226,16 +3547,19 @@ sub chown{
 }
 sub df{
   my $self = shift;
+  my $ctx = shift;
 
   die 'implement interface';
 }
 sub enterSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
   die 'implement interface';
 }
 sub getBlocks{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $offset = shift;
   my $length = shift;
@@ -3244,34 +3568,40 @@ sub getBlocks{
 }
 sub getDatanodeReport{
   my $self = shift;
+  my $ctx = shift;
   my $type = shift;
 
   die 'implement interface';
 }
 sub getPreferredBlockSize{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
   die 'implement interface';
 }
 sub isInSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
   die 'implement interface';
 }
 sub leaveSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
   die 'implement interface';
 }
 sub ls{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
   die 'implement interface';
 }
 sub mkdirhier{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $perms = shift;
 
@@ -3279,11 +3609,13 @@ sub mkdirhier{
 }
 sub refreshNodes{
   my $self = shift;
+  my $ctx = shift;
 
   die 'implement interface';
 }
 sub rename{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $newPath = shift;
 
@@ -3291,18 +3623,21 @@ sub rename{
 }
 sub reportBadBlocks{
   my $self = shift;
+  my $ctx = shift;
   my $blocks = shift;
 
   die 'implement interface';
 }
 sub stat{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
   die 'implement interface';
 }
 sub setQuota{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $namespaceQuota = shift;
   my $diskspaceQuota = shift;
@@ -3311,6 +3646,7 @@ sub setQuota{
 }
 sub setReplication{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $replication = shift;
 
@@ -3318,6 +3654,7 @@ sub setReplication{
 }
 sub unlink{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $recursive = shift;
 
@@ -3325,6 +3662,7 @@ sub unlink{
 }
 sub utime{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $atime = shift;
   my $mtime = shift;
@@ -3361,160 +3699,179 @@ sub chmod{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $perms = ($request->{'perms'}) ? $request->{'perms'} : undef;
-  return $self->{impl}->chmod($path, $perms);
+  return $self->{impl}->chmod($ctx, $path, $perms);
 }
 
 sub chown{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $owner = ($request->{'owner'}) ? $request->{'owner'} : undef;
   my $group = ($request->{'group'}) ? $request->{'group'} : undef;
-  return $self->{impl}->chown($path, $owner, $group);
+  return $self->{impl}->chown($ctx, $path, $owner, $group);
 }
 
 sub df{
   my $self = shift;
   my $request = shift;
 
-  return $self->{impl}->df();
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  return $self->{impl}->df($ctx);
 }
 
 sub enterSafeMode{
   my $self = shift;
   my $request = shift;
 
-  return $self->{impl}->enterSafeMode();
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  return $self->{impl}->enterSafeMode($ctx);
 }
 
 sub getBlocks{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $offset = ($request->{'offset'}) ? $request->{'offset'} : undef;
   my $length = ($request->{'length'}) ? $request->{'length'} : undef;
-  return $self->{impl}->getBlocks($path, $offset, $length);
+  return $self->{impl}->getBlocks($ctx, $path, $offset, $length);
 }
 
 sub getDatanodeReport{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $type = ($request->{'type'}) ? $request->{'type'} : undef;
-  return $self->{impl}->getDatanodeReport($type);
+  return $self->{impl}->getDatanodeReport($ctx, $type);
 }
 
 sub getPreferredBlockSize{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
-  return $self->{impl}->getPreferredBlockSize($path);
+  return $self->{impl}->getPreferredBlockSize($ctx, $path);
 }
 
 sub isInSafeMode{
   my $self = shift;
   my $request = shift;
 
-  return $self->{impl}->isInSafeMode();
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  return $self->{impl}->isInSafeMode($ctx);
 }
 
 sub leaveSafeMode{
   my $self = shift;
   my $request = shift;
 
-  return $self->{impl}->leaveSafeMode();
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  return $self->{impl}->leaveSafeMode($ctx);
 }
 
 sub ls{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
-  return $self->{impl}->ls($path);
+  return $self->{impl}->ls($ctx, $path);
 }
 
 sub mkdirhier{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $perms = ($request->{'perms'}) ? $request->{'perms'} : undef;
-  return $self->{impl}->mkdirhier($path, $perms);
+  return $self->{impl}->mkdirhier($ctx, $path, $perms);
 }
 
 sub refreshNodes{
   my $self = shift;
   my $request = shift;
 
-  return $self->{impl}->refreshNodes();
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  return $self->{impl}->refreshNodes($ctx);
 }
 
 sub rename{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $newPath = ($request->{'newPath'}) ? $request->{'newPath'} : undef;
-  return $self->{impl}->rename($path, $newPath);
+  return $self->{impl}->rename($ctx, $path, $newPath);
 }
 
 sub reportBadBlocks{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $blocks = ($request->{'blocks'}) ? $request->{'blocks'} : undef;
-  return $self->{impl}->reportBadBlocks($blocks);
+  return $self->{impl}->reportBadBlocks($ctx, $blocks);
 }
 
 sub stat{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
-  return $self->{impl}->stat($path);
+  return $self->{impl}->stat($ctx, $path);
 }
 
 sub setQuota{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $namespaceQuota = ($request->{'namespaceQuota'}) ? $request->{'namespaceQuota'} : undef;
   my $diskspaceQuota = ($request->{'diskspaceQuota'}) ? $request->{'diskspaceQuota'} : undef;
-  return $self->{impl}->setQuota($path, $namespaceQuota, $diskspaceQuota);
+  return $self->{impl}->setQuota($ctx, $path, $namespaceQuota, $diskspaceQuota);
 }
 
 sub setReplication{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $replication = ($request->{'replication'}) ? $request->{'replication'} : undef;
-  return $self->{impl}->setReplication($path, $replication);
+  return $self->{impl}->setReplication($ctx, $path, $replication);
 }
 
 sub unlink{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $recursive = ($request->{'recursive'}) ? $request->{'recursive'} : undef;
-  return $self->{impl}->unlink($path, $recursive);
+  return $self->{impl}->unlink($ctx, $path, $recursive);
 }
 
 sub utime{
   my $self = shift;
   my $request = shift;
 
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   my $path = ($request->{'path'}) ? $request->{'path'} : undef;
   my $atime = ($request->{'atime'}) ? $request->{'atime'} : undef;
   my $mtime = ($request->{'mtime'}) ? $request->{'mtime'} : undef;
-  return $self->{impl}->utime($path, $atime, $mtime);
+  return $self->{impl}->utime($ctx, $path, $atime, $mtime);
 }
 
 sub datanodeUp{
@@ -3553,20 +3910,23 @@ sub new {
 
 sub chmod{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $perms = shift;
 
-    $self->send_chmod($path, $perms);
+    $self->send_chmod($ctx, $path, $perms);
   $self->recv_chmod();
 }
 
 sub send_chmod{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $perms = shift;
 
   $self->{output}->writeMessageBegin('chmod', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_chmod_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{perms} = $perms;
   $args->write($self->{output});
@@ -3599,22 +3959,25 @@ sub recv_chmod{
 }
 sub chown{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $owner = shift;
   my $group = shift;
 
-    $self->send_chown($path, $owner, $group);
+    $self->send_chown($ctx, $path, $owner, $group);
   $self->recv_chown();
 }
 
 sub send_chown{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $owner = shift;
   my $group = shift;
 
   $self->{output}->writeMessageBegin('chown', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_chown_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{owner} = $owner;
   $args->{group} = $group;
@@ -3648,16 +4011,19 @@ sub recv_chown{
 }
 sub df{
   my $self = shift;
+  my $ctx = shift;
 
-    $self->send_df();
+    $self->send_df($ctx);
   return $self->recv_df();
 }
 
 sub send_df{
   my $self = shift;
+  my $ctx = shift;
 
   $self->{output}->writeMessageBegin('df', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_df_args();
+  $args->{ctx} = $ctx;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -3691,16 +4057,19 @@ sub recv_df{
 }
 sub enterSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
-    $self->send_enterSafeMode();
+    $self->send_enterSafeMode($ctx);
   $self->recv_enterSafeMode();
 }
 
 sub send_enterSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
   $self->{output}->writeMessageBegin('enterSafeMode', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_enterSafeMode_args();
+  $args->{ctx} = $ctx;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -3731,22 +4100,25 @@ sub recv_enterSafeMode{
 }
 sub getBlocks{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $offset = shift;
   my $length = shift;
 
-    $self->send_getBlocks($path, $offset, $length);
+    $self->send_getBlocks($ctx, $path, $offset, $length);
   return $self->recv_getBlocks();
 }
 
 sub send_getBlocks{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $offset = shift;
   my $length = shift;
 
   $self->{output}->writeMessageBegin('getBlocks', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_getBlocks_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{offset} = $offset;
   $args->{length} = $length;
@@ -3783,18 +4155,21 @@ sub recv_getBlocks{
 }
 sub getDatanodeReport{
   my $self = shift;
+  my $ctx = shift;
   my $type = shift;
 
-    $self->send_getDatanodeReport($type);
+    $self->send_getDatanodeReport($ctx, $type);
   return $self->recv_getDatanodeReport();
 }
 
 sub send_getDatanodeReport{
   my $self = shift;
+  my $ctx = shift;
   my $type = shift;
 
   $self->{output}->writeMessageBegin('getDatanodeReport', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_getDatanodeReport_args();
+  $args->{ctx} = $ctx;
   $args->{type} = $type;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -3829,18 +4204,21 @@ sub recv_getDatanodeReport{
 }
 sub getPreferredBlockSize{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
-    $self->send_getPreferredBlockSize($path);
+    $self->send_getPreferredBlockSize($ctx, $path);
   return $self->recv_getPreferredBlockSize();
 }
 
 sub send_getPreferredBlockSize{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
   $self->{output}->writeMessageBegin('getPreferredBlockSize', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_getPreferredBlockSize_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -3875,16 +4253,19 @@ sub recv_getPreferredBlockSize{
 }
 sub isInSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
-    $self->send_isInSafeMode();
+    $self->send_isInSafeMode($ctx);
   return $self->recv_isInSafeMode();
 }
 
 sub send_isInSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
   $self->{output}->writeMessageBegin('isInSafeMode', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_isInSafeMode_args();
+  $args->{ctx} = $ctx;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -3918,16 +4299,19 @@ sub recv_isInSafeMode{
 }
 sub leaveSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
-    $self->send_leaveSafeMode();
+    $self->send_leaveSafeMode($ctx);
   $self->recv_leaveSafeMode();
 }
 
 sub send_leaveSafeMode{
   my $self = shift;
+  my $ctx = shift;
 
   $self->{output}->writeMessageBegin('leaveSafeMode', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_leaveSafeMode_args();
+  $args->{ctx} = $ctx;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -3958,18 +4342,21 @@ sub recv_leaveSafeMode{
 }
 sub ls{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
-    $self->send_ls($path);
+    $self->send_ls($ctx, $path);
   return $self->recv_ls();
 }
 
 sub send_ls{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
   $self->{output}->writeMessageBegin('ls', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_ls_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -4004,20 +4391,23 @@ sub recv_ls{
 }
 sub mkdirhier{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $perms = shift;
 
-    $self->send_mkdirhier($path, $perms);
+    $self->send_mkdirhier($ctx, $path, $perms);
   return $self->recv_mkdirhier();
 }
 
 sub send_mkdirhier{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $perms = shift;
 
   $self->{output}->writeMessageBegin('mkdirhier', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_mkdirhier_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{perms} = $perms;
   $args->write($self->{output});
@@ -4053,16 +4443,19 @@ sub recv_mkdirhier{
 }
 sub refreshNodes{
   my $self = shift;
+  my $ctx = shift;
 
-    $self->send_refreshNodes();
+    $self->send_refreshNodes($ctx);
   $self->recv_refreshNodes();
 }
 
 sub send_refreshNodes{
   my $self = shift;
+  my $ctx = shift;
 
   $self->{output}->writeMessageBegin('refreshNodes', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_refreshNodes_args();
+  $args->{ctx} = $ctx;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
   $self->{output}->getTransport()->flush();
@@ -4093,20 +4486,23 @@ sub recv_refreshNodes{
 }
 sub rename{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $newPath = shift;
 
-    $self->send_rename($path, $newPath);
+    $self->send_rename($ctx, $path, $newPath);
   return $self->recv_rename();
 }
 
 sub send_rename{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $newPath = shift;
 
   $self->{output}->writeMessageBegin('rename', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_rename_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{newPath} = $newPath;
   $args->write($self->{output});
@@ -4142,18 +4538,21 @@ sub recv_rename{
 }
 sub reportBadBlocks{
   my $self = shift;
+  my $ctx = shift;
   my $blocks = shift;
 
-    $self->send_reportBadBlocks($blocks);
+    $self->send_reportBadBlocks($ctx, $blocks);
   $self->recv_reportBadBlocks();
 }
 
 sub send_reportBadBlocks{
   my $self = shift;
+  my $ctx = shift;
   my $blocks = shift;
 
   $self->{output}->writeMessageBegin('reportBadBlocks', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_reportBadBlocks_args();
+  $args->{ctx} = $ctx;
   $args->{blocks} = $blocks;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -4185,18 +4584,21 @@ sub recv_reportBadBlocks{
 }
 sub stat{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
-    $self->send_stat($path);
+    $self->send_stat($ctx, $path);
   return $self->recv_stat();
 }
 
 sub send_stat{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
 
   $self->{output}->writeMessageBegin('stat', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_stat_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->write($self->{output});
   $self->{output}->writeMessageEnd();
@@ -4231,22 +4633,25 @@ sub recv_stat{
 }
 sub setQuota{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $namespaceQuota = shift;
   my $diskspaceQuota = shift;
 
-    $self->send_setQuota($path, $namespaceQuota, $diskspaceQuota);
+    $self->send_setQuota($ctx, $path, $namespaceQuota, $diskspaceQuota);
   $self->recv_setQuota();
 }
 
 sub send_setQuota{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $namespaceQuota = shift;
   my $diskspaceQuota = shift;
 
   $self->{output}->writeMessageBegin('setQuota', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_setQuota_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{namespaceQuota} = $namespaceQuota;
   $args->{diskspaceQuota} = $diskspaceQuota;
@@ -4280,20 +4685,23 @@ sub recv_setQuota{
 }
 sub setReplication{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $replication = shift;
 
-    $self->send_setReplication($path, $replication);
+    $self->send_setReplication($ctx, $path, $replication);
   return $self->recv_setReplication();
 }
 
 sub send_setReplication{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $replication = shift;
 
   $self->{output}->writeMessageBegin('setReplication', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_setReplication_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{replication} = $replication;
   $args->write($self->{output});
@@ -4329,20 +4737,23 @@ sub recv_setReplication{
 }
 sub unlink{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $recursive = shift;
 
-    $self->send_unlink($path, $recursive);
+    $self->send_unlink($ctx, $path, $recursive);
   return $self->recv_unlink();
 }
 
 sub send_unlink{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $recursive = shift;
 
   $self->{output}->writeMessageBegin('unlink', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_unlink_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{recursive} = $recursive;
   $args->write($self->{output});
@@ -4378,22 +4789,25 @@ sub recv_unlink{
 }
 sub utime{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $atime = shift;
   my $mtime = shift;
 
-    $self->send_utime($path, $atime, $mtime);
+    $self->send_utime($ctx, $path, $atime, $mtime);
   $self->recv_utime();
 }
 
 sub send_utime{
   my $self = shift;
+  my $ctx = shift;
   my $path = shift;
   my $atime = shift;
   my $mtime = shift;
 
   $self->{output}->writeMessageBegin('utime', TMessageType::CALL, $self->{seqid});
   my $args = new Hadoop::API::Namenode_utime_args();
+  $args->{ctx} = $ctx;
   $args->{path} = $path;
   $args->{atime} = $atime;
   $args->{mtime} = $mtime;
@@ -4559,7 +4973,7 @@ sub process_chmod{
     $input->readMessageEnd();
     my $result = new Hadoop::API::Namenode_chmod_result();
     eval {
-      $self->{handler}->chmod($args->path, $args->perms);
+      $self->{handler}->chmod($args->ctx, $args->path, $args->perms);
     }; if( UNIVERSAL::isa($@,'IOException') ){ 
       $result->{err} = $@;
     }
@@ -4575,7 +4989,7 @@ sub process_chown{
   $input->readMessageEnd();
   my $result = new Hadoop::API::Namenode_chown_result();
   eval {
-    $self->{handler}->chown($args->path, $args->owner, $args->group);
+    $self->{handler}->chown($args->ctx, $args->path, $args->owner, $args->group);
   }; if( UNIVERSAL::isa($@,'IOException') ){ 
     $result->{err} = $@;
   }
@@ -4591,7 +5005,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_df_result();
 eval {
-  $result->{success} = $self->{handler}->df();
+  $result->{success} = $self->{handler}->df($args->ctx);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
   $result->{err} = $@;
 }
@@ -4607,7 +5021,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_enterSafeMode_result();
 eval {
-$self->{handler}->enterSafeMode();
+$self->{handler}->enterSafeMode($args->ctx);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4623,7 +5037,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_getBlocks_result();
 eval {
-$result->{success} = $self->{handler}->getBlocks($args->path, $args->offset, $args->length);
+$result->{success} = $self->{handler}->getBlocks($args->ctx, $args->path, $args->offset, $args->length);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4639,7 +5053,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_getDatanodeReport_result();
 eval {
-$result->{success} = $self->{handler}->getDatanodeReport($args->type);
+$result->{success} = $self->{handler}->getDatanodeReport($args->ctx, $args->type);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4655,7 +5069,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_getPreferredBlockSize_result();
 eval {
-$result->{success} = $self->{handler}->getPreferredBlockSize($args->path);
+$result->{success} = $self->{handler}->getPreferredBlockSize($args->ctx, $args->path);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4671,7 +5085,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_isInSafeMode_result();
 eval {
-$result->{success} = $self->{handler}->isInSafeMode();
+$result->{success} = $self->{handler}->isInSafeMode($args->ctx);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4687,7 +5101,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_leaveSafeMode_result();
 eval {
-$self->{handler}->leaveSafeMode();
+$self->{handler}->leaveSafeMode($args->ctx);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4703,7 +5117,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_ls_result();
 eval {
-$result->{success} = $self->{handler}->ls($args->path);
+$result->{success} = $self->{handler}->ls($args->ctx, $args->path);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4719,7 +5133,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_mkdirhier_result();
 eval {
-$result->{success} = $self->{handler}->mkdirhier($args->path, $args->perms);
+$result->{success} = $self->{handler}->mkdirhier($args->ctx, $args->path, $args->perms);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4735,7 +5149,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_refreshNodes_result();
 eval {
-$self->{handler}->refreshNodes();
+$self->{handler}->refreshNodes($args->ctx);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4751,7 +5165,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_rename_result();
 eval {
-$result->{success} = $self->{handler}->rename($args->path, $args->newPath);
+$result->{success} = $self->{handler}->rename($args->ctx, $args->path, $args->newPath);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4767,7 +5181,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_reportBadBlocks_result();
 eval {
-$self->{handler}->reportBadBlocks($args->blocks);
+$self->{handler}->reportBadBlocks($args->ctx, $args->blocks);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4783,7 +5197,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_stat_result();
 eval {
-$result->{success} = $self->{handler}->stat($args->path);
+$result->{success} = $self->{handler}->stat($args->ctx, $args->path);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4799,7 +5213,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_setQuota_result();
 eval {
-$self->{handler}->setQuota($args->path, $args->namespaceQuota, $args->diskspaceQuota);
+$self->{handler}->setQuota($args->ctx, $args->path, $args->namespaceQuota, $args->diskspaceQuota);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4815,7 +5229,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_setReplication_result();
 eval {
-$result->{success} = $self->{handler}->setReplication($args->path, $args->replication);
+$result->{success} = $self->{handler}->setReplication($args->ctx, $args->path, $args->replication);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4831,7 +5245,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_unlink_result();
 eval {
-$result->{success} = $self->{handler}->unlink($args->path, $args->recursive);
+$result->{success} = $self->{handler}->unlink($args->ctx, $args->path, $args->recursive);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }
@@ -4847,7 +5261,7 @@ $args->read($input);
 $input->readMessageEnd();
 my $result = new Hadoop::API::Namenode_utime_result();
 eval {
-$self->{handler}->utime($args->path, $args->atime, $args->mtime);
+$self->{handler}->utime($args->ctx, $args->path, $args->atime, $args->mtime);
 }; if( UNIVERSAL::isa($@,'IOException') ){ 
 $result->{err} = $@;
 }

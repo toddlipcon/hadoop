@@ -30,13 +30,14 @@ public class Datanode {
      * 
      * Only 2^31 - 1 bytes may be read on a single call to this method.
      * 
+     * @param ctx
      * @param block Block to be read from.
      * 
      * @param offset Offset within the block where read must start from.
      * 
      * @param length Number of bytes to read.
      */
-    public BlockData readBlock(Block block, long offset, int length) throws IOException, TException;
+    public BlockData readBlock(RequestContext ctx, Block block, long offset, int length) throws IOException, TException;
 
   }
 
@@ -67,16 +68,17 @@ public class Datanode {
       return this.oprot_;
     }
 
-    public BlockData readBlock(Block block, long offset, int length) throws IOException, TException
+    public BlockData readBlock(RequestContext ctx, Block block, long offset, int length) throws IOException, TException
     {
-      send_readBlock(block, offset, length);
+      send_readBlock(ctx, block, offset, length);
       return recv_readBlock();
     }
 
-    public void send_readBlock(Block block, long offset, int length) throws TException
+    public void send_readBlock(RequestContext ctx, Block block, long offset, int length) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("readBlock", TMessageType.CALL, seqid_));
       readBlock_args args = new readBlock_args();
+      args.ctx = ctx;
       args.block = block;
       args.offset = offset;
       args.length = length;
@@ -146,7 +148,7 @@ public class Datanode {
         iprot.readMessageEnd();
         readBlock_result result = new readBlock_result();
         try {
-          result.success = iface_.readBlock(args.block, args.offset, args.length);
+          result.success = iface_.readBlock(args.ctx, args.block, args.offset, args.length);
         } catch (IOException err) {
           result.err = err;
         }
@@ -162,10 +164,13 @@ public class Datanode {
 
   public static class readBlock_args implements TBase, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("readBlock_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
     private static final TField BLOCK_FIELD_DESC = new TField("block", TType.STRUCT, (short)1);
     private static final TField OFFSET_FIELD_DESC = new TField("offset", TType.I64, (short)2);
     private static final TField LENGTH_FIELD_DESC = new TField("length", TType.I32, (short)3);
 
+    public RequestContext ctx;
+    public static final int CTX = 10;
     /**
      * Block to be read from.
      */
@@ -189,6 +194,8 @@ public class Datanode {
     }
 
     public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
       put(BLOCK, new FieldMetaData("block", TFieldRequirementType.DEFAULT, 
           new StructMetaData(TType.STRUCT, Block.class)));
       put(OFFSET, new FieldMetaData("offset", TFieldRequirementType.DEFAULT, 
@@ -205,11 +212,13 @@ public class Datanode {
     }
 
     public readBlock_args(
+      RequestContext ctx,
       Block block,
       long offset,
       int length)
     {
       this();
+      this.ctx = ctx;
       this.block = block;
       this.offset = offset;
       this.__isset.offset = true;
@@ -221,6 +230,9 @@ public class Datanode {
      * Performs a deep copy on <i>other</i>.
      */
     public readBlock_args(readBlock_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
       if (other.isSetBlock()) {
         this.block = new Block(other.block);
       }
@@ -233,6 +245,29 @@ public class Datanode {
     @Override
     public readBlock_args clone() {
       return new readBlock_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
     }
 
     /**
@@ -322,6 +357,14 @@ public class Datanode {
 
     public void setFieldValue(int fieldID, Object value) {
       switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
       case BLOCK:
         if (value == null) {
           unsetBlock();
@@ -353,6 +396,9 @@ public class Datanode {
 
     public Object getFieldValue(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return getCtx();
+
       case BLOCK:
         return getBlock();
 
@@ -370,6 +416,8 @@ public class Datanode {
     // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
     public boolean isSet(int fieldID) {
       switch (fieldID) {
+      case CTX:
+        return isSetCtx();
       case BLOCK:
         return isSetBlock();
       case OFFSET:
@@ -393,6 +441,15 @@ public class Datanode {
     public boolean equals(readBlock_args that) {
       if (that == null)
         return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
 
       boolean this_present_block = true && this.isSetBlock();
       boolean that_present_block = true && that.isSetBlock();
@@ -440,6 +497,14 @@ public class Datanode {
         }
         switch (field.id)
         {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
           case BLOCK:
             if (field.type == TType.STRUCT) {
               this.block = new Block();
@@ -492,6 +557,11 @@ public class Datanode {
       oprot.writeFieldBegin(LENGTH_FIELD_DESC);
       oprot.writeI32(this.length);
       oprot.writeFieldEnd();
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -501,6 +571,14 @@ public class Datanode {
       StringBuilder sb = new StringBuilder("readBlock_args(");
       boolean first = true;
 
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("block:");
       if (this.block == null) {
         sb.append("null");

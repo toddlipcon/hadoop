@@ -9,25 +9,25 @@ include_once $GLOBALS['THRIFT_ROOT'].'/Thrift.php';
 include_once $GLOBALS['THRIFT_ROOT'].'/packages/hdfs/hdfs_types.php';
 
 interface NamenodeIf {
-  public function chmod($path, $perms);
-  public function chown($path, $owner, $group);
-  public function df();
-  public function enterSafeMode();
-  public function getBlocks($path, $offset, $length);
-  public function getDatanodeReport($type);
-  public function getPreferredBlockSize($path);
-  public function isInSafeMode();
-  public function leaveSafeMode();
-  public function ls($path);
-  public function mkdirhier($path, $perms);
-  public function refreshNodes();
-  public function rename($path, $newPath);
-  public function reportBadBlocks($blocks);
-  public function stat($path);
-  public function setQuota($path, $namespaceQuota, $diskspaceQuota);
-  public function setReplication($path, $replication);
-  public function unlink($path, $recursive);
-  public function utime($path, $atime, $mtime);
+  public function chmod($ctx, $path, $perms);
+  public function chown($ctx, $path, $owner, $group);
+  public function df($ctx);
+  public function enterSafeMode($ctx);
+  public function getBlocks($ctx, $path, $offset, $length);
+  public function getDatanodeReport($ctx, $type);
+  public function getPreferredBlockSize($ctx, $path);
+  public function isInSafeMode($ctx);
+  public function leaveSafeMode($ctx);
+  public function ls($ctx, $path);
+  public function mkdirhier($ctx, $path, $perms);
+  public function refreshNodes($ctx);
+  public function rename($ctx, $path, $newPath);
+  public function reportBadBlocks($ctx, $blocks);
+  public function stat($ctx, $path);
+  public function setQuota($ctx, $path, $namespaceQuota, $diskspaceQuota);
+  public function setReplication($ctx, $path, $replication);
+  public function unlink($ctx, $path, $recursive);
+  public function utime($ctx, $path, $atime, $mtime);
   public function datanodeUp($name, $storage, $thriftPort);
   public function datanodeDown($name, $storage, $thriftPort);
 }
@@ -43,15 +43,16 @@ class NamenodeClient implements NamenodeIf {
     $this->output_ = $output ? $output : $input;
   }
 
-  public function chmod($path, $perms)
+  public function chmod($ctx, $path, $perms)
   {
-    $this->send_chmod($path, $perms);
+    $this->send_chmod($ctx, $path, $perms);
     $this->recv_chmod();
   }
 
-  public function send_chmod($path, $perms)
+  public function send_chmod($ctx, $path, $perms)
   {
     $args = new hadoop_api_Namenode_chmod_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->perms = $perms;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
@@ -95,15 +96,16 @@ class NamenodeClient implements NamenodeIf {
     return;
   }
 
-  public function chown($path, $owner, $group)
+  public function chown($ctx, $path, $owner, $group)
   {
-    $this->send_chown($path, $owner, $group);
+    $this->send_chown($ctx, $path, $owner, $group);
     $this->recv_chown();
   }
 
-  public function send_chown($path, $owner, $group)
+  public function send_chown($ctx, $path, $owner, $group)
   {
     $args = new hadoop_api_Namenode_chown_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->owner = $owner;
     $args->group = $group;
@@ -148,15 +150,16 @@ class NamenodeClient implements NamenodeIf {
     return;
   }
 
-  public function df()
+  public function df($ctx)
   {
-    $this->send_df();
+    $this->send_df($ctx);
     return $this->recv_df();
   }
 
-  public function send_df()
+  public function send_df($ctx)
   {
     $args = new hadoop_api_Namenode_df_args();
+    $args->ctx = $ctx;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
     {
@@ -201,15 +204,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("df failed: unknown result");
   }
 
-  public function enterSafeMode()
+  public function enterSafeMode($ctx)
   {
-    $this->send_enterSafeMode();
+    $this->send_enterSafeMode($ctx);
     $this->recv_enterSafeMode();
   }
 
-  public function send_enterSafeMode()
+  public function send_enterSafeMode($ctx)
   {
     $args = new hadoop_api_Namenode_enterSafeMode_args();
+    $args->ctx = $ctx;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
     {
@@ -251,15 +255,16 @@ class NamenodeClient implements NamenodeIf {
     return;
   }
 
-  public function getBlocks($path, $offset, $length)
+  public function getBlocks($ctx, $path, $offset, $length)
   {
-    $this->send_getBlocks($path, $offset, $length);
+    $this->send_getBlocks($ctx, $path, $offset, $length);
     return $this->recv_getBlocks();
   }
 
-  public function send_getBlocks($path, $offset, $length)
+  public function send_getBlocks($ctx, $path, $offset, $length)
   {
     $args = new hadoop_api_Namenode_getBlocks_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->offset = $offset;
     $args->length = $length;
@@ -307,15 +312,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("getBlocks failed: unknown result");
   }
 
-  public function getDatanodeReport($type)
+  public function getDatanodeReport($ctx, $type)
   {
-    $this->send_getDatanodeReport($type);
+    $this->send_getDatanodeReport($ctx, $type);
     return $this->recv_getDatanodeReport();
   }
 
-  public function send_getDatanodeReport($type)
+  public function send_getDatanodeReport($ctx, $type)
   {
     $args = new hadoop_api_Namenode_getDatanodeReport_args();
+    $args->ctx = $ctx;
     $args->type = $type;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
@@ -361,15 +367,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("getDatanodeReport failed: unknown result");
   }
 
-  public function getPreferredBlockSize($path)
+  public function getPreferredBlockSize($ctx, $path)
   {
-    $this->send_getPreferredBlockSize($path);
+    $this->send_getPreferredBlockSize($ctx, $path);
     return $this->recv_getPreferredBlockSize();
   }
 
-  public function send_getPreferredBlockSize($path)
+  public function send_getPreferredBlockSize($ctx, $path)
   {
     $args = new hadoop_api_Namenode_getPreferredBlockSize_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
@@ -415,15 +422,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("getPreferredBlockSize failed: unknown result");
   }
 
-  public function isInSafeMode()
+  public function isInSafeMode($ctx)
   {
-    $this->send_isInSafeMode();
+    $this->send_isInSafeMode($ctx);
     return $this->recv_isInSafeMode();
   }
 
-  public function send_isInSafeMode()
+  public function send_isInSafeMode($ctx)
   {
     $args = new hadoop_api_Namenode_isInSafeMode_args();
+    $args->ctx = $ctx;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
     {
@@ -468,15 +476,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("isInSafeMode failed: unknown result");
   }
 
-  public function leaveSafeMode()
+  public function leaveSafeMode($ctx)
   {
-    $this->send_leaveSafeMode();
+    $this->send_leaveSafeMode($ctx);
     $this->recv_leaveSafeMode();
   }
 
-  public function send_leaveSafeMode()
+  public function send_leaveSafeMode($ctx)
   {
     $args = new hadoop_api_Namenode_leaveSafeMode_args();
+    $args->ctx = $ctx;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
     {
@@ -518,15 +527,16 @@ class NamenodeClient implements NamenodeIf {
     return;
   }
 
-  public function ls($path)
+  public function ls($ctx, $path)
   {
-    $this->send_ls($path);
+    $this->send_ls($ctx, $path);
     return $this->recv_ls();
   }
 
-  public function send_ls($path)
+  public function send_ls($ctx, $path)
   {
     $args = new hadoop_api_Namenode_ls_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
@@ -572,15 +582,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("ls failed: unknown result");
   }
 
-  public function mkdirhier($path, $perms)
+  public function mkdirhier($ctx, $path, $perms)
   {
-    $this->send_mkdirhier($path, $perms);
+    $this->send_mkdirhier($ctx, $path, $perms);
     return $this->recv_mkdirhier();
   }
 
-  public function send_mkdirhier($path, $perms)
+  public function send_mkdirhier($ctx, $path, $perms)
   {
     $args = new hadoop_api_Namenode_mkdirhier_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->perms = $perms;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
@@ -627,15 +638,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("mkdirhier failed: unknown result");
   }
 
-  public function refreshNodes()
+  public function refreshNodes($ctx)
   {
-    $this->send_refreshNodes();
+    $this->send_refreshNodes($ctx);
     $this->recv_refreshNodes();
   }
 
-  public function send_refreshNodes()
+  public function send_refreshNodes($ctx)
   {
     $args = new hadoop_api_Namenode_refreshNodes_args();
+    $args->ctx = $ctx;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
     {
@@ -677,15 +689,16 @@ class NamenodeClient implements NamenodeIf {
     return;
   }
 
-  public function rename($path, $newPath)
+  public function rename($ctx, $path, $newPath)
   {
-    $this->send_rename($path, $newPath);
+    $this->send_rename($ctx, $path, $newPath);
     return $this->recv_rename();
   }
 
-  public function send_rename($path, $newPath)
+  public function send_rename($ctx, $path, $newPath)
   {
     $args = new hadoop_api_Namenode_rename_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->newPath = $newPath;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
@@ -732,15 +745,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("rename failed: unknown result");
   }
 
-  public function reportBadBlocks($blocks)
+  public function reportBadBlocks($ctx, $blocks)
   {
-    $this->send_reportBadBlocks($blocks);
+    $this->send_reportBadBlocks($ctx, $blocks);
     $this->recv_reportBadBlocks();
   }
 
-  public function send_reportBadBlocks($blocks)
+  public function send_reportBadBlocks($ctx, $blocks)
   {
     $args = new hadoop_api_Namenode_reportBadBlocks_args();
+    $args->ctx = $ctx;
     $args->blocks = $blocks;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
@@ -783,15 +797,16 @@ class NamenodeClient implements NamenodeIf {
     return;
   }
 
-  public function stat($path)
+  public function stat($ctx, $path)
   {
-    $this->send_stat($path);
+    $this->send_stat($ctx, $path);
     return $this->recv_stat();
   }
 
-  public function send_stat($path)
+  public function send_stat($ctx, $path)
   {
     $args = new hadoop_api_Namenode_stat_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
@@ -837,15 +852,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("stat failed: unknown result");
   }
 
-  public function setQuota($path, $namespaceQuota, $diskspaceQuota)
+  public function setQuota($ctx, $path, $namespaceQuota, $diskspaceQuota)
   {
-    $this->send_setQuota($path, $namespaceQuota, $diskspaceQuota);
+    $this->send_setQuota($ctx, $path, $namespaceQuota, $diskspaceQuota);
     $this->recv_setQuota();
   }
 
-  public function send_setQuota($path, $namespaceQuota, $diskspaceQuota)
+  public function send_setQuota($ctx, $path, $namespaceQuota, $diskspaceQuota)
   {
     $args = new hadoop_api_Namenode_setQuota_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->namespaceQuota = $namespaceQuota;
     $args->diskspaceQuota = $diskspaceQuota;
@@ -890,15 +906,16 @@ class NamenodeClient implements NamenodeIf {
     return;
   }
 
-  public function setReplication($path, $replication)
+  public function setReplication($ctx, $path, $replication)
   {
-    $this->send_setReplication($path, $replication);
+    $this->send_setReplication($ctx, $path, $replication);
     return $this->recv_setReplication();
   }
 
-  public function send_setReplication($path, $replication)
+  public function send_setReplication($ctx, $path, $replication)
   {
     $args = new hadoop_api_Namenode_setReplication_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->replication = $replication;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
@@ -945,15 +962,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("setReplication failed: unknown result");
   }
 
-  public function unlink($path, $recursive)
+  public function unlink($ctx, $path, $recursive)
   {
-    $this->send_unlink($path, $recursive);
+    $this->send_unlink($ctx, $path, $recursive);
     return $this->recv_unlink();
   }
 
-  public function send_unlink($path, $recursive)
+  public function send_unlink($ctx, $path, $recursive)
   {
     $args = new hadoop_api_Namenode_unlink_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->recursive = $recursive;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
@@ -1000,15 +1018,16 @@ class NamenodeClient implements NamenodeIf {
     throw new Exception("unlink failed: unknown result");
   }
 
-  public function utime($path, $atime, $mtime)
+  public function utime($ctx, $path, $atime, $mtime)
   {
-    $this->send_utime($path, $atime, $mtime);
+    $this->send_utime($ctx, $path, $atime, $mtime);
     $this->recv_utime();
   }
 
-  public function send_utime($path, $atime, $mtime)
+  public function send_utime($ctx, $path, $atime, $mtime)
   {
     $args = new hadoop_api_Namenode_utime_args();
+    $args->ctx = $ctx;
     $args->path = $path;
     $args->atime = $atime;
     $args->mtime = $mtime;
@@ -1160,12 +1179,18 @@ class NamenodeClient implements NamenodeIf {
 class hadoop_api_Namenode_chmod_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $perms = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -1177,6 +1202,9 @@ class hadoop_api_Namenode_chmod_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -1205,6 +1233,14 @@ class hadoop_api_Namenode_chmod_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -1240,6 +1276,14 @@ class hadoop_api_Namenode_chmod_args {
     if ($this->perms !== null) {
       $xfer += $output->writeFieldBegin('perms', TType::I16, 2);
       $xfer += $output->writeI16($this->perms);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -1326,6 +1370,7 @@ class hadoop_api_Namenode_chmod_result {
 class hadoop_api_Namenode_chown_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $owner = null;
   public $group = null;
@@ -1333,6 +1378,11 @@ class hadoop_api_Namenode_chown_args {
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -1348,6 +1398,9 @@ class hadoop_api_Namenode_chown_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -1379,6 +1432,14 @@ class hadoop_api_Namenode_chown_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -1426,6 +1487,14 @@ class hadoop_api_Namenode_chown_args {
     if ($this->group !== null) {
       $xfer += $output->writeFieldBegin('group', TType::STRING, 3);
       $xfer += $output->writeString($this->group);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -1512,11 +1581,22 @@ class hadoop_api_Namenode_chown_result {
 class hadoop_api_Namenode_df_args {
   static $_TSPEC;
 
+  public $ctx = null;
 
-  public function __construct() {
+  public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
     }
   }
 
@@ -1539,6 +1619,14 @@ class hadoop_api_Namenode_df_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -1552,6 +1640,14 @@ class hadoop_api_Namenode_df_args {
   public function write($output) {
     $xfer = 0;
     $xfer += $output->writeStructBegin('Namenode_df_args');
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
     $xfer += $output->writeFieldStop();
     $xfer += $output->writeStructEnd();
     return $xfer;
@@ -1615,14 +1711,14 @@ class hadoop_api_Namenode_df_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size7 = 0;
-            $_etype10 = 0;
-            $xfer += $input->readListBegin($_etype10, $_size7);
-            for ($_i11 = 0; $_i11 < $_size7; ++$_i11)
+            $_size16 = 0;
+            $_etype19 = 0;
+            $xfer += $input->readListBegin($_etype19, $_size16);
+            for ($_i20 = 0; $_i20 < $_size16; ++$_i20)
             {
-              $elem12 = null;
-              $xfer += $input->readI64($elem12);
-              $this->success []= $elem12;
+              $elem21 = null;
+              $xfer += $input->readI64($elem21);
+              $this->success []= $elem21;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -1658,9 +1754,9 @@ class hadoop_api_Namenode_df_result {
       {
         $output->writeListBegin(TType::I64, count($this->success));
         {
-          foreach ($this->success as $iter13)
+          foreach ($this->success as $iter22)
           {
-            $xfer += $output->writeI64($iter13);
+            $xfer += $output->writeI64($iter22);
           }
         }
         $output->writeListEnd();
@@ -1682,11 +1778,22 @@ class hadoop_api_Namenode_df_result {
 class hadoop_api_Namenode_enterSafeMode_args {
   static $_TSPEC;
 
+  public $ctx = null;
 
-  public function __construct() {
+  public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
     }
   }
 
@@ -1709,6 +1816,14 @@ class hadoop_api_Namenode_enterSafeMode_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -1722,6 +1837,14 @@ class hadoop_api_Namenode_enterSafeMode_args {
   public function write($output) {
     $xfer = 0;
     $xfer += $output->writeStructBegin('Namenode_enterSafeMode_args');
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
     $xfer += $output->writeFieldStop();
     $xfer += $output->writeStructEnd();
     return $xfer;
@@ -1806,6 +1929,7 @@ class hadoop_api_Namenode_enterSafeMode_result {
 class hadoop_api_Namenode_getBlocks_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $offset = null;
   public $length = null;
@@ -1813,6 +1937,11 @@ class hadoop_api_Namenode_getBlocks_args {
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -1828,6 +1957,9 @@ class hadoop_api_Namenode_getBlocks_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -1859,6 +1991,14 @@ class hadoop_api_Namenode_getBlocks_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -1906,6 +2046,14 @@ class hadoop_api_Namenode_getBlocks_args {
     if ($this->length !== null) {
       $xfer += $output->writeFieldBegin('length', TType::I64, 3);
       $xfer += $output->writeI64($this->length);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -1972,15 +2120,15 @@ class hadoop_api_Namenode_getBlocks_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size14 = 0;
-            $_etype17 = 0;
-            $xfer += $input->readListBegin($_etype17, $_size14);
-            for ($_i18 = 0; $_i18 < $_size14; ++$_i18)
+            $_size23 = 0;
+            $_etype26 = 0;
+            $xfer += $input->readListBegin($_etype26, $_size23);
+            for ($_i27 = 0; $_i27 < $_size23; ++$_i27)
             {
-              $elem19 = null;
-              $elem19 = new hadoop_api_Block();
-              $xfer += $elem19->read($input);
-              $this->success []= $elem19;
+              $elem28 = null;
+              $elem28 = new hadoop_api_Block();
+              $xfer += $elem28->read($input);
+              $this->success []= $elem28;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -2016,9 +2164,9 @@ class hadoop_api_Namenode_getBlocks_result {
       {
         $output->writeListBegin(TType::STRUCT, count($this->success));
         {
-          foreach ($this->success as $iter20)
+          foreach ($this->success as $iter29)
           {
-            $xfer += $iter20->write($output);
+            $xfer += $iter29->write($output);
           }
         }
         $output->writeListEnd();
@@ -2040,11 +2188,17 @@ class hadoop_api_Namenode_getBlocks_result {
 class hadoop_api_Namenode_getDatanodeReport_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $type = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'type',
           'type' => TType::I32,
@@ -2052,6 +2206,9 @@ class hadoop_api_Namenode_getDatanodeReport_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['type'])) {
         $this->type = $vals['type'];
       }
@@ -2077,6 +2234,14 @@ class hadoop_api_Namenode_getDatanodeReport_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::I32) {
             $xfer += $input->readI32($this->type);
@@ -2100,6 +2265,14 @@ class hadoop_api_Namenode_getDatanodeReport_args {
     if ($this->type !== null) {
       $xfer += $output->writeFieldBegin('type', TType::I32, 1);
       $xfer += $output->writeI32($this->type);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -2166,15 +2339,15 @@ class hadoop_api_Namenode_getDatanodeReport_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size21 = 0;
-            $_etype24 = 0;
-            $xfer += $input->readListBegin($_etype24, $_size21);
-            for ($_i25 = 0; $_i25 < $_size21; ++$_i25)
+            $_size30 = 0;
+            $_etype33 = 0;
+            $xfer += $input->readListBegin($_etype33, $_size30);
+            for ($_i34 = 0; $_i34 < $_size30; ++$_i34)
             {
-              $elem26 = null;
-              $elem26 = new hadoop_api_DatanodeInfo();
-              $xfer += $elem26->read($input);
-              $this->success []= $elem26;
+              $elem35 = null;
+              $elem35 = new hadoop_api_DatanodeInfo();
+              $xfer += $elem35->read($input);
+              $this->success []= $elem35;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -2210,9 +2383,9 @@ class hadoop_api_Namenode_getDatanodeReport_result {
       {
         $output->writeListBegin(TType::STRUCT, count($this->success));
         {
-          foreach ($this->success as $iter27)
+          foreach ($this->success as $iter36)
           {
-            $xfer += $iter27->write($output);
+            $xfer += $iter36->write($output);
           }
         }
         $output->writeListEnd();
@@ -2234,11 +2407,17 @@ class hadoop_api_Namenode_getDatanodeReport_result {
 class hadoop_api_Namenode_getPreferredBlockSize_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -2246,6 +2425,9 @@ class hadoop_api_Namenode_getPreferredBlockSize_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -2271,6 +2453,14 @@ class hadoop_api_Namenode_getPreferredBlockSize_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -2294,6 +2484,14 @@ class hadoop_api_Namenode_getPreferredBlockSize_args {
     if ($this->path !== null) {
       $xfer += $output->writeFieldBegin('path', TType::STRING, 1);
       $xfer += $output->writeString($this->path);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -2400,11 +2598,22 @@ class hadoop_api_Namenode_getPreferredBlockSize_result {
 class hadoop_api_Namenode_isInSafeMode_args {
   static $_TSPEC;
 
+  public $ctx = null;
 
-  public function __construct() {
+  public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
     }
   }
 
@@ -2427,6 +2636,14 @@ class hadoop_api_Namenode_isInSafeMode_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -2440,6 +2657,14 @@ class hadoop_api_Namenode_isInSafeMode_args {
   public function write($output) {
     $xfer = 0;
     $xfer += $output->writeStructBegin('Namenode_isInSafeMode_args');
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
     $xfer += $output->writeFieldStop();
     $xfer += $output->writeStructEnd();
     return $xfer;
@@ -2544,11 +2769,22 @@ class hadoop_api_Namenode_isInSafeMode_result {
 class hadoop_api_Namenode_leaveSafeMode_args {
   static $_TSPEC;
 
+  public $ctx = null;
 
-  public function __construct() {
+  public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
     }
   }
 
@@ -2571,6 +2807,14 @@ class hadoop_api_Namenode_leaveSafeMode_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -2584,6 +2828,14 @@ class hadoop_api_Namenode_leaveSafeMode_args {
   public function write($output) {
     $xfer = 0;
     $xfer += $output->writeStructBegin('Namenode_leaveSafeMode_args');
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
     $xfer += $output->writeFieldStop();
     $xfer += $output->writeStructEnd();
     return $xfer;
@@ -2668,11 +2920,17 @@ class hadoop_api_Namenode_leaveSafeMode_result {
 class hadoop_api_Namenode_ls_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -2680,6 +2938,9 @@ class hadoop_api_Namenode_ls_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -2705,6 +2966,14 @@ class hadoop_api_Namenode_ls_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -2728,6 +2997,14 @@ class hadoop_api_Namenode_ls_args {
     if ($this->path !== null) {
       $xfer += $output->writeFieldBegin('path', TType::STRING, 1);
       $xfer += $output->writeString($this->path);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -2794,15 +3071,15 @@ class hadoop_api_Namenode_ls_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size28 = 0;
-            $_etype31 = 0;
-            $xfer += $input->readListBegin($_etype31, $_size28);
-            for ($_i32 = 0; $_i32 < $_size28; ++$_i32)
+            $_size37 = 0;
+            $_etype40 = 0;
+            $xfer += $input->readListBegin($_etype40, $_size37);
+            for ($_i41 = 0; $_i41 < $_size37; ++$_i41)
             {
-              $elem33 = null;
-              $elem33 = new hadoop_api_Stat();
-              $xfer += $elem33->read($input);
-              $this->success []= $elem33;
+              $elem42 = null;
+              $elem42 = new hadoop_api_Stat();
+              $xfer += $elem42->read($input);
+              $this->success []= $elem42;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -2838,9 +3115,9 @@ class hadoop_api_Namenode_ls_result {
       {
         $output->writeListBegin(TType::STRUCT, count($this->success));
         {
-          foreach ($this->success as $iter34)
+          foreach ($this->success as $iter43)
           {
-            $xfer += $iter34->write($output);
+            $xfer += $iter43->write($output);
           }
         }
         $output->writeListEnd();
@@ -2862,12 +3139,18 @@ class hadoop_api_Namenode_ls_result {
 class hadoop_api_Namenode_mkdirhier_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $perms = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -2879,6 +3162,9 @@ class hadoop_api_Namenode_mkdirhier_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -2907,6 +3193,14 @@ class hadoop_api_Namenode_mkdirhier_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -2942,6 +3236,14 @@ class hadoop_api_Namenode_mkdirhier_args {
     if ($this->perms !== null) {
       $xfer += $output->writeFieldBegin('perms', TType::I16, 2);
       $xfer += $output->writeI16($this->perms);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -3048,11 +3350,22 @@ class hadoop_api_Namenode_mkdirhier_result {
 class hadoop_api_Namenode_refreshNodes_args {
   static $_TSPEC;
 
+  public $ctx = null;
 
-  public function __construct() {
+  public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
     }
   }
 
@@ -3075,6 +3388,14 @@ class hadoop_api_Namenode_refreshNodes_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -3088,6 +3409,14 @@ class hadoop_api_Namenode_refreshNodes_args {
   public function write($output) {
     $xfer = 0;
     $xfer += $output->writeStructBegin('Namenode_refreshNodes_args');
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
     $xfer += $output->writeFieldStop();
     $xfer += $output->writeStructEnd();
     return $xfer;
@@ -3172,12 +3501,18 @@ class hadoop_api_Namenode_refreshNodes_result {
 class hadoop_api_Namenode_rename_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $newPath = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -3189,6 +3524,9 @@ class hadoop_api_Namenode_rename_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -3217,6 +3555,14 @@ class hadoop_api_Namenode_rename_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -3252,6 +3598,14 @@ class hadoop_api_Namenode_rename_args {
     if ($this->newPath !== null) {
       $xfer += $output->writeFieldBegin('newPath', TType::STRING, 2);
       $xfer += $output->writeString($this->newPath);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -3358,11 +3712,17 @@ class hadoop_api_Namenode_rename_result {
 class hadoop_api_Namenode_reportBadBlocks_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $blocks = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'blocks',
           'type' => TType::LST,
@@ -3375,6 +3735,9 @@ class hadoop_api_Namenode_reportBadBlocks_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['blocks'])) {
         $this->blocks = $vals['blocks'];
       }
@@ -3400,18 +3763,26 @@ class hadoop_api_Namenode_reportBadBlocks_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::LST) {
             $this->blocks = array();
-            $_size35 = 0;
-            $_etype38 = 0;
-            $xfer += $input->readListBegin($_etype38, $_size35);
-            for ($_i39 = 0; $_i39 < $_size35; ++$_i39)
+            $_size44 = 0;
+            $_etype47 = 0;
+            $xfer += $input->readListBegin($_etype47, $_size44);
+            for ($_i48 = 0; $_i48 < $_size44; ++$_i48)
             {
-              $elem40 = null;
-              $elem40 = new hadoop_api_Block();
-              $xfer += $elem40->read($input);
-              $this->blocks []= $elem40;
+              $elem49 = null;
+              $elem49 = new hadoop_api_Block();
+              $xfer += $elem49->read($input);
+              $this->blocks []= $elem49;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -3439,13 +3810,21 @@ class hadoop_api_Namenode_reportBadBlocks_args {
       {
         $output->writeListBegin(TType::STRUCT, count($this->blocks));
         {
-          foreach ($this->blocks as $iter41)
+          foreach ($this->blocks as $iter50)
           {
-            $xfer += $iter41->write($output);
+            $xfer += $iter50->write($output);
           }
         }
         $output->writeListEnd();
       }
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -3532,11 +3911,17 @@ class hadoop_api_Namenode_reportBadBlocks_result {
 class hadoop_api_Namenode_stat_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -3544,6 +3929,9 @@ class hadoop_api_Namenode_stat_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -3569,6 +3957,14 @@ class hadoop_api_Namenode_stat_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -3592,6 +3988,14 @@ class hadoop_api_Namenode_stat_args {
     if ($this->path !== null) {
       $xfer += $output->writeFieldBegin('path', TType::STRING, 1);
       $xfer += $output->writeString($this->path);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -3703,6 +4107,7 @@ class hadoop_api_Namenode_stat_result {
 class hadoop_api_Namenode_setQuota_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $namespaceQuota = null;
   public $diskspaceQuota = null;
@@ -3710,6 +4115,11 @@ class hadoop_api_Namenode_setQuota_args {
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -3725,6 +4135,9 @@ class hadoop_api_Namenode_setQuota_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -3756,6 +4169,14 @@ class hadoop_api_Namenode_setQuota_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -3803,6 +4224,14 @@ class hadoop_api_Namenode_setQuota_args {
     if ($this->diskspaceQuota !== null) {
       $xfer += $output->writeFieldBegin('diskspaceQuota', TType::I64, 3);
       $xfer += $output->writeI64($this->diskspaceQuota);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -3889,12 +4318,18 @@ class hadoop_api_Namenode_setQuota_result {
 class hadoop_api_Namenode_setReplication_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $replication = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -3906,6 +4341,9 @@ class hadoop_api_Namenode_setReplication_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -3934,6 +4372,14 @@ class hadoop_api_Namenode_setReplication_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -3969,6 +4415,14 @@ class hadoop_api_Namenode_setReplication_args {
     if ($this->replication !== null) {
       $xfer += $output->writeFieldBegin('replication', TType::I16, 2);
       $xfer += $output->writeI16($this->replication);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -4075,12 +4529,18 @@ class hadoop_api_Namenode_setReplication_result {
 class hadoop_api_Namenode_unlink_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $recursive = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -4092,6 +4552,9 @@ class hadoop_api_Namenode_unlink_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -4120,6 +4583,14 @@ class hadoop_api_Namenode_unlink_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -4155,6 +4626,14 @@ class hadoop_api_Namenode_unlink_args {
     if ($this->recursive !== null) {
       $xfer += $output->writeFieldBegin('recursive', TType::BOOL, 2);
       $xfer += $output->writeBool($this->recursive);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();
@@ -4261,6 +4740,7 @@ class hadoop_api_Namenode_unlink_result {
 class hadoop_api_Namenode_utime_args {
   static $_TSPEC;
 
+  public $ctx = null;
   public $path = null;
   public $atime = null;
   public $mtime = null;
@@ -4268,6 +4748,11 @@ class hadoop_api_Namenode_utime_args {
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
       self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
         1 => array(
           'var' => 'path',
           'type' => TType::STRING,
@@ -4283,6 +4768,9 @@ class hadoop_api_Namenode_utime_args {
         );
     }
     if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
       if (isset($vals['path'])) {
         $this->path = $vals['path'];
       }
@@ -4314,6 +4802,14 @@ class hadoop_api_Namenode_utime_args {
       }
       switch ($fid)
       {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         case 1:
           if ($ftype == TType::STRING) {
             $xfer += $input->readString($this->path);
@@ -4361,6 +4857,14 @@ class hadoop_api_Namenode_utime_args {
     if ($this->mtime !== null) {
       $xfer += $output->writeFieldBegin('mtime', TType::I64, 3);
       $xfer += $output->writeI64($this->mtime);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();

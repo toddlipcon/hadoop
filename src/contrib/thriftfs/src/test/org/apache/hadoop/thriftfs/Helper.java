@@ -20,7 +20,10 @@ package org.apache.hadoop.thriftfs;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import javax.security.auth.login.LoginException;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataOutputStream;
@@ -31,8 +34,11 @@ import org.apache.hadoop.hdfs.DistributedFileSystem;
 import org.apache.hadoop.hdfs.MiniDFSCluster;
 import org.apache.hadoop.hdfs.protocol.FSConstants.DatanodeReportType;
 import org.apache.hadoop.hdfs.protocol.FSConstants.SafeModeAction;
+import org.apache.hadoop.security.UnixUserGroupInformation;
+import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.thriftfs.api.Datanode;
 import org.apache.hadoop.thriftfs.api.DatanodeInfo;
+import org.apache.hadoop.thriftfs.api.RequestContext;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
@@ -49,6 +55,9 @@ public class Helper {
   public static final String DATANODE_ADDRESS_PROPERTY =
     org.apache.hadoop.thriftfs.DatanodePlugin.THRIFT_ADDRESS_PROPERTY;
 
+  public static final String TEST_USER="hadoop";
+  public static final String TEST_GROUP="supergroup";
+
   /** Create a configuration object for the unit tests. */
   public static Configuration createConf() {
     Configuration conf = new Configuration();
@@ -59,7 +68,36 @@ public class Helper {
     conf.setStrings("dfs.datanode.plugins", DatanodePlugin.class.getName());
     conf.setBoolean("dfs.permissions", true);
     conf.setBoolean("dfs.support.append", true);
+
     return conf;
+  }
+
+  public static RequestContext createRequestContext(boolean superuser) {
+    RequestContext ctx = new RequestContext();
+    Configuration conf = new Configuration();
+
+    UnixUserGroupInformation ugi;
+    if (superuser) {
+      try {
+        ugi = UnixUserGroupInformation.login();
+      } catch (LoginException le) {
+        // we need to be able to determine the superuser for these
+        // tests to work
+        throw new RuntimeException(le);
+      }
+    } else {
+      ugi = new UnixUserGroupInformation(
+        TEST_USER, new String[] { TEST_GROUP });
+    }
+
+    UnixUserGroupInformation.saveToConf(
+      conf, UnixUserGroupInformation.UGI_PROPERTY_NAME, ugi);
+
+    ctx.confOptions = new HashMap<String, String>();
+    for (Map.Entry<String, String> entry : conf) {
+      ctx.confOptions.put(entry.getKey(), entry.getValue());
+    }
+    return ctx;
   }
 
   /** Create a DFS cluster. */
@@ -97,6 +135,7 @@ public class Helper {
     out.write(buf, 0, length);
     out.close();
     fs.setPermission(p, new FsPermission(perms));
+    fs.setOwner(p, TEST_USER, TEST_GROUP);
   }
 
   public static void main(String[] args) throws Exception {

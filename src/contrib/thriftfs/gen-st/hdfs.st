@@ -12,19 +12,19 @@ Object subclass: #Hdfs
 Hdfs class
 	instanceVariableNames: 'constants enums'!
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 enums: anObject
     enums := anObject! !
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 enums
     ^ enums! !
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 constants: anObject
     constants := anObject! !
 
-!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Hdfs class methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 constants
     ^ constants! !
 
@@ -61,81 +61,96 @@ Hdfs constants at: 'QUOTA_DONT_SET' put: [-2]!
 
 Hdfs constants at: 'QUOTA_RESET' put: [-1]!
 
+Object subclass: #RequestContext
+	instanceVariableNames: 'confOptions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Generated-Hdfs'!
+
+!RequestContext methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+confOptions: a
+    confOptions := a! !
+
+!RequestContext methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+confOptions
+    ^ confOptions! !
+
+
 Object subclass: #DatanodeInfo
 	instanceVariableNames: 'name storageID host thriftPort capacity dfsUsed remaining xceiverCount state'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 name: aString
     name := aString! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 name
     ^ name! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 storageID: aString
     storageID := aString! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 storageID
     ^ storageID! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 host: aString
     host := aString! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 host
     ^ host! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 thriftPort: anI32
     thriftPort := anI32! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 thriftPort
     ^ thriftPort! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 capacity: anI64
     capacity := anI64! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 capacity
     ^ capacity! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 dfsUsed: anI64
     dfsUsed := anI64! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 dfsUsed
     ^ dfsUsed! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 remaining: anI64
     remaining := anI64! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 remaining
     ^ remaining! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 xceiverCount: anI32
     xceiverCount := anI32! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 xceiverCount
     ^ xceiverCount! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 state: aDatanodeState
     state := aDatanodeState! !
 
-!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeInfo methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 state
     ^ state! !
 
@@ -146,51 +161,51 @@ Object subclass: #Block
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 blockId: anI64
     blockId := anI64! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 blockId
     ^ blockId! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 path: aString
     path := aString! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 path
     ^ path! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 numBytes: anI64
     numBytes := anI64! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 numBytes
     ^ numBytes! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 genStamp: anI64
     genStamp := anI64! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 genStamp
     ^ genStamp! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 startOffset: anI64
     startOffset := anI64! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 startOffset
     ^ startOffset! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 nodes: a
     nodes := a! !
 
-!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Block methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 nodes
     ^ nodes! !
 
@@ -201,123 +216,123 @@ Object subclass: #Stat
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 path: aString
     path := aString! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 path
     ^ path! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 isDir: aBool
     isDir := aBool! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 isDir
     ^ isDir! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 atime: anI64
     atime := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 atime
     ^ atime! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 mtime: anI64
     mtime := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 mtime
     ^ mtime! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 perms: anI16
     perms := anI16! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 perms
     ^ perms! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 owner: aString
     owner := aString! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 owner
     ^ owner! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 group: aString
     group := aString! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 group
     ^ group! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 fileCount: anI64
     fileCount := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 fileCount
     ^ fileCount! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 directoryCount: anI64
     directoryCount := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 directoryCount
     ^ directoryCount! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 quota: anI64
     quota := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 quota
     ^ quota! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 spaceConsumed: anI64
     spaceConsumed := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 spaceConsumed
     ^ spaceConsumed! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 spaceQuota: anI64
     spaceQuota := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 spaceQuota
     ^ spaceQuota! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 length: anI64
     length := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 length
     ^ length! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 blockSize: anI64
     blockSize := anI64! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 blockSize
     ^ blockSize! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 replication: anI16
     replication := anI16! !
 
-!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!Stat methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 replication
     ^ replication! !
 
@@ -328,27 +343,27 @@ Error subclass: #IOException
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 msg: aString
     msg := aString! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 msg
     ^ msg! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 stack: aString
     stack := aString! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 stack
     ^ stack! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 clazz: aString
     clazz := aString! !
 
-!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!IOException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 clazz
     ^ clazz! !
 
@@ -359,19 +374,19 @@ Error subclass: #QuotaException
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 msg: aString
     msg := aString! !
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 msg
     ^ msg! !
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 stack: aString
     stack := aString! !
 
-!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!QuotaException methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 stack
     ^ stack! !
 
@@ -382,27 +397,27 @@ Object subclass: #BlockData
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 crc: anI32
     crc := anI32! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 crc
     ^ crc! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 length: anI32
     length := anI32! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 length
     ^ length! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 data: aString
     data := aString! !
 
-!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!BlockData methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 data
     ^ data! !
 
@@ -413,20 +428,31 @@ TClient subclass: #NamenodeClient
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-chmodPath: path perms: perms
-    "path: string, perms: i16"
-    self sendChmodPath: path perms: perms.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+chmodCtx: ctx path: path perms: perms
+    "ctx: RequestContext, path: string, perms: i16"
+    self sendChmodCtx: ctx path: path perms: perms.
     ^ self recvChmod success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendChmodPath: path perms: perms
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendChmodCtx: ctx path: path perms: perms
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'chmod'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Chmod_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp0 :temp1 |
+          iprot writeString: temp0.
+          iprot writeString: temp1].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -436,60 +462,71 @@ sendChmodPath: path perms: perms
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvChmod
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp1 temp0|
-      temp0 := TResult new.
+    res := [|temp3 temp2|
+      temp2 := TResult new.
       iprot readStructBegin.
-      [temp1 := iprot readFieldBegin.
-      temp1 type = TType stop] whileFalse: [|temp2|
-        temp1 id = 0 ifTrue: [
-          temp2 := true.
-          temp0 success: iprot readVoid].
-        temp1 id = 1 ifTrue: [
-          temp2 := true.
-          temp0 exception: [|temp4 temp3|
-            temp3 := IOException new.
+      [temp3 := iprot readFieldBegin.
+      temp3 type = TType stop] whileFalse: [|temp4|
+        temp3 id = 0 ifTrue: [
+          temp4 := true.
+          temp2 success: iprot readVoid].
+        temp3 id = 1 ifTrue: [
+          temp4 := true.
+          temp2 exception: [|temp6 temp5|
+            temp5 := IOException new.
             iprot readStructBegin.
-            [temp4 := iprot readFieldBegin.
-            temp4 type = TType stop] whileFalse: [|temp5|
-              temp4 id = 1 ifTrue: [
-                temp5 := true.
-                temp3 msg: iprot readString].
-              temp4 id = 2 ifTrue: [
-                temp5 := true.
-                temp3 stack: iprot readString].
-              temp4 id = 3 ifTrue: [
-                temp5 := true.
-                temp3 clazz: iprot readString].
-              temp5 ifNil: [iprot skip: temp4 type]].
+            [temp6 := iprot readFieldBegin.
+            temp6 type = TType stop] whileFalse: [|temp7|
+              temp6 id = 1 ifTrue: [
+                temp7 := true.
+                temp5 msg: iprot readString].
+              temp6 id = 2 ifTrue: [
+                temp7 := true.
+                temp5 stack: iprot readString].
+              temp6 id = 3 ifTrue: [
+                temp7 := true.
+                temp5 clazz: iprot readString].
+              temp7 ifNil: [iprot skip: temp6 type]].
             oprot readStructEnd.
-            temp3] value].
-        temp2 ifNil: [iprot skip: temp1 type]].
+            temp5] value].
+        temp4 ifNil: [iprot skip: temp3 type]].
       oprot readStructEnd.
-      temp0] value.
+      temp2] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-chownPath: path owner: owner group: group
-    "path: string, owner: string, group: string"
-    self sendChownPath: path owner: owner group: group.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+chownCtx: ctx path: path owner: owner group: group
+    "ctx: RequestContext, path: string, owner: string, group: string"
+    self sendChownCtx: ctx path: path owner: owner group: group.
     ^ self recvChown success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendChownPath: path owner: owner group: group
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendChownCtx: ctx path: path owner: owner group: group
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'chown'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Chown_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp8 :temp9 |
+          iprot writeString: temp8.
+          iprot writeString: temp9].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -502,141 +539,95 @@ sendChownPath: path owner: owner group: group
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvChown
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp7 temp6|
-      temp6 := TResult new.
+    res := [|temp11 temp10|
+      temp10 := TResult new.
       iprot readStructBegin.
-      [temp7 := iprot readFieldBegin.
-      temp7 type = TType stop] whileFalse: [|temp8|
-        temp7 id = 0 ifTrue: [
-          temp8 := true.
-          temp6 success: iprot readVoid].
-        temp7 id = 1 ifTrue: [
-          temp8 := true.
-          temp6 exception: [|temp10 temp9|
-            temp9 := IOException new.
+      [temp11 := iprot readFieldBegin.
+      temp11 type = TType stop] whileFalse: [|temp12|
+        temp11 id = 0 ifTrue: [
+          temp12 := true.
+          temp10 success: iprot readVoid].
+        temp11 id = 1 ifTrue: [
+          temp12 := true.
+          temp10 exception: [|temp14 temp13|
+            temp13 := IOException new.
             iprot readStructBegin.
-            [temp10 := iprot readFieldBegin.
-            temp10 type = TType stop] whileFalse: [|temp11|
-              temp10 id = 1 ifTrue: [
-                temp11 := true.
-                temp9 msg: iprot readString].
-              temp10 id = 2 ifTrue: [
-                temp11 := true.
-                temp9 stack: iprot readString].
-              temp10 id = 3 ifTrue: [
-                temp11 := true.
-                temp9 clazz: iprot readString].
-              temp11 ifNil: [iprot skip: temp10 type]].
+            [temp14 := iprot readFieldBegin.
+            temp14 type = TType stop] whileFalse: [|temp15|
+              temp14 id = 1 ifTrue: [
+                temp15 := true.
+                temp13 msg: iprot readString].
+              temp14 id = 2 ifTrue: [
+                temp15 := true.
+                temp13 stack: iprot readString].
+              temp14 id = 3 ifTrue: [
+                temp15 := true.
+                temp13 clazz: iprot readString].
+              temp15 ifNil: [iprot skip: temp14 type]].
             oprot readStructEnd.
-            temp9] value].
-        temp8 ifNil: [iprot skip: temp7 type]].
+            temp13] value].
+        temp12 ifNil: [iprot skip: temp11 type]].
       oprot readStructEnd.
-      temp6] value.
+      temp10] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-df
-    ""
-    self sendDf.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+dfCtx: ctx
+    "ctx: RequestContext"
+    self sendDfCtx: ctx.
     ^ self recvDf success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendDf
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendDfCtx: ctx
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'df'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Df_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp16 :temp17 |
+          iprot writeString: temp16.
+          iprot writeString: temp17].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvDf
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp13 temp12|
-      temp12 := TResult new.
+    res := [|temp19 temp18|
+      temp18 := TResult new.
       iprot readStructBegin.
-      [temp13 := iprot readFieldBegin.
-      temp13 type = TType stop] whileFalse: [|temp14|
-        temp13 id = 0 ifTrue: [
-          temp14 := true.
-          temp12 success: [|temp15 temp16| temp15 := iprot readListBegin.
-            temp16 := OrderedCollection new.
-            temp15 size timesRepeat: [
-              temp16 add: iprot readI64].
+      [temp19 := iprot readFieldBegin.
+      temp19 type = TType stop] whileFalse: [|temp20|
+        temp19 id = 0 ifTrue: [
+          temp20 := true.
+          temp18 success: [|temp21 temp22| temp21 := iprot readListBegin.
+            temp22 := OrderedCollection new.
+            temp21 size timesRepeat: [
+              temp22 add: iprot readI64].
             iprot readListEnd.
-            temp16] value].
-        temp13 id = 1 ifTrue: [
-          temp14 := true.
-          temp12 exception: [|temp18 temp17|
-            temp17 := IOException new.
-            iprot readStructBegin.
-            [temp18 := iprot readFieldBegin.
-            temp18 type = TType stop] whileFalse: [|temp19|
-              temp18 id = 1 ifTrue: [
-                temp19 := true.
-                temp17 msg: iprot readString].
-              temp18 id = 2 ifTrue: [
-                temp19 := true.
-                temp17 stack: iprot readString].
-              temp18 id = 3 ifTrue: [
-                temp19 := true.
-                temp17 clazz: iprot readString].
-              temp19 ifNil: [iprot skip: temp18 type]].
-            oprot readStructEnd.
-            temp17] value].
-        temp14 ifNil: [iprot skip: temp13 type]].
-      oprot readStructEnd.
-      temp12] value.
-    oprot readMessageEnd.
-    oprot transport flush.
-    res exception ifNotNil: [res exception signal].
-    ^ res! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-enterSafeMode
-    ""
-    self sendEnterSafeMode.
-    ^ self recvEnterSafeMode success 
-! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendEnterSafeMode
-    oprot writeMessageBegin:
-      (TCallMessage new
-        name: 'enterSafeMode'; 
-        seqid: self nextSeqid).
-    oprot writeStructBegin: (TStruct new name: 'EnterSafeMode_args').
-    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
-    oprot transport flush! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-recvEnterSafeMode
-    | f msg res | 
-    msg := oprot readMessageBegin.
-    self validateRemoteMessage: msg.
-    res := [|temp21 temp20|
-      temp20 := TResult new.
-      iprot readStructBegin.
-      [temp21 := iprot readFieldBegin.
-      temp21 type = TType stop] whileFalse: [|temp22|
-        temp21 id = 0 ifTrue: [
-          temp22 := true.
-          temp20 success: iprot readVoid].
-        temp21 id = 1 ifTrue: [
-          temp22 := true.
-          temp20 exception: [|temp24 temp23|
+            temp22] value].
+        temp19 id = 1 ifTrue: [
+          temp20 := true.
+          temp18 exception: [|temp24 temp23|
             temp23 := IOException new.
             iprot readStructBegin.
             [temp24 := iprot readFieldBegin.
@@ -653,28 +644,107 @@ recvEnterSafeMode
               temp25 ifNil: [iprot skip: temp24 type]].
             oprot readStructEnd.
             temp23] value].
-        temp22 ifNil: [iprot skip: temp21 type]].
+        temp20 ifNil: [iprot skip: temp19 type]].
       oprot readStructEnd.
-      temp20] value.
+      temp18] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-getBlocksPath: path offset: offset length: length
-    "path: string, offset: i64, length: i64"
-    self sendGetBlocksPath: path offset: offset length: length.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+enterSafeModeCtx: ctx
+    "ctx: RequestContext"
+    self sendEnterSafeModeCtx: ctx.
+    ^ self recvEnterSafeMode success 
+! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendEnterSafeModeCtx: ctx
+    oprot writeMessageBegin:
+      (TCallMessage new
+        name: 'enterSafeMode'; 
+        seqid: self nextSeqid).
+    oprot writeStructBegin: (TStruct new name: 'EnterSafeMode_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp26 :temp27 |
+          iprot writeString: temp26.
+          iprot writeString: temp27].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
+    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
+    oprot transport flush! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+recvEnterSafeMode
+    | f msg res | 
+    msg := oprot readMessageBegin.
+    self validateRemoteMessage: msg.
+    res := [|temp29 temp28|
+      temp28 := TResult new.
+      iprot readStructBegin.
+      [temp29 := iprot readFieldBegin.
+      temp29 type = TType stop] whileFalse: [|temp30|
+        temp29 id = 0 ifTrue: [
+          temp30 := true.
+          temp28 success: iprot readVoid].
+        temp29 id = 1 ifTrue: [
+          temp30 := true.
+          temp28 exception: [|temp32 temp31|
+            temp31 := IOException new.
+            iprot readStructBegin.
+            [temp32 := iprot readFieldBegin.
+            temp32 type = TType stop] whileFalse: [|temp33|
+              temp32 id = 1 ifTrue: [
+                temp33 := true.
+                temp31 msg: iprot readString].
+              temp32 id = 2 ifTrue: [
+                temp33 := true.
+                temp31 stack: iprot readString].
+              temp32 id = 3 ifTrue: [
+                temp33 := true.
+                temp31 clazz: iprot readString].
+              temp33 ifNil: [iprot skip: temp32 type]].
+            oprot readStructEnd.
+            temp31] value].
+        temp30 ifNil: [iprot skip: temp29 type]].
+      oprot readStructEnd.
+      temp28] value.
+    oprot readMessageEnd.
+    oprot transport flush.
+    res exception ifNotNil: [res exception signal].
+    ^ res! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+getBlocksCtx: ctx path: path offset: offset length: length
+    "ctx: RequestContext, path: string, offset: i64, length: i64"
+    self sendGetBlocksCtx: ctx path: path offset: offset length: length.
     ^ self recvGetBlocks success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendGetBlocksPath: path offset: offset length: length
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendGetBlocksCtx: ctx path: path offset: offset length: length
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'getBlocks'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'GetBlocks_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp34 :temp35 |
+          iprot writeString: temp34.
+          iprot writeString: temp35].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -687,307 +757,201 @@ sendGetBlocksPath: path offset: offset length: length
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvGetBlocks
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp27 temp26|
-      temp26 := TResult new.
+    res := [|temp37 temp36|
+      temp36 := TResult new.
       iprot readStructBegin.
-      [temp27 := iprot readFieldBegin.
-      temp27 type = TType stop] whileFalse: [|temp28|
-        temp27 id = 0 ifTrue: [
-          temp28 := true.
-          temp26 success: [|temp29 temp30| temp29 := iprot readListBegin.
-            temp30 := OrderedCollection new.
-            temp29 size timesRepeat: [
-              temp30 add: [|temp32 temp31|
-                temp31 := Block new.
+      [temp37 := iprot readFieldBegin.
+      temp37 type = TType stop] whileFalse: [|temp38|
+        temp37 id = 0 ifTrue: [
+          temp38 := true.
+          temp36 success: [|temp39 temp40| temp39 := iprot readListBegin.
+            temp40 := OrderedCollection new.
+            temp39 size timesRepeat: [
+              temp40 add: [|temp42 temp41|
+                temp41 := Block new.
                 iprot readStructBegin.
-                [temp32 := iprot readFieldBegin.
-                temp32 type = TType stop] whileFalse: [|temp33|
-                  temp32 id = 1 ifTrue: [
-                    temp33 := true.
-                    temp31 blockId: iprot readI64].
-                  temp32 id = 2 ifTrue: [
-                    temp33 := true.
-                    temp31 path: iprot readString].
-                  temp32 id = 3 ifTrue: [
-                    temp33 := true.
-                    temp31 numBytes: iprot readI64].
-                  temp32 id = 4 ifTrue: [
-                    temp33 := true.
-                    temp31 genStamp: iprot readI64].
-                  temp32 id = 6 ifTrue: [
-                    temp33 := true.
-                    temp31 startOffset: iprot readI64].
-                  temp32 id = 5 ifTrue: [
-                    temp33 := true.
-                    temp31 nodes: [|temp34 temp35| temp34 := iprot readListBegin.
-                      temp35 := OrderedCollection new.
-                      temp34 size timesRepeat: [
-                        temp35 add: [|temp37 temp36|
-                          temp36 := DatanodeInfo new.
+                [temp42 := iprot readFieldBegin.
+                temp42 type = TType stop] whileFalse: [|temp43|
+                  temp42 id = 1 ifTrue: [
+                    temp43 := true.
+                    temp41 blockId: iprot readI64].
+                  temp42 id = 2 ifTrue: [
+                    temp43 := true.
+                    temp41 path: iprot readString].
+                  temp42 id = 3 ifTrue: [
+                    temp43 := true.
+                    temp41 numBytes: iprot readI64].
+                  temp42 id = 4 ifTrue: [
+                    temp43 := true.
+                    temp41 genStamp: iprot readI64].
+                  temp42 id = 6 ifTrue: [
+                    temp43 := true.
+                    temp41 startOffset: iprot readI64].
+                  temp42 id = 5 ifTrue: [
+                    temp43 := true.
+                    temp41 nodes: [|temp44 temp45| temp44 := iprot readListBegin.
+                      temp45 := OrderedCollection new.
+                      temp44 size timesRepeat: [
+                        temp45 add: [|temp47 temp46|
+                          temp46 := DatanodeInfo new.
                           iprot readStructBegin.
-                          [temp37 := iprot readFieldBegin.
-                          temp37 type = TType stop] whileFalse: [|temp38|
-                            temp37 id = 1 ifTrue: [
-                              temp38 := true.
-                              temp36 name: iprot readString].
-                            temp37 id = 2 ifTrue: [
-                              temp38 := true.
-                              temp36 storageID: iprot readString].
-                            temp37 id = 3 ifTrue: [
-                              temp38 := true.
-                              temp36 host: iprot readString].
-                            temp37 id = 4 ifTrue: [
-                              temp38 := true.
-                              temp36 thriftPort: iprot readI32].
-                            temp37 id = 5 ifTrue: [
-                              temp38 := true.
-                              temp36 capacity: iprot readI64].
-                            temp37 id = 6 ifTrue: [
-                              temp38 := true.
-                              temp36 dfsUsed: iprot readI64].
-                            temp37 id = 7 ifTrue: [
-                              temp38 := true.
-                              temp36 remaining: iprot readI64].
-                            temp37 id = 8 ifTrue: [
-                              temp38 := true.
-                              temp36 xceiverCount: iprot readI32].
-                            temp37 id = 9 ifTrue: [
-                              temp38 := true.
-                              temp36 state: iprot readI32].
-                            temp38 ifNil: [iprot skip: temp37 type]].
+                          [temp47 := iprot readFieldBegin.
+                          temp47 type = TType stop] whileFalse: [|temp48|
+                            temp47 id = 1 ifTrue: [
+                              temp48 := true.
+                              temp46 name: iprot readString].
+                            temp47 id = 2 ifTrue: [
+                              temp48 := true.
+                              temp46 storageID: iprot readString].
+                            temp47 id = 3 ifTrue: [
+                              temp48 := true.
+                              temp46 host: iprot readString].
+                            temp47 id = 4 ifTrue: [
+                              temp48 := true.
+                              temp46 thriftPort: iprot readI32].
+                            temp47 id = 5 ifTrue: [
+                              temp48 := true.
+                              temp46 capacity: iprot readI64].
+                            temp47 id = 6 ifTrue: [
+                              temp48 := true.
+                              temp46 dfsUsed: iprot readI64].
+                            temp47 id = 7 ifTrue: [
+                              temp48 := true.
+                              temp46 remaining: iprot readI64].
+                            temp47 id = 8 ifTrue: [
+                              temp48 := true.
+                              temp46 xceiverCount: iprot readI32].
+                            temp47 id = 9 ifTrue: [
+                              temp48 := true.
+                              temp46 state: iprot readI32].
+                            temp48 ifNil: [iprot skip: temp47 type]].
                           oprot readStructEnd.
-                          temp36] value].
+                          temp46] value].
                       iprot readListEnd.
-                      temp35] value].
-                  temp33 ifNil: [iprot skip: temp32 type]].
+                      temp45] value].
+                  temp43 ifNil: [iprot skip: temp42 type]].
                 oprot readStructEnd.
-                temp31] value].
+                temp41] value].
             iprot readListEnd.
-            temp30] value].
-        temp27 id = 1 ifTrue: [
-          temp28 := true.
-          temp26 exception: [|temp40 temp39|
-            temp39 := IOException new.
+            temp40] value].
+        temp37 id = 1 ifTrue: [
+          temp38 := true.
+          temp36 exception: [|temp50 temp49|
+            temp49 := IOException new.
             iprot readStructBegin.
-            [temp40 := iprot readFieldBegin.
-            temp40 type = TType stop] whileFalse: [|temp41|
-              temp40 id = 1 ifTrue: [
-                temp41 := true.
-                temp39 msg: iprot readString].
-              temp40 id = 2 ifTrue: [
-                temp41 := true.
-                temp39 stack: iprot readString].
-              temp40 id = 3 ifTrue: [
-                temp41 := true.
-                temp39 clazz: iprot readString].
-              temp41 ifNil: [iprot skip: temp40 type]].
+            [temp50 := iprot readFieldBegin.
+            temp50 type = TType stop] whileFalse: [|temp51|
+              temp50 id = 1 ifTrue: [
+                temp51 := true.
+                temp49 msg: iprot readString].
+              temp50 id = 2 ifTrue: [
+                temp51 := true.
+                temp49 stack: iprot readString].
+              temp50 id = 3 ifTrue: [
+                temp51 := true.
+                temp49 clazz: iprot readString].
+              temp51 ifNil: [iprot skip: temp50 type]].
             oprot readStructEnd.
-            temp39] value].
-        temp28 ifNil: [iprot skip: temp27 type]].
+            temp49] value].
+        temp38 ifNil: [iprot skip: temp37 type]].
       oprot readStructEnd.
-      temp26] value.
+      temp36] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-getDatanodeReportType: type
-    "type: DatanodeReportType"
-    self sendGetDatanodeReportType: type.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+getDatanodeReportCtx: ctx type: type
+    "ctx: RequestContext, type: DatanodeReportType"
+    self sendGetDatanodeReportCtx: ctx type: type.
     ^ self recvGetDatanodeReport success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendGetDatanodeReportType: type
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendGetDatanodeReportCtx: ctx type: type
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'getDatanodeReport'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'GetDatanodeReport_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp52 :temp53 |
+          iprot writeString: temp52.
+          iprot writeString: temp53].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'type'; type: TType i32; id: 1).
     iprot writeI32: type.
     oprot writeFieldEnd.
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvGetDatanodeReport
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp43 temp42|
-      temp42 := TResult new.
+    res := [|temp55 temp54|
+      temp54 := TResult new.
       iprot readStructBegin.
-      [temp43 := iprot readFieldBegin.
-      temp43 type = TType stop] whileFalse: [|temp44|
-        temp43 id = 0 ifTrue: [
-          temp44 := true.
-          temp42 success: [|temp45 temp46| temp45 := iprot readListBegin.
-            temp46 := OrderedCollection new.
-            temp45 size timesRepeat: [
-              temp46 add: [|temp48 temp47|
-                temp47 := DatanodeInfo new.
+      [temp55 := iprot readFieldBegin.
+      temp55 type = TType stop] whileFalse: [|temp56|
+        temp55 id = 0 ifTrue: [
+          temp56 := true.
+          temp54 success: [|temp57 temp58| temp57 := iprot readListBegin.
+            temp58 := OrderedCollection new.
+            temp57 size timesRepeat: [
+              temp58 add: [|temp60 temp59|
+                temp59 := DatanodeInfo new.
                 iprot readStructBegin.
-                [temp48 := iprot readFieldBegin.
-                temp48 type = TType stop] whileFalse: [|temp49|
-                  temp48 id = 1 ifTrue: [
-                    temp49 := true.
-                    temp47 name: iprot readString].
-                  temp48 id = 2 ifTrue: [
-                    temp49 := true.
-                    temp47 storageID: iprot readString].
-                  temp48 id = 3 ifTrue: [
-                    temp49 := true.
-                    temp47 host: iprot readString].
-                  temp48 id = 4 ifTrue: [
-                    temp49 := true.
-                    temp47 thriftPort: iprot readI32].
-                  temp48 id = 5 ifTrue: [
-                    temp49 := true.
-                    temp47 capacity: iprot readI64].
-                  temp48 id = 6 ifTrue: [
-                    temp49 := true.
-                    temp47 dfsUsed: iprot readI64].
-                  temp48 id = 7 ifTrue: [
-                    temp49 := true.
-                    temp47 remaining: iprot readI64].
-                  temp48 id = 8 ifTrue: [
-                    temp49 := true.
-                    temp47 xceiverCount: iprot readI32].
-                  temp48 id = 9 ifTrue: [
-                    temp49 := true.
-                    temp47 state: iprot readI32].
-                  temp49 ifNil: [iprot skip: temp48 type]].
+                [temp60 := iprot readFieldBegin.
+                temp60 type = TType stop] whileFalse: [|temp61|
+                  temp60 id = 1 ifTrue: [
+                    temp61 := true.
+                    temp59 name: iprot readString].
+                  temp60 id = 2 ifTrue: [
+                    temp61 := true.
+                    temp59 storageID: iprot readString].
+                  temp60 id = 3 ifTrue: [
+                    temp61 := true.
+                    temp59 host: iprot readString].
+                  temp60 id = 4 ifTrue: [
+                    temp61 := true.
+                    temp59 thriftPort: iprot readI32].
+                  temp60 id = 5 ifTrue: [
+                    temp61 := true.
+                    temp59 capacity: iprot readI64].
+                  temp60 id = 6 ifTrue: [
+                    temp61 := true.
+                    temp59 dfsUsed: iprot readI64].
+                  temp60 id = 7 ifTrue: [
+                    temp61 := true.
+                    temp59 remaining: iprot readI64].
+                  temp60 id = 8 ifTrue: [
+                    temp61 := true.
+                    temp59 xceiverCount: iprot readI32].
+                  temp60 id = 9 ifTrue: [
+                    temp61 := true.
+                    temp59 state: iprot readI32].
+                  temp61 ifNil: [iprot skip: temp60 type]].
                 oprot readStructEnd.
-                temp47] value].
+                temp59] value].
             iprot readListEnd.
-            temp46] value].
-        temp43 id = 1 ifTrue: [
-          temp44 := true.
-          temp42 exception: [|temp51 temp50|
-            temp50 := IOException new.
-            iprot readStructBegin.
-            [temp51 := iprot readFieldBegin.
-            temp51 type = TType stop] whileFalse: [|temp52|
-              temp51 id = 1 ifTrue: [
-                temp52 := true.
-                temp50 msg: iprot readString].
-              temp51 id = 2 ifTrue: [
-                temp52 := true.
-                temp50 stack: iprot readString].
-              temp51 id = 3 ifTrue: [
-                temp52 := true.
-                temp50 clazz: iprot readString].
-              temp52 ifNil: [iprot skip: temp51 type]].
-            oprot readStructEnd.
-            temp50] value].
-        temp44 ifNil: [iprot skip: temp43 type]].
-      oprot readStructEnd.
-      temp42] value.
-    oprot readMessageEnd.
-    oprot transport flush.
-    res exception ifNotNil: [res exception signal].
-    ^ res! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-getPreferredBlockSizePath: path
-    "path: string"
-    self sendGetPreferredBlockSizePath: path.
-    ^ self recvGetPreferredBlockSize success 
-! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendGetPreferredBlockSizePath: path
-    oprot writeMessageBegin:
-      (TCallMessage new
-        name: 'getPreferredBlockSize'; 
-        seqid: self nextSeqid).
-    oprot writeStructBegin: (TStruct new name: 'GetPreferredBlockSize_args').
-    oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
-    iprot writeString: path.
-    oprot writeFieldEnd.
-    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
-    oprot transport flush! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-recvGetPreferredBlockSize
-    | f msg res | 
-    msg := oprot readMessageBegin.
-    self validateRemoteMessage: msg.
-    res := [|temp54 temp53|
-      temp53 := TResult new.
-      iprot readStructBegin.
-      [temp54 := iprot readFieldBegin.
-      temp54 type = TType stop] whileFalse: [|temp55|
-        temp54 id = 0 ifTrue: [
-          temp55 := true.
-          temp53 success: iprot readI64].
-        temp54 id = 1 ifTrue: [
-          temp55 := true.
-          temp53 exception: [|temp57 temp56|
-            temp56 := IOException new.
-            iprot readStructBegin.
-            [temp57 := iprot readFieldBegin.
-            temp57 type = TType stop] whileFalse: [|temp58|
-              temp57 id = 1 ifTrue: [
-                temp58 := true.
-                temp56 msg: iprot readString].
-              temp57 id = 2 ifTrue: [
-                temp58 := true.
-                temp56 stack: iprot readString].
-              temp57 id = 3 ifTrue: [
-                temp58 := true.
-                temp56 clazz: iprot readString].
-              temp58 ifNil: [iprot skip: temp57 type]].
-            oprot readStructEnd.
-            temp56] value].
-        temp55 ifNil: [iprot skip: temp54 type]].
-      oprot readStructEnd.
-      temp53] value.
-    oprot readMessageEnd.
-    oprot transport flush.
-    res exception ifNotNil: [res exception signal].
-    ^ res! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-isInSafeMode
-    ""
-    self sendIsInSafeMode.
-    ^ self recvIsInSafeMode success 
-! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendIsInSafeMode
-    oprot writeMessageBegin:
-      (TCallMessage new
-        name: 'isInSafeMode'; 
-        seqid: self nextSeqid).
-    oprot writeStructBegin: (TStruct new name: 'IsInSafeMode_args').
-    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
-    oprot transport flush! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-recvIsInSafeMode
-    | f msg res | 
-    msg := oprot readMessageBegin.
-    self validateRemoteMessage: msg.
-    res := [|temp60 temp59|
-      temp59 := TResult new.
-      iprot readStructBegin.
-      [temp60 := iprot readFieldBegin.
-      temp60 type = TType stop] whileFalse: [|temp61|
-        temp60 id = 0 ifTrue: [
-          temp61 := true.
-          temp59 success: iprot readBool].
-        temp60 id = 1 ifTrue: [
-          temp61 := true.
-          temp59 exception: [|temp63 temp62|
+            temp58] value].
+        temp55 id = 1 ifTrue: [
+          temp56 := true.
+          temp54 exception: [|temp63 temp62|
             temp62 := IOException new.
             iprot readStructBegin.
             [temp63 := iprot readFieldBegin.
@@ -1004,202 +968,374 @@ recvIsInSafeMode
               temp64 ifNil: [iprot skip: temp63 type]].
             oprot readStructEnd.
             temp62] value].
-        temp61 ifNil: [iprot skip: temp60 type]].
+        temp56 ifNil: [iprot skip: temp55 type]].
       oprot readStructEnd.
-      temp59] value.
+      temp54] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-leaveSafeMode
-    ""
-    self sendLeaveSafeMode.
-    ^ self recvLeaveSafeMode success 
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+getPreferredBlockSizeCtx: ctx path: path
+    "ctx: RequestContext, path: string"
+    self sendGetPreferredBlockSizeCtx: ctx path: path.
+    ^ self recvGetPreferredBlockSize success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendLeaveSafeMode
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendGetPreferredBlockSizeCtx: ctx path: path
     oprot writeMessageBegin:
       (TCallMessage new
-        name: 'leaveSafeMode'; 
+        name: 'getPreferredBlockSize'; 
         seqid: self nextSeqid).
-    oprot writeStructBegin: (TStruct new name: 'LeaveSafeMode_args').
-    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
-    oprot transport flush! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-recvLeaveSafeMode
-    | f msg res | 
-    msg := oprot readMessageBegin.
-    self validateRemoteMessage: msg.
-    res := [|temp66 temp65|
-      temp65 := TResult new.
-      iprot readStructBegin.
-      [temp66 := iprot readFieldBegin.
-      temp66 type = TType stop] whileFalse: [|temp67|
-        temp66 id = 0 ifTrue: [
-          temp67 := true.
-          temp65 success: iprot readVoid].
-        temp66 id = 1 ifTrue: [
-          temp67 := true.
-          temp65 exception: [|temp69 temp68|
-            temp68 := IOException new.
-            iprot readStructBegin.
-            [temp69 := iprot readFieldBegin.
-            temp69 type = TType stop] whileFalse: [|temp70|
-              temp69 id = 1 ifTrue: [
-                temp70 := true.
-                temp68 msg: iprot readString].
-              temp69 id = 2 ifTrue: [
-                temp70 := true.
-                temp68 stack: iprot readString].
-              temp69 id = 3 ifTrue: [
-                temp70 := true.
-                temp68 clazz: iprot readString].
-              temp70 ifNil: [iprot skip: temp69 type]].
-            oprot readStructEnd.
-            temp68] value].
-        temp67 ifNil: [iprot skip: temp66 type]].
-      oprot readStructEnd.
-      temp65] value.
-    oprot readMessageEnd.
-    oprot transport flush.
-    res exception ifNotNil: [res exception signal].
-    ^ res! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-lsPath: path
-    "path: string"
-    self sendLsPath: path.
-    ^ self recvLs success 
-! !
-
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendLsPath: path
-    oprot writeMessageBegin:
-      (TCallMessage new
-        name: 'ls'; 
-        seqid: self nextSeqid).
-    oprot writeStructBegin: (TStruct new name: 'Ls_args').
+    oprot writeStructBegin: (TStruct new name: 'GetPreferredBlockSize_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp65 :temp66 |
+          iprot writeString: temp65.
+          iprot writeString: temp66].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-recvLs
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+recvGetPreferredBlockSize
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp72 temp71|
-      temp71 := TResult new.
+    res := [|temp68 temp67|
+      temp67 := TResult new.
       iprot readStructBegin.
-      [temp72 := iprot readFieldBegin.
-      temp72 type = TType stop] whileFalse: [|temp73|
-        temp72 id = 0 ifTrue: [
-          temp73 := true.
-          temp71 success: [|temp74 temp75| temp74 := iprot readListBegin.
-            temp75 := OrderedCollection new.
-            temp74 size timesRepeat: [
-              temp75 add: [|temp77 temp76|
-                temp76 := Stat new.
-                iprot readStructBegin.
-                [temp77 := iprot readFieldBegin.
-                temp77 type = TType stop] whileFalse: [|temp78|
-                  temp77 id = 1 ifTrue: [
-                    temp78 := true.
-                    temp76 path: iprot readString].
-                  temp77 id = 2 ifTrue: [
-                    temp78 := true.
-                    temp76 isDir: iprot readBool].
-                  temp77 id = 3 ifTrue: [
-                    temp78 := true.
-                    temp76 atime: iprot readI64].
-                  temp77 id = 4 ifTrue: [
-                    temp78 := true.
-                    temp76 mtime: iprot readI64].
-                  temp77 id = 5 ifTrue: [
-                    temp78 := true.
-                    temp76 perms: iprot readI16].
-                  temp77 id = 6 ifTrue: [
-                    temp78 := true.
-                    temp76 owner: iprot readString].
-                  temp77 id = 7 ifTrue: [
-                    temp78 := true.
-                    temp76 group: iprot readString].
-                  temp77 id = 8 ifTrue: [
-                    temp78 := true.
-                    temp76 fileCount: iprot readI64].
-                  temp77 id = 9 ifTrue: [
-                    temp78 := true.
-                    temp76 directoryCount: iprot readI64].
-                  temp77 id = 10 ifTrue: [
-                    temp78 := true.
-                    temp76 quota: iprot readI64].
-                  temp77 id = 11 ifTrue: [
-                    temp78 := true.
-                    temp76 spaceConsumed: iprot readI64].
-                  temp77 id = 12 ifTrue: [
-                    temp78 := true.
-                    temp76 spaceQuota: iprot readI64].
-                  temp77 id = 13 ifTrue: [
-                    temp78 := true.
-                    temp76 length: iprot readI64].
-                  temp77 id = 14 ifTrue: [
-                    temp78 := true.
-                    temp76 blockSize: iprot readI64].
-                  temp77 id = 15 ifTrue: [
-                    temp78 := true.
-                    temp76 replication: iprot readI16].
-                  temp78 ifNil: [iprot skip: temp77 type]].
-                oprot readStructEnd.
-                temp76] value].
-            iprot readListEnd.
-            temp75] value].
-        temp72 id = 1 ifTrue: [
-          temp73 := true.
-          temp71 exception: [|temp80 temp79|
-            temp79 := IOException new.
+      [temp68 := iprot readFieldBegin.
+      temp68 type = TType stop] whileFalse: [|temp69|
+        temp68 id = 0 ifTrue: [
+          temp69 := true.
+          temp67 success: iprot readI64].
+        temp68 id = 1 ifTrue: [
+          temp69 := true.
+          temp67 exception: [|temp71 temp70|
+            temp70 := IOException new.
             iprot readStructBegin.
-            [temp80 := iprot readFieldBegin.
-            temp80 type = TType stop] whileFalse: [|temp81|
-              temp80 id = 1 ifTrue: [
-                temp81 := true.
-                temp79 msg: iprot readString].
-              temp80 id = 2 ifTrue: [
-                temp81 := true.
-                temp79 stack: iprot readString].
-              temp80 id = 3 ifTrue: [
-                temp81 := true.
-                temp79 clazz: iprot readString].
-              temp81 ifNil: [iprot skip: temp80 type]].
+            [temp71 := iprot readFieldBegin.
+            temp71 type = TType stop] whileFalse: [|temp72|
+              temp71 id = 1 ifTrue: [
+                temp72 := true.
+                temp70 msg: iprot readString].
+              temp71 id = 2 ifTrue: [
+                temp72 := true.
+                temp70 stack: iprot readString].
+              temp71 id = 3 ifTrue: [
+                temp72 := true.
+                temp70 clazz: iprot readString].
+              temp72 ifNil: [iprot skip: temp71 type]].
             oprot readStructEnd.
-            temp79] value].
-        temp73 ifNil: [iprot skip: temp72 type]].
+            temp70] value].
+        temp69 ifNil: [iprot skip: temp68 type]].
       oprot readStructEnd.
-      temp71] value.
+      temp67] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-mkdirhierPath: path perms: perms
-    "path: string, perms: i16"
-    self sendMkdirhierPath: path perms: perms.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+isInSafeModeCtx: ctx
+    "ctx: RequestContext"
+    self sendIsInSafeModeCtx: ctx.
+    ^ self recvIsInSafeMode success 
+! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendIsInSafeModeCtx: ctx
+    oprot writeMessageBegin:
+      (TCallMessage new
+        name: 'isInSafeMode'; 
+        seqid: self nextSeqid).
+    oprot writeStructBegin: (TStruct new name: 'IsInSafeMode_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp73 :temp74 |
+          iprot writeString: temp73.
+          iprot writeString: temp74].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
+    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
+    oprot transport flush! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+recvIsInSafeMode
+    | f msg res | 
+    msg := oprot readMessageBegin.
+    self validateRemoteMessage: msg.
+    res := [|temp76 temp75|
+      temp75 := TResult new.
+      iprot readStructBegin.
+      [temp76 := iprot readFieldBegin.
+      temp76 type = TType stop] whileFalse: [|temp77|
+        temp76 id = 0 ifTrue: [
+          temp77 := true.
+          temp75 success: iprot readBool].
+        temp76 id = 1 ifTrue: [
+          temp77 := true.
+          temp75 exception: [|temp79 temp78|
+            temp78 := IOException new.
+            iprot readStructBegin.
+            [temp79 := iprot readFieldBegin.
+            temp79 type = TType stop] whileFalse: [|temp80|
+              temp79 id = 1 ifTrue: [
+                temp80 := true.
+                temp78 msg: iprot readString].
+              temp79 id = 2 ifTrue: [
+                temp80 := true.
+                temp78 stack: iprot readString].
+              temp79 id = 3 ifTrue: [
+                temp80 := true.
+                temp78 clazz: iprot readString].
+              temp80 ifNil: [iprot skip: temp79 type]].
+            oprot readStructEnd.
+            temp78] value].
+        temp77 ifNil: [iprot skip: temp76 type]].
+      oprot readStructEnd.
+      temp75] value.
+    oprot readMessageEnd.
+    oprot transport flush.
+    res exception ifNotNil: [res exception signal].
+    ^ res! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+leaveSafeModeCtx: ctx
+    "ctx: RequestContext"
+    self sendLeaveSafeModeCtx: ctx.
+    ^ self recvLeaveSafeMode success 
+! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendLeaveSafeModeCtx: ctx
+    oprot writeMessageBegin:
+      (TCallMessage new
+        name: 'leaveSafeMode'; 
+        seqid: self nextSeqid).
+    oprot writeStructBegin: (TStruct new name: 'LeaveSafeMode_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp81 :temp82 |
+          iprot writeString: temp81.
+          iprot writeString: temp82].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
+    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
+    oprot transport flush! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+recvLeaveSafeMode
+    | f msg res | 
+    msg := oprot readMessageBegin.
+    self validateRemoteMessage: msg.
+    res := [|temp84 temp83|
+      temp83 := TResult new.
+      iprot readStructBegin.
+      [temp84 := iprot readFieldBegin.
+      temp84 type = TType stop] whileFalse: [|temp85|
+        temp84 id = 0 ifTrue: [
+          temp85 := true.
+          temp83 success: iprot readVoid].
+        temp84 id = 1 ifTrue: [
+          temp85 := true.
+          temp83 exception: [|temp87 temp86|
+            temp86 := IOException new.
+            iprot readStructBegin.
+            [temp87 := iprot readFieldBegin.
+            temp87 type = TType stop] whileFalse: [|temp88|
+              temp87 id = 1 ifTrue: [
+                temp88 := true.
+                temp86 msg: iprot readString].
+              temp87 id = 2 ifTrue: [
+                temp88 := true.
+                temp86 stack: iprot readString].
+              temp87 id = 3 ifTrue: [
+                temp88 := true.
+                temp86 clazz: iprot readString].
+              temp88 ifNil: [iprot skip: temp87 type]].
+            oprot readStructEnd.
+            temp86] value].
+        temp85 ifNil: [iprot skip: temp84 type]].
+      oprot readStructEnd.
+      temp83] value.
+    oprot readMessageEnd.
+    oprot transport flush.
+    res exception ifNotNil: [res exception signal].
+    ^ res! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+lsCtx: ctx path: path
+    "ctx: RequestContext, path: string"
+    self sendLsCtx: ctx path: path.
+    ^ self recvLs success 
+! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendLsCtx: ctx path: path
+    oprot writeMessageBegin:
+      (TCallMessage new
+        name: 'ls'; 
+        seqid: self nextSeqid).
+    oprot writeStructBegin: (TStruct new name: 'Ls_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp89 :temp90 |
+          iprot writeString: temp89.
+          iprot writeString: temp90].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
+    oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
+    iprot writeString: path.
+    oprot writeFieldEnd.
+    oprot writeFieldStop; writeStructEnd; writeMessageEnd.
+    oprot transport flush! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+recvLs
+    | f msg res | 
+    msg := oprot readMessageBegin.
+    self validateRemoteMessage: msg.
+    res := [|temp92 temp91|
+      temp91 := TResult new.
+      iprot readStructBegin.
+      [temp92 := iprot readFieldBegin.
+      temp92 type = TType stop] whileFalse: [|temp93|
+        temp92 id = 0 ifTrue: [
+          temp93 := true.
+          temp91 success: [|temp94 temp95| temp94 := iprot readListBegin.
+            temp95 := OrderedCollection new.
+            temp94 size timesRepeat: [
+              temp95 add: [|temp97 temp96|
+                temp96 := Stat new.
+                iprot readStructBegin.
+                [temp97 := iprot readFieldBegin.
+                temp97 type = TType stop] whileFalse: [|temp98|
+                  temp97 id = 1 ifTrue: [
+                    temp98 := true.
+                    temp96 path: iprot readString].
+                  temp97 id = 2 ifTrue: [
+                    temp98 := true.
+                    temp96 isDir: iprot readBool].
+                  temp97 id = 3 ifTrue: [
+                    temp98 := true.
+                    temp96 atime: iprot readI64].
+                  temp97 id = 4 ifTrue: [
+                    temp98 := true.
+                    temp96 mtime: iprot readI64].
+                  temp97 id = 5 ifTrue: [
+                    temp98 := true.
+                    temp96 perms: iprot readI16].
+                  temp97 id = 6 ifTrue: [
+                    temp98 := true.
+                    temp96 owner: iprot readString].
+                  temp97 id = 7 ifTrue: [
+                    temp98 := true.
+                    temp96 group: iprot readString].
+                  temp97 id = 8 ifTrue: [
+                    temp98 := true.
+                    temp96 fileCount: iprot readI64].
+                  temp97 id = 9 ifTrue: [
+                    temp98 := true.
+                    temp96 directoryCount: iprot readI64].
+                  temp97 id = 10 ifTrue: [
+                    temp98 := true.
+                    temp96 quota: iprot readI64].
+                  temp97 id = 11 ifTrue: [
+                    temp98 := true.
+                    temp96 spaceConsumed: iprot readI64].
+                  temp97 id = 12 ifTrue: [
+                    temp98 := true.
+                    temp96 spaceQuota: iprot readI64].
+                  temp97 id = 13 ifTrue: [
+                    temp98 := true.
+                    temp96 length: iprot readI64].
+                  temp97 id = 14 ifTrue: [
+                    temp98 := true.
+                    temp96 blockSize: iprot readI64].
+                  temp97 id = 15 ifTrue: [
+                    temp98 := true.
+                    temp96 replication: iprot readI16].
+                  temp98 ifNil: [iprot skip: temp97 type]].
+                oprot readStructEnd.
+                temp96] value].
+            iprot readListEnd.
+            temp95] value].
+        temp92 id = 1 ifTrue: [
+          temp93 := true.
+          temp91 exception: [|temp100 temp99|
+            temp99 := IOException new.
+            iprot readStructBegin.
+            [temp100 := iprot readFieldBegin.
+            temp100 type = TType stop] whileFalse: [|temp101|
+              temp100 id = 1 ifTrue: [
+                temp101 := true.
+                temp99 msg: iprot readString].
+              temp100 id = 2 ifTrue: [
+                temp101 := true.
+                temp99 stack: iprot readString].
+              temp100 id = 3 ifTrue: [
+                temp101 := true.
+                temp99 clazz: iprot readString].
+              temp101 ifNil: [iprot skip: temp100 type]].
+            oprot readStructEnd.
+            temp99] value].
+        temp93 ifNil: [iprot skip: temp92 type]].
+      oprot readStructEnd.
+      temp91] value.
+    oprot readMessageEnd.
+    oprot transport flush.
+    res exception ifNotNil: [res exception signal].
+    ^ res! !
+
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+mkdirhierCtx: ctx path: path perms: perms
+    "ctx: RequestContext, path: string, perms: i16"
+    self sendMkdirhierCtx: ctx path: path perms: perms.
     ^ self recvMkdirhier success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendMkdirhierPath: path perms: perms
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendMkdirhierCtx: ctx path: path perms: perms
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'mkdirhier'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Mkdirhier_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp102 :temp103 |
+          iprot writeString: temp102.
+          iprot writeString: temp103].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -1209,117 +1345,139 @@ sendMkdirhierPath: path perms: perms
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvMkdirhier
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp83 temp82|
-      temp82 := TResult new.
+    res := [|temp105 temp104|
+      temp104 := TResult new.
       iprot readStructBegin.
-      [temp83 := iprot readFieldBegin.
-      temp83 type = TType stop] whileFalse: [|temp84|
-        temp83 id = 0 ifTrue: [
-          temp84 := true.
-          temp82 success: iprot readBool].
-        temp83 id = 1 ifTrue: [
-          temp84 := true.
-          temp82 exception: [|temp86 temp85|
-            temp85 := IOException new.
+      [temp105 := iprot readFieldBegin.
+      temp105 type = TType stop] whileFalse: [|temp106|
+        temp105 id = 0 ifTrue: [
+          temp106 := true.
+          temp104 success: iprot readBool].
+        temp105 id = 1 ifTrue: [
+          temp106 := true.
+          temp104 exception: [|temp108 temp107|
+            temp107 := IOException new.
             iprot readStructBegin.
-            [temp86 := iprot readFieldBegin.
-            temp86 type = TType stop] whileFalse: [|temp87|
-              temp86 id = 1 ifTrue: [
-                temp87 := true.
-                temp85 msg: iprot readString].
-              temp86 id = 2 ifTrue: [
-                temp87 := true.
-                temp85 stack: iprot readString].
-              temp86 id = 3 ifTrue: [
-                temp87 := true.
-                temp85 clazz: iprot readString].
-              temp87 ifNil: [iprot skip: temp86 type]].
+            [temp108 := iprot readFieldBegin.
+            temp108 type = TType stop] whileFalse: [|temp109|
+              temp108 id = 1 ifTrue: [
+                temp109 := true.
+                temp107 msg: iprot readString].
+              temp108 id = 2 ifTrue: [
+                temp109 := true.
+                temp107 stack: iprot readString].
+              temp108 id = 3 ifTrue: [
+                temp109 := true.
+                temp107 clazz: iprot readString].
+              temp109 ifNil: [iprot skip: temp108 type]].
             oprot readStructEnd.
-            temp85] value].
-        temp84 ifNil: [iprot skip: temp83 type]].
+            temp107] value].
+        temp106 ifNil: [iprot skip: temp105 type]].
       oprot readStructEnd.
-      temp82] value.
+      temp104] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-refreshNodes
-    ""
-    self sendRefreshNodes.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+refreshNodesCtx: ctx
+    "ctx: RequestContext"
+    self sendRefreshNodesCtx: ctx.
     ^ self recvRefreshNodes success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendRefreshNodes
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendRefreshNodesCtx: ctx
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'refreshNodes'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'RefreshNodes_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp110 :temp111 |
+          iprot writeString: temp110.
+          iprot writeString: temp111].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvRefreshNodes
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp89 temp88|
-      temp88 := TResult new.
+    res := [|temp113 temp112|
+      temp112 := TResult new.
       iprot readStructBegin.
-      [temp89 := iprot readFieldBegin.
-      temp89 type = TType stop] whileFalse: [|temp90|
-        temp89 id = 0 ifTrue: [
-          temp90 := true.
-          temp88 success: iprot readVoid].
-        temp89 id = 1 ifTrue: [
-          temp90 := true.
-          temp88 exception: [|temp92 temp91|
-            temp91 := IOException new.
+      [temp113 := iprot readFieldBegin.
+      temp113 type = TType stop] whileFalse: [|temp114|
+        temp113 id = 0 ifTrue: [
+          temp114 := true.
+          temp112 success: iprot readVoid].
+        temp113 id = 1 ifTrue: [
+          temp114 := true.
+          temp112 exception: [|temp116 temp115|
+            temp115 := IOException new.
             iprot readStructBegin.
-            [temp92 := iprot readFieldBegin.
-            temp92 type = TType stop] whileFalse: [|temp93|
-              temp92 id = 1 ifTrue: [
-                temp93 := true.
-                temp91 msg: iprot readString].
-              temp92 id = 2 ifTrue: [
-                temp93 := true.
-                temp91 stack: iprot readString].
-              temp92 id = 3 ifTrue: [
-                temp93 := true.
-                temp91 clazz: iprot readString].
-              temp93 ifNil: [iprot skip: temp92 type]].
+            [temp116 := iprot readFieldBegin.
+            temp116 type = TType stop] whileFalse: [|temp117|
+              temp116 id = 1 ifTrue: [
+                temp117 := true.
+                temp115 msg: iprot readString].
+              temp116 id = 2 ifTrue: [
+                temp117 := true.
+                temp115 stack: iprot readString].
+              temp116 id = 3 ifTrue: [
+                temp117 := true.
+                temp115 clazz: iprot readString].
+              temp117 ifNil: [iprot skip: temp116 type]].
             oprot readStructEnd.
-            temp91] value].
-        temp90 ifNil: [iprot skip: temp89 type]].
+            temp115] value].
+        temp114 ifNil: [iprot skip: temp113 type]].
       oprot readStructEnd.
-      temp88] value.
+      temp112] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-renamePath: path newPath: newPath
-    "path: string, newPath: string"
-    self sendRenamePath: path newPath: newPath.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+renameCtx: ctx path: path newPath: newPath
+    "ctx: RequestContext, path: string, newPath: string"
+    self sendRenameCtx: ctx path: path newPath: newPath.
     ^ self recvRename success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendRenamePath: path newPath: newPath
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendRenameCtx: ctx path: path newPath: newPath
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'rename'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Rename_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp118 :temp119 |
+          iprot writeString: temp118.
+          iprot writeString: temp119].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -1329,113 +1487,124 @@ sendRenamePath: path newPath: newPath
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvRename
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp95 temp94|
-      temp94 := TResult new.
+    res := [|temp121 temp120|
+      temp120 := TResult new.
       iprot readStructBegin.
-      [temp95 := iprot readFieldBegin.
-      temp95 type = TType stop] whileFalse: [|temp96|
-        temp95 id = 0 ifTrue: [
-          temp96 := true.
-          temp94 success: iprot readBool].
-        temp95 id = 1 ifTrue: [
-          temp96 := true.
-          temp94 exception: [|temp98 temp97|
-            temp97 := IOException new.
+      [temp121 := iprot readFieldBegin.
+      temp121 type = TType stop] whileFalse: [|temp122|
+        temp121 id = 0 ifTrue: [
+          temp122 := true.
+          temp120 success: iprot readBool].
+        temp121 id = 1 ifTrue: [
+          temp122 := true.
+          temp120 exception: [|temp124 temp123|
+            temp123 := IOException new.
             iprot readStructBegin.
-            [temp98 := iprot readFieldBegin.
-            temp98 type = TType stop] whileFalse: [|temp99|
-              temp98 id = 1 ifTrue: [
-                temp99 := true.
-                temp97 msg: iprot readString].
-              temp98 id = 2 ifTrue: [
-                temp99 := true.
-                temp97 stack: iprot readString].
-              temp98 id = 3 ifTrue: [
-                temp99 := true.
-                temp97 clazz: iprot readString].
-              temp99 ifNil: [iprot skip: temp98 type]].
+            [temp124 := iprot readFieldBegin.
+            temp124 type = TType stop] whileFalse: [|temp125|
+              temp124 id = 1 ifTrue: [
+                temp125 := true.
+                temp123 msg: iprot readString].
+              temp124 id = 2 ifTrue: [
+                temp125 := true.
+                temp123 stack: iprot readString].
+              temp124 id = 3 ifTrue: [
+                temp125 := true.
+                temp123 clazz: iprot readString].
+              temp125 ifNil: [iprot skip: temp124 type]].
             oprot readStructEnd.
-            temp97] value].
-        temp96 ifNil: [iprot skip: temp95 type]].
+            temp123] value].
+        temp122 ifNil: [iprot skip: temp121 type]].
       oprot readStructEnd.
-      temp94] value.
+      temp120] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-reportBadBlocksBlocks: blocks
-    "blocks: "
-    self sendReportBadBlocksBlocks: blocks.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+reportBadBlocksCtx: ctx blocks: blocks
+    "ctx: RequestContext, blocks: "
+    self sendReportBadBlocksCtx: ctx blocks: blocks.
     ^ self recvReportBadBlocks success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendReportBadBlocksBlocks: blocks
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendReportBadBlocksCtx: ctx blocks: blocks
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'reportBadBlocks'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'ReportBadBlocks_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp126 :temp127 |
+          iprot writeString: temp126.
+          iprot writeString: temp127].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'blocks'; type: TType list; id: 1).
     [oprot writeListBegin: (TList new elemType: TType struct; size: blocks size).
-      blocks do: [:temp100|
+      blocks do: [:temp128|
         [oprot writeStructBegin: (TStruct new name: 'Block').
           oprot writeFieldBegin: (TField new name: 'blockId'; type: TType i64; id: 1).
-          iprot writeI64: temp100 blockId asInteger.
+          iprot writeI64: temp128 blockId asInteger.
           oprot writeFieldEnd.
           oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 2).
-          iprot writeString: temp100 path.
+          iprot writeString: temp128 path.
           oprot writeFieldEnd.
           oprot writeFieldBegin: (TField new name: 'numBytes'; type: TType i64; id: 3).
-          iprot writeI64: temp100 numBytes asInteger.
+          iprot writeI64: temp128 numBytes asInteger.
           oprot writeFieldEnd.
           oprot writeFieldBegin: (TField new name: 'genStamp'; type: TType i64; id: 4).
-          iprot writeI64: temp100 genStamp asInteger.
+          iprot writeI64: temp128 genStamp asInteger.
           oprot writeFieldEnd.
           oprot writeFieldBegin: (TField new name: 'nodes'; type: TType list; id: 5).
-          [oprot writeListBegin: (TList new elemType: TType struct; size: temp100 nodes size).
-            temp100 nodes do: [:temp101|
+          [oprot writeListBegin: (TList new elemType: TType struct; size: temp128 nodes size).
+            temp128 nodes do: [:temp129|
               [oprot writeStructBegin: (TStruct new name: 'DatanodeInfo').
                 oprot writeFieldBegin: (TField new name: 'name'; type: TType string; id: 1).
-                iprot writeString: temp101 name.
+                iprot writeString: temp129 name.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'storageID'; type: TType string; id: 2).
-                iprot writeString: temp101 storageID.
+                iprot writeString: temp129 storageID.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'host'; type: TType string; id: 3).
-                iprot writeString: temp101 host.
+                iprot writeString: temp129 host.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'thriftPort'; type: TType i32; id: 4).
-                iprot writeI32: temp101 thriftPort asInteger.
+                iprot writeI32: temp129 thriftPort asInteger.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'capacity'; type: TType i64; id: 5).
-                iprot writeI64: temp101 capacity asInteger.
+                iprot writeI64: temp129 capacity asInteger.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'dfsUsed'; type: TType i64; id: 6).
-                iprot writeI64: temp101 dfsUsed asInteger.
+                iprot writeI64: temp129 dfsUsed asInteger.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'remaining'; type: TType i64; id: 7).
-                iprot writeI64: temp101 remaining asInteger.
+                iprot writeI64: temp129 remaining asInteger.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'xceiverCount'; type: TType i32; id: 8).
-                iprot writeI32: temp101 xceiverCount asInteger.
+                iprot writeI32: temp129 xceiverCount asInteger.
                 oprot writeFieldEnd.
                 oprot writeFieldBegin: (TField new name: 'state'; type: TType i32; id: 9).
-                iprot writeI32: temp101 state.
+                iprot writeI32: temp129 state.
                 oprot writeFieldEnd.
                 oprot writeFieldStop; writeStructEnd] value
 ].
             oprot writeListEnd] value.
           oprot writeFieldEnd.
           oprot writeFieldBegin: (TField new name: 'startOffset'; type: TType i64; id: 6).
-          iprot writeI64: temp100 startOffset asInteger.
+          iprot writeI64: temp128 startOffset asInteger.
           oprot writeFieldEnd.
           oprot writeFieldStop; writeStructEnd] value
 ].
@@ -1444,172 +1613,194 @@ sendReportBadBlocksBlocks: blocks
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvReportBadBlocks
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp103 temp102|
-      temp102 := TResult new.
+    res := [|temp131 temp130|
+      temp130 := TResult new.
       iprot readStructBegin.
-      [temp103 := iprot readFieldBegin.
-      temp103 type = TType stop] whileFalse: [|temp104|
-        temp103 id = 0 ifTrue: [
-          temp104 := true.
-          temp102 success: iprot readVoid].
-        temp103 id = 1 ifTrue: [
-          temp104 := true.
-          temp102 exception: [|temp106 temp105|
-            temp105 := IOException new.
+      [temp131 := iprot readFieldBegin.
+      temp131 type = TType stop] whileFalse: [|temp132|
+        temp131 id = 0 ifTrue: [
+          temp132 := true.
+          temp130 success: iprot readVoid].
+        temp131 id = 1 ifTrue: [
+          temp132 := true.
+          temp130 exception: [|temp134 temp133|
+            temp133 := IOException new.
             iprot readStructBegin.
-            [temp106 := iprot readFieldBegin.
-            temp106 type = TType stop] whileFalse: [|temp107|
-              temp106 id = 1 ifTrue: [
-                temp107 := true.
-                temp105 msg: iprot readString].
-              temp106 id = 2 ifTrue: [
-                temp107 := true.
-                temp105 stack: iprot readString].
-              temp106 id = 3 ifTrue: [
-                temp107 := true.
-                temp105 clazz: iprot readString].
-              temp107 ifNil: [iprot skip: temp106 type]].
+            [temp134 := iprot readFieldBegin.
+            temp134 type = TType stop] whileFalse: [|temp135|
+              temp134 id = 1 ifTrue: [
+                temp135 := true.
+                temp133 msg: iprot readString].
+              temp134 id = 2 ifTrue: [
+                temp135 := true.
+                temp133 stack: iprot readString].
+              temp134 id = 3 ifTrue: [
+                temp135 := true.
+                temp133 clazz: iprot readString].
+              temp135 ifNil: [iprot skip: temp134 type]].
             oprot readStructEnd.
-            temp105] value].
-        temp104 ifNil: [iprot skip: temp103 type]].
+            temp133] value].
+        temp132 ifNil: [iprot skip: temp131 type]].
       oprot readStructEnd.
-      temp102] value.
+      temp130] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-statPath: path
-    "path: string"
-    self sendStatPath: path.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+statCtx: ctx path: path
+    "ctx: RequestContext, path: string"
+    self sendStatCtx: ctx path: path.
     ^ self recvStat success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendStatPath: path
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendStatCtx: ctx path: path
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'stat'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Stat_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp136 :temp137 |
+          iprot writeString: temp136.
+          iprot writeString: temp137].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvStat
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp109 temp108|
-      temp108 := TResult new.
+    res := [|temp139 temp138|
+      temp138 := TResult new.
       iprot readStructBegin.
-      [temp109 := iprot readFieldBegin.
-      temp109 type = TType stop] whileFalse: [|temp110|
-        temp109 id = 0 ifTrue: [
-          temp110 := true.
-          temp108 success: [|temp112 temp111|
-            temp111 := Stat new.
+      [temp139 := iprot readFieldBegin.
+      temp139 type = TType stop] whileFalse: [|temp140|
+        temp139 id = 0 ifTrue: [
+          temp140 := true.
+          temp138 success: [|temp142 temp141|
+            temp141 := Stat new.
             iprot readStructBegin.
-            [temp112 := iprot readFieldBegin.
-            temp112 type = TType stop] whileFalse: [|temp113|
-              temp112 id = 1 ifTrue: [
-                temp113 := true.
-                temp111 path: iprot readString].
-              temp112 id = 2 ifTrue: [
-                temp113 := true.
-                temp111 isDir: iprot readBool].
-              temp112 id = 3 ifTrue: [
-                temp113 := true.
-                temp111 atime: iprot readI64].
-              temp112 id = 4 ifTrue: [
-                temp113 := true.
-                temp111 mtime: iprot readI64].
-              temp112 id = 5 ifTrue: [
-                temp113 := true.
-                temp111 perms: iprot readI16].
-              temp112 id = 6 ifTrue: [
-                temp113 := true.
-                temp111 owner: iprot readString].
-              temp112 id = 7 ifTrue: [
-                temp113 := true.
-                temp111 group: iprot readString].
-              temp112 id = 8 ifTrue: [
-                temp113 := true.
-                temp111 fileCount: iprot readI64].
-              temp112 id = 9 ifTrue: [
-                temp113 := true.
-                temp111 directoryCount: iprot readI64].
-              temp112 id = 10 ifTrue: [
-                temp113 := true.
-                temp111 quota: iprot readI64].
-              temp112 id = 11 ifTrue: [
-                temp113 := true.
-                temp111 spaceConsumed: iprot readI64].
-              temp112 id = 12 ifTrue: [
-                temp113 := true.
-                temp111 spaceQuota: iprot readI64].
-              temp112 id = 13 ifTrue: [
-                temp113 := true.
-                temp111 length: iprot readI64].
-              temp112 id = 14 ifTrue: [
-                temp113 := true.
-                temp111 blockSize: iprot readI64].
-              temp112 id = 15 ifTrue: [
-                temp113 := true.
-                temp111 replication: iprot readI16].
-              temp113 ifNil: [iprot skip: temp112 type]].
+            [temp142 := iprot readFieldBegin.
+            temp142 type = TType stop] whileFalse: [|temp143|
+              temp142 id = 1 ifTrue: [
+                temp143 := true.
+                temp141 path: iprot readString].
+              temp142 id = 2 ifTrue: [
+                temp143 := true.
+                temp141 isDir: iprot readBool].
+              temp142 id = 3 ifTrue: [
+                temp143 := true.
+                temp141 atime: iprot readI64].
+              temp142 id = 4 ifTrue: [
+                temp143 := true.
+                temp141 mtime: iprot readI64].
+              temp142 id = 5 ifTrue: [
+                temp143 := true.
+                temp141 perms: iprot readI16].
+              temp142 id = 6 ifTrue: [
+                temp143 := true.
+                temp141 owner: iprot readString].
+              temp142 id = 7 ifTrue: [
+                temp143 := true.
+                temp141 group: iprot readString].
+              temp142 id = 8 ifTrue: [
+                temp143 := true.
+                temp141 fileCount: iprot readI64].
+              temp142 id = 9 ifTrue: [
+                temp143 := true.
+                temp141 directoryCount: iprot readI64].
+              temp142 id = 10 ifTrue: [
+                temp143 := true.
+                temp141 quota: iprot readI64].
+              temp142 id = 11 ifTrue: [
+                temp143 := true.
+                temp141 spaceConsumed: iprot readI64].
+              temp142 id = 12 ifTrue: [
+                temp143 := true.
+                temp141 spaceQuota: iprot readI64].
+              temp142 id = 13 ifTrue: [
+                temp143 := true.
+                temp141 length: iprot readI64].
+              temp142 id = 14 ifTrue: [
+                temp143 := true.
+                temp141 blockSize: iprot readI64].
+              temp142 id = 15 ifTrue: [
+                temp143 := true.
+                temp141 replication: iprot readI16].
+              temp143 ifNil: [iprot skip: temp142 type]].
             oprot readStructEnd.
-            temp111] value].
-        temp109 id = 1 ifTrue: [
-          temp110 := true.
-          temp108 exception: [|temp115 temp114|
-            temp114 := IOException new.
+            temp141] value].
+        temp139 id = 1 ifTrue: [
+          temp140 := true.
+          temp138 exception: [|temp145 temp144|
+            temp144 := IOException new.
             iprot readStructBegin.
-            [temp115 := iprot readFieldBegin.
-            temp115 type = TType stop] whileFalse: [|temp116|
-              temp115 id = 1 ifTrue: [
-                temp116 := true.
-                temp114 msg: iprot readString].
-              temp115 id = 2 ifTrue: [
-                temp116 := true.
-                temp114 stack: iprot readString].
-              temp115 id = 3 ifTrue: [
-                temp116 := true.
-                temp114 clazz: iprot readString].
-              temp116 ifNil: [iprot skip: temp115 type]].
+            [temp145 := iprot readFieldBegin.
+            temp145 type = TType stop] whileFalse: [|temp146|
+              temp145 id = 1 ifTrue: [
+                temp146 := true.
+                temp144 msg: iprot readString].
+              temp145 id = 2 ifTrue: [
+                temp146 := true.
+                temp144 stack: iprot readString].
+              temp145 id = 3 ifTrue: [
+                temp146 := true.
+                temp144 clazz: iprot readString].
+              temp146 ifNil: [iprot skip: temp145 type]].
             oprot readStructEnd.
-            temp114] value].
-        temp110 ifNil: [iprot skip: temp109 type]].
+            temp144] value].
+        temp140 ifNil: [iprot skip: temp139 type]].
       oprot readStructEnd.
-      temp108] value.
+      temp138] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-setQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota
-    "path: string, namespaceQuota: i64, diskspaceQuota: i64"
-    self sendSetQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+setQuotaCtx: ctx path: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota
+    "ctx: RequestContext, path: string, namespaceQuota: i64, diskspaceQuota: i64"
+    self sendSetQuotaCtx: ctx path: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota.
     ^ self recvSetQuota success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendSetQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendSetQuotaCtx: ctx path: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQuota
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'setQuota'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'SetQuota_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp147 :temp148 |
+          iprot writeString: temp147.
+          iprot writeString: temp148].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -1622,60 +1813,71 @@ sendSetQuotaPath: path namespaceQuota: namespaceQuota diskspaceQuota: diskspaceQ
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvSetQuota
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp118 temp117|
-      temp117 := TResult new.
+    res := [|temp150 temp149|
+      temp149 := TResult new.
       iprot readStructBegin.
-      [temp118 := iprot readFieldBegin.
-      temp118 type = TType stop] whileFalse: [|temp119|
-        temp118 id = 0 ifTrue: [
-          temp119 := true.
-          temp117 success: iprot readVoid].
-        temp118 id = 1 ifTrue: [
-          temp119 := true.
-          temp117 exception: [|temp121 temp120|
-            temp120 := IOException new.
+      [temp150 := iprot readFieldBegin.
+      temp150 type = TType stop] whileFalse: [|temp151|
+        temp150 id = 0 ifTrue: [
+          temp151 := true.
+          temp149 success: iprot readVoid].
+        temp150 id = 1 ifTrue: [
+          temp151 := true.
+          temp149 exception: [|temp153 temp152|
+            temp152 := IOException new.
             iprot readStructBegin.
-            [temp121 := iprot readFieldBegin.
-            temp121 type = TType stop] whileFalse: [|temp122|
-              temp121 id = 1 ifTrue: [
-                temp122 := true.
-                temp120 msg: iprot readString].
-              temp121 id = 2 ifTrue: [
-                temp122 := true.
-                temp120 stack: iprot readString].
-              temp121 id = 3 ifTrue: [
-                temp122 := true.
-                temp120 clazz: iprot readString].
-              temp122 ifNil: [iprot skip: temp121 type]].
+            [temp153 := iprot readFieldBegin.
+            temp153 type = TType stop] whileFalse: [|temp154|
+              temp153 id = 1 ifTrue: [
+                temp154 := true.
+                temp152 msg: iprot readString].
+              temp153 id = 2 ifTrue: [
+                temp154 := true.
+                temp152 stack: iprot readString].
+              temp153 id = 3 ifTrue: [
+                temp154 := true.
+                temp152 clazz: iprot readString].
+              temp154 ifNil: [iprot skip: temp153 type]].
             oprot readStructEnd.
-            temp120] value].
-        temp119 ifNil: [iprot skip: temp118 type]].
+            temp152] value].
+        temp151 ifNil: [iprot skip: temp150 type]].
       oprot readStructEnd.
-      temp117] value.
+      temp149] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-setReplicationPath: path replication: replication
-    "path: string, replication: i16"
-    self sendSetReplicationPath: path replication: replication.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+setReplicationCtx: ctx path: path replication: replication
+    "ctx: RequestContext, path: string, replication: i16"
+    self sendSetReplicationCtx: ctx path: path replication: replication.
     ^ self recvSetReplication success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendSetReplicationPath: path replication: replication
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendSetReplicationCtx: ctx path: path replication: replication
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'setReplication'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'SetReplication_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp155 :temp156 |
+          iprot writeString: temp155.
+          iprot writeString: temp156].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -1685,60 +1887,71 @@ sendSetReplicationPath: path replication: replication
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvSetReplication
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp124 temp123|
-      temp123 := TResult new.
+    res := [|temp158 temp157|
+      temp157 := TResult new.
       iprot readStructBegin.
-      [temp124 := iprot readFieldBegin.
-      temp124 type = TType stop] whileFalse: [|temp125|
-        temp124 id = 0 ifTrue: [
-          temp125 := true.
-          temp123 success: iprot readBool].
-        temp124 id = 1 ifTrue: [
-          temp125 := true.
-          temp123 exception: [|temp127 temp126|
-            temp126 := IOException new.
+      [temp158 := iprot readFieldBegin.
+      temp158 type = TType stop] whileFalse: [|temp159|
+        temp158 id = 0 ifTrue: [
+          temp159 := true.
+          temp157 success: iprot readBool].
+        temp158 id = 1 ifTrue: [
+          temp159 := true.
+          temp157 exception: [|temp161 temp160|
+            temp160 := IOException new.
             iprot readStructBegin.
-            [temp127 := iprot readFieldBegin.
-            temp127 type = TType stop] whileFalse: [|temp128|
-              temp127 id = 1 ifTrue: [
-                temp128 := true.
-                temp126 msg: iprot readString].
-              temp127 id = 2 ifTrue: [
-                temp128 := true.
-                temp126 stack: iprot readString].
-              temp127 id = 3 ifTrue: [
-                temp128 := true.
-                temp126 clazz: iprot readString].
-              temp128 ifNil: [iprot skip: temp127 type]].
+            [temp161 := iprot readFieldBegin.
+            temp161 type = TType stop] whileFalse: [|temp162|
+              temp161 id = 1 ifTrue: [
+                temp162 := true.
+                temp160 msg: iprot readString].
+              temp161 id = 2 ifTrue: [
+                temp162 := true.
+                temp160 stack: iprot readString].
+              temp161 id = 3 ifTrue: [
+                temp162 := true.
+                temp160 clazz: iprot readString].
+              temp162 ifNil: [iprot skip: temp161 type]].
             oprot readStructEnd.
-            temp126] value].
-        temp125 ifNil: [iprot skip: temp124 type]].
+            temp160] value].
+        temp159 ifNil: [iprot skip: temp158 type]].
       oprot readStructEnd.
-      temp123] value.
+      temp157] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-unlinkPath: path recursive: recursive
-    "path: string, recursive: bool"
-    self sendUnlinkPath: path recursive: recursive.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+unlinkCtx: ctx path: path recursive: recursive
+    "ctx: RequestContext, path: string, recursive: bool"
+    self sendUnlinkCtx: ctx path: path recursive: recursive.
     ^ self recvUnlink success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendUnlinkPath: path recursive: recursive
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendUnlinkCtx: ctx path: path recursive: recursive
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'unlink'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Unlink_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp163 :temp164 |
+          iprot writeString: temp163.
+          iprot writeString: temp164].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -1748,60 +1961,71 @@ sendUnlinkPath: path recursive: recursive
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvUnlink
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp130 temp129|
-      temp129 := TResult new.
+    res := [|temp166 temp165|
+      temp165 := TResult new.
       iprot readStructBegin.
-      [temp130 := iprot readFieldBegin.
-      temp130 type = TType stop] whileFalse: [|temp131|
-        temp130 id = 0 ifTrue: [
-          temp131 := true.
-          temp129 success: iprot readBool].
-        temp130 id = 1 ifTrue: [
-          temp131 := true.
-          temp129 exception: [|temp133 temp132|
-            temp132 := IOException new.
+      [temp166 := iprot readFieldBegin.
+      temp166 type = TType stop] whileFalse: [|temp167|
+        temp166 id = 0 ifTrue: [
+          temp167 := true.
+          temp165 success: iprot readBool].
+        temp166 id = 1 ifTrue: [
+          temp167 := true.
+          temp165 exception: [|temp169 temp168|
+            temp168 := IOException new.
             iprot readStructBegin.
-            [temp133 := iprot readFieldBegin.
-            temp133 type = TType stop] whileFalse: [|temp134|
-              temp133 id = 1 ifTrue: [
-                temp134 := true.
-                temp132 msg: iprot readString].
-              temp133 id = 2 ifTrue: [
-                temp134 := true.
-                temp132 stack: iprot readString].
-              temp133 id = 3 ifTrue: [
-                temp134 := true.
-                temp132 clazz: iprot readString].
-              temp134 ifNil: [iprot skip: temp133 type]].
+            [temp169 := iprot readFieldBegin.
+            temp169 type = TType stop] whileFalse: [|temp170|
+              temp169 id = 1 ifTrue: [
+                temp170 := true.
+                temp168 msg: iprot readString].
+              temp169 id = 2 ifTrue: [
+                temp170 := true.
+                temp168 stack: iprot readString].
+              temp169 id = 3 ifTrue: [
+                temp170 := true.
+                temp168 clazz: iprot readString].
+              temp170 ifNil: [iprot skip: temp169 type]].
             oprot readStructEnd.
-            temp132] value].
-        temp131 ifNil: [iprot skip: temp130 type]].
+            temp168] value].
+        temp167 ifNil: [iprot skip: temp166 type]].
       oprot readStructEnd.
-      temp129] value.
+      temp165] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-utimePath: path atime: atime mtime: mtime
-    "path: string, atime: i64, mtime: i64"
-    self sendUtimePath: path atime: atime mtime: mtime.
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+utimeCtx: ctx path: path atime: atime mtime: mtime
+    "ctx: RequestContext, path: string, atime: i64, mtime: i64"
+    self sendUtimeCtx: ctx path: path atime: atime mtime: mtime.
     ^ self recvUtime success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendUtimePath: path atime: atime mtime: mtime
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendUtimeCtx: ctx path: path atime: atime mtime: mtime
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'utime'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'Utime_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp171 :temp172 |
+          iprot writeString: temp171.
+          iprot writeString: temp172].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'path'; type: TType string; id: 1).
     iprot writeString: path.
     oprot writeFieldEnd.
@@ -1814,54 +2038,54 @@ sendUtimePath: path atime: atime mtime: mtime
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvUtime
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp136 temp135|
-      temp135 := TResult new.
+    res := [|temp174 temp173|
+      temp173 := TResult new.
       iprot readStructBegin.
-      [temp136 := iprot readFieldBegin.
-      temp136 type = TType stop] whileFalse: [|temp137|
-        temp136 id = 0 ifTrue: [
-          temp137 := true.
-          temp135 success: iprot readVoid].
-        temp136 id = 1 ifTrue: [
-          temp137 := true.
-          temp135 exception: [|temp139 temp138|
-            temp138 := IOException new.
+      [temp174 := iprot readFieldBegin.
+      temp174 type = TType stop] whileFalse: [|temp175|
+        temp174 id = 0 ifTrue: [
+          temp175 := true.
+          temp173 success: iprot readVoid].
+        temp174 id = 1 ifTrue: [
+          temp175 := true.
+          temp173 exception: [|temp177 temp176|
+            temp176 := IOException new.
             iprot readStructBegin.
-            [temp139 := iprot readFieldBegin.
-            temp139 type = TType stop] whileFalse: [|temp140|
-              temp139 id = 1 ifTrue: [
-                temp140 := true.
-                temp138 msg: iprot readString].
-              temp139 id = 2 ifTrue: [
-                temp140 := true.
-                temp138 stack: iprot readString].
-              temp139 id = 3 ifTrue: [
-                temp140 := true.
-                temp138 clazz: iprot readString].
-              temp140 ifNil: [iprot skip: temp139 type]].
+            [temp177 := iprot readFieldBegin.
+            temp177 type = TType stop] whileFalse: [|temp178|
+              temp177 id = 1 ifTrue: [
+                temp178 := true.
+                temp176 msg: iprot readString].
+              temp177 id = 2 ifTrue: [
+                temp178 := true.
+                temp176 stack: iprot readString].
+              temp177 id = 3 ifTrue: [
+                temp178 := true.
+                temp176 clazz: iprot readString].
+              temp178 ifNil: [iprot skip: temp177 type]].
             oprot readStructEnd.
-            temp138] value].
-        temp137 ifNil: [iprot skip: temp136 type]].
+            temp176] value].
+        temp175 ifNil: [iprot skip: temp174 type]].
       oprot readStructEnd.
-      temp135] value.
+      temp173] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 datanodeUpName: name storage: storage thriftPort: thriftPort
     "name: string, storage: string, thriftPort: i32"
     self sendDatanodeUpName: name storage: storage thriftPort: thriftPort.
     ^ self recvDatanodeUp success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 sendDatanodeUpName: name storage: storage thriftPort: thriftPort
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1880,35 +2104,35 @@ sendDatanodeUpName: name storage: storage thriftPort: thriftPort
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvDatanodeUp
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp142 temp141|
-      temp141 := TResult new.
+    res := [|temp180 temp179|
+      temp179 := TResult new.
       iprot readStructBegin.
-      [temp142 := iprot readFieldBegin.
-      temp142 type = TType stop] whileFalse: [|temp143|
-        temp142 id = 0 ifTrue: [
-          temp143 := true.
-          temp141 success: iprot readVoid].
-        temp143 ifNil: [iprot skip: temp142 type]].
+      [temp180 := iprot readFieldBegin.
+      temp180 type = TType stop] whileFalse: [|temp181|
+        temp180 id = 0 ifTrue: [
+          temp181 := true.
+          temp179 success: iprot readVoid].
+        temp181 ifNil: [iprot skip: temp180 type]].
       oprot readStructEnd.
-      temp141] value.
+      temp179] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
     ^ res! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 datanodeDownName: name storage: storage thriftPort: thriftPort
     "name: string, storage: string, thriftPort: i32"
     self sendDatanodeDownName: name storage: storage thriftPort: thriftPort.
     ^ self recvDatanodeDown success 
 ! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 sendDatanodeDownName: name storage: storage thriftPort: thriftPort
     oprot writeMessageBegin:
       (TCallMessage new
@@ -1927,22 +2151,22 @@ sendDatanodeDownName: name storage: storage thriftPort: thriftPort
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!NamenodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvDatanodeDown
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp145 temp144|
-      temp144 := TResult new.
+    res := [|temp183 temp182|
+      temp182 := TResult new.
       iprot readStructBegin.
-      [temp145 := iprot readFieldBegin.
-      temp145 type = TType stop] whileFalse: [|temp146|
-        temp145 id = 0 ifTrue: [
-          temp146 := true.
-          temp144 success: iprot readVoid].
-        temp146 ifNil: [iprot skip: temp145 type]].
+      [temp183 := iprot readFieldBegin.
+      temp183 type = TType stop] whileFalse: [|temp184|
+        temp183 id = 0 ifTrue: [
+          temp184 := true.
+          temp182 success: iprot readVoid].
+        temp184 ifNil: [iprot skip: temp183 type]].
       oprot readStructEnd.
-      temp144] value.
+      temp182] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].
@@ -1954,20 +2178,31 @@ TClient subclass: #DatanodeClient
 	poolDictionaries: ''
 	category: 'Generated-Hdfs'!
 
-!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-readBlockBlock: block offset: offset length: length
-    "block: Block, offset: i64, length: i32"
-    self sendReadBlockBlock: block offset: offset length: length.
+!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+readBlockCtx: ctx block: block offset: offset length: length
+    "ctx: RequestContext, block: Block, offset: i64, length: i32"
+    self sendReadBlockCtx: ctx block: block offset: offset length: length.
     ^ self recvReadBlock success 
 ! !
 
-!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
-sendReadBlockBlock: block offset: offset length: length
+!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
+sendReadBlockCtx: ctx block: block offset: offset length: length
     oprot writeMessageBegin:
       (TCallMessage new
         name: 'readBlock'; 
         seqid: self nextSeqid).
     oprot writeStructBegin: (TStruct new name: 'ReadBlock_args').
+    oprot writeFieldBegin: (TField new name: 'ctx'; type: TType struct; id: 10).
+    [oprot writeStructBegin: (TStruct new name: 'RequestContext').
+      oprot writeFieldBegin: (TField new name: 'confOptions'; type: TType map; id: 1).
+      [oprot writeMapBegin: (TMap new keyType: TType string; valueType: TType string; size: ctx confOptions size).
+        ctx confOptions keysAndValuesDo: [:temp185 :temp186 |
+          iprot writeString: temp185.
+          iprot writeString: temp186].
+        oprot writeMapEnd] value.
+      oprot writeFieldEnd.
+      oprot writeFieldStop; writeStructEnd] value.
+    oprot writeFieldEnd.
     oprot writeFieldBegin: (TField new name: 'block'; type: TType struct; id: 1).
     [oprot writeStructBegin: (TStruct new name: 'Block').
       oprot writeFieldBegin: (TField new name: 'blockId'; type: TType i64; id: 1).
@@ -1984,34 +2219,34 @@ sendReadBlockBlock: block offset: offset length: length
       oprot writeFieldEnd.
       oprot writeFieldBegin: (TField new name: 'nodes'; type: TType list; id: 5).
       [oprot writeListBegin: (TList new elemType: TType struct; size: block nodes size).
-        block nodes do: [:temp147|
+        block nodes do: [:temp187|
           [oprot writeStructBegin: (TStruct new name: 'DatanodeInfo').
             oprot writeFieldBegin: (TField new name: 'name'; type: TType string; id: 1).
-            iprot writeString: temp147 name.
+            iprot writeString: temp187 name.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'storageID'; type: TType string; id: 2).
-            iprot writeString: temp147 storageID.
+            iprot writeString: temp187 storageID.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'host'; type: TType string; id: 3).
-            iprot writeString: temp147 host.
+            iprot writeString: temp187 host.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'thriftPort'; type: TType i32; id: 4).
-            iprot writeI32: temp147 thriftPort asInteger.
+            iprot writeI32: temp187 thriftPort asInteger.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'capacity'; type: TType i64; id: 5).
-            iprot writeI64: temp147 capacity asInteger.
+            iprot writeI64: temp187 capacity asInteger.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'dfsUsed'; type: TType i64; id: 6).
-            iprot writeI64: temp147 dfsUsed asInteger.
+            iprot writeI64: temp187 dfsUsed asInteger.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'remaining'; type: TType i64; id: 7).
-            iprot writeI64: temp147 remaining asInteger.
+            iprot writeI64: temp187 remaining asInteger.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'xceiverCount'; type: TType i32; id: 8).
-            iprot writeI32: temp147 xceiverCount asInteger.
+            iprot writeI32: temp187 xceiverCount asInteger.
             oprot writeFieldEnd.
             oprot writeFieldBegin: (TField new name: 'state'; type: TType i32; id: 9).
-            iprot writeI32: temp147 state.
+            iprot writeI32: temp187 state.
             oprot writeFieldEnd.
             oprot writeFieldStop; writeStructEnd] value
 ].
@@ -2031,57 +2266,57 @@ sendReadBlockBlock: block offset: offset length: length
     oprot writeFieldStop; writeStructEnd; writeMessageEnd.
     oprot transport flush! !
 
-!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/29/2009 21:10'!
+!DatanodeClient methodsFor: 'as yet uncategorized' stamp: 'thrift 04/30/2009 17:15'!
 recvReadBlock
     | f msg res | 
     msg := oprot readMessageBegin.
     self validateRemoteMessage: msg.
-    res := [|temp149 temp148|
-      temp148 := TResult new.
+    res := [|temp189 temp188|
+      temp188 := TResult new.
       iprot readStructBegin.
-      [temp149 := iprot readFieldBegin.
-      temp149 type = TType stop] whileFalse: [|temp150|
-        temp149 id = 0 ifTrue: [
-          temp150 := true.
-          temp148 success: [|temp152 temp151|
-            temp151 := BlockData new.
+      [temp189 := iprot readFieldBegin.
+      temp189 type = TType stop] whileFalse: [|temp190|
+        temp189 id = 0 ifTrue: [
+          temp190 := true.
+          temp188 success: [|temp192 temp191|
+            temp191 := BlockData new.
             iprot readStructBegin.
-            [temp152 := iprot readFieldBegin.
-            temp152 type = TType stop] whileFalse: [|temp153|
-              temp152 id = 1 ifTrue: [
-                temp153 := true.
-                temp151 crc: iprot readI32].
-              temp152 id = 2 ifTrue: [
-                temp153 := true.
-                temp151 length: iprot readI32].
-              temp152 id = 3 ifTrue: [
-                temp153 := true.
-                temp151 data: iprot readString].
-              temp153 ifNil: [iprot skip: temp152 type]].
+            [temp192 := iprot readFieldBegin.
+            temp192 type = TType stop] whileFalse: [|temp193|
+              temp192 id = 1 ifTrue: [
+                temp193 := true.
+                temp191 crc: iprot readI32].
+              temp192 id = 2 ifTrue: [
+                temp193 := true.
+                temp191 length: iprot readI32].
+              temp192 id = 3 ifTrue: [
+                temp193 := true.
+                temp191 data: iprot readString].
+              temp193 ifNil: [iprot skip: temp192 type]].
             oprot readStructEnd.
-            temp151] value].
-        temp149 id = 1 ifTrue: [
-          temp150 := true.
-          temp148 exception: [|temp155 temp154|
-            temp154 := IOException new.
+            temp191] value].
+        temp189 id = 1 ifTrue: [
+          temp190 := true.
+          temp188 exception: [|temp195 temp194|
+            temp194 := IOException new.
             iprot readStructBegin.
-            [temp155 := iprot readFieldBegin.
-            temp155 type = TType stop] whileFalse: [|temp156|
-              temp155 id = 1 ifTrue: [
-                temp156 := true.
-                temp154 msg: iprot readString].
-              temp155 id = 2 ifTrue: [
-                temp156 := true.
-                temp154 stack: iprot readString].
-              temp155 id = 3 ifTrue: [
-                temp156 := true.
-                temp154 clazz: iprot readString].
-              temp156 ifNil: [iprot skip: temp155 type]].
+            [temp195 := iprot readFieldBegin.
+            temp195 type = TType stop] whileFalse: [|temp196|
+              temp195 id = 1 ifTrue: [
+                temp196 := true.
+                temp194 msg: iprot readString].
+              temp195 id = 2 ifTrue: [
+                temp196 := true.
+                temp194 stack: iprot readString].
+              temp195 id = 3 ifTrue: [
+                temp196 := true.
+                temp194 clazz: iprot readString].
+              temp196 ifNil: [iprot skip: temp195 type]].
             oprot readStructEnd.
-            temp154] value].
-        temp150 ifNil: [iprot skip: temp149 type]].
+            temp194] value].
+        temp190 ifNil: [iprot skip: temp189 type]].
       oprot readStructEnd.
-      temp148] value.
+      temp188] value.
     oprot readMessageEnd.
     oprot transport flush.
     res exception ifNotNil: [res exception signal].

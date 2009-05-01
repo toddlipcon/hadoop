@@ -20,13 +20,14 @@ class Iface:
   Provides an interface to data nodes, so that clients may read and write
   data blocks.
   """
-  def readBlock(self, block, offset, length):
+  def readBlock(self, ctx, block, offset, length):
     """
     Read bytes from a block.
     
     Only 2^31 - 1 bytes may be read on a single call to this method.
     
     Parameters:
+     - ctx
      - block: Block to be read from.
      - offset: Offset within the block where read must start from.
      - length: Number of bytes to read.
@@ -45,23 +46,25 @@ class Client(Iface):
       self._oprot = oprot
     self._seqid = 0
 
-  def readBlock(self, block, offset, length):
+  def readBlock(self, ctx, block, offset, length):
     """
     Read bytes from a block.
     
     Only 2^31 - 1 bytes may be read on a single call to this method.
     
     Parameters:
+     - ctx
      - block: Block to be read from.
      - offset: Offset within the block where read must start from.
      - length: Number of bytes to read.
     """
-    self.send_readBlock(block, offset, length)
+    self.send_readBlock(ctx, block, offset, length)
     return self.recv_readBlock()
 
-  def send_readBlock(self, block, offset, length):
+  def send_readBlock(self, ctx, block, offset, length):
     self._oprot.writeMessageBegin('readBlock', TMessageType.CALL, self._seqid)
     args = readBlock_args()
+    args.ctx = ctx
     args.block = block
     args.offset = offset
     args.length = length
@@ -113,7 +116,7 @@ class Processor(Iface, TProcessor):
     iprot.readMessageEnd()
     result = readBlock_result()
     try:
-      result.success = self._handler.readBlock(args.block, args.offset, args.length)
+      result.success = self._handler.readBlock(args.ctx, args.block, args.offset, args.length)
     except IOException, err:
       result.err = err
     oprot.writeMessageBegin("readBlock", TMessageType.REPLY, seqid)
@@ -127,6 +130,7 @@ class Processor(Iface, TProcessor):
 class readBlock_args:
   """
   Attributes:
+   - ctx
    - block: Block to be read from.
    - offset: Offset within the block where read must start from.
    - length: Number of bytes to read.
@@ -137,9 +141,17 @@ class readBlock_args:
     (1, TType.STRUCT, 'block', (Block, Block.thrift_spec), None, ), # 1
     (2, TType.I64, 'offset', None, None, ), # 2
     (3, TType.I32, 'length', None, None, ), # 3
+    None, # 4
+    None, # 5
+    None, # 6
+    None, # 7
+    None, # 8
+    None, # 9
+    (10, TType.STRUCT, 'ctx', (RequestContext, RequestContext.thrift_spec), None, ), # 10
   )
 
-  def __init__(self, block=None, offset=None, length=None,):
+  def __init__(self, ctx=None, block=None, offset=None, length=None,):
+    self.ctx = ctx
     self.block = block
     self.offset = offset
     self.length = length
@@ -153,7 +165,13 @@ class readBlock_args:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == 10:
+        if ftype == TType.STRUCT:
+          self.ctx = RequestContext()
+          self.ctx.read(iprot)
+        else:
+          iprot.skip(ftype)
+      elif fid == 1:
         if ftype == TType.STRUCT:
           self.block = Block()
           self.block.read(iprot)
@@ -190,6 +208,10 @@ class readBlock_args:
     if self.length != None:
       oprot.writeFieldBegin('length', TType.I32, 3)
       oprot.writeI32(self.length)
+      oprot.writeFieldEnd()
+    if self.ctx != None:
+      oprot.writeFieldBegin('ctx', TType.STRUCT, 10)
+      self.ctx.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()

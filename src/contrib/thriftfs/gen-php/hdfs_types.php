@@ -41,6 +41,112 @@ final class hadoop_api_DatanodeState {
   );
 }
 
+class hadoop_api_RequestContext {
+  static $_TSPEC;
+
+  public $confOptions = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'confOptions',
+          'type' => TType::MAP,
+          'ktype' => TType::STRING,
+          'vtype' => TType::STRING,
+          'key' => array(
+            'type' => TType::STRING,
+          ),
+          'val' => array(
+            'type' => TType::STRING,
+            ),
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['confOptions'])) {
+        $this->confOptions = $vals['confOptions'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'RequestContext';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::MAP) {
+            $this->confOptions = array();
+            $_size0 = 0;
+            $_ktype1 = 0;
+            $_vtype2 = 0;
+            $xfer += $input->readMapBegin($_ktype1, $_vtype2, $_size0);
+            for ($_i4 = 0; $_i4 < $_size0; ++$_i4)
+            {
+              $key5 = '';
+              $val6 = '';
+              $xfer += $input->readString($key5);
+              $xfer += $input->readString($val6);
+              $this->confOptions[$key5] = $val6;
+            }
+            $xfer += $input->readMapEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('RequestContext');
+    if ($this->confOptions !== null) {
+      if (!is_array($this->confOptions)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('confOptions', TType::MAP, 1);
+      {
+        $output->writeMapBegin(TType::STRING, TType::STRING, count($this->confOptions));
+        {
+          foreach ($this->confOptions as $kiter7 => $viter8)
+          {
+            $xfer += $output->writeString($kiter7);
+            $xfer += $output->writeString($viter8);
+          }
+        }
+        $output->writeMapEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
 class hadoop_api_DatanodeInfo {
   static $_TSPEC;
 
@@ -396,15 +502,15 @@ class hadoop_api_Block {
         case 5:
           if ($ftype == TType::LST) {
             $this->nodes = array();
-            $_size0 = 0;
-            $_etype3 = 0;
-            $xfer += $input->readListBegin($_etype3, $_size0);
-            for ($_i4 = 0; $_i4 < $_size0; ++$_i4)
+            $_size9 = 0;
+            $_etype12 = 0;
+            $xfer += $input->readListBegin($_etype12, $_size9);
+            for ($_i13 = 0; $_i13 < $_size9; ++$_i13)
             {
-              $elem5 = null;
-              $elem5 = new hadoop_api_DatanodeInfo();
-              $xfer += $elem5->read($input);
-              $this->nodes []= $elem5;
+              $elem14 = null;
+              $elem14 = new hadoop_api_DatanodeInfo();
+              $xfer += $elem14->read($input);
+              $this->nodes []= $elem14;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -452,9 +558,9 @@ class hadoop_api_Block {
       {
         $output->writeListBegin(TType::STRUCT, count($this->nodes));
         {
-          foreach ($this->nodes as $iter6)
+          foreach ($this->nodes as $iter15)
           {
-            $xfer += $iter6->write($output);
+            $xfer += $iter15->write($output);
           }
         }
         $output->writeListEnd();
