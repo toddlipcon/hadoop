@@ -8,10 +8,11 @@
 
 #include <TProcessor.h>
 #include "hdfs_types.h"
+#include "HadoopServiceBase.h"
 
 namespace hadoop { namespace api {
 
-class NamenodeIf {
+class NamenodeIf : virtual public HadoopServiceBaseIf {
  public:
   virtual ~NamenodeIf() {}
   virtual void chmod(const RequestContext& ctx, const std::string& path, const int16_t perms) = 0;
@@ -38,7 +39,7 @@ class NamenodeIf {
   virtual void datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort) = 0;
 };
 
-class NamenodeNull : virtual public NamenodeIf {
+class NamenodeNull : virtual public NamenodeIf , virtual public HadoopServiceBaseNull {
  public:
   virtual ~NamenodeNull() {}
   void chmod(const RequestContext& /* ctx */, const std::string& /* path */, const int16_t /* perms */) {
@@ -2360,20 +2361,12 @@ class Namenode_datanodeDown_presult {
 
 };
 
-class NamenodeClient : virtual public NamenodeIf {
+class NamenodeClient : virtual public NamenodeIf, public HadoopServiceBaseClient {
  public:
   NamenodeClient(boost::shared_ptr<apache::thrift::protocol::TProtocol> prot) :
-    piprot_(prot),
-    poprot_(prot) {
-    iprot_ = prot.get();
-    oprot_ = prot.get();
-  }
+    HadoopServiceBaseClient(prot, prot) {}
   NamenodeClient(boost::shared_ptr<apache::thrift::protocol::TProtocol> iprot, boost::shared_ptr<apache::thrift::protocol::TProtocol> oprot) :
-    piprot_(iprot),
-    poprot_(oprot) {
-    iprot_ = iprot.get();
-    oprot_ = oprot.get();
-  }
+    HadoopServiceBaseClient(iprot, oprot) {}
   boost::shared_ptr<apache::thrift::protocol::TProtocol> getInputProtocol() {
     return piprot_;
   }
@@ -2446,14 +2439,9 @@ class NamenodeClient : virtual public NamenodeIf {
   void datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort);
   void send_datanodeDown(const std::string& name, const std::string& storage, const int32_t thriftPort);
   void recv_datanodeDown();
- protected:
-  boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot_;
-  boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot_;
-  apache::thrift::protocol::TProtocol* iprot_;
-  apache::thrift::protocol::TProtocol* oprot_;
 };
 
-class NamenodeProcessor : virtual public apache::thrift::TProcessor {
+class NamenodeProcessor : virtual public apache::thrift::TProcessor, public HadoopServiceBaseProcessor {
  protected:
   boost::shared_ptr<NamenodeIf> iface_;
   virtual bool process_fn(apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot, std::string& fname, int32_t seqid);
@@ -2483,6 +2471,7 @@ class NamenodeProcessor : virtual public apache::thrift::TProcessor {
   void process_datanodeDown(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
  public:
   NamenodeProcessor(boost::shared_ptr<NamenodeIf> iface) :
+    HadoopServiceBaseProcessor(iface),
     iface_(iface) {
     processMap_["chmod"] = &NamenodeProcessor::process_chmod;
     processMap_["chown"] = &NamenodeProcessor::process_chown;
@@ -2512,15 +2501,20 @@ class NamenodeProcessor : virtual public apache::thrift::TProcessor {
   virtual ~NamenodeProcessor() {}
 };
 
-class NamenodeMultiface : virtual public NamenodeIf {
+class NamenodeMultiface : virtual public NamenodeIf, public HadoopServiceBaseMultiface {
  public:
   NamenodeMultiface(std::vector<boost::shared_ptr<NamenodeIf> >& ifaces) : ifaces_(ifaces) {
+    std::vector<boost::shared_ptr<NamenodeIf> >::iterator iter;
+    for (iter = ifaces.begin(); iter != ifaces.end(); ++iter) {
+      HadoopServiceBaseMultiface::add(*iter);
+    }
   }
   virtual ~NamenodeMultiface() {}
  protected:
   std::vector<boost::shared_ptr<NamenodeIf> > ifaces_;
   NamenodeMultiface() {}
   void add(boost::shared_ptr<NamenodeIf> iface) {
+    HadoopServiceBaseMultiface::add(iface);
     ifaces_.push_back(iface);
   }
  public:

@@ -223,6 +223,20 @@ struct DFSHealthReport {
   7: UpgradeStatusReport upgradeStatus
 }
 
+
+/**
+ * Information about the compilation version of this server
+ */
+struct VersionInfo {
+  1: string version
+  2: string revision
+  3: string branch
+  4: string compileDate
+  5: string compilingUser
+  6: string url
+  7: string buildVersion
+}
+
 /** Generic I/O error */
 exception IOException {
   /** Error message. */
@@ -244,11 +258,17 @@ exception QuotaException {
   2: string stack
 }
 
+
+service HadoopServiceBase {
+  /** Return the version information for this server */
+  VersionInfo getVersionInfo(10:RequestContext ctx);
+}
+
 /**
  * Provides an interface to a Hadoop Namenode. It is basically a Thrift
  * translation of org.apache.hadoop.hdfs.protocol.ClientProtocol.
  */
-service Namenode {
+service Namenode extends HadoopServiceBase {
 
   /** Set permissions of an existing file or directory. */
   void chmod(10: RequestContext ctx,

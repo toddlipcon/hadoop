@@ -380,6 +380,65 @@ class DFSHealthReport {
 
 };
 
+class VersionInfo {
+ public:
+
+  static const char* ascii_fingerprint; // = "5DA595EAE7ECCE4D6C8D61AD15427AFF";
+  static const uint8_t binary_fingerprint[16]; // = {0x5D,0xA5,0x95,0xEA,0xE7,0xEC,0xCE,0x4D,0x6C,0x8D,0x61,0xAD,0x15,0x42,0x7A,0xFF};
+
+  VersionInfo() : version(""), revision(""), branch(""), compileDate(""), compilingUser(""), url(""), buildVersion("") {
+  }
+
+  virtual ~VersionInfo() throw() {}
+
+  std::string version;
+  std::string revision;
+  std::string branch;
+  std::string compileDate;
+  std::string compilingUser;
+  std::string url;
+  std::string buildVersion;
+
+  struct __isset {
+    __isset() : version(false), revision(false), branch(false), compileDate(false), compilingUser(false), url(false), buildVersion(false) {}
+    bool version;
+    bool revision;
+    bool branch;
+    bool compileDate;
+    bool compilingUser;
+    bool url;
+    bool buildVersion;
+  } __isset;
+
+  bool operator == (const VersionInfo & rhs) const
+  {
+    if (!(version == rhs.version))
+      return false;
+    if (!(revision == rhs.revision))
+      return false;
+    if (!(branch == rhs.branch))
+      return false;
+    if (!(compileDate == rhs.compileDate))
+      return false;
+    if (!(compilingUser == rhs.compilingUser))
+      return false;
+    if (!(url == rhs.url))
+      return false;
+    if (!(buildVersion == rhs.buildVersion))
+      return false;
+    return true;
+  }
+  bool operator != (const VersionInfo &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const VersionInfo & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
 class IOException : public apache::thrift::TException {
  public:
 

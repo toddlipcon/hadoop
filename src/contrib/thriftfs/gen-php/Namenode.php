@@ -7,8 +7,9 @@
 include_once $GLOBALS['THRIFT_ROOT'].'/Thrift.php';
 
 include_once $GLOBALS['THRIFT_ROOT'].'/packages/hdfs/hdfs_types.php';
+include_once $GLOBALS['THRIFT_ROOT'].'/packages/hdfs/HadoopServiceBase.php';
 
-interface NamenodeIf {
+interface NamenodeIf extends HadoopServiceBaseIf {
   public function chmod($ctx, $path, $perms);
   public function chown($ctx, $path, $owner, $group);
   public function df($ctx);
@@ -33,15 +34,9 @@ interface NamenodeIf {
   public function datanodeDown($name, $storage, $thriftPort);
 }
 
-class NamenodeClient implements NamenodeIf {
-  protected $input_ = null;
-  protected $output_ = null;
-
-  protected $seqid_ = 0;
-
+class NamenodeClient extends HadoopServiceBaseClient implements NamenodeIf {
   public function __construct($input, $output=null) {
-    $this->input_ = $input;
-    $this->output_ = $output ? $output : $input;
+    parent::__construct($input, $output);
   }
 
   public function chmod($ctx, $path, $perms)

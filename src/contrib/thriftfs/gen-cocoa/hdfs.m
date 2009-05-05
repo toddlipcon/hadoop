@@ -1878,6 +1878,343 @@ static int64_t QUOTA_RESET = -1;
 
 @end
 
+@implementation VersionInfo
+- (id) initWithVersion: (NSString *) version revision: (NSString *) revision branch: (NSString *) branch compileDate: (NSString *) compileDate compilingUser: (NSString *) compilingUser url: (NSString *) url buildVersion: (NSString *) buildVersion
+{
+  self = [super init];
+  __version = [version retain];
+  __version_isset = YES;
+  __revision = [revision retain];
+  __revision_isset = YES;
+  __branch = [branch retain];
+  __branch_isset = YES;
+  __compileDate = [compileDate retain];
+  __compileDate_isset = YES;
+  __compilingUser = [compilingUser retain];
+  __compilingUser_isset = YES;
+  __url = [url retain];
+  __url_isset = YES;
+  __buildVersion = [buildVersion retain];
+  __buildVersion_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__version release];
+  [__revision release];
+  [__branch release];
+  [__compileDate release];
+  [__compilingUser release];
+  [__url release];
+  [__buildVersion release];
+  [super dealloc];
+}
+
+- (NSString *) version {
+  return [[__version retain] autorelease];
+}
+
+- (void) setVersion: (NSString *) version {
+  [version retain];
+  [__version release];
+  __version = version;
+  __version_isset = YES;
+}
+
+- (BOOL) versionIsSet {
+  return __version_isset;
+}
+
+- (void) unsetVersion {
+  [__version release];
+  __version = nil;
+  __version_isset = NO;
+}
+
+- (NSString *) revision {
+  return [[__revision retain] autorelease];
+}
+
+- (void) setRevision: (NSString *) revision {
+  [revision retain];
+  [__revision release];
+  __revision = revision;
+  __revision_isset = YES;
+}
+
+- (BOOL) revisionIsSet {
+  return __revision_isset;
+}
+
+- (void) unsetRevision {
+  [__revision release];
+  __revision = nil;
+  __revision_isset = NO;
+}
+
+- (NSString *) branch {
+  return [[__branch retain] autorelease];
+}
+
+- (void) setBranch: (NSString *) branch {
+  [branch retain];
+  [__branch release];
+  __branch = branch;
+  __branch_isset = YES;
+}
+
+- (BOOL) branchIsSet {
+  return __branch_isset;
+}
+
+- (void) unsetBranch {
+  [__branch release];
+  __branch = nil;
+  __branch_isset = NO;
+}
+
+- (NSString *) compileDate {
+  return [[__compileDate retain] autorelease];
+}
+
+- (void) setCompileDate: (NSString *) compileDate {
+  [compileDate retain];
+  [__compileDate release];
+  __compileDate = compileDate;
+  __compileDate_isset = YES;
+}
+
+- (BOOL) compileDateIsSet {
+  return __compileDate_isset;
+}
+
+- (void) unsetCompileDate {
+  [__compileDate release];
+  __compileDate = nil;
+  __compileDate_isset = NO;
+}
+
+- (NSString *) compilingUser {
+  return [[__compilingUser retain] autorelease];
+}
+
+- (void) setCompilingUser: (NSString *) compilingUser {
+  [compilingUser retain];
+  [__compilingUser release];
+  __compilingUser = compilingUser;
+  __compilingUser_isset = YES;
+}
+
+- (BOOL) compilingUserIsSet {
+  return __compilingUser_isset;
+}
+
+- (void) unsetCompilingUser {
+  [__compilingUser release];
+  __compilingUser = nil;
+  __compilingUser_isset = NO;
+}
+
+- (NSString *) url {
+  return [[__url retain] autorelease];
+}
+
+- (void) setUrl: (NSString *) url {
+  [url retain];
+  [__url release];
+  __url = url;
+  __url_isset = YES;
+}
+
+- (BOOL) urlIsSet {
+  return __url_isset;
+}
+
+- (void) unsetUrl {
+  [__url release];
+  __url = nil;
+  __url_isset = NO;
+}
+
+- (NSString *) buildVersion {
+  return [[__buildVersion retain] autorelease];
+}
+
+- (void) setBuildVersion: (NSString *) buildVersion {
+  [buildVersion retain];
+  [__buildVersion release];
+  __buildVersion = buildVersion;
+  __buildVersion_isset = YES;
+}
+
+- (BOOL) buildVersionIsSet {
+  return __buildVersion_isset;
+}
+
+- (void) unsetBuildVersion {
+  [__buildVersion release];
+  __buildVersion = nil;
+  __buildVersion_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setVersion: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setRevision: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setBranch: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setCompileDate: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setCompilingUser: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 6:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setUrl: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 7:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setBuildVersion: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"VersionInfo"];
+  if (__version_isset) {
+    if (__version != nil) {
+      [outProtocol writeFieldBeginWithName: @"version" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __version];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__revision_isset) {
+    if (__revision != nil) {
+      [outProtocol writeFieldBeginWithName: @"revision" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __revision];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__branch_isset) {
+    if (__branch != nil) {
+      [outProtocol writeFieldBeginWithName: @"branch" type: TType_STRING fieldID: 3];
+      [outProtocol writeString: __branch];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__compileDate_isset) {
+    if (__compileDate != nil) {
+      [outProtocol writeFieldBeginWithName: @"compileDate" type: TType_STRING fieldID: 4];
+      [outProtocol writeString: __compileDate];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__compilingUser_isset) {
+    if (__compilingUser != nil) {
+      [outProtocol writeFieldBeginWithName: @"compilingUser" type: TType_STRING fieldID: 5];
+      [outProtocol writeString: __compilingUser];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__url_isset) {
+    if (__url != nil) {
+      [outProtocol writeFieldBeginWithName: @"url" type: TType_STRING fieldID: 6];
+      [outProtocol writeString: __url];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__buildVersion_isset) {
+    if (__buildVersion != nil) {
+      [outProtocol writeFieldBeginWithName: @"buildVersion" type: TType_STRING fieldID: 7];
+      [outProtocol writeString: __buildVersion];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"VersionInfo("];
+  [ms appendString: @"version:"];
+  [ms appendFormat: @"\"%@\"", __version];
+  [ms appendString: @",revision:"];
+  [ms appendFormat: @"\"%@\"", __revision];
+  [ms appendString: @",branch:"];
+  [ms appendFormat: @"\"%@\"", __branch];
+  [ms appendString: @",compileDate:"];
+  [ms appendFormat: @"\"%@\"", __compileDate];
+  [ms appendString: @",compilingUser:"];
+  [ms appendFormat: @"\"%@\"", __compilingUser];
+  [ms appendString: @",url:"];
+  [ms appendFormat: @"\"%@\"", __url];
+  [ms appendString: @",buildVersion:"];
+  [ms appendFormat: @"\"%@\"", __buildVersion];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
 @implementation IOException
 - (id) init
 {
@@ -2350,274 +2687,43 @@ static int64_t QUOTA_RESET = -1;
 
 @end
 
-@interface ChmodResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation ChmodResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"ChmodResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"ChmodResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface ChownResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation ChownResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"ChownResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"ChownResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface DfResult_ : NSObject {
-  NSArray * __success;
-  IOException * __err;
+@interface GetVersionInfoResult_ : NSObject {
+  VersionInfo * __success;
 
   BOOL __success_isset;
-  BOOL __err_isset;
 }
 
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
+- (id) initWithSuccess: (VersionInfo *) success;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
-- (NSArray *) success;
-- (void) setSuccess: (NSArray *) success;
+- (VersionInfo *) success;
+- (void) setSuccess: (VersionInfo *) success;
 - (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
 
 @end
 
-@implementation DfResult_
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
+@implementation GetVersionInfoResult_
+- (id) initWithSuccess: (VersionInfo *) success
 {
   self = [super init];
   __success = [success retain];
   __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
   return self;
 }
 
 - (void) dealloc
 {
   [__success release];
-  [__err release];
   [super dealloc];
 }
 
-- (NSArray *) success {
+- (VersionInfo *) success {
   return [[__success retain] autorelease];
 }
 
-- (void) setSuccess: (NSArray *) success {
+- (void) setSuccess: (VersionInfo *) success {
   [success retain];
   [__success release];
   __success = success;
@@ -2632,665 +2738,6 @@ static int64_t QUOTA_RESET = -1;
   [__success release];
   __success = nil;
   __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_LIST) {
-          int _size11;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size11];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size11];
-          int _i12;
-          for (_i12 = 0; _i12 < _size11; ++_i12)
-          {
-            int64_t _elem13 = [inProtocol readI64];
-            [fieldValue addObject: [NSNumber numberWithLongLong: _elem13]];
-          }
-          [inProtocol readListEnd];
-          [self setSuccess: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"DfResult_"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
-      {
-        [outProtocol writeListBeginWithElementType: TType_I64 size: [__success count]];
-        int i15;
-        for (i15 = 0; i15 < [__success count]; i15++)
-        {
-          [outProtocol writeI64: [[__success objectAtIndex: i15] longLongValue]];
-        }
-        [outProtocol writeListEnd];
-      }
-      [outProtocol writeFieldEnd];
-    }
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"DfResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface EnterSafeModeResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation EnterSafeModeResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"EnterSafeModeResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"EnterSafeModeResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface GetBlocksResult_ : NSObject {
-  NSArray * __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (NSArray *) success;
-- (void) setSuccess: (NSArray *) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation GetBlocksResult_
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
-{
-  self = [super init];
-  __success = [success retain];
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__success release];
-  [__err release];
-  [super dealloc];
-}
-
-- (NSArray *) success {
-  return [[__success retain] autorelease];
-}
-
-- (void) setSuccess: (NSArray *) success {
-  [success retain];
-  [__success release];
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  [__success release];
-  __success = nil;
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_LIST) {
-          int _size16;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size16];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size16];
-          int _i17;
-          for (_i17 = 0; _i17 < _size16; ++_i17)
-          {
-            Block *_elem18 = [[Block alloc] init];
-            [_elem18 read: inProtocol];
-            [fieldValue addObject: _elem18];
-          }
-          [inProtocol readListEnd];
-          [self setSuccess: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetBlocksResult_"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
-      {
-        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i20;
-        for (i20 = 0; i20 < [__success count]; i20++)
-        {
-          [[__success objectAtIndex: i20] write: outProtocol];
-        }
-        [outProtocol writeListEnd];
-      }
-      [outProtocol writeFieldEnd];
-    }
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetBlocksResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface GetDatanodeReportResult_ : NSObject {
-  NSArray * __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (NSArray *) success;
-- (void) setSuccess: (NSArray *) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation GetDatanodeReportResult_
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
-{
-  self = [super init];
-  __success = [success retain];
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__success release];
-  [__err release];
-  [super dealloc];
-}
-
-- (NSArray *) success {
-  return [[__success retain] autorelease];
-}
-
-- (void) setSuccess: (NSArray *) success {
-  [success retain];
-  [__success release];
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  [__success release];
-  __success = nil;
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_LIST) {
-          int _size21;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size21];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size21];
-          int _i22;
-          for (_i22 = 0; _i22 < _size21; ++_i22)
-          {
-            DatanodeInfo *_elem23 = [[DatanodeInfo alloc] init];
-            [_elem23 read: inProtocol];
-            [fieldValue addObject: _elem23];
-          }
-          [inProtocol readListEnd];
-          [self setSuccess: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetDatanodeReportResult_"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
-      {
-        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i25;
-        for (i25 = 0; i25 < [__success count]; i25++)
-        {
-          [[__success objectAtIndex: i25] write: outProtocol];
-        }
-        [outProtocol writeListEnd];
-      }
-      [outProtocol writeFieldEnd];
-    }
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetDatanodeReportResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface GetHealthReportResult_ : NSObject {
-  DFSHealthReport * __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (DFSHealthReport *) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (DFSHealthReport *) success;
-- (void) setSuccess: (DFSHealthReport *) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation GetHealthReportResult_
-- (id) initWithSuccess: (DFSHealthReport *) success err: (IOException *) err
-{
-  self = [super init];
-  __success = [success retain];
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__success release];
-  [__err release];
-  [super dealloc];
-}
-
-- (DFSHealthReport *) success {
-  return [[__success retain] autorelease];
-}
-
-- (void) setSuccess: (DFSHealthReport *) success {
-  [success retain];
-  [__success release];
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  [__success release];
-  __success = nil;
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -3310,19 +2757,9 @@ static int64_t QUOTA_RESET = -1;
     {
       case 0:
         if (fieldType == TType_STRUCT) {
-          DFSHealthReport *fieldValue = [[DFSHealthReport alloc] init];
+          VersionInfo *fieldValue = [[VersionInfo alloc] init];
           [fieldValue read: inProtocol];
           [self setSuccess: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
           [fieldValue release];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -3338,7 +2775,7 @@ static int64_t QUOTA_RESET = -1;
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetHealthReportResult_"];
+  [outProtocol writeStructBeginWithName: @"GetVersionInfoResult_"];
 
   if (__success_isset) {
     if (__success != nil) {
@@ -3346,1918 +2783,22 @@ static int64_t QUOTA_RESET = -1;
       [__success write: outProtocol];
       [outProtocol writeFieldEnd];
     }
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
   }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetHealthReportResult_("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetVersionInfoResult_("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%@", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
   [ms appendString: @")"];
   return [ms copy];
 }
 
 @end
 
-@interface GetPreferredBlockSizeResult_ : NSObject {
-  int64_t __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (int64_t) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (int64_t) success;
-- (void) setSuccess: (int64_t) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation GetPreferredBlockSizeResult_
-- (id) initWithSuccess: (int64_t) success err: (IOException *) err
-{
-  self = [super init];
-  __success = success;
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (int64_t) success {
-  return __success;
-}
-
-- (void) setSuccess: (int64_t) success {
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_I64) {
-          int64_t fieldValue = [inProtocol readI64];
-          [self setSuccess: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetPreferredBlockSizeResult_"];
-
-  if (__success_isset) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_I64 fieldID: 0];
-    [outProtocol writeI64: __success];
-    [outProtocol writeFieldEnd];
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetPreferredBlockSizeResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%qi", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface IsInSafeModeResult_ : NSObject {
-  BOOL __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (BOOL) success;
-- (void) setSuccess: (BOOL) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation IsInSafeModeResult_
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err
-{
-  self = [super init];
-  __success = success;
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (BOOL) success {
-  return __success;
-}
-
-- (void) setSuccess: (BOOL) success {
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_BOOL) {
-          BOOL fieldValue = [inProtocol readBool];
-          [self setSuccess: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"IsInSafeModeResult_"];
-
-  if (__success_isset) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
-    [outProtocol writeBool: __success];
-    [outProtocol writeFieldEnd];
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"IsInSafeModeResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%i", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface LeaveSafeModeResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation LeaveSafeModeResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"LeaveSafeModeResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"LeaveSafeModeResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface LsResult_ : NSObject {
-  NSArray * __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (NSArray *) success;
-- (void) setSuccess: (NSArray *) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation LsResult_
-- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
-{
-  self = [super init];
-  __success = [success retain];
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__success release];
-  [__err release];
-  [super dealloc];
-}
-
-- (NSArray *) success {
-  return [[__success retain] autorelease];
-}
-
-- (void) setSuccess: (NSArray *) success {
-  [success retain];
-  [__success release];
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  [__success release];
-  __success = nil;
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_LIST) {
-          int _size26;
-          [inProtocol readListBeginReturningElementType: NULL size: &_size26];
-          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size26];
-          int _i27;
-          for (_i27 = 0; _i27 < _size26; ++_i27)
-          {
-            Stat *_elem28 = [[Stat alloc] init];
-            [_elem28 read: inProtocol];
-            [fieldValue addObject: _elem28];
-          }
-          [inProtocol readListEnd];
-          [self setSuccess: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"LsResult_"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
-      {
-        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i30;
-        for (i30 = 0; i30 < [__success count]; i30++)
-        {
-          [[__success objectAtIndex: i30] write: outProtocol];
-        }
-        [outProtocol writeListEnd];
-      }
-      [outProtocol writeFieldEnd];
-    }
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"LsResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface MkdirhierResult_ : NSObject {
-  BOOL __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (BOOL) success;
-- (void) setSuccess: (BOOL) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation MkdirhierResult_
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err
-{
-  self = [super init];
-  __success = success;
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (BOOL) success {
-  return __success;
-}
-
-- (void) setSuccess: (BOOL) success {
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_BOOL) {
-          BOOL fieldValue = [inProtocol readBool];
-          [self setSuccess: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"MkdirhierResult_"];
-
-  if (__success_isset) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
-    [outProtocol writeBool: __success];
-    [outProtocol writeFieldEnd];
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"MkdirhierResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%i", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface RefreshNodesResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation RefreshNodesResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"RefreshNodesResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"RefreshNodesResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface RenameResult_ : NSObject {
-  BOOL __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (BOOL) success;
-- (void) setSuccess: (BOOL) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation RenameResult_
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err
-{
-  self = [super init];
-  __success = success;
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (BOOL) success {
-  return __success;
-}
-
-- (void) setSuccess: (BOOL) success {
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_BOOL) {
-          BOOL fieldValue = [inProtocol readBool];
-          [self setSuccess: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"RenameResult_"];
-
-  if (__success_isset) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
-    [outProtocol writeBool: __success];
-    [outProtocol writeFieldEnd];
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"RenameResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%i", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface ReportBadBlocksResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation ReportBadBlocksResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"ReportBadBlocksResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"ReportBadBlocksResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface StatResult_ : NSObject {
-  Stat * __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (Stat *) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (Stat *) success;
-- (void) setSuccess: (Stat *) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation StatResult_
-- (id) initWithSuccess: (Stat *) success err: (IOException *) err
-{
-  self = [super init];
-  __success = [success retain];
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__success release];
-  [__err release];
-  [super dealloc];
-}
-
-- (Stat *) success {
-  return [[__success retain] autorelease];
-}
-
-- (void) setSuccess: (Stat *) success {
-  [success retain];
-  [__success release];
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  [__success release];
-  __success = nil;
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_STRUCT) {
-          Stat *fieldValue = [[Stat alloc] init];
-          [fieldValue read: inProtocol];
-          [self setSuccess: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"StatResult_"];
-
-  if (__success_isset) {
-    if (__success != nil) {
-      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
-      [__success write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"StatResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%@", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface SetQuotaResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation SetQuotaResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"SetQuotaResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"SetQuotaResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface SetReplicationResult_ : NSObject {
-  BOOL __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (BOOL) success;
-- (void) setSuccess: (BOOL) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation SetReplicationResult_
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err
-{
-  self = [super init];
-  __success = success;
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (BOOL) success {
-  return __success;
-}
-
-- (void) setSuccess: (BOOL) success {
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_BOOL) {
-          BOOL fieldValue = [inProtocol readBool];
-          [self setSuccess: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"SetReplicationResult_"];
-
-  if (__success_isset) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
-    [outProtocol writeBool: __success];
-    [outProtocol writeFieldEnd];
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"SetReplicationResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%i", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface UnlinkResult_ : NSObject {
-  BOOL __success;
-  IOException * __err;
-
-  BOOL __success_isset;
-  BOOL __err_isset;
-}
-
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (BOOL) success;
-- (void) setSuccess: (BOOL) success;
-- (BOOL) successIsSet;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation UnlinkResult_
-- (id) initWithSuccess: (BOOL) success err: (IOException *) err
-{
-  self = [super init];
-  __success = success;
-  __success_isset = YES;
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (BOOL) success {
-  return __success;
-}
-
-- (void) setSuccess: (BOOL) success {
-  __success = success;
-  __success_isset = YES;
-}
-
-- (BOOL) successIsSet {
-  return __success_isset;
-}
-
-- (void) unsetSuccess {
-  __success_isset = NO;
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 0:
-        if (fieldType == TType_BOOL) {
-          BOOL fieldValue = [inProtocol readBool];
-          [self setSuccess: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"UnlinkResult_"];
-
-  if (__success_isset) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
-    [outProtocol writeBool: __success];
-    [outProtocol writeFieldEnd];
-  } else if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"UnlinkResult_("];
-  [ms appendString: @"success:"];
-  [ms appendFormat: @"%i", __success];
-  [ms appendString: @",err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface UtimeResult_ : NSObject {
-  IOException * __err;
-
-  BOOL __err_isset;
-}
-
-- (id) initWithErr: (IOException *) err;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (IOException *) err;
-- (void) setErr: (IOException *) err;
-- (BOOL) errIsSet;
-
-@end
-
-@implementation UtimeResult_
-- (id) initWithErr: (IOException *) err
-{
-  self = [super init];
-  __err = [err retain];
-  __err_isset = YES;
-  return self;
-}
-
-- (void) dealloc
-{
-  [__err release];
-  [super dealloc];
-}
-
-- (IOException *) err {
-  return [[__err retain] autorelease];
-}
-
-- (void) setErr: (IOException *) err {
-  [err retain];
-  [__err release];
-  __err = err;
-  __err_isset = YES;
-}
-
-- (BOOL) errIsSet {
-  return __err_isset;
-}
-
-- (void) unsetErr {
-  [__err release];
-  __err = nil;
-  __err_isset = NO;
-}
-
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      case 1:
-        if (fieldType == TType_STRUCT) {
-          IOException *fieldValue = [[IOException alloc] init];
-          [fieldValue read: inProtocol];
-          [self setErr: fieldValue];
-          [fieldValue release];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"UtimeResult_"];
-
-  if (__err_isset) {
-    if (__err != nil) {
-      [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-      [__err write: outProtocol];
-      [outProtocol writeFieldEnd];
-    }
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"UtimeResult_("];
-  [ms appendString: @"err:"];
-  [ms appendFormat: @"%@", __err];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface DatanodeUpResult_ : NSObject {
-}
-
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-@end
-
-@implementation DatanodeUpResult_
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"DatanodeUpResult_"];
-
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"DatanodeUpResult_("];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@interface DatanodeDownResult_ : NSObject {
-}
-
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-@end
-
-@implementation DatanodeDownResult_
-- (void) read: (id <TProtocol>) inProtocol
-{
-  NSString * fieldName;
-  int fieldType;
-  int fieldID;
-
-  [inProtocol readStructBeginReturningName: NULL];
-  while (true)
-  {
-    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
-      break;
-    }
-    switch (fieldID)
-    {
-      default:
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        break;
-    }
-    [inProtocol readFieldEnd];
-  }
-  [inProtocol readStructEnd];
-}
-
-- (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"DatanodeDownResult_"];
-
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-}
-
-- (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"DatanodeDownResult_("];
-  [ms appendString: @")"];
-  return [ms copy];
-}
-
-@end
-
-@implementation NamenodeClient
+@implementation HadoopServiceBaseClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
   return [self initWithInProtocol: protocol outProtocol: protocol];
@@ -5278,111 +2819,10 @@ static int64_t QUOTA_RESET = -1;
   [super dealloc];
 }
 
-- (void) send_chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
+- (void) send_getVersionInfo: (RequestContext *) ctx
 {
-  [outProtocol writeMessageBeginWithName: @"chmod" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"chmod_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"perms" type: TType_I16 fieldID: 2];
-  [outProtocol writeI16: perms];
-  [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-}
-
-- (void) recv_chmod
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  ChmodResult_ * result = [[[ChmodResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  return;
-}
-
-- (void) chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
-{
-  [self send_chmod: ctx : path : perms];
-  [self recv_chmod];
-}
-
-- (void) send_chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group
-{
-  [outProtocol writeMessageBeginWithName: @"chown" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"chown_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  if (owner != nil)  {
-    [outProtocol writeFieldBeginWithName: @"owner" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: owner];
-    [outProtocol writeFieldEnd];
-  }
-  if (group != nil)  {
-    [outProtocol writeFieldBeginWithName: @"group" type: TType_STRING fieldID: 3];
-    [outProtocol writeString: group];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-}
-
-- (void) recv_chown
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  ChownResult_ * result = [[[ChownResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  return;
-}
-
-- (void) chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group
-{
-  [self send_chown: ctx : path : owner : group];
-  [self recv_chown];
-}
-
-- (void) send_df: (RequestContext *) ctx
-{
-  [outProtocol writeMessageBeginWithName: @"df" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"df_args"];
+  [outProtocol writeMessageBeginWithName: @"getVersionInfo" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getVersionInfo_args"];
   if (ctx != nil)  {
     [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
     [ctx write: outProtocol];
@@ -5394,7 +2834,7 @@ static int64_t QUOTA_RESET = -1;
   [[outProtocol transport] flush];
 }
 
-- (NSArray *) recv_df
+- (VersionInfo *) recv_getVersionInfo
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -5403,916 +2843,3987 @@ static int64_t QUOTA_RESET = -1;
     [inProtocol readMessageEnd];
     @throw x;
   }
-  DfResult_ * result = [[[DfResult_ alloc] init] autorelease];
+  GetVersionInfoResult_ * result = [[[GetVersionInfoResult_ alloc] init] autorelease];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
   if ([result successIsSet]) {
     return [result success];
   }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
   @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"df failed: unknown result"];
+                                           reason: @"getVersionInfo failed: unknown result"];
 }
 
-- (NSArray *) df: (RequestContext *) ctx
+- (VersionInfo *) getVersionInfo: (RequestContext *) ctx
 {
-  [self send_df: ctx];
-  return [self recv_df];
+  [self send_getVersionInfo: ctx];
+  return [self recv_getVersionInfo];
 }
 
-- (void) send_enterSafeMode: (RequestContext *) ctx
+@end
+
+@interface ChmodResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation ChmodResult_
+- (id) initWithErr: (IOException *) err
 {
-  [outProtocol writeMessageBeginWithName: @"enterSafeMode" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"enterSafeMode_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"ChmodResult_"];
+
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
     [outProtocol writeFieldEnd];
   }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
 }
 
-- (void) recv_enterSafeMode
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"ChmodResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface ChownResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation ChownResult_
+- (id) initWithErr: (IOException *) err
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
   }
-  EnterSafeModeResult_ * result = [[[EnterSafeModeResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
   }
-  return;
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
 }
 
-- (void) enterSafeMode: (RequestContext *) ctx
-{
-  [self send_enterSafeMode: ctx];
-  [self recv_enterSafeMode];
-}
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"ChownResult_"];
 
-- (void) send_getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length
-{
-  [outProtocol writeMessageBeginWithName: @"getBlocks" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getBlocks_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
     [outProtocol writeFieldEnd];
   }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"offset" type: TType_I64 fieldID: 2];
-  [outProtocol writeI64: offset];
-  [outProtocol writeFieldEnd];
-  [outProtocol writeFieldBeginWithName: @"length" type: TType_I64 fieldID: 3];
-  [outProtocol writeI64: length];
-  [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
 }
 
-- (NSArray *) recv_getBlocks
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  GetBlocksResult_ * result = [[[GetBlocksResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getBlocks failed: unknown result"];
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"ChownResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
 }
 
-- (NSArray *) getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length
-{
-  [self send_getBlocks: ctx : path : offset : length];
-  return [self recv_getBlocks];
+@end
+
+@interface DfResult_ : NSObject {
+NSArray * __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
 }
 
-- (void) send_getDatanodeReport: (RequestContext *) ctx : (int) type
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSArray *) success;
+- (void) setSuccess: (NSArray *) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation DfResult_
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
 {
-  [outProtocol writeMessageBeginWithName: @"getDatanodeReport" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getDatanodeReport_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"type" type: TType_I32 fieldID: 1];
-  [outProtocol writeI32: type];
-  [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+self = [super init];
+__success = [success retain];
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
 }
 
-- (NSArray *) recv_getDatanodeReport
+- (void) dealloc
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  GetDatanodeReportResult_ * result = [[[GetDatanodeReportResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getDatanodeReport failed: unknown result"];
+[__success release];
+[__err release];
+[super dealloc];
 }
 
-- (NSArray *) getDatanodeReport: (RequestContext *) ctx : (int) type
-{
-  [self send_getDatanodeReport: ctx : type];
-  return [self recv_getDatanodeReport];
+- (NSArray *) success {
+return [[__success retain] autorelease];
 }
 
-- (void) send_getHealthReport: (RequestContext *) ctx
-{
-  [outProtocol writeMessageBeginWithName: @"getHealthReport" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getHealthReport_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+- (void) setSuccess: (NSArray *) success {
+[success retain];
+[__success release];
+__success = success;
+__success_isset = YES;
 }
 
-- (DFSHealthReport *) recv_getHealthReport
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  GetHealthReportResult_ * result = [[[GetHealthReportResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getHealthReport failed: unknown result"];
+- (BOOL) successIsSet {
+return __success_isset;
 }
 
-- (DFSHealthReport *) getHealthReport: (RequestContext *) ctx
-{
-  [self send_getHealthReport: ctx];
-  return [self recv_getHealthReport];
+- (void) unsetSuccess {
+[__success release];
+__success = nil;
+__success_isset = NO;
 }
 
-- (void) send_getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path
-{
-  [outProtocol writeMessageBeginWithName: @"getPreferredBlockSize" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getPreferredBlockSize_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+- (IOException *) err {
+return [[__err retain] autorelease];
 }
 
-- (int64_t) recv_getPreferredBlockSize
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  GetPreferredBlockSizeResult_ * result = [[[GetPreferredBlockSizeResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getPreferredBlockSize failed: unknown result"];
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
 }
 
-- (int64_t) getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path
-{
-  [self send_getPreferredBlockSize: ctx : path];
-  return [self recv_getPreferredBlockSize];
+- (BOOL) errIsSet {
+return __err_isset;
 }
 
-- (void) send_isInSafeMode: (RequestContext *) ctx
-{
-  [outProtocol writeMessageBeginWithName: @"isInSafeMode" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"isInSafeMode_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
 }
 
-- (BOOL) recv_isInSafeMode
+- (void) read: (id <TProtocol>) inProtocol
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
   }
-  IsInSafeModeResult_ * result = [[[IsInSafeModeResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_LIST) {
+        int _size11;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size11];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size11];
+        int _i12;
+        for (_i12 = 0; _i12 < _size11; ++_i12)
+        {
+          int64_t _elem13 = [inProtocol readI64];
+          [fieldValue addObject: [NSNumber numberWithLongLong: _elem13]];
+        }
+        [inProtocol readListEnd];
+        [self setSuccess: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
   }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"isInSafeMode failed: unknown result"];
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
 }
 
-- (BOOL) isInSafeMode: (RequestContext *) ctx
-{
-  [self send_isInSafeMode: ctx];
-  return [self recv_isInSafeMode];
-}
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"DfResult_"];
 
-- (void) send_leaveSafeMode: (RequestContext *) ctx
-{
-  [outProtocol writeMessageBeginWithName: @"leaveSafeMode" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"leaveSafeMode_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-}
-
-- (void) recv_leaveSafeMode
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  LeaveSafeModeResult_ * result = [[[LeaveSafeModeResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  return;
-}
-
-- (void) leaveSafeMode: (RequestContext *) ctx
-{
-  [self send_leaveSafeMode: ctx];
-  [self recv_leaveSafeMode];
-}
-
-- (void) send_ls: (RequestContext *) ctx : (NSString *) path
-{
-  [outProtocol writeMessageBeginWithName: @"ls" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"ls_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-}
-
-- (NSArray *) recv_ls
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  LsResult_ * result = [[[LsResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"ls failed: unknown result"];
-}
-
-- (NSArray *) ls: (RequestContext *) ctx : (NSString *) path
-{
-  [self send_ls: ctx : path];
-  return [self recv_ls];
-}
-
-- (void) send_mkdirhier: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
-{
-  [outProtocol writeMessageBeginWithName: @"mkdirhier" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"mkdirhier_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"perms" type: TType_I16 fieldID: 2];
-  [outProtocol writeI16: perms];
-  [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-}
-
-- (BOOL) recv_mkdirhier
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  MkdirhierResult_ * result = [[[MkdirhierResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"mkdirhier failed: unknown result"];
-}
-
-- (BOOL) mkdirhier: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
-{
-  [self send_mkdirhier: ctx : path : perms];
-  return [self recv_mkdirhier];
-}
-
-- (void) send_refreshNodes: (RequestContext *) ctx
-{
-  [outProtocol writeMessageBeginWithName: @"refreshNodes" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"refreshNodes_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-}
-
-- (void) recv_refreshNodes
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  RefreshNodesResult_ * result = [[[RefreshNodesResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  return;
-}
-
-- (void) refreshNodes: (RequestContext *) ctx
-{
-  [self send_refreshNodes: ctx];
-  [self recv_refreshNodes];
-}
-
-- (void) send_rename: (RequestContext *) ctx : (NSString *) path : (NSString *) newPath
-{
-  [outProtocol writeMessageBeginWithName: @"rename" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"rename_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  if (newPath != nil)  {
-    [outProtocol writeFieldBeginWithName: @"newPath" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: newPath];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
-}
-
-- (BOOL) recv_rename
-{
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  RenameResult_ * result = [[[RenameResult_ alloc] init] autorelease];
-  [result read: inProtocol];
-  [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"rename failed: unknown result"];
-}
-
-- (BOOL) rename: (RequestContext *) ctx : (NSString *) path : (NSString *) newPath
-{
-  [self send_rename: ctx : path : newPath];
-  return [self recv_rename];
-}
-
-- (void) send_reportBadBlocks: (RequestContext *) ctx : (NSArray *) blocks
-{
-  [outProtocol writeMessageBeginWithName: @"reportBadBlocks" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"reportBadBlocks_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (blocks != nil)  {
-    [outProtocol writeFieldBeginWithName: @"blocks" type: TType_LIST fieldID: 1];
+if (__success_isset) {
+  if (__success != nil) {
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
     {
-      [outProtocol writeListBeginWithElementType: TType_STRUCT size: [blocks count]];
-      int i32;
-      for (i32 = 0; i32 < [blocks count]; i32++)
+      [outProtocol writeListBeginWithElementType: TType_I64 size: [__success count]];
+      int i15;
+      for (i15 = 0; i15 < [__success count]; i15++)
       {
-        [[blocks objectAtIndex: i32] write: outProtocol];
+        [outProtocol writeI64: [[__success objectAtIndex: i15] longLongValue]];
       }
       [outProtocol writeListEnd];
     }
     [outProtocol writeFieldEnd];
   }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"DfResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%@", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface EnterSafeModeResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation EnterSafeModeResult_
+- (id) initWithErr: (IOException *) err
+{
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"EnterSafeModeResult_"];
+
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"EnterSafeModeResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface GetBlocksResult_ : NSObject {
+NSArray * __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSArray *) success;
+- (void) setSuccess: (NSArray *) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation GetBlocksResult_
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
+{
+self = [super init];
+__success = [success retain];
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__success release];
+[__err release];
+[super dealloc];
+}
+
+- (NSArray *) success {
+return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (NSArray *) success {
+[success retain];
+[__success release];
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+[__success release];
+__success = nil;
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_LIST) {
+        int _size16;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size16];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size16];
+        int _i17;
+        for (_i17 = 0; _i17 < _size16; ++_i17)
+        {
+          Block *_elem18 = [[Block alloc] init];
+          [_elem18 read: inProtocol];
+          [fieldValue addObject: _elem18];
+        }
+        [inProtocol readListEnd];
+        [self setSuccess: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"GetBlocksResult_"];
+
+if (__success_isset) {
+  if (__success != nil) {
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
+    {
+      [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
+      int i20;
+      for (i20 = 0; i20 < [__success count]; i20++)
+      {
+        [[__success objectAtIndex: i20] write: outProtocol];
+      }
+      [outProtocol writeListEnd];
+    }
+    [outProtocol writeFieldEnd];
+  }
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"GetBlocksResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%@", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface GetDatanodeReportResult_ : NSObject {
+NSArray * __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSArray *) success;
+- (void) setSuccess: (NSArray *) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation GetDatanodeReportResult_
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
+{
+self = [super init];
+__success = [success retain];
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__success release];
+[__err release];
+[super dealloc];
+}
+
+- (NSArray *) success {
+return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (NSArray *) success {
+[success retain];
+[__success release];
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+[__success release];
+__success = nil;
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_LIST) {
+        int _size21;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size21];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size21];
+        int _i22;
+        for (_i22 = 0; _i22 < _size21; ++_i22)
+        {
+          DatanodeInfo *_elem23 = [[DatanodeInfo alloc] init];
+          [_elem23 read: inProtocol];
+          [fieldValue addObject: _elem23];
+        }
+        [inProtocol readListEnd];
+        [self setSuccess: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"GetDatanodeReportResult_"];
+
+if (__success_isset) {
+  if (__success != nil) {
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
+    {
+      [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
+      int i25;
+      for (i25 = 0; i25 < [__success count]; i25++)
+      {
+        [[__success objectAtIndex: i25] write: outProtocol];
+      }
+      [outProtocol writeListEnd];
+    }
+    [outProtocol writeFieldEnd];
+  }
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"GetDatanodeReportResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%@", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface GetHealthReportResult_ : NSObject {
+DFSHealthReport * __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (DFSHealthReport *) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (DFSHealthReport *) success;
+- (void) setSuccess: (DFSHealthReport *) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation GetHealthReportResult_
+- (id) initWithSuccess: (DFSHealthReport *) success err: (IOException *) err
+{
+self = [super init];
+__success = [success retain];
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__success release];
+[__err release];
+[super dealloc];
+}
+
+- (DFSHealthReport *) success {
+return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (DFSHealthReport *) success {
+[success retain];
+[__success release];
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+[__success release];
+__success = nil;
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_STRUCT) {
+        DFSHealthReport *fieldValue = [[DFSHealthReport alloc] init];
+        [fieldValue read: inProtocol];
+        [self setSuccess: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"GetHealthReportResult_"];
+
+if (__success_isset) {
+  if (__success != nil) {
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+    [__success write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"GetHealthReportResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%@", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface GetPreferredBlockSizeResult_ : NSObject {
+int64_t __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (int64_t) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (int64_t) success;
+- (void) setSuccess: (int64_t) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation GetPreferredBlockSizeResult_
+- (id) initWithSuccess: (int64_t) success err: (IOException *) err
+{
+self = [super init];
+__success = success;
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (int64_t) success {
+return __success;
+}
+
+- (void) setSuccess: (int64_t) success {
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_I64) {
+        int64_t fieldValue = [inProtocol readI64];
+        [self setSuccess: fieldValue];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"GetPreferredBlockSizeResult_"];
+
+if (__success_isset) {
+  [outProtocol writeFieldBeginWithName: @"success" type: TType_I64 fieldID: 0];
+  [outProtocol writeI64: __success];
+  [outProtocol writeFieldEnd];
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"GetPreferredBlockSizeResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%qi", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface IsInSafeModeResult_ : NSObject {
+BOOL __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (BOOL) success;
+- (void) setSuccess: (BOOL) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation IsInSafeModeResult_
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err
+{
+self = [super init];
+__success = success;
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (BOOL) success {
+return __success;
+}
+
+- (void) setSuccess: (BOOL) success {
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_BOOL) {
+        BOOL fieldValue = [inProtocol readBool];
+        [self setSuccess: fieldValue];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"IsInSafeModeResult_"];
+
+if (__success_isset) {
+  [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
+  [outProtocol writeBool: __success];
+  [outProtocol writeFieldEnd];
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"IsInSafeModeResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%i", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface LeaveSafeModeResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation LeaveSafeModeResult_
+- (id) initWithErr: (IOException *) err
+{
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"LeaveSafeModeResult_"];
+
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"LeaveSafeModeResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface LsResult_ : NSObject {
+NSArray * __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSArray *) success;
+- (void) setSuccess: (NSArray *) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation LsResult_
+- (id) initWithSuccess: (NSArray *) success err: (IOException *) err
+{
+self = [super init];
+__success = [success retain];
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__success release];
+[__err release];
+[super dealloc];
+}
+
+- (NSArray *) success {
+return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (NSArray *) success {
+[success retain];
+[__success release];
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+[__success release];
+__success = nil;
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_LIST) {
+        int _size26;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size26];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size26];
+        int _i27;
+        for (_i27 = 0; _i27 < _size26; ++_i27)
+        {
+          Stat *_elem28 = [[Stat alloc] init];
+          [_elem28 read: inProtocol];
+          [fieldValue addObject: _elem28];
+        }
+        [inProtocol readListEnd];
+        [self setSuccess: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"LsResult_"];
+
+if (__success_isset) {
+  if (__success != nil) {
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
+    {
+      [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
+      int i30;
+      for (i30 = 0; i30 < [__success count]; i30++)
+      {
+        [[__success objectAtIndex: i30] write: outProtocol];
+      }
+      [outProtocol writeListEnd];
+    }
+    [outProtocol writeFieldEnd];
+  }
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"LsResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%@", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface MkdirhierResult_ : NSObject {
+BOOL __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (BOOL) success;
+- (void) setSuccess: (BOOL) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation MkdirhierResult_
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err
+{
+self = [super init];
+__success = success;
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (BOOL) success {
+return __success;
+}
+
+- (void) setSuccess: (BOOL) success {
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_BOOL) {
+        BOOL fieldValue = [inProtocol readBool];
+        [self setSuccess: fieldValue];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"MkdirhierResult_"];
+
+if (__success_isset) {
+  [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
+  [outProtocol writeBool: __success];
+  [outProtocol writeFieldEnd];
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"MkdirhierResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%i", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface RefreshNodesResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation RefreshNodesResult_
+- (id) initWithErr: (IOException *) err
+{
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"RefreshNodesResult_"];
+
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"RefreshNodesResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface RenameResult_ : NSObject {
+BOOL __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (BOOL) success;
+- (void) setSuccess: (BOOL) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation RenameResult_
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err
+{
+self = [super init];
+__success = success;
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (BOOL) success {
+return __success;
+}
+
+- (void) setSuccess: (BOOL) success {
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_BOOL) {
+        BOOL fieldValue = [inProtocol readBool];
+        [self setSuccess: fieldValue];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"RenameResult_"];
+
+if (__success_isset) {
+  [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
+  [outProtocol writeBool: __success];
+  [outProtocol writeFieldEnd];
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"RenameResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%i", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface ReportBadBlocksResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation ReportBadBlocksResult_
+- (id) initWithErr: (IOException *) err
+{
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"ReportBadBlocksResult_"];
+
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"ReportBadBlocksResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface StatResult_ : NSObject {
+Stat * __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (Stat *) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (Stat *) success;
+- (void) setSuccess: (Stat *) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation StatResult_
+- (id) initWithSuccess: (Stat *) success err: (IOException *) err
+{
+self = [super init];
+__success = [success retain];
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__success release];
+[__err release];
+[super dealloc];
+}
+
+- (Stat *) success {
+return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (Stat *) success {
+[success retain];
+[__success release];
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+[__success release];
+__success = nil;
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_STRUCT) {
+        Stat *fieldValue = [[Stat alloc] init];
+        [fieldValue read: inProtocol];
+        [self setSuccess: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"StatResult_"];
+
+if (__success_isset) {
+  if (__success != nil) {
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+    [__success write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"StatResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%@", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface SetQuotaResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation SetQuotaResult_
+- (id) initWithErr: (IOException *) err
+{
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"SetQuotaResult_"];
+
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"SetQuotaResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface SetReplicationResult_ : NSObject {
+BOOL __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (BOOL) success;
+- (void) setSuccess: (BOOL) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation SetReplicationResult_
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err
+{
+self = [super init];
+__success = success;
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (BOOL) success {
+return __success;
+}
+
+- (void) setSuccess: (BOOL) success {
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_BOOL) {
+        BOOL fieldValue = [inProtocol readBool];
+        [self setSuccess: fieldValue];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"SetReplicationResult_"];
+
+if (__success_isset) {
+  [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
+  [outProtocol writeBool: __success];
+  [outProtocol writeFieldEnd];
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"SetReplicationResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%i", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface UnlinkResult_ : NSObject {
+BOOL __success;
+IOException * __err;
+
+BOOL __success_isset;
+BOOL __err_isset;
+}
+
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (BOOL) success;
+- (void) setSuccess: (BOOL) success;
+- (BOOL) successIsSet;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation UnlinkResult_
+- (id) initWithSuccess: (BOOL) success err: (IOException *) err
+{
+self = [super init];
+__success = success;
+__success_isset = YES;
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (BOOL) success {
+return __success;
+}
+
+- (void) setSuccess: (BOOL) success {
+__success = success;
+__success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+return __success_isset;
+}
+
+- (void) unsetSuccess {
+__success_isset = NO;
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 0:
+      if (fieldType == TType_BOOL) {
+        BOOL fieldValue = [inProtocol readBool];
+        [self setSuccess: fieldValue];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"UnlinkResult_"];
+
+if (__success_isset) {
+  [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
+  [outProtocol writeBool: __success];
+  [outProtocol writeFieldEnd];
+} else if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"UnlinkResult_("];
+[ms appendString: @"success:"];
+[ms appendFormat: @"%i", __success];
+[ms appendString: @",err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface UtimeResult_ : NSObject {
+IOException * __err;
+
+BOOL __err_isset;
+}
+
+- (id) initWithErr: (IOException *) err;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (IOException *) err;
+- (void) setErr: (IOException *) err;
+- (BOOL) errIsSet;
+
+@end
+
+@implementation UtimeResult_
+- (id) initWithErr: (IOException *) err
+{
+self = [super init];
+__err = [err retain];
+__err_isset = YES;
+return self;
+}
+
+- (void) dealloc
+{
+[__err release];
+[super dealloc];
+}
+
+- (IOException *) err {
+return [[__err retain] autorelease];
+}
+
+- (void) setErr: (IOException *) err {
+[err retain];
+[__err release];
+__err = err;
+__err_isset = YES;
+}
+
+- (BOOL) errIsSet {
+return __err_isset;
+}
+
+- (void) unsetErr {
+[__err release];
+__err = nil;
+__err_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    case 1:
+      if (fieldType == TType_STRUCT) {
+        IOException *fieldValue = [[IOException alloc] init];
+        [fieldValue read: inProtocol];
+        [self setErr: fieldValue];
+        [fieldValue release];
+      } else { 
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      }
+      break;
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"UtimeResult_"];
+
+if (__err_isset) {
+  if (__err != nil) {
+    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+    [__err write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"UtimeResult_("];
+[ms appendString: @"err:"];
+[ms appendFormat: @"%@", __err];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface DatanodeUpResult_ : NSObject {
+}
+
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+@end
+
+@implementation DatanodeUpResult_
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"DatanodeUpResult_"];
+
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"DatanodeUpResult_("];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@interface DatanodeDownResult_ : NSObject {
+}
+
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+@end
+
+@implementation DatanodeDownResult_
+- (void) read: (id <TProtocol>) inProtocol
+{
+NSString * fieldName;
+int fieldType;
+int fieldID;
+
+[inProtocol readStructBeginReturningName: NULL];
+while (true)
+{
+  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+  if (fieldType == TType_STOP) { 
+    break;
+  }
+  switch (fieldID)
+  {
+    default:
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+      break;
+  }
+  [inProtocol readFieldEnd];
+}
+[inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+[outProtocol writeStructBeginWithName: @"DatanodeDownResult_"];
+
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+NSMutableString * ms = [NSMutableString stringWithString: @"DatanodeDownResult_("];
+[ms appendString: @")"];
+return [ms copy];
+}
+
+@end
+
+@implementation NamenodeClient
+- (id) initWithProtocol: (id <TProtocol>) protocol
+{
+return [self initWithInProtocol: protocol outProtocol: protocol];
+}
+
+- (id) initWithInProtocol: (id <TProtocol>) anInProtocol outProtocol: (id <TProtocol>) anOutProtocol
+{
+[super init];
+inProtocol = [anInProtocol retain];
+outProtocol = [anOutProtocol retain];
+return self;
+}
+
+- (void) dealloc
+{
+[inProtocol release];
+[outProtocol release];
+[super dealloc];
+}
+
+- (void) send_chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
+{
+[outProtocol writeMessageBeginWithName: @"chmod" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"chmod_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"perms" type: TType_I16 fieldID: 2];
+[outProtocol writeI16: perms];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (void) recv_chmod
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+ChmodResult_ * result = [[[ChmodResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
+}
+
+- (void) chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
+{
+[self send_chmod: ctx : path : perms];
+[self recv_chmod];
+}
+
+- (void) send_chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group
+{
+[outProtocol writeMessageBeginWithName: @"chown" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"chown_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+if (owner != nil){
+  [outProtocol writeFieldBeginWithName: @"owner" type: TType_STRING fieldID: 2];
+  [outProtocol writeString: owner];
+  [outProtocol writeFieldEnd];
+}
+if (group != nil){
+  [outProtocol writeFieldBeginWithName: @"group" type: TType_STRING fieldID: 3];
+  [outProtocol writeString: group];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (void) recv_chown
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+ChownResult_ * result = [[[ChownResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
+}
+
+- (void) chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group
+{
+[self send_chown: ctx : path : owner : group];
+[self recv_chown];
+}
+
+- (void) send_df: (RequestContext *) ctx
+{
+[outProtocol writeMessageBeginWithName: @"df" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"df_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (NSArray *) recv_df
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+DfResult_ * result = [[[DfResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"df failed: unknown result"];
+}
+
+- (NSArray *) df: (RequestContext *) ctx
+{
+[self send_df: ctx];
+return [self recv_df];
+}
+
+- (void) send_enterSafeMode: (RequestContext *) ctx
+{
+[outProtocol writeMessageBeginWithName: @"enterSafeMode" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"enterSafeMode_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (void) recv_enterSafeMode
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+EnterSafeModeResult_ * result = [[[EnterSafeModeResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
+}
+
+- (void) enterSafeMode: (RequestContext *) ctx
+{
+[self send_enterSafeMode: ctx];
+[self recv_enterSafeMode];
+}
+
+- (void) send_getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length
+{
+[outProtocol writeMessageBeginWithName: @"getBlocks" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"getBlocks_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"offset" type: TType_I64 fieldID: 2];
+[outProtocol writeI64: offset];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldBeginWithName: @"length" type: TType_I64 fieldID: 3];
+[outProtocol writeI64: length];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (NSArray *) recv_getBlocks
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+GetBlocksResult_ * result = [[[GetBlocksResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"getBlocks failed: unknown result"];
+}
+
+- (NSArray *) getBlocks: (RequestContext *) ctx : (NSString *) path : (int64_t) offset : (int64_t) length
+{
+[self send_getBlocks: ctx : path : offset : length];
+return [self recv_getBlocks];
+}
+
+- (void) send_getDatanodeReport: (RequestContext *) ctx : (int) type
+{
+[outProtocol writeMessageBeginWithName: @"getDatanodeReport" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"getDatanodeReport_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"type" type: TType_I32 fieldID: 1];
+[outProtocol writeI32: type];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (NSArray *) recv_getDatanodeReport
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+GetDatanodeReportResult_ * result = [[[GetDatanodeReportResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"getDatanodeReport failed: unknown result"];
+}
+
+- (NSArray *) getDatanodeReport: (RequestContext *) ctx : (int) type
+{
+[self send_getDatanodeReport: ctx : type];
+return [self recv_getDatanodeReport];
+}
+
+- (void) send_getHealthReport: (RequestContext *) ctx
+{
+[outProtocol writeMessageBeginWithName: @"getHealthReport" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"getHealthReport_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (DFSHealthReport *) recv_getHealthReport
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+GetHealthReportResult_ * result = [[[GetHealthReportResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"getHealthReport failed: unknown result"];
+}
+
+- (DFSHealthReport *) getHealthReport: (RequestContext *) ctx
+{
+[self send_getHealthReport: ctx];
+return [self recv_getHealthReport];
+}
+
+- (void) send_getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path
+{
+[outProtocol writeMessageBeginWithName: @"getPreferredBlockSize" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"getPreferredBlockSize_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (int64_t) recv_getPreferredBlockSize
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+GetPreferredBlockSizeResult_ * result = [[[GetPreferredBlockSizeResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"getPreferredBlockSize failed: unknown result"];
+}
+
+- (int64_t) getPreferredBlockSize: (RequestContext *) ctx : (NSString *) path
+{
+[self send_getPreferredBlockSize: ctx : path];
+return [self recv_getPreferredBlockSize];
+}
+
+- (void) send_isInSafeMode: (RequestContext *) ctx
+{
+[outProtocol writeMessageBeginWithName: @"isInSafeMode" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"isInSafeMode_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (BOOL) recv_isInSafeMode
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+IsInSafeModeResult_ * result = [[[IsInSafeModeResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"isInSafeMode failed: unknown result"];
+}
+
+- (BOOL) isInSafeMode: (RequestContext *) ctx
+{
+[self send_isInSafeMode: ctx];
+return [self recv_isInSafeMode];
+}
+
+- (void) send_leaveSafeMode: (RequestContext *) ctx
+{
+[outProtocol writeMessageBeginWithName: @"leaveSafeMode" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"leaveSafeMode_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (void) recv_leaveSafeMode
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+LeaveSafeModeResult_ * result = [[[LeaveSafeModeResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
+}
+
+- (void) leaveSafeMode: (RequestContext *) ctx
+{
+[self send_leaveSafeMode: ctx];
+[self recv_leaveSafeMode];
+}
+
+- (void) send_ls: (RequestContext *) ctx : (NSString *) path
+{
+[outProtocol writeMessageBeginWithName: @"ls" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"ls_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (NSArray *) recv_ls
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+LsResult_ * result = [[[LsResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"ls failed: unknown result"];
+}
+
+- (NSArray *) ls: (RequestContext *) ctx : (NSString *) path
+{
+[self send_ls: ctx : path];
+return [self recv_ls];
+}
+
+- (void) send_mkdirhier: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
+{
+[outProtocol writeMessageBeginWithName: @"mkdirhier" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"mkdirhier_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"perms" type: TType_I16 fieldID: 2];
+[outProtocol writeI16: perms];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (BOOL) recv_mkdirhier
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+MkdirhierResult_ * result = [[[MkdirhierResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"mkdirhier failed: unknown result"];
+}
+
+- (BOOL) mkdirhier: (RequestContext *) ctx : (NSString *) path : (int16_t) perms
+{
+[self send_mkdirhier: ctx : path : perms];
+return [self recv_mkdirhier];
+}
+
+- (void) send_refreshNodes: (RequestContext *) ctx
+{
+[outProtocol writeMessageBeginWithName: @"refreshNodes" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"refreshNodes_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (void) recv_refreshNodes
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+RefreshNodesResult_ * result = [[[RefreshNodesResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
+}
+
+- (void) refreshNodes: (RequestContext *) ctx
+{
+[self send_refreshNodes: ctx];
+[self recv_refreshNodes];
+}
+
+- (void) send_rename: (RequestContext *) ctx : (NSString *) path : (NSString *) newPath
+{
+[outProtocol writeMessageBeginWithName: @"rename" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"rename_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+if (newPath != nil){
+  [outProtocol writeFieldBeginWithName: @"newPath" type: TType_STRING fieldID: 2];
+  [outProtocol writeString: newPath];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
+}
+
+- (BOOL) recv_rename
+{
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
+  [inProtocol readMessageEnd];
+  @throw x;
+}
+RenameResult_ * result = [[[RenameResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"rename failed: unknown result"];
+}
+
+- (BOOL) rename: (RequestContext *) ctx : (NSString *) path : (NSString *) newPath
+{
+[self send_rename: ctx : path : newPath];
+return [self recv_rename];
+}
+
+- (void) send_reportBadBlocks: (RequestContext *) ctx : (NSArray *) blocks
+{
+[outProtocol writeMessageBeginWithName: @"reportBadBlocks" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"reportBadBlocks_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (blocks != nil){
+  [outProtocol writeFieldBeginWithName: @"blocks" type: TType_LIST fieldID: 1];
+  {
+    [outProtocol writeListBeginWithElementType: TType_STRUCT size: [blocks count]];
+    int i32;
+    for (i32 = 0; i32 < [blocks count]; i32++)
+    {
+      [[blocks objectAtIndex: i32] write: outProtocol];
+    }
+    [outProtocol writeListEnd];
+  }
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (void) recv_reportBadBlocks
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  ReportBadBlocksResult_ * result = [[[ReportBadBlocksResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  return;
+  @throw x;
+}
+ReportBadBlocksResult_ * result = [[[ReportBadBlocksResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
 }
 
 - (void) reportBadBlocks: (RequestContext *) ctx : (NSArray *) blocks
 {
-  [self send_reportBadBlocks: ctx : blocks];
-  [self recv_reportBadBlocks];
+[self send_reportBadBlocks: ctx : blocks];
+[self recv_reportBadBlocks];
 }
 
 - (void) send_stat: (RequestContext *) ctx : (NSString *) path
 {
-  [outProtocol writeMessageBeginWithName: @"stat" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"stat_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+[outProtocol writeMessageBeginWithName: @"stat" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"stat_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (Stat *) recv_stat
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  StatResult_ * result = [[[StatResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"stat failed: unknown result"];
+  @throw x;
+}
+StatResult_ * result = [[[StatResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"stat failed: unknown result"];
 }
 
 - (Stat *) stat: (RequestContext *) ctx : (NSString *) path
 {
-  [self send_stat: ctx : path];
-  return [self recv_stat];
+[self send_stat: ctx : path];
+return [self recv_stat];
 }
 
 - (void) send_setQuota: (RequestContext *) ctx : (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota
 {
-  [outProtocol writeMessageBeginWithName: @"setQuota" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"setQuota_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"namespaceQuota" type: TType_I64 fieldID: 2];
-  [outProtocol writeI64: namespaceQuota];
+[outProtocol writeMessageBeginWithName: @"setQuota" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"setQuota_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldBeginWithName: @"diskspaceQuota" type: TType_I64 fieldID: 3];
-  [outProtocol writeI64: diskspaceQuota];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+[outProtocol writeFieldBeginWithName: @"namespaceQuota" type: TType_I64 fieldID: 2];
+[outProtocol writeI64: namespaceQuota];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldBeginWithName: @"diskspaceQuota" type: TType_I64 fieldID: 3];
+[outProtocol writeI64: diskspaceQuota];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (void) recv_setQuota
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  SetQuotaResult_ * result = [[[SetQuotaResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  return;
+  @throw x;
+}
+SetQuotaResult_ * result = [[[SetQuotaResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
 }
 
 - (void) setQuota: (RequestContext *) ctx : (NSString *) path : (int64_t) namespaceQuota : (int64_t) diskspaceQuota
 {
-  [self send_setQuota: ctx : path : namespaceQuota : diskspaceQuota];
-  [self recv_setQuota];
+[self send_setQuota: ctx : path : namespaceQuota : diskspaceQuota];
+[self recv_setQuota];
 }
 
 - (void) send_setReplication: (RequestContext *) ctx : (NSString *) path : (int16_t) replication
 {
-  [outProtocol writeMessageBeginWithName: @"setReplication" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"setReplication_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"replication" type: TType_I16 fieldID: 2];
-  [outProtocol writeI16: replication];
+[outProtocol writeMessageBeginWithName: @"setReplication" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"setReplication_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"replication" type: TType_I16 fieldID: 2];
+[outProtocol writeI16: replication];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (BOOL) recv_setReplication
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  SetReplicationResult_ * result = [[[SetReplicationResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"setReplication failed: unknown result"];
+  @throw x;
+}
+SetReplicationResult_ * result = [[[SetReplicationResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"setReplication failed: unknown result"];
 }
 
 - (BOOL) setReplication: (RequestContext *) ctx : (NSString *) path : (int16_t) replication
 {
-  [self send_setReplication: ctx : path : replication];
-  return [self recv_setReplication];
+[self send_setReplication: ctx : path : replication];
+return [self recv_setReplication];
 }
 
 - (void) send_unlink: (RequestContext *) ctx : (NSString *) path : (BOOL) recursive
 {
-  [outProtocol writeMessageBeginWithName: @"unlink" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"unlink_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"recursive" type: TType_BOOL fieldID: 2];
-  [outProtocol writeBool: recursive];
+[outProtocol writeMessageBeginWithName: @"unlink" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"unlink_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"recursive" type: TType_BOOL fieldID: 2];
+[outProtocol writeBool: recursive];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (BOOL) recv_unlink
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  UnlinkResult_ * result = [[[UnlinkResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  if ([result successIsSet]) {
-    return [result success];
-  }
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"unlink failed: unknown result"];
+  @throw x;
+}
+UnlinkResult_ * result = [[[UnlinkResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result successIsSet]) {
+  return [result success];
+}
+if ([result errIsSet]) {
+  @throw [result err];
+}
+@throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                         reason: @"unlink failed: unknown result"];
 }
 
 - (BOOL) unlink: (RequestContext *) ctx : (NSString *) path : (BOOL) recursive
 {
-  [self send_unlink: ctx : path : recursive];
-  return [self recv_unlink];
+[self send_unlink: ctx : path : recursive];
+return [self recv_unlink];
 }
 
 - (void) send_utime: (RequestContext *) ctx : (NSString *) path : (int64_t) atime : (int64_t) mtime
 {
-  [outProtocol writeMessageBeginWithName: @"utime" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"utime_args"];
-  if (ctx != nil)  {
-    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-    [ctx write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
-  if (path != nil)  {
-    [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: path];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"atime" type: TType_I64 fieldID: 2];
-  [outProtocol writeI64: atime];
+[outProtocol writeMessageBeginWithName: @"utime" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"utime_args"];
+if (ctx != nil){
+  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+  [ctx write: outProtocol];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldBeginWithName: @"mtime" type: TType_I64 fieldID: 3];
-  [outProtocol writeI64: mtime];
+}
+if (path != nil){
+  [outProtocol writeFieldBeginWithName: @"path" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: path];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+[outProtocol writeFieldBeginWithName: @"atime" type: TType_I64 fieldID: 2];
+[outProtocol writeI64: atime];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldBeginWithName: @"mtime" type: TType_I64 fieldID: 3];
+[outProtocol writeI64: mtime];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (void) recv_utime
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  UtimeResult_ * result = [[[UtimeResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  if ([result errIsSet]) {
-    @throw [result err];
-  }
-  return;
+  @throw x;
+}
+UtimeResult_ * result = [[[UtimeResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+if ([result errIsSet]) {
+  @throw [result err];
+}
+return;
 }
 
 - (void) utime: (RequestContext *) ctx : (NSString *) path : (int64_t) atime : (int64_t) mtime
 {
-  [self send_utime: ctx : path : atime : mtime];
-  [self recv_utime];
+[self send_utime: ctx : path : atime : mtime];
+[self recv_utime];
 }
 
 - (void) send_datanodeUp: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
-  [outProtocol writeMessageBeginWithName: @"datanodeUp" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"datanodeUp_args"];
-  if (name != nil)  {
-    [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: name];
-    [outProtocol writeFieldEnd];
-  }
-  if (storage != nil)  {
-    [outProtocol writeFieldBeginWithName: @"storage" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: storage];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 3];
-  [outProtocol writeI32: thriftPort];
+[outProtocol writeMessageBeginWithName: @"datanodeUp" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"datanodeUp_args"];
+if (name != nil){
+  [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: name];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+if (storage != nil){
+  [outProtocol writeFieldBeginWithName: @"storage" type: TType_STRING fieldID: 2];
+  [outProtocol writeString: storage];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 3];
+[outProtocol writeI32: thriftPort];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (void) recv_datanodeUp
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  DatanodeUpResult_ * result = [[[DatanodeUpResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  return;
+  @throw x;
+}
+DatanodeUpResult_ * result = [[[DatanodeUpResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+return;
 }
 
 - (void) datanodeUp: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
-  [self send_datanodeUp: name : storage : thriftPort];
-  [self recv_datanodeUp];
+[self send_datanodeUp: name : storage : thriftPort];
+[self recv_datanodeUp];
 }
 
 - (void) send_datanodeDown: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
-  [outProtocol writeMessageBeginWithName: @"datanodeDown" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"datanodeDown_args"];
-  if (name != nil)  {
-    [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 1];
-    [outProtocol writeString: name];
-    [outProtocol writeFieldEnd];
-  }
-  if (storage != nil)  {
-    [outProtocol writeFieldBeginWithName: @"storage" type: TType_STRING fieldID: 2];
-    [outProtocol writeString: storage];
-    [outProtocol writeFieldEnd];
-  }
-  [outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 3];
-  [outProtocol writeI32: thriftPort];
+[outProtocol writeMessageBeginWithName: @"datanodeDown" type: TMessageType_CALL sequenceID: 0];
+[outProtocol writeStructBeginWithName: @"datanodeDown_args"];
+if (name != nil){
+  [outProtocol writeFieldBeginWithName: @"name" type: TType_STRING fieldID: 1];
+  [outProtocol writeString: name];
   [outProtocol writeFieldEnd];
-  [outProtocol writeFieldStop];
-  [outProtocol writeStructEnd];
-  [outProtocol writeMessageEnd];
-  [[outProtocol transport] flush];
+}
+if (storage != nil){
+  [outProtocol writeFieldBeginWithName: @"storage" type: TType_STRING fieldID: 2];
+  [outProtocol writeString: storage];
+  [outProtocol writeFieldEnd];
+}
+[outProtocol writeFieldBeginWithName: @"thriftPort" type: TType_I32 fieldID: 3];
+[outProtocol writeI32: thriftPort];
+[outProtocol writeFieldEnd];
+[outProtocol writeFieldStop];
+[outProtocol writeStructEnd];
+[outProtocol writeMessageEnd];
+[[outProtocol transport] flush];
 }
 
 - (void) recv_datanodeDown
 {
-  int msgType = 0;
-  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
-  if (msgType == TMessageType_EXCEPTION) {
-    TApplicationException * x = [TApplicationException read: inProtocol];
-    [inProtocol readMessageEnd];
-    @throw x;
-  }
-  DatanodeDownResult_ * result = [[[DatanodeDownResult_ alloc] init] autorelease];
-  [result read: inProtocol];
+int msgType = 0;
+[inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+if (msgType == TMessageType_EXCEPTION) {
+  TApplicationException * x = [TApplicationException read: inProtocol];
   [inProtocol readMessageEnd];
-  return;
+  @throw x;
+}
+DatanodeDownResult_ * result = [[[DatanodeDownResult_ alloc] init] autorelease];
+[result read: inProtocol];
+[inProtocol readMessageEnd];
+return;
 }
 
 - (void) datanodeDown: (NSString *) name : (NSString *) storage : (int32_t) thriftPort
 {
-  [self send_datanodeDown: name : storage : thriftPort];
-  [self recv_datanodeDown];
+[self send_datanodeDown: name : storage : thriftPort];
+[self recv_datanodeDown];
 }
 
 @end
@@ -6409,37 +6920,37 @@ int fieldID;
 [inProtocol readStructBeginReturningName: NULL];
 while (true)
 {
-  [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-  if (fieldType == TType_STOP) { 
-    break;
-  }
-  switch (fieldID)
-  {
-    case 0:
-      if (fieldType == TType_STRUCT) {
-        BlockData *fieldValue = [[BlockData alloc] init];
-        [fieldValue read: inProtocol];
-        [self setSuccess: fieldValue];
-        [fieldValue release];
-      } else { 
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-      }
-      break;
-    case 1:
-      if (fieldType == TType_STRUCT) {
-        IOException *fieldValue = [[IOException alloc] init];
-        [fieldValue read: inProtocol];
-        [self setErr: fieldValue];
-        [fieldValue release];
-      } else { 
-        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-      }
-      break;
-    default:
+[inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+if (fieldType == TType_STOP) { 
+  break;
+}
+switch (fieldID)
+{
+  case 0:
+    if (fieldType == TType_STRUCT) {
+      BlockData *fieldValue = [[BlockData alloc] init];
+      [fieldValue read: inProtocol];
+      [self setSuccess: fieldValue];
+      [fieldValue release];
+    } else { 
       [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-      break;
-  }
-  [inProtocol readFieldEnd];
+    }
+    break;
+  case 1:
+    if (fieldType == TType_STRUCT) {
+      IOException *fieldValue = [[IOException alloc] init];
+      [fieldValue read: inProtocol];
+      [self setErr: fieldValue];
+      [fieldValue release];
+    } else { 
+      [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+    }
+    break;
+  default:
+    [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+    break;
+}
+[inProtocol readFieldEnd];
 }
 [inProtocol readStructEnd];
 }
@@ -6448,17 +6959,17 @@ while (true)
 [outProtocol writeStructBeginWithName: @"ReadBlockResult_"];
 
 if (__success_isset) {
-  if (__success != nil) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
-    [__success write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
+if (__success != nil) {
+  [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+  [__success write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
 } else if (__err_isset) {
-  if (__err != nil) {
-    [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
-    [__err write: outProtocol];
-    [outProtocol writeFieldEnd];
-  }
+if (__err != nil) {
+  [outProtocol writeFieldBeginWithName: @"err" type: TType_STRUCT fieldID: 1];
+  [__err write: outProtocol];
+  [outProtocol writeFieldEnd];
+}
 }
 [outProtocol writeFieldStop];
 [outProtocol writeStructEnd];
@@ -6502,14 +7013,14 @@ return self;
 [outProtocol writeMessageBeginWithName: @"readBlock" type: TMessageType_CALL sequenceID: 0];
 [outProtocol writeStructBeginWithName: @"readBlock_args"];
 if (ctx != nil){
-  [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
-  [ctx write: outProtocol];
-  [outProtocol writeFieldEnd];
+[outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+[ctx write: outProtocol];
+[outProtocol writeFieldEnd];
 }
 if (block != nil){
-  [outProtocol writeFieldBeginWithName: @"block" type: TType_STRUCT fieldID: 1];
-  [block write: outProtocol];
-  [outProtocol writeFieldEnd];
+[outProtocol writeFieldBeginWithName: @"block" type: TType_STRUCT fieldID: 1];
+[block write: outProtocol];
+[outProtocol writeFieldEnd];
 }
 [outProtocol writeFieldBeginWithName: @"offset" type: TType_I64 fieldID: 2];
 [outProtocol writeI64: offset];

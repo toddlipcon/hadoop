@@ -1260,6 +1260,198 @@ class hadoop_api_DFSHealthReport {
 
 }
 
+class hadoop_api_VersionInfo {
+  static $_TSPEC;
+
+  public $version = null;
+  public $revision = null;
+  public $branch = null;
+  public $compileDate = null;
+  public $compilingUser = null;
+  public $url = null;
+  public $buildVersion = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'version',
+          'type' => TType::STRING,
+          ),
+        2 => array(
+          'var' => 'revision',
+          'type' => TType::STRING,
+          ),
+        3 => array(
+          'var' => 'branch',
+          'type' => TType::STRING,
+          ),
+        4 => array(
+          'var' => 'compileDate',
+          'type' => TType::STRING,
+          ),
+        5 => array(
+          'var' => 'compilingUser',
+          'type' => TType::STRING,
+          ),
+        6 => array(
+          'var' => 'url',
+          'type' => TType::STRING,
+          ),
+        7 => array(
+          'var' => 'buildVersion',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['version'])) {
+        $this->version = $vals['version'];
+      }
+      if (isset($vals['revision'])) {
+        $this->revision = $vals['revision'];
+      }
+      if (isset($vals['branch'])) {
+        $this->branch = $vals['branch'];
+      }
+      if (isset($vals['compileDate'])) {
+        $this->compileDate = $vals['compileDate'];
+      }
+      if (isset($vals['compilingUser'])) {
+        $this->compilingUser = $vals['compilingUser'];
+      }
+      if (isset($vals['url'])) {
+        $this->url = $vals['url'];
+      }
+      if (isset($vals['buildVersion'])) {
+        $this->buildVersion = $vals['buildVersion'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'VersionInfo';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->version);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 2:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->revision);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->branch);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 4:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->compileDate);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 5:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->compilingUser);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 6:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->url);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 7:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->buildVersion);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('VersionInfo');
+    if ($this->version !== null) {
+      $xfer += $output->writeFieldBegin('version', TType::STRING, 1);
+      $xfer += $output->writeString($this->version);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->revision !== null) {
+      $xfer += $output->writeFieldBegin('revision', TType::STRING, 2);
+      $xfer += $output->writeString($this->revision);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->branch !== null) {
+      $xfer += $output->writeFieldBegin('branch', TType::STRING, 3);
+      $xfer += $output->writeString($this->branch);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->compileDate !== null) {
+      $xfer += $output->writeFieldBegin('compileDate', TType::STRING, 4);
+      $xfer += $output->writeString($this->compileDate);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->compilingUser !== null) {
+      $xfer += $output->writeFieldBegin('compilingUser', TType::STRING, 5);
+      $xfer += $output->writeString($this->compilingUser);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->url !== null) {
+      $xfer += $output->writeFieldBegin('url', TType::STRING, 6);
+      $xfer += $output->writeString($this->url);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->buildVersion !== null) {
+      $xfer += $output->writeFieldBegin('buildVersion', TType::STRING, 7);
+      $xfer += $output->writeString($this->buildVersion);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
 class hadoop_api_IOException extends TException {
   static $_TSPEC;
 

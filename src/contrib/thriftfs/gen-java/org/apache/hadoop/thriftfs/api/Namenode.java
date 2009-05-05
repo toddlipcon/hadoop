@@ -23,7 +23,7 @@ public class Namenode {
    * Provides an interface to a Hadoop Namenode. It is basically a Thrift
    * translation of org.apache.hadoop.hdfs.protocol.ClientProtocol.
    */
-  public interface Iface {
+  public interface Iface extends HadoopServiceBase.Iface {
 
     /**
      * Set permissions of an existing file or directory.
@@ -274,7 +274,7 @@ public class Namenode {
 
   }
 
-  public static class Client implements Iface {
+  public static class Client extends HadoopServiceBase.Client implements Iface {
     public Client(TProtocol prot)
     {
       this(prot, prot);
@@ -282,23 +282,7 @@ public class Namenode {
 
     public Client(TProtocol iprot, TProtocol oprot)
     {
-      iprot_ = iprot;
-      oprot_ = oprot;
-    }
-
-    protected TProtocol iprot_;
-    protected TProtocol oprot_;
-
-    protected int seqid_;
-
-    public TProtocol getInputProtocol()
-    {
-      return this.iprot_;
-    }
-
-    public TProtocol getOutputProtocol()
-    {
-      return this.oprot_;
+      super(iprot, oprot);
     }
 
     public void chmod(RequestContext ctx, String path, short perms) throws IOException, TException
@@ -1089,9 +1073,10 @@ public class Namenode {
     }
 
   }
-  public static class Processor implements TProcessor {
+  public static class Processor extends HadoopServiceBase.Processor implements TProcessor {
     public Processor(Iface iface)
     {
+      super(iface);
       iface_ = iface;
       processMap_.put("chmod", new chmod());
       processMap_.put("chown", new chown());
@@ -1117,12 +1102,7 @@ public class Namenode {
       processMap_.put("datanodeDown", new datanodeDown());
     }
 
-    protected static interface ProcessFunction {
-      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException;
-    }
-
     private Iface iface_;
-    protected final HashMap<String,ProcessFunction> processMap_ = new HashMap<String,ProcessFunction>();
 
     public boolean process(TProtocol iprot, TProtocol oprot) throws TException
     {

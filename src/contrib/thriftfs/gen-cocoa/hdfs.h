@@ -341,6 +341,59 @@ enum DatanodeState {
 
 @end
 
+@interface VersionInfo : NSObject {
+  NSString * __version;
+  NSString * __revision;
+  NSString * __branch;
+  NSString * __compileDate;
+  NSString * __compilingUser;
+  NSString * __url;
+  NSString * __buildVersion;
+
+  BOOL __version_isset;
+  BOOL __revision_isset;
+  BOOL __branch_isset;
+  BOOL __compileDate_isset;
+  BOOL __compilingUser_isset;
+  BOOL __url_isset;
+  BOOL __buildVersion_isset;
+}
+
+- (id) initWithVersion: (NSString *) version revision: (NSString *) revision branch: (NSString *) branch compileDate: (NSString *) compileDate compilingUser: (NSString *) compilingUser url: (NSString *) url buildVersion: (NSString *) buildVersion;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSString *) version;
+- (void) setVersion: (NSString *) version;
+- (BOOL) versionIsSet;
+
+- (NSString *) revision;
+- (void) setRevision: (NSString *) revision;
+- (BOOL) revisionIsSet;
+
+- (NSString *) branch;
+- (void) setBranch: (NSString *) branch;
+- (BOOL) branchIsSet;
+
+- (NSString *) compileDate;
+- (void) setCompileDate: (NSString *) compileDate;
+- (BOOL) compileDateIsSet;
+
+- (NSString *) compilingUser;
+- (void) setCompilingUser: (NSString *) compilingUser;
+- (BOOL) compilingUserIsSet;
+
+- (NSString *) url;
+- (void) setUrl: (NSString *) url;
+- (BOOL) urlIsSet;
+
+- (NSString *) buildVersion;
+- (void) setBuildVersion: (NSString *) buildVersion;
+- (BOOL) buildVersionIsSet;
+
+@end
+
 @interface IOException : NSException {
   NSString * __msg;
   NSString * __stack;
@@ -422,6 +475,18 @@ enum DatanodeState {
 
 @end
 
+@protocol HadoopServiceBase <NSObject>
+- (VersionInfo *) getVersionInfo: (RequestContext *) ctx;  // throws TException
+@end
+
+@interface HadoopServiceBaseClient : NSObject <HadoopServiceBase> {
+  id <TProtocol> inProtocol;
+  id <TProtocol> outProtocol;
+}
+- (id) initWithProtocol: (id <TProtocol>) protocol;
+- (id) initWithInProtocol: (id <TProtocol>) inProtocol outProtocol: (id <TProtocol>) outProtocol;
+@end
+
 @protocol Namenode <NSObject>
 - (void) chmod: (RequestContext *) ctx : (NSString *) path : (int16_t) perms;  // throws IOException *, TException
 - (void) chown: (RequestContext *) ctx : (NSString *) path : (NSString *) owner : (NSString *) group;  // throws IOException *, TException
@@ -448,8 +513,8 @@ enum DatanodeState {
 @end
 
 @interface NamenodeClient : NSObject <Namenode> {
-  id <TProtocol> inProtocol;
-  id <TProtocol> outProtocol;
+id <TProtocol> inProtocol;
+id <TProtocol> outProtocol;
 }
 - (id) initWithProtocol: (id <TProtocol>) protocol;
 - (id) initWithInProtocol: (id <TProtocol>) inProtocol outProtocol: (id <TProtocol>) outProtocol;

@@ -5,12 +5,13 @@
 #
 
 require 'thrift'
+require 'hadoop_service_base'
 require File.dirname(__FILE__) + '/hdfs_types'
 
         module Hadoop
           module API
             module Namenode
-              class Client
+              class Client < Hadoop::API::HadoopServiceBase::Client 
                 include ::Thrift::Client
 
                 def chmod(ctx, path, perms)
@@ -355,7 +356,7 @@ require File.dirname(__FILE__) + '/hdfs_types'
 
               end
 
-              class Processor
+              class Processor < Hadoop::API::HadoopServiceBase::Processor 
                 include ::Thrift::Processor
 
                 def process_chmod(seqid, iprot, oprot)

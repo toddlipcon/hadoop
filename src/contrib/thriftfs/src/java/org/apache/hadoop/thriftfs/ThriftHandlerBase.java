@@ -31,13 +31,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.security.UnixUserGroupInformation;
+import org.apache.hadoop.util.VersionInfo;
 
 import org.apache.hadoop.thriftfs.api.RequestContext;
+import org.apache.hadoop.thriftfs.api.HadoopServiceBase;
 
 /**
  * Base class to provide some utility functions for thrift plugin handlers
  */
-public abstract class ThriftHandlerBase {
+public abstract class ThriftHandlerBase implements HadoopServiceBase.Iface {
   protected final ThriftServerContext serverContext;
   static final Log LOG = LogFactory.getLog(ThriftHandlerBase.class);
 
@@ -45,6 +47,22 @@ public abstract class ThriftHandlerBase {
     this.serverContext = serverContext;
   }
 
+  /**
+   * Return the version info of this server
+   */
+  public org.apache.hadoop.thriftfs.api.VersionInfo getVersionInfo(
+    RequestContext ctx) {
+    org.apache.hadoop.thriftfs.api.VersionInfo vi =
+      new org.apache.hadoop.thriftfs.api.VersionInfo();
+    vi.version = VersionInfo.getVersion();
+    vi.revision = VersionInfo.getRevision();
+    vi.branch = VersionInfo.getBranch();
+    vi.compileDate = VersionInfo.getDate();
+    vi.compilingUser = VersionInfo.getUser();
+    vi.url = VersionInfo.getUrl();
+    vi.buildVersion = VersionInfo.getBuildVersion();
+    return vi;
+  }
 
   /**
    * Should be called by all RPCs on the request context passed in.

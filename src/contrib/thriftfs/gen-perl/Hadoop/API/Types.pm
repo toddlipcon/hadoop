@@ -1000,6 +1000,162 @@ sub write {
   return $xfer;
 }
 
+package Hadoop::API::VersionInfo;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::VersionInfo->mk_accessors( qw( version revision branch compileDate compilingUser url buildVersion ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{version} = undef;
+$self->{revision} = undef;
+$self->{branch} = undef;
+$self->{compileDate} = undef;
+$self->{compilingUser} = undef;
+$self->{url} = undef;
+$self->{buildVersion} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{version}) {
+      $self->{version} = $vals->{version};
+    }
+    if (defined $vals->{revision}) {
+      $self->{revision} = $vals->{revision};
+    }
+    if (defined $vals->{branch}) {
+      $self->{branch} = $vals->{branch};
+    }
+    if (defined $vals->{compileDate}) {
+      $self->{compileDate} = $vals->{compileDate};
+    }
+    if (defined $vals->{compilingUser}) {
+      $self->{compilingUser} = $vals->{compilingUser};
+    }
+    if (defined $vals->{url}) {
+      $self->{url} = $vals->{url};
+    }
+    if (defined $vals->{buildVersion}) {
+      $self->{buildVersion} = $vals->{buildVersion};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'VersionInfo';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{version});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{revision});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{branch});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{compileDate});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^5$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{compilingUser});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^6$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{url});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^7$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{buildVersion});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('VersionInfo');
+  if (defined $self->{version}) {
+    $xfer += $output->writeFieldBegin('version', TType::STRING, 1);
+    $xfer += $output->writeString($self->{version});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{revision}) {
+    $xfer += $output->writeFieldBegin('revision', TType::STRING, 2);
+    $xfer += $output->writeString($self->{revision});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{branch}) {
+    $xfer += $output->writeFieldBegin('branch', TType::STRING, 3);
+    $xfer += $output->writeString($self->{branch});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{compileDate}) {
+    $xfer += $output->writeFieldBegin('compileDate', TType::STRING, 4);
+    $xfer += $output->writeString($self->{compileDate});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{compilingUser}) {
+    $xfer += $output->writeFieldBegin('compilingUser', TType::STRING, 5);
+    $xfer += $output->writeString($self->{compilingUser});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{url}) {
+    $xfer += $output->writeFieldBegin('url', TType::STRING, 6);
+    $xfer += $output->writeString($self->{url});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{buildVersion}) {
+    $xfer += $output->writeFieldBegin('buildVersion', TType::STRING, 7);
+    $xfer += $output->writeString($self->{buildVersion});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Hadoop::API::IOException;
 use base('Thrift::TException');
 use Class::Accessor;

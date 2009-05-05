@@ -5,6 +5,7 @@
 #
 
 from thrift.Thrift import *
+import hadoop.api.HadoopServiceBase
 from ttypes import *
 from thrift.Thrift import TProcessor
 from thrift.transport import TTransport
@@ -15,7 +16,7 @@ except:
   fastbinary = None
 
 
-class Iface:
+class Iface(hadoop.api.HadoopServiceBase.Iface):
   """
   Provides an interface to a Hadoop Namenode. It is basically a Thrift
   translation of org.apache.hadoop.hdfs.protocol.ClientProtocol.
@@ -295,16 +296,13 @@ class Iface:
     pass
 
 
-class Client(Iface):
+class Client(hadoop.api.HadoopServiceBase.Client, Iface):
   """
   Provides an interface to a Hadoop Namenode. It is basically a Thrift
   translation of org.apache.hadoop.hdfs.protocol.ClientProtocol.
   """
   def __init__(self, iprot, oprot=None):
-    self._iprot = self._oprot = iprot
-    if oprot != None:
-      self._oprot = oprot
-    self._seqid = 0
+    hadoop.api.HadoopServiceBase.Client.__init__(self, iprot, oprot)
 
   def chmod(self, ctx, path, perms):
     """
@@ -1138,10 +1136,9 @@ class Client(Iface):
     return
 
 
-class Processor(Iface, TProcessor):
+class Processor(hadoop.api.HadoopServiceBase.Processor, Iface, TProcessor):
   def __init__(self, handler):
-    self._handler = handler
-    self._processMap = {}
+    hadoop.api.HadoopServiceBase.Processor.__init__(self, handler)
     self._processMap["chmod"] = Processor.process_chmod
     self._processMap["chown"] = Processor.process_chown
     self._processMap["df"] = Processor.process_df

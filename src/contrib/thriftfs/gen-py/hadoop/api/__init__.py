@@ -1,1 +1,1 @@
-__all__ = ['ttypes', 'constants', 'Namenode', 'Datanode']
+__all__ = ['ttypes', 'constants', 'HadoopServiceBase', 'Namenode', 'Datanode']

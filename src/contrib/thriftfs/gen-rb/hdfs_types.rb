@@ -245,6 +245,35 @@ module Hadoop
 
         end
 
+        # Information about the compilation version of this server
+        class VersionInfo
+          include ::Thrift::Struct
+          VERSION = 1
+          REVISION = 2
+          BRANCH = 3
+          COMPILEDATE = 4
+          COMPILINGUSER = 5
+          URL = 6
+          BUILDVERSION = 7
+
+          ::Thrift::Struct.field_accessor self, :version, :revision, :branch, :compileDate, :compilingUser, :url, :buildVersion
+          FIELDS = {
+            VERSION => {:type => ::Thrift::Types::STRING, :name => 'version'},
+            REVISION => {:type => ::Thrift::Types::STRING, :name => 'revision'},
+            BRANCH => {:type => ::Thrift::Types::STRING, :name => 'branch'},
+            COMPILEDATE => {:type => ::Thrift::Types::STRING, :name => 'compileDate'},
+            COMPILINGUSER => {:type => ::Thrift::Types::STRING, :name => 'compilingUser'},
+            URL => {:type => ::Thrift::Types::STRING, :name => 'url'},
+            BUILDVERSION => {:type => ::Thrift::Types::STRING, :name => 'buildVersion'}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
         # Generic I/O error
         class IOException < ::Thrift::Exception
           include ::Thrift::Struct
