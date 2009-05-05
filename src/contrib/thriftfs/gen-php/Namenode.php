@@ -1761,14 +1761,14 @@ class hadoop_api_Namenode_df_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size16 = 0;
-            $_etype19 = 0;
-            $xfer += $input->readListBegin($_etype19, $_size16);
-            for ($_i20 = 0; $_i20 < $_size16; ++$_i20)
+            $_size30 = 0;
+            $_etype33 = 0;
+            $xfer += $input->readListBegin($_etype33, $_size30);
+            for ($_i34 = 0; $_i34 < $_size30; ++$_i34)
             {
-              $elem21 = null;
-              $xfer += $input->readI64($elem21);
-              $this->success []= $elem21;
+              $elem35 = null;
+              $xfer += $input->readI64($elem35);
+              $this->success []= $elem35;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -1804,9 +1804,9 @@ class hadoop_api_Namenode_df_result {
       {
         $output->writeListBegin(TType::I64, count($this->success));
         {
-          foreach ($this->success as $iter22)
+          foreach ($this->success as $iter36)
           {
-            $xfer += $output->writeI64($iter22);
+            $xfer += $output->writeI64($iter36);
           }
         }
         $output->writeListEnd();
@@ -2170,15 +2170,15 @@ class hadoop_api_Namenode_getBlocks_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size23 = 0;
-            $_etype26 = 0;
-            $xfer += $input->readListBegin($_etype26, $_size23);
-            for ($_i27 = 0; $_i27 < $_size23; ++$_i27)
+            $_size37 = 0;
+            $_etype40 = 0;
+            $xfer += $input->readListBegin($_etype40, $_size37);
+            for ($_i41 = 0; $_i41 < $_size37; ++$_i41)
             {
-              $elem28 = null;
-              $elem28 = new hadoop_api_Block();
-              $xfer += $elem28->read($input);
-              $this->success []= $elem28;
+              $elem42 = null;
+              $elem42 = new hadoop_api_Block();
+              $xfer += $elem42->read($input);
+              $this->success []= $elem42;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -2214,9 +2214,9 @@ class hadoop_api_Namenode_getBlocks_result {
       {
         $output->writeListBegin(TType::STRUCT, count($this->success));
         {
-          foreach ($this->success as $iter29)
+          foreach ($this->success as $iter43)
           {
-            $xfer += $iter29->write($output);
+            $xfer += $iter43->write($output);
           }
         }
         $output->writeListEnd();
@@ -2389,15 +2389,15 @@ class hadoop_api_Namenode_getDatanodeReport_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size30 = 0;
-            $_etype33 = 0;
-            $xfer += $input->readListBegin($_etype33, $_size30);
-            for ($_i34 = 0; $_i34 < $_size30; ++$_i34)
+            $_size44 = 0;
+            $_etype47 = 0;
+            $xfer += $input->readListBegin($_etype47, $_size44);
+            for ($_i48 = 0; $_i48 < $_size44; ++$_i48)
             {
-              $elem35 = null;
-              $elem35 = new hadoop_api_DatanodeInfo();
-              $xfer += $elem35->read($input);
-              $this->success []= $elem35;
+              $elem49 = null;
+              $elem49 = new hadoop_api_DatanodeInfo();
+              $xfer += $elem49->read($input);
+              $this->success []= $elem49;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -2433,9 +2433,9 @@ class hadoop_api_Namenode_getDatanodeReport_result {
       {
         $output->writeListBegin(TType::STRUCT, count($this->success));
         {
-          foreach ($this->success as $iter36)
+          foreach ($this->success as $iter50)
           {
-            $xfer += $iter36->write($output);
+            $xfer += $iter50->write($output);
           }
         }
         $output->writeListEnd();
@@ -3297,15 +3297,15 @@ class hadoop_api_Namenode_ls_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size37 = 0;
-            $_etype40 = 0;
-            $xfer += $input->readListBegin($_etype40, $_size37);
-            for ($_i41 = 0; $_i41 < $_size37; ++$_i41)
+            $_size51 = 0;
+            $_etype54 = 0;
+            $xfer += $input->readListBegin($_etype54, $_size51);
+            for ($_i55 = 0; $_i55 < $_size51; ++$_i55)
             {
-              $elem42 = null;
-              $elem42 = new hadoop_api_Stat();
-              $xfer += $elem42->read($input);
-              $this->success []= $elem42;
+              $elem56 = null;
+              $elem56 = new hadoop_api_Stat();
+              $xfer += $elem56->read($input);
+              $this->success []= $elem56;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -3341,9 +3341,9 @@ class hadoop_api_Namenode_ls_result {
       {
         $output->writeListBegin(TType::STRUCT, count($this->success));
         {
-          foreach ($this->success as $iter43)
+          foreach ($this->success as $iter57)
           {
-            $xfer += $iter43->write($output);
+            $xfer += $iter57->write($output);
           }
         }
         $output->writeListEnd();
@@ -4000,15 +4000,15 @@ class hadoop_api_Namenode_reportBadBlocks_args {
         case 1:
           if ($ftype == TType::LST) {
             $this->blocks = array();
-            $_size44 = 0;
-            $_etype47 = 0;
-            $xfer += $input->readListBegin($_etype47, $_size44);
-            for ($_i48 = 0; $_i48 < $_size44; ++$_i48)
+            $_size58 = 0;
+            $_etype61 = 0;
+            $xfer += $input->readListBegin($_etype61, $_size58);
+            for ($_i62 = 0; $_i62 < $_size58; ++$_i62)
             {
-              $elem49 = null;
-              $elem49 = new hadoop_api_Block();
-              $xfer += $elem49->read($input);
-              $this->blocks []= $elem49;
+              $elem63 = null;
+              $elem63 = new hadoop_api_Block();
+              $xfer += $elem63->read($input);
+              $this->blocks []= $elem63;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -4036,9 +4036,9 @@ class hadoop_api_Namenode_reportBadBlocks_args {
       {
         $output->writeListBegin(TType::STRUCT, count($this->blocks));
         {
-          foreach ($this->blocks as $iter50)
+          foreach ($this->blocks as $iter64)
           {
-            $xfer += $iter50->write($output);
+            $xfer += $iter64->write($output);
           }
         }
         $output->writeListEnd();

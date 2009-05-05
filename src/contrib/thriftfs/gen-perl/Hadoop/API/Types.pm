@@ -1156,6 +1156,376 @@ sub write {
   return $xfer;
 }
 
+package Hadoop::API::StackTraceElement;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::StackTraceElement->mk_accessors( qw( className fileName lineNumber methodName isNativeMethod stringRepresentation ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{className} = undef;
+$self->{fileName} = undef;
+$self->{lineNumber} = undef;
+$self->{methodName} = undef;
+$self->{isNativeMethod} = undef;
+$self->{stringRepresentation} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{className}) {
+      $self->{className} = $vals->{className};
+    }
+    if (defined $vals->{fileName}) {
+      $self->{fileName} = $vals->{fileName};
+    }
+    if (defined $vals->{lineNumber}) {
+      $self->{lineNumber} = $vals->{lineNumber};
+    }
+    if (defined $vals->{methodName}) {
+      $self->{methodName} = $vals->{methodName};
+    }
+    if (defined $vals->{isNativeMethod}) {
+      $self->{isNativeMethod} = $vals->{isNativeMethod};
+    }
+    if (defined $vals->{stringRepresentation}) {
+      $self->{stringRepresentation} = $vals->{stringRepresentation};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'StackTraceElement';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{className});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{fileName});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{lineNumber});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{methodName});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^5$/ && do{      if ($ftype == TType::BOOL) {
+        $xfer += $input->readBool(\$self->{isNativeMethod});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^6$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{stringRepresentation});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('StackTraceElement');
+  if (defined $self->{className}) {
+    $xfer += $output->writeFieldBegin('className', TType::STRING, 1);
+    $xfer += $output->writeString($self->{className});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{fileName}) {
+    $xfer += $output->writeFieldBegin('fileName', TType::STRING, 2);
+    $xfer += $output->writeString($self->{fileName});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{lineNumber}) {
+    $xfer += $output->writeFieldBegin('lineNumber', TType::I32, 3);
+    $xfer += $output->writeI32($self->{lineNumber});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{methodName}) {
+    $xfer += $output->writeFieldBegin('methodName', TType::STRING, 4);
+    $xfer += $output->writeString($self->{methodName});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{isNativeMethod}) {
+    $xfer += $output->writeFieldBegin('isNativeMethod', TType::BOOL, 5);
+    $xfer += $output->writeBool($self->{isNativeMethod});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{stringRepresentation}) {
+    $xfer += $output->writeFieldBegin('stringRepresentation', TType::STRING, 6);
+    $xfer += $output->writeString($self->{stringRepresentation});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::ThreadStackTrace;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::ThreadStackTrace->mk_accessors( qw( threadName threadStringRepresentation isDaemon stackTrace ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{threadName} = undef;
+$self->{threadStringRepresentation} = undef;
+$self->{isDaemon} = undef;
+$self->{stackTrace} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{threadName}) {
+      $self->{threadName} = $vals->{threadName};
+    }
+    if (defined $vals->{threadStringRepresentation}) {
+      $self->{threadStringRepresentation} = $vals->{threadStringRepresentation};
+    }
+    if (defined $vals->{isDaemon}) {
+      $self->{isDaemon} = $vals->{isDaemon};
+    }
+    if (defined $vals->{stackTrace}) {
+      $self->{stackTrace} = $vals->{stackTrace};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'ThreadStackTrace';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{threadName});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{threadStringRepresentation});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::BOOL) {
+        $xfer += $input->readBool(\$self->{isDaemon});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::LIST) {
+        {
+          my $_size16 = 0;
+          $self->{stackTrace} = [];
+          my $_etype19 = 0;
+          $xfer += $input->readListBegin(\$_etype19, \$_size16);
+          for (my $_i20 = 0; $_i20 < $_size16; ++$_i20)
+          {
+            my $elem21 = undef;
+            $elem21 = new Hadoop::API::StackTraceElement();
+            $xfer += $elem21->read($input);
+            push(@{$self->{stackTrace}},$elem21);
+          }
+          $xfer += $input->readListEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('ThreadStackTrace');
+  if (defined $self->{threadName}) {
+    $xfer += $output->writeFieldBegin('threadName', TType::STRING, 1);
+    $xfer += $output->writeString($self->{threadName});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{threadStringRepresentation}) {
+    $xfer += $output->writeFieldBegin('threadStringRepresentation', TType::STRING, 2);
+    $xfer += $output->writeString($self->{threadStringRepresentation});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{isDaemon}) {
+    $xfer += $output->writeFieldBegin('isDaemon', TType::BOOL, 3);
+    $xfer += $output->writeBool($self->{isDaemon});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{stackTrace}) {
+    $xfer += $output->writeFieldBegin('stackTrace', TType::LIST, 4);
+    {
+      $output->writeListBegin(TType::STRUCT, scalar(@{$self->{stackTrace}}));
+      {
+        foreach my $iter22 (@{$self->{stackTrace}}) 
+        {
+          $xfer += ${iter22}->write($output);
+        }
+      }
+      $output->writeListEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::RuntimeInfo;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::RuntimeInfo->mk_accessors( qw( totalMemory freeMemory maxMemory ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{totalMemory} = undef;
+$self->{freeMemory} = undef;
+$self->{maxMemory} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{totalMemory}) {
+      $self->{totalMemory} = $vals->{totalMemory};
+    }
+    if (defined $vals->{freeMemory}) {
+      $self->{freeMemory} = $vals->{freeMemory};
+    }
+    if (defined $vals->{maxMemory}) {
+      $self->{maxMemory} = $vals->{maxMemory};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'RuntimeInfo';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{totalMemory});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{freeMemory});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::I64) {
+        $xfer += $input->readI64(\$self->{maxMemory});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('RuntimeInfo');
+  if (defined $self->{totalMemory}) {
+    $xfer += $output->writeFieldBegin('totalMemory', TType::I64, 1);
+    $xfer += $output->writeI64($self->{totalMemory});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{freeMemory}) {
+    $xfer += $output->writeFieldBegin('freeMemory', TType::I64, 2);
+    $xfer += $output->writeI64($self->{freeMemory});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{maxMemory}) {
+    $xfer += $output->writeFieldBegin('maxMemory', TType::I64, 3);
+    $xfer += $output->writeI64($self->{maxMemory});
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Hadoop::API::IOException;
 use base('Thrift::TException');
 use Class::Accessor;

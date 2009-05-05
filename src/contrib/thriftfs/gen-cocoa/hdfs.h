@@ -394,6 +394,117 @@ enum DatanodeState {
 
 @end
 
+@interface StackTraceElement : NSObject {
+  NSString * __className;
+  NSString * __fileName;
+  int32_t __lineNumber;
+  NSString * __methodName;
+  BOOL __isNativeMethod;
+  NSString * __stringRepresentation;
+
+  BOOL __className_isset;
+  BOOL __fileName_isset;
+  BOOL __lineNumber_isset;
+  BOOL __methodName_isset;
+  BOOL __isNativeMethod_isset;
+  BOOL __stringRepresentation_isset;
+}
+
+- (id) initWithClassName: (NSString *) className fileName: (NSString *) fileName lineNumber: (int32_t) lineNumber methodName: (NSString *) methodName isNativeMethod: (BOOL) isNativeMethod stringRepresentation: (NSString *) stringRepresentation;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSString *) className;
+- (void) setClassName: (NSString *) className;
+- (BOOL) classNameIsSet;
+
+- (NSString *) fileName;
+- (void) setFileName: (NSString *) fileName;
+- (BOOL) fileNameIsSet;
+
+- (int32_t) lineNumber;
+- (void) setLineNumber: (int32_t) lineNumber;
+- (BOOL) lineNumberIsSet;
+
+- (NSString *) methodName;
+- (void) setMethodName: (NSString *) methodName;
+- (BOOL) methodNameIsSet;
+
+- (BOOL) isNativeMethod;
+- (void) setIsNativeMethod: (BOOL) isNativeMethod;
+- (BOOL) isNativeMethodIsSet;
+
+- (NSString *) stringRepresentation;
+- (void) setStringRepresentation: (NSString *) stringRepresentation;
+- (BOOL) stringRepresentationIsSet;
+
+@end
+
+@interface ThreadStackTrace : NSObject {
+  NSString * __threadName;
+  NSString * __threadStringRepresentation;
+  BOOL __isDaemon;
+  NSArray * __stackTrace;
+
+  BOOL __threadName_isset;
+  BOOL __threadStringRepresentation_isset;
+  BOOL __isDaemon_isset;
+  BOOL __stackTrace_isset;
+}
+
+- (id) initWithThreadName: (NSString *) threadName threadStringRepresentation: (NSString *) threadStringRepresentation isDaemon: (BOOL) isDaemon stackTrace: (NSArray *) stackTrace;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSString *) threadName;
+- (void) setThreadName: (NSString *) threadName;
+- (BOOL) threadNameIsSet;
+
+- (NSString *) threadStringRepresentation;
+- (void) setThreadStringRepresentation: (NSString *) threadStringRepresentation;
+- (BOOL) threadStringRepresentationIsSet;
+
+- (BOOL) isDaemon;
+- (void) setIsDaemon: (BOOL) isDaemon;
+- (BOOL) isDaemonIsSet;
+
+- (NSArray *) stackTrace;
+- (void) setStackTrace: (NSArray *) stackTrace;
+- (BOOL) stackTraceIsSet;
+
+@end
+
+@interface RuntimeInfo : NSObject {
+  int64_t __totalMemory;
+  int64_t __freeMemory;
+  int64_t __maxMemory;
+
+  BOOL __totalMemory_isset;
+  BOOL __freeMemory_isset;
+  BOOL __maxMemory_isset;
+}
+
+- (id) initWithTotalMemory: (int64_t) totalMemory freeMemory: (int64_t) freeMemory maxMemory: (int64_t) maxMemory;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (int64_t) totalMemory;
+- (void) setTotalMemory: (int64_t) totalMemory;
+- (BOOL) totalMemoryIsSet;
+
+- (int64_t) freeMemory;
+- (void) setFreeMemory: (int64_t) freeMemory;
+- (BOOL) freeMemoryIsSet;
+
+- (int64_t) maxMemory;
+- (void) setMaxMemory: (int64_t) maxMemory;
+- (BOOL) maxMemoryIsSet;
+
+@end
+
 @interface IOException : NSException {
   NSString * __msg;
   NSString * __stack;
@@ -477,6 +588,8 @@ enum DatanodeState {
 
 @protocol HadoopServiceBase <NSObject>
 - (VersionInfo *) getVersionInfo: (RequestContext *) ctx;  // throws TException
+- (RuntimeInfo *) getRuntimeInfo: (RequestContext *) ctx;  // throws TException
+- (NSArray *) getThreadDump: (RequestContext *) ctx;  // throws TException
 @end
 
 @interface HadoopServiceBaseClient : NSObject <HadoopServiceBase> {

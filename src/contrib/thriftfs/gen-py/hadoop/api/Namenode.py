@@ -1877,10 +1877,10 @@ class df_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype19, _size16) = iprot.readListBegin()
-          for _i20 in xrange(_size16):
-            _elem21 = iprot.readI64();
-            self.success.append(_elem21)
+          (_etype33, _size30) = iprot.readListBegin()
+          for _i34 in xrange(_size30):
+            _elem35 = iprot.readI64();
+            self.success.append(_elem35)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -1903,8 +1903,8 @@ class df_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.I64, len(self.success))
-      for iter22 in self.success:
-        oprot.writeI64(iter22)
+      for iter36 in self.success:
+        oprot.writeI64(iter36)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -2175,11 +2175,11 @@ class getBlocks_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype26, _size23) = iprot.readListBegin()
-          for _i27 in xrange(_size23):
-            _elem28 = Block()
-            _elem28.read(iprot)
-            self.success.append(_elem28)
+          (_etype40, _size37) = iprot.readListBegin()
+          for _i41 in xrange(_size37):
+            _elem42 = Block()
+            _elem42.read(iprot)
+            self.success.append(_elem42)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -2202,8 +2202,8 @@ class getBlocks_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.STRUCT, len(self.success))
-      for iter29 in self.success:
-        iter29.write(oprot)
+      for iter43 in self.success:
+        iter43.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -2330,11 +2330,11 @@ class getDatanodeReport_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype33, _size30) = iprot.readListBegin()
-          for _i34 in xrange(_size30):
-            _elem35 = DatanodeInfo()
-            _elem35.read(iprot)
-            self.success.append(_elem35)
+          (_etype47, _size44) = iprot.readListBegin()
+          for _i48 in xrange(_size44):
+            _elem49 = DatanodeInfo()
+            _elem49.read(iprot)
+            self.success.append(_elem49)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -2357,8 +2357,8 @@ class getDatanodeReport_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.STRUCT, len(self.success))
-      for iter36 in self.success:
-        iter36.write(oprot)
+      for iter50 in self.success:
+        iter50.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -3021,11 +3021,11 @@ class ls_result:
       if fid == 0:
         if ftype == TType.LIST:
           self.success = []
-          (_etype40, _size37) = iprot.readListBegin()
-          for _i41 in xrange(_size37):
-            _elem42 = Stat()
-            _elem42.read(iprot)
-            self.success.append(_elem42)
+          (_etype54, _size51) = iprot.readListBegin()
+          for _i55 in xrange(_size51):
+            _elem56 = Stat()
+            _elem56.read(iprot)
+            self.success.append(_elem56)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -3048,8 +3048,8 @@ class ls_result:
     if self.success != None:
       oprot.writeFieldBegin('success', TType.LIST, 0)
       oprot.writeListBegin(TType.STRUCT, len(self.success))
-      for iter43 in self.success:
-        iter43.write(oprot)
+      for iter57 in self.success:
+        iter57.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.err != None:
@@ -3548,11 +3548,11 @@ class reportBadBlocks_args:
       elif fid == 1:
         if ftype == TType.LIST:
           self.blocks = []
-          (_etype47, _size44) = iprot.readListBegin()
-          for _i48 in xrange(_size44):
-            _elem49 = Block()
-            _elem49.read(iprot)
-            self.blocks.append(_elem49)
+          (_etype61, _size58) = iprot.readListBegin()
+          for _i62 in xrange(_size58):
+            _elem63 = Block()
+            _elem63.read(iprot)
+            self.blocks.append(_elem63)
           iprot.readListEnd()
         else:
           iprot.skip(ftype)
@@ -3569,8 +3569,8 @@ class reportBadBlocks_args:
     if self.blocks != None:
       oprot.writeFieldBegin('blocks', TType.LIST, 1)
       oprot.writeListBegin(TType.STRUCT, len(self.blocks))
-      for iter50 in self.blocks:
-        iter50.write(oprot)
+      for iter64 in self.blocks:
+        iter64.write(oprot)
       oprot.writeListEnd()
       oprot.writeFieldEnd()
     if self.ctx != None:

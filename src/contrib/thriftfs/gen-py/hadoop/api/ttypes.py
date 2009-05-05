@@ -965,6 +965,309 @@ class VersionInfo:
   def __ne__(self, other):
     return not (self == other)
 
+class StackTraceElement:
+  """
+  A single stack frame in a stack dump
+  
+  Attributes:
+   - className
+   - fileName
+   - lineNumber
+   - methodName
+   - isNativeMethod
+   - stringRepresentation
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.STRING, 'className', None, None, ), # 1
+    (2, TType.STRING, 'fileName', None, None, ), # 2
+    (3, TType.I32, 'lineNumber', None, None, ), # 3
+    (4, TType.STRING, 'methodName', None, None, ), # 4
+    (5, TType.BOOL, 'isNativeMethod', None, None, ), # 5
+    (6, TType.STRING, 'stringRepresentation', None, None, ), # 6
+  )
+
+  def __init__(self, className=None, fileName=None, lineNumber=None, methodName=None, isNativeMethod=None, stringRepresentation=None,):
+    self.className = className
+    self.fileName = fileName
+    self.lineNumber = lineNumber
+    self.methodName = methodName
+    self.isNativeMethod = isNativeMethod
+    self.stringRepresentation = stringRepresentation
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.STRING:
+          self.className = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.STRING:
+          self.fileName = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.I32:
+          self.lineNumber = iprot.readI32();
+        else:
+          iprot.skip(ftype)
+      elif fid == 4:
+        if ftype == TType.STRING:
+          self.methodName = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 5:
+        if ftype == TType.BOOL:
+          self.isNativeMethod = iprot.readBool();
+        else:
+          iprot.skip(ftype)
+      elif fid == 6:
+        if ftype == TType.STRING:
+          self.stringRepresentation = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('StackTraceElement')
+    if self.className != None:
+      oprot.writeFieldBegin('className', TType.STRING, 1)
+      oprot.writeString(self.className)
+      oprot.writeFieldEnd()
+    if self.fileName != None:
+      oprot.writeFieldBegin('fileName', TType.STRING, 2)
+      oprot.writeString(self.fileName)
+      oprot.writeFieldEnd()
+    if self.lineNumber != None:
+      oprot.writeFieldBegin('lineNumber', TType.I32, 3)
+      oprot.writeI32(self.lineNumber)
+      oprot.writeFieldEnd()
+    if self.methodName != None:
+      oprot.writeFieldBegin('methodName', TType.STRING, 4)
+      oprot.writeString(self.methodName)
+      oprot.writeFieldEnd()
+    if self.isNativeMethod != None:
+      oprot.writeFieldBegin('isNativeMethod', TType.BOOL, 5)
+      oprot.writeBool(self.isNativeMethod)
+      oprot.writeFieldEnd()
+    if self.stringRepresentation != None:
+      oprot.writeFieldBegin('stringRepresentation', TType.STRING, 6)
+      oprot.writeString(self.stringRepresentation)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class ThreadStackTrace:
+  """
+  Info about a thread with its corresponding stack trace
+  
+  Attributes:
+   - threadName
+   - threadStringRepresentation
+   - isDaemon
+   - stackTrace
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.STRING, 'threadName', None, None, ), # 1
+    (2, TType.STRING, 'threadStringRepresentation', None, None, ), # 2
+    (3, TType.BOOL, 'isDaemon', None, None, ), # 3
+    (4, TType.LIST, 'stackTrace', (TType.STRUCT,(StackTraceElement, StackTraceElement.thrift_spec)), None, ), # 4
+  )
+
+  def __init__(self, threadName=None, threadStringRepresentation=None, isDaemon=None, stackTrace=None,):
+    self.threadName = threadName
+    self.threadStringRepresentation = threadStringRepresentation
+    self.isDaemon = isDaemon
+    self.stackTrace = stackTrace
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.STRING:
+          self.threadName = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.STRING:
+          self.threadStringRepresentation = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.BOOL:
+          self.isDaemon = iprot.readBool();
+        else:
+          iprot.skip(ftype)
+      elif fid == 4:
+        if ftype == TType.LIST:
+          self.stackTrace = []
+          (_etype19, _size16) = iprot.readListBegin()
+          for _i20 in xrange(_size16):
+            _elem21 = StackTraceElement()
+            _elem21.read(iprot)
+            self.stackTrace.append(_elem21)
+          iprot.readListEnd()
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('ThreadStackTrace')
+    if self.threadName != None:
+      oprot.writeFieldBegin('threadName', TType.STRING, 1)
+      oprot.writeString(self.threadName)
+      oprot.writeFieldEnd()
+    if self.threadStringRepresentation != None:
+      oprot.writeFieldBegin('threadStringRepresentation', TType.STRING, 2)
+      oprot.writeString(self.threadStringRepresentation)
+      oprot.writeFieldEnd()
+    if self.isDaemon != None:
+      oprot.writeFieldBegin('isDaemon', TType.BOOL, 3)
+      oprot.writeBool(self.isDaemon)
+      oprot.writeFieldEnd()
+    if self.stackTrace != None:
+      oprot.writeFieldBegin('stackTrace', TType.LIST, 4)
+      oprot.writeListBegin(TType.STRUCT, len(self.stackTrace))
+      for iter22 in self.stackTrace:
+        iter22.write(oprot)
+      oprot.writeListEnd()
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class RuntimeInfo:
+  """
+  Memory available via java.lang.Runtime
+  
+  Attributes:
+   - totalMemory
+   - freeMemory
+   - maxMemory
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.I64, 'totalMemory', None, None, ), # 1
+    (2, TType.I64, 'freeMemory', None, None, ), # 2
+    (3, TType.I64, 'maxMemory', None, None, ), # 3
+  )
+
+  def __init__(self, totalMemory=None, freeMemory=None, maxMemory=None,):
+    self.totalMemory = totalMemory
+    self.freeMemory = freeMemory
+    self.maxMemory = maxMemory
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.I64:
+          self.totalMemory = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.I64:
+          self.freeMemory = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.I64:
+          self.maxMemory = iprot.readI64();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('RuntimeInfo')
+    if self.totalMemory != None:
+      oprot.writeFieldBegin('totalMemory', TType.I64, 1)
+      oprot.writeI64(self.totalMemory)
+      oprot.writeFieldEnd()
+    if self.freeMemory != None:
+      oprot.writeFieldBegin('freeMemory', TType.I64, 2)
+      oprot.writeI64(self.freeMemory)
+      oprot.writeFieldEnd()
+    if self.maxMemory != None:
+      oprot.writeFieldBegin('maxMemory', TType.I64, 3)
+      oprot.writeI64(self.maxMemory)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
 class IOException(Exception):
   """
   Generic I/O error

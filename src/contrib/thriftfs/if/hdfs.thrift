@@ -237,6 +237,35 @@ struct VersionInfo {
   7: string buildVersion
 }
 
+
+/** A single stack frame in a stack dump */
+struct StackTraceElement {
+  1: string className
+  2: string fileName
+  3: i32 lineNumber
+  4: string methodName
+  5: bool isNativeMethod
+  6: string stringRepresentation
+}
+
+/** Info about a thread with its corresponding stack trace */
+struct ThreadStackTrace {
+  1: string threadName
+  2: string threadStringRepresentation
+  3: bool isDaemon
+
+  4: list<StackTraceElement> stackTrace;
+}
+
+/**
+ * Memory available via java.lang.Runtime
+ */
+struct RuntimeInfo {
+  1:i64 totalMemory
+  2:i64 freeMemory
+  3:i64 maxMemory
+}
+
 /** Generic I/O error */
 exception IOException {
   /** Error message. */
@@ -262,6 +291,8 @@ exception QuotaException {
 service HadoopServiceBase {
   /** Return the version information for this server */
   VersionInfo getVersionInfo(10:RequestContext ctx);
+  RuntimeInfo getRuntimeInfo(10:RequestContext ctx);
+  list<ThreadStackTrace> getThreadDump(10:RequestContext ctx);
 }
 
 /**

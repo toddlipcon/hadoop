@@ -466,15 +466,15 @@ sub read {
       {
         /^0$/ && do{        if ($ftype == TType::LIST) {
           {
-            my $_size16 = 0;
+            my $_size30 = 0;
             $self->{success} = [];
-            my $_etype19 = 0;
-            $xfer += $input->readListBegin(\$_etype19, \$_size16);
-            for (my $_i20 = 0; $_i20 < $_size16; ++$_i20)
+            my $_etype33 = 0;
+            $xfer += $input->readListBegin(\$_etype33, \$_size30);
+            for (my $_i34 = 0; $_i34 < $_size30; ++$_i34)
             {
-              my $elem21 = undef;
-              $xfer += $input->readI64(\$elem21);
-              push(@{$self->{success}},$elem21);
+              my $elem35 = undef;
+              $xfer += $input->readI64(\$elem35);
+              push(@{$self->{success}},$elem35);
             }
             $xfer += $input->readListEnd();
           }
@@ -507,9 +507,9 @@ sub write {
       {
         $output->writeListBegin(TType::I64, scalar(@{$self->{success}}));
         {
-          foreach my $iter22 (@{$self->{success}}) 
+          foreach my $iter36 (@{$self->{success}}) 
           {
-            $xfer += $output->writeI64($iter22);
+            $xfer += $output->writeI64($iter36);
           }
         }
         $output->writeListEnd();
@@ -815,16 +815,16 @@ sub read {
       {
         /^0$/ && do{        if ($ftype == TType::LIST) {
           {
-            my $_size23 = 0;
+            my $_size37 = 0;
             $self->{success} = [];
-            my $_etype26 = 0;
-            $xfer += $input->readListBegin(\$_etype26, \$_size23);
-            for (my $_i27 = 0; $_i27 < $_size23; ++$_i27)
+            my $_etype40 = 0;
+            $xfer += $input->readListBegin(\$_etype40, \$_size37);
+            for (my $_i41 = 0; $_i41 < $_size37; ++$_i41)
             {
-              my $elem28 = undef;
-              $elem28 = new Hadoop::API::Block();
-              $xfer += $elem28->read($input);
-              push(@{$self->{success}},$elem28);
+              my $elem42 = undef;
+              $elem42 = new Hadoop::API::Block();
+              $xfer += $elem42->read($input);
+              push(@{$self->{success}},$elem42);
             }
             $xfer += $input->readListEnd();
           }
@@ -857,9 +857,9 @@ sub write {
       {
         $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
         {
-          foreach my $iter29 (@{$self->{success}}) 
+          foreach my $iter43 (@{$self->{success}}) 
           {
-            $xfer += ${iter29}->write($output);
+            $xfer += ${iter43}->write($output);
           }
         }
         $output->writeListEnd();
@@ -1001,16 +1001,16 @@ sub read {
       {
         /^0$/ && do{        if ($ftype == TType::LIST) {
           {
-            my $_size30 = 0;
+            my $_size44 = 0;
             $self->{success} = [];
-            my $_etype33 = 0;
-            $xfer += $input->readListBegin(\$_etype33, \$_size30);
-            for (my $_i34 = 0; $_i34 < $_size30; ++$_i34)
+            my $_etype47 = 0;
+            $xfer += $input->readListBegin(\$_etype47, \$_size44);
+            for (my $_i48 = 0; $_i48 < $_size44; ++$_i48)
             {
-              my $elem35 = undef;
-              $elem35 = new Hadoop::API::DatanodeInfo();
-              $xfer += $elem35->read($input);
-              push(@{$self->{success}},$elem35);
+              my $elem49 = undef;
+              $elem49 = new Hadoop::API::DatanodeInfo();
+              $xfer += $elem49->read($input);
+              push(@{$self->{success}},$elem49);
             }
             $xfer += $input->readListEnd();
           }
@@ -1043,9 +1043,9 @@ sub write {
       {
         $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
         {
-          foreach my $iter36 (@{$self->{success}}) 
+          foreach my $iter50 (@{$self->{success}}) 
           {
-            $xfer += ${iter36}->write($output);
+            $xfer += ${iter50}->write($output);
           }
         }
         $output->writeListEnd();
@@ -1784,16 +1784,16 @@ sub read {
       {
         /^0$/ && do{        if ($ftype == TType::LIST) {
           {
-            my $_size37 = 0;
+            my $_size51 = 0;
             $self->{success} = [];
-            my $_etype40 = 0;
-            $xfer += $input->readListBegin(\$_etype40, \$_size37);
-            for (my $_i41 = 0; $_i41 < $_size37; ++$_i41)
+            my $_etype54 = 0;
+            $xfer += $input->readListBegin(\$_etype54, \$_size51);
+            for (my $_i55 = 0; $_i55 < $_size51; ++$_i55)
             {
-              my $elem42 = undef;
-              $elem42 = new Hadoop::API::Stat();
-              $xfer += $elem42->read($input);
-              push(@{$self->{success}},$elem42);
+              my $elem56 = undef;
+              $elem56 = new Hadoop::API::Stat();
+              $xfer += $elem56->read($input);
+              push(@{$self->{success}},$elem56);
             }
             $xfer += $input->readListEnd();
           }
@@ -1826,9 +1826,9 @@ sub write {
       {
         $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
         {
-          foreach my $iter43 (@{$self->{success}}) 
+          foreach my $iter57 (@{$self->{success}}) 
           {
-            $xfer += ${iter43}->write($output);
+            $xfer += ${iter57}->write($output);
           }
         }
         $output->writeListEnd();
@@ -2387,16 +2387,16 @@ sub read {
         last; };
         /^1$/ && do{        if ($ftype == TType::LIST) {
           {
-            my $_size44 = 0;
+            my $_size58 = 0;
             $self->{blocks} = [];
-            my $_etype47 = 0;
-            $xfer += $input->readListBegin(\$_etype47, \$_size44);
-            for (my $_i48 = 0; $_i48 < $_size44; ++$_i48)
+            my $_etype61 = 0;
+            $xfer += $input->readListBegin(\$_etype61, \$_size58);
+            for (my $_i62 = 0; $_i62 < $_size58; ++$_i62)
             {
-              my $elem49 = undef;
-              $elem49 = new Hadoop::API::Block();
-              $xfer += $elem49->read($input);
-              push(@{$self->{blocks}},$elem49);
+              my $elem63 = undef;
+              $elem63 = new Hadoop::API::Block();
+              $xfer += $elem63->read($input);
+              push(@{$self->{blocks}},$elem63);
             }
             $xfer += $input->readListEnd();
           }
@@ -2422,9 +2422,9 @@ sub write {
       {
         $output->writeListBegin(TType::STRUCT, scalar(@{$self->{blocks}}));
         {
-          foreach my $iter50 (@{$self->{blocks}}) 
+          foreach my $iter64 (@{$self->{blocks}}) 
           {
-            $xfer += ${iter50}->write($output);
+            $xfer += ${iter64}->write($output);
           }
         }
         $output->writeListEnd();

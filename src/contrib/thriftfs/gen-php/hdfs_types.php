@@ -1452,6 +1452,450 @@ class hadoop_api_VersionInfo {
 
 }
 
+class hadoop_api_StackTraceElement {
+  static $_TSPEC;
+
+  public $className = null;
+  public $fileName = null;
+  public $lineNumber = null;
+  public $methodName = null;
+  public $isNativeMethod = null;
+  public $stringRepresentation = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'className',
+          'type' => TType::STRING,
+          ),
+        2 => array(
+          'var' => 'fileName',
+          'type' => TType::STRING,
+          ),
+        3 => array(
+          'var' => 'lineNumber',
+          'type' => TType::I32,
+          ),
+        4 => array(
+          'var' => 'methodName',
+          'type' => TType::STRING,
+          ),
+        5 => array(
+          'var' => 'isNativeMethod',
+          'type' => TType::BOOL,
+          ),
+        6 => array(
+          'var' => 'stringRepresentation',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['className'])) {
+        $this->className = $vals['className'];
+      }
+      if (isset($vals['fileName'])) {
+        $this->fileName = $vals['fileName'];
+      }
+      if (isset($vals['lineNumber'])) {
+        $this->lineNumber = $vals['lineNumber'];
+      }
+      if (isset($vals['methodName'])) {
+        $this->methodName = $vals['methodName'];
+      }
+      if (isset($vals['isNativeMethod'])) {
+        $this->isNativeMethod = $vals['isNativeMethod'];
+      }
+      if (isset($vals['stringRepresentation'])) {
+        $this->stringRepresentation = $vals['stringRepresentation'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'StackTraceElement';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->className);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 2:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->fileName);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::I32) {
+            $xfer += $input->readI32($this->lineNumber);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 4:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->methodName);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 5:
+          if ($ftype == TType::BOOL) {
+            $xfer += $input->readBool($this->isNativeMethod);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 6:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->stringRepresentation);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('StackTraceElement');
+    if ($this->className !== null) {
+      $xfer += $output->writeFieldBegin('className', TType::STRING, 1);
+      $xfer += $output->writeString($this->className);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->fileName !== null) {
+      $xfer += $output->writeFieldBegin('fileName', TType::STRING, 2);
+      $xfer += $output->writeString($this->fileName);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->lineNumber !== null) {
+      $xfer += $output->writeFieldBegin('lineNumber', TType::I32, 3);
+      $xfer += $output->writeI32($this->lineNumber);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->methodName !== null) {
+      $xfer += $output->writeFieldBegin('methodName', TType::STRING, 4);
+      $xfer += $output->writeString($this->methodName);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->isNativeMethod !== null) {
+      $xfer += $output->writeFieldBegin('isNativeMethod', TType::BOOL, 5);
+      $xfer += $output->writeBool($this->isNativeMethod);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->stringRepresentation !== null) {
+      $xfer += $output->writeFieldBegin('stringRepresentation', TType::STRING, 6);
+      $xfer += $output->writeString($this->stringRepresentation);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_ThreadStackTrace {
+  static $_TSPEC;
+
+  public $threadName = null;
+  public $threadStringRepresentation = null;
+  public $isDaemon = null;
+  public $stackTrace = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'threadName',
+          'type' => TType::STRING,
+          ),
+        2 => array(
+          'var' => 'threadStringRepresentation',
+          'type' => TType::STRING,
+          ),
+        3 => array(
+          'var' => 'isDaemon',
+          'type' => TType::BOOL,
+          ),
+        4 => array(
+          'var' => 'stackTrace',
+          'type' => TType::LST,
+          'etype' => TType::STRUCT,
+          'elem' => array(
+            'type' => TType::STRUCT,
+            'class' => 'hadoop_api_StackTraceElement',
+            ),
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['threadName'])) {
+        $this->threadName = $vals['threadName'];
+      }
+      if (isset($vals['threadStringRepresentation'])) {
+        $this->threadStringRepresentation = $vals['threadStringRepresentation'];
+      }
+      if (isset($vals['isDaemon'])) {
+        $this->isDaemon = $vals['isDaemon'];
+      }
+      if (isset($vals['stackTrace'])) {
+        $this->stackTrace = $vals['stackTrace'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'ThreadStackTrace';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->threadName);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 2:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->threadStringRepresentation);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::BOOL) {
+            $xfer += $input->readBool($this->isDaemon);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 4:
+          if ($ftype == TType::LST) {
+            $this->stackTrace = array();
+            $_size16 = 0;
+            $_etype19 = 0;
+            $xfer += $input->readListBegin($_etype19, $_size16);
+            for ($_i20 = 0; $_i20 < $_size16; ++$_i20)
+            {
+              $elem21 = null;
+              $elem21 = new hadoop_api_StackTraceElement();
+              $xfer += $elem21->read($input);
+              $this->stackTrace []= $elem21;
+            }
+            $xfer += $input->readListEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('ThreadStackTrace');
+    if ($this->threadName !== null) {
+      $xfer += $output->writeFieldBegin('threadName', TType::STRING, 1);
+      $xfer += $output->writeString($this->threadName);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->threadStringRepresentation !== null) {
+      $xfer += $output->writeFieldBegin('threadStringRepresentation', TType::STRING, 2);
+      $xfer += $output->writeString($this->threadStringRepresentation);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->isDaemon !== null) {
+      $xfer += $output->writeFieldBegin('isDaemon', TType::BOOL, 3);
+      $xfer += $output->writeBool($this->isDaemon);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->stackTrace !== null) {
+      if (!is_array($this->stackTrace)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('stackTrace', TType::LST, 4);
+      {
+        $output->writeListBegin(TType::STRUCT, count($this->stackTrace));
+        {
+          foreach ($this->stackTrace as $iter22)
+          {
+            $xfer += $iter22->write($output);
+          }
+        }
+        $output->writeListEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_RuntimeInfo {
+  static $_TSPEC;
+
+  public $totalMemory = null;
+  public $freeMemory = null;
+  public $maxMemory = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'totalMemory',
+          'type' => TType::I64,
+          ),
+        2 => array(
+          'var' => 'freeMemory',
+          'type' => TType::I64,
+          ),
+        3 => array(
+          'var' => 'maxMemory',
+          'type' => TType::I64,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['totalMemory'])) {
+        $this->totalMemory = $vals['totalMemory'];
+      }
+      if (isset($vals['freeMemory'])) {
+        $this->freeMemory = $vals['freeMemory'];
+      }
+      if (isset($vals['maxMemory'])) {
+        $this->maxMemory = $vals['maxMemory'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'RuntimeInfo';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->totalMemory);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 2:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->freeMemory);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::I64) {
+            $xfer += $input->readI64($this->maxMemory);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('RuntimeInfo');
+    if ($this->totalMemory !== null) {
+      $xfer += $output->writeFieldBegin('totalMemory', TType::I64, 1);
+      $xfer += $output->writeI64($this->totalMemory);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->freeMemory !== null) {
+      $xfer += $output->writeFieldBegin('freeMemory', TType::I64, 2);
+      $xfer += $output->writeI64($this->freeMemory);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->maxMemory !== null) {
+      $xfer += $output->writeFieldBegin('maxMemory', TType::I64, 3);
+      $xfer += $output->writeI64($this->maxMemory);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
 class hadoop_api_IOException extends TException {
   static $_TSPEC;
 

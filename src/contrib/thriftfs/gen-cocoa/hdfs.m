@@ -2215,6 +2215,666 @@ static int64_t QUOTA_RESET = -1;
 
 @end
 
+@implementation StackTraceElement
+- (id) initWithClassName: (NSString *) className fileName: (NSString *) fileName lineNumber: (int32_t) lineNumber methodName: (NSString *) methodName isNativeMethod: (BOOL) isNativeMethod stringRepresentation: (NSString *) stringRepresentation
+{
+  self = [super init];
+  __className = [className retain];
+  __className_isset = YES;
+  __fileName = [fileName retain];
+  __fileName_isset = YES;
+  __lineNumber = lineNumber;
+  __lineNumber_isset = YES;
+  __methodName = [methodName retain];
+  __methodName_isset = YES;
+  __isNativeMethod = isNativeMethod;
+  __isNativeMethod_isset = YES;
+  __stringRepresentation = [stringRepresentation retain];
+  __stringRepresentation_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__className release];
+  [__fileName release];
+  [__methodName release];
+  [__stringRepresentation release];
+  [super dealloc];
+}
+
+- (NSString *) className {
+  return [[__className retain] autorelease];
+}
+
+- (void) setClassName: (NSString *) className {
+  [className retain];
+  [__className release];
+  __className = className;
+  __className_isset = YES;
+}
+
+- (BOOL) classNameIsSet {
+  return __className_isset;
+}
+
+- (void) unsetClassName {
+  [__className release];
+  __className = nil;
+  __className_isset = NO;
+}
+
+- (NSString *) fileName {
+  return [[__fileName retain] autorelease];
+}
+
+- (void) setFileName: (NSString *) fileName {
+  [fileName retain];
+  [__fileName release];
+  __fileName = fileName;
+  __fileName_isset = YES;
+}
+
+- (BOOL) fileNameIsSet {
+  return __fileName_isset;
+}
+
+- (void) unsetFileName {
+  [__fileName release];
+  __fileName = nil;
+  __fileName_isset = NO;
+}
+
+- (int32_t) lineNumber {
+  return __lineNumber;
+}
+
+- (void) setLineNumber: (int32_t) lineNumber {
+  __lineNumber = lineNumber;
+  __lineNumber_isset = YES;
+}
+
+- (BOOL) lineNumberIsSet {
+  return __lineNumber_isset;
+}
+
+- (void) unsetLineNumber {
+  __lineNumber_isset = NO;
+}
+
+- (NSString *) methodName {
+  return [[__methodName retain] autorelease];
+}
+
+- (void) setMethodName: (NSString *) methodName {
+  [methodName retain];
+  [__methodName release];
+  __methodName = methodName;
+  __methodName_isset = YES;
+}
+
+- (BOOL) methodNameIsSet {
+  return __methodName_isset;
+}
+
+- (void) unsetMethodName {
+  [__methodName release];
+  __methodName = nil;
+  __methodName_isset = NO;
+}
+
+- (BOOL) isNativeMethod {
+  return __isNativeMethod;
+}
+
+- (void) setIsNativeMethod: (BOOL) isNativeMethod {
+  __isNativeMethod = isNativeMethod;
+  __isNativeMethod_isset = YES;
+}
+
+- (BOOL) isNativeMethodIsSet {
+  return __isNativeMethod_isset;
+}
+
+- (void) unsetIsNativeMethod {
+  __isNativeMethod_isset = NO;
+}
+
+- (NSString *) stringRepresentation {
+  return [[__stringRepresentation retain] autorelease];
+}
+
+- (void) setStringRepresentation: (NSString *) stringRepresentation {
+  [stringRepresentation retain];
+  [__stringRepresentation release];
+  __stringRepresentation = stringRepresentation;
+  __stringRepresentation_isset = YES;
+}
+
+- (BOOL) stringRepresentationIsSet {
+  return __stringRepresentation_isset;
+}
+
+- (void) unsetStringRepresentation {
+  [__stringRepresentation release];
+  __stringRepresentation = nil;
+  __stringRepresentation_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setClassName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setFileName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setLineNumber: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setMethodName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 5:
+        if (fieldType == TType_BOOL) {
+          BOOL fieldValue = [inProtocol readBool];
+          [self setIsNativeMethod: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 6:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setStringRepresentation: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"StackTraceElement"];
+  if (__className_isset) {
+    if (__className != nil) {
+      [outProtocol writeFieldBeginWithName: @"className" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __className];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__fileName_isset) {
+    if (__fileName != nil) {
+      [outProtocol writeFieldBeginWithName: @"fileName" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __fileName];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__lineNumber_isset) {
+    [outProtocol writeFieldBeginWithName: @"lineNumber" type: TType_I32 fieldID: 3];
+    [outProtocol writeI32: __lineNumber];
+    [outProtocol writeFieldEnd];
+  }
+  if (__methodName_isset) {
+    if (__methodName != nil) {
+      [outProtocol writeFieldBeginWithName: @"methodName" type: TType_STRING fieldID: 4];
+      [outProtocol writeString: __methodName];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__isNativeMethod_isset) {
+    [outProtocol writeFieldBeginWithName: @"isNativeMethod" type: TType_BOOL fieldID: 5];
+    [outProtocol writeBool: __isNativeMethod];
+    [outProtocol writeFieldEnd];
+  }
+  if (__stringRepresentation_isset) {
+    if (__stringRepresentation != nil) {
+      [outProtocol writeFieldBeginWithName: @"stringRepresentation" type: TType_STRING fieldID: 6];
+      [outProtocol writeString: __stringRepresentation];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"StackTraceElement("];
+  [ms appendString: @"className:"];
+  [ms appendFormat: @"\"%@\"", __className];
+  [ms appendString: @",fileName:"];
+  [ms appendFormat: @"\"%@\"", __fileName];
+  [ms appendString: @",lineNumber:"];
+  [ms appendFormat: @"%i", __lineNumber];
+  [ms appendString: @",methodName:"];
+  [ms appendFormat: @"\"%@\"", __methodName];
+  [ms appendString: @",isNativeMethod:"];
+  [ms appendFormat: @"%i", __isNativeMethod];
+  [ms appendString: @",stringRepresentation:"];
+  [ms appendFormat: @"\"%@\"", __stringRepresentation];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
+@implementation ThreadStackTrace
+- (id) initWithThreadName: (NSString *) threadName threadStringRepresentation: (NSString *) threadStringRepresentation isDaemon: (BOOL) isDaemon stackTrace: (NSArray *) stackTrace
+{
+  self = [super init];
+  __threadName = [threadName retain];
+  __threadName_isset = YES;
+  __threadStringRepresentation = [threadStringRepresentation retain];
+  __threadStringRepresentation_isset = YES;
+  __isDaemon = isDaemon;
+  __isDaemon_isset = YES;
+  __stackTrace = [stackTrace retain];
+  __stackTrace_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__threadName release];
+  [__threadStringRepresentation release];
+  [__stackTrace release];
+  [super dealloc];
+}
+
+- (NSString *) threadName {
+  return [[__threadName retain] autorelease];
+}
+
+- (void) setThreadName: (NSString *) threadName {
+  [threadName retain];
+  [__threadName release];
+  __threadName = threadName;
+  __threadName_isset = YES;
+}
+
+- (BOOL) threadNameIsSet {
+  return __threadName_isset;
+}
+
+- (void) unsetThreadName {
+  [__threadName release];
+  __threadName = nil;
+  __threadName_isset = NO;
+}
+
+- (NSString *) threadStringRepresentation {
+  return [[__threadStringRepresentation retain] autorelease];
+}
+
+- (void) setThreadStringRepresentation: (NSString *) threadStringRepresentation {
+  [threadStringRepresentation retain];
+  [__threadStringRepresentation release];
+  __threadStringRepresentation = threadStringRepresentation;
+  __threadStringRepresentation_isset = YES;
+}
+
+- (BOOL) threadStringRepresentationIsSet {
+  return __threadStringRepresentation_isset;
+}
+
+- (void) unsetThreadStringRepresentation {
+  [__threadStringRepresentation release];
+  __threadStringRepresentation = nil;
+  __threadStringRepresentation_isset = NO;
+}
+
+- (BOOL) isDaemon {
+  return __isDaemon;
+}
+
+- (void) setIsDaemon: (BOOL) isDaemon {
+  __isDaemon = isDaemon;
+  __isDaemon_isset = YES;
+}
+
+- (BOOL) isDaemonIsSet {
+  return __isDaemon_isset;
+}
+
+- (void) unsetIsDaemon {
+  __isDaemon_isset = NO;
+}
+
+- (NSArray *) stackTrace {
+  return [[__stackTrace retain] autorelease];
+}
+
+- (void) setStackTrace: (NSArray *) stackTrace {
+  [stackTrace retain];
+  [__stackTrace release];
+  __stackTrace = stackTrace;
+  __stackTrace_isset = YES;
+}
+
+- (BOOL) stackTraceIsSet {
+  return __stackTrace_isset;
+}
+
+- (void) unsetStackTrace {
+  [__stackTrace release];
+  __stackTrace = nil;
+  __stackTrace_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setThreadName: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_STRING) {
+          NSString * fieldValue = [inProtocol readString];
+          [self setThreadStringRepresentation: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_BOOL) {
+          BOOL fieldValue = [inProtocol readBool];
+          [self setIsDaemon: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 4:
+        if (fieldType == TType_LIST) {
+          int _size11;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size11];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size11];
+          int _i12;
+          for (_i12 = 0; _i12 < _size11; ++_i12)
+          {
+            StackTraceElement *_elem13 = [[StackTraceElement alloc] init];
+            [_elem13 read: inProtocol];
+            [fieldValue addObject: _elem13];
+          }
+          [inProtocol readListEnd];
+          [self setStackTrace: fieldValue];
+          [fieldValue release];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"ThreadStackTrace"];
+  if (__threadName_isset) {
+    if (__threadName != nil) {
+      [outProtocol writeFieldBeginWithName: @"threadName" type: TType_STRING fieldID: 1];
+      [outProtocol writeString: __threadName];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__threadStringRepresentation_isset) {
+    if (__threadStringRepresentation != nil) {
+      [outProtocol writeFieldBeginWithName: @"threadStringRepresentation" type: TType_STRING fieldID: 2];
+      [outProtocol writeString: __threadStringRepresentation];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  if (__isDaemon_isset) {
+    [outProtocol writeFieldBeginWithName: @"isDaemon" type: TType_BOOL fieldID: 3];
+    [outProtocol writeBool: __isDaemon];
+    [outProtocol writeFieldEnd];
+  }
+  if (__stackTrace_isset) {
+    if (__stackTrace != nil) {
+      [outProtocol writeFieldBeginWithName: @"stackTrace" type: TType_LIST fieldID: 4];
+      {
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__stackTrace count]];
+        int i15;
+        for (i15 = 0; i15 < [__stackTrace count]; i15++)
+        {
+          [[__stackTrace objectAtIndex: i15] write: outProtocol];
+        }
+        [outProtocol writeListEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"ThreadStackTrace("];
+  [ms appendString: @"threadName:"];
+  [ms appendFormat: @"\"%@\"", __threadName];
+  [ms appendString: @",threadStringRepresentation:"];
+  [ms appendFormat: @"\"%@\"", __threadStringRepresentation];
+  [ms appendString: @",isDaemon:"];
+  [ms appendFormat: @"%i", __isDaemon];
+  [ms appendString: @",stackTrace:"];
+  [ms appendFormat: @"%@", __stackTrace];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
+@implementation RuntimeInfo
+- (id) initWithTotalMemory: (int64_t) totalMemory freeMemory: (int64_t) freeMemory maxMemory: (int64_t) maxMemory
+{
+  self = [super init];
+  __totalMemory = totalMemory;
+  __totalMemory_isset = YES;
+  __freeMemory = freeMemory;
+  __freeMemory_isset = YES;
+  __maxMemory = maxMemory;
+  __maxMemory_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [super dealloc];
+}
+
+- (int64_t) totalMemory {
+  return __totalMemory;
+}
+
+- (void) setTotalMemory: (int64_t) totalMemory {
+  __totalMemory = totalMemory;
+  __totalMemory_isset = YES;
+}
+
+- (BOOL) totalMemoryIsSet {
+  return __totalMemory_isset;
+}
+
+- (void) unsetTotalMemory {
+  __totalMemory_isset = NO;
+}
+
+- (int64_t) freeMemory {
+  return __freeMemory;
+}
+
+- (void) setFreeMemory: (int64_t) freeMemory {
+  __freeMemory = freeMemory;
+  __freeMemory_isset = YES;
+}
+
+- (BOOL) freeMemoryIsSet {
+  return __freeMemory_isset;
+}
+
+- (void) unsetFreeMemory {
+  __freeMemory_isset = NO;
+}
+
+- (int64_t) maxMemory {
+  return __maxMemory;
+}
+
+- (void) setMaxMemory: (int64_t) maxMemory {
+  __maxMemory = maxMemory;
+  __maxMemory_isset = YES;
+}
+
+- (BOOL) maxMemoryIsSet {
+  return __maxMemory_isset;
+}
+
+- (void) unsetMaxMemory {
+  __maxMemory_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setTotalMemory: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setFreeMemory: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 3:
+        if (fieldType == TType_I64) {
+          int64_t fieldValue = [inProtocol readI64];
+          [self setMaxMemory: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"RuntimeInfo"];
+  if (__totalMemory_isset) {
+    [outProtocol writeFieldBeginWithName: @"totalMemory" type: TType_I64 fieldID: 1];
+    [outProtocol writeI64: __totalMemory];
+    [outProtocol writeFieldEnd];
+  }
+  if (__freeMemory_isset) {
+    [outProtocol writeFieldBeginWithName: @"freeMemory" type: TType_I64 fieldID: 2];
+    [outProtocol writeI64: __freeMemory];
+    [outProtocol writeFieldEnd];
+  }
+  if (__maxMemory_isset) {
+    [outProtocol writeFieldBeginWithName: @"maxMemory" type: TType_I64 fieldID: 3];
+    [outProtocol writeI64: __maxMemory];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"RuntimeInfo("];
+  [ms appendString: @"totalMemory:"];
+  [ms appendFormat: @"%qi", __totalMemory];
+  [ms appendString: @",freeMemory:"];
+  [ms appendFormat: @"%qi", __freeMemory];
+  [ms appendString: @",maxMemory:"];
+  [ms appendFormat: @"%qi", __maxMemory];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
 @implementation IOException
 - (id) init
 {
@@ -2798,6 +3458,245 @@ static int64_t QUOTA_RESET = -1;
 
 @end
 
+@interface GetRuntimeInfoResult_ : NSObject {
+  RuntimeInfo * __success;
+
+  BOOL __success_isset;
+}
+
+- (id) initWithSuccess: (RuntimeInfo *) success;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (RuntimeInfo *) success;
+- (void) setSuccess: (RuntimeInfo *) success;
+- (BOOL) successIsSet;
+
+@end
+
+@implementation GetRuntimeInfoResult_
+- (id) initWithSuccess: (RuntimeInfo *) success
+{
+  self = [super init];
+  __success = [success retain];
+  __success_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__success release];
+  [super dealloc];
+}
+
+- (RuntimeInfo *) success {
+  return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (RuntimeInfo *) success {
+  [success retain];
+  [__success release];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          RuntimeInfo *fieldValue = [[RuntimeInfo alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"GetRuntimeInfoResult_"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetRuntimeInfoResult_("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
+@interface GetThreadDumpResult_ : NSObject {
+  NSArray * __success;
+
+  BOOL __success_isset;
+}
+
+- (id) initWithSuccess: (NSArray *) success;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSArray *) success;
+- (void) setSuccess: (NSArray *) success;
+- (BOOL) successIsSet;
+
+@end
+
+@implementation GetThreadDumpResult_
+- (id) initWithSuccess: (NSArray *) success
+{
+  self = [super init];
+  __success = [success retain];
+  __success_isset = YES;
+  return self;
+}
+
+- (void) dealloc
+{
+  [__success release];
+  [super dealloc];
+}
+
+- (NSArray *) success {
+  return [[__success retain] autorelease];
+}
+
+- (void) setSuccess: (NSArray *) success {
+  [success retain];
+  [__success release];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_LIST) {
+          int _size16;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size16];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size16];
+          int _i17;
+          for (_i17 = 0; _i17 < _size16; ++_i17)
+          {
+            ThreadStackTrace *_elem18 = [[ThreadStackTrace alloc] init];
+            [_elem18 read: inProtocol];
+            [fieldValue addObject: _elem18];
+          }
+          [inProtocol readListEnd];
+          [self setSuccess: fieldValue];
+          [fieldValue release];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"GetThreadDumpResult_"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
+      {
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
+        int i20;
+        for (i20 = 0; i20 < [__success count]; i20++)
+        {
+          [[__success objectAtIndex: i20] write: outProtocol];
+        }
+        [outProtocol writeListEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetThreadDumpResult_("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
+  [ms appendString: @")"];
+  return [ms copy];
+}
+
+@end
+
 @implementation HadoopServiceBaseClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
@@ -2857,6 +3756,86 @@ static int64_t QUOTA_RESET = -1;
 {
   [self send_getVersionInfo: ctx];
   return [self recv_getVersionInfo];
+}
+
+- (void) send_getRuntimeInfo: (RequestContext *) ctx
+{
+  [outProtocol writeMessageBeginWithName: @"getRuntimeInfo" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getRuntimeInfo_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (RuntimeInfo *) recv_getRuntimeInfo
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  GetRuntimeInfoResult_ * result = [[[GetRuntimeInfoResult_ alloc] init] autorelease];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"getRuntimeInfo failed: unknown result"];
+}
+
+- (RuntimeInfo *) getRuntimeInfo: (RequestContext *) ctx
+{
+  [self send_getRuntimeInfo: ctx];
+  return [self recv_getRuntimeInfo];
+}
+
+- (void) send_getThreadDump: (RequestContext *) ctx
+{
+  [outProtocol writeMessageBeginWithName: @"getThreadDump" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getThreadDump_args"];
+  if (ctx != nil)  {
+    [outProtocol writeFieldBeginWithName: @"ctx" type: TType_STRUCT fieldID: 10];
+    [ctx write: outProtocol];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (NSArray *) recv_getThreadDump
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  GetThreadDumpResult_ * result = [[[GetThreadDumpResult_ alloc] init] autorelease];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"getThreadDump failed: unknown result"];
+}
+
+- (NSArray *) getThreadDump: (RequestContext *) ctx
+{
+  [self send_getThreadDump: ctx];
+  return [self recv_getThreadDump];
 }
 
 @end
@@ -3183,14 +4162,14 @@ while (true)
   {
     case 0:
       if (fieldType == TType_LIST) {
-        int _size11;
-        [inProtocol readListBeginReturningElementType: NULL size: &_size11];
-        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size11];
-        int _i12;
-        for (_i12 = 0; _i12 < _size11; ++_i12)
+        int _size21;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size21];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size21];
+        int _i22;
+        for (_i22 = 0; _i22 < _size21; ++_i22)
         {
-          int64_t _elem13 = [inProtocol readI64];
-          [fieldValue addObject: [NSNumber numberWithLongLong: _elem13]];
+          int64_t _elem23 = [inProtocol readI64];
+          [fieldValue addObject: [NSNumber numberWithLongLong: _elem23]];
         }
         [inProtocol readListEnd];
         [self setSuccess: fieldValue];
@@ -3226,10 +4205,10 @@ if (__success_isset) {
     [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
     {
       [outProtocol writeListBeginWithElementType: TType_I64 size: [__success count]];
-      int i15;
-      for (i15 = 0; i15 < [__success count]; i15++)
+      int i25;
+      for (i25 = 0; i25 < [__success count]; i25++)
       {
-        [outProtocol writeI64: [[__success objectAtIndex: i15] longLongValue]];
+        [outProtocol writeI64: [[__success objectAtIndex: i25] longLongValue]];
       }
       [outProtocol writeListEnd];
     }
@@ -3469,15 +4448,15 @@ while (true)
   {
     case 0:
       if (fieldType == TType_LIST) {
-        int _size16;
-        [inProtocol readListBeginReturningElementType: NULL size: &_size16];
-        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size16];
-        int _i17;
-        for (_i17 = 0; _i17 < _size16; ++_i17)
+        int _size26;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size26];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size26];
+        int _i27;
+        for (_i27 = 0; _i27 < _size26; ++_i27)
         {
-          Block *_elem18 = [[Block alloc] init];
-          [_elem18 read: inProtocol];
-          [fieldValue addObject: _elem18];
+          Block *_elem28 = [[Block alloc] init];
+          [_elem28 read: inProtocol];
+          [fieldValue addObject: _elem28];
         }
         [inProtocol readListEnd];
         [self setSuccess: fieldValue];
@@ -3513,10 +4492,10 @@ if (__success_isset) {
     [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
     {
       [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-      int i20;
-      for (i20 = 0; i20 < [__success count]; i20++)
+      int i30;
+      for (i30 = 0; i30 < [__success count]; i30++)
       {
-        [[__success objectAtIndex: i20] write: outProtocol];
+        [[__success objectAtIndex: i30] write: outProtocol];
       }
       [outProtocol writeListEnd];
     }
@@ -3645,15 +4624,15 @@ while (true)
   {
     case 0:
       if (fieldType == TType_LIST) {
-        int _size21;
-        [inProtocol readListBeginReturningElementType: NULL size: &_size21];
-        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size21];
-        int _i22;
-        for (_i22 = 0; _i22 < _size21; ++_i22)
+        int _size31;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size31];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size31];
+        int _i32;
+        for (_i32 = 0; _i32 < _size31; ++_i32)
         {
-          DatanodeInfo *_elem23 = [[DatanodeInfo alloc] init];
-          [_elem23 read: inProtocol];
-          [fieldValue addObject: _elem23];
+          DatanodeInfo *_elem33 = [[DatanodeInfo alloc] init];
+          [_elem33 read: inProtocol];
+          [fieldValue addObject: _elem33];
         }
         [inProtocol readListEnd];
         [self setSuccess: fieldValue];
@@ -3689,10 +4668,10 @@ if (__success_isset) {
     [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
     {
       [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-      int i25;
-      for (i25 = 0; i25 < [__success count]; i25++)
+      int i35;
+      for (i35 = 0; i35 < [__success count]; i35++)
       {
-        [[__success objectAtIndex: i25] write: outProtocol];
+        [[__success objectAtIndex: i35] write: outProtocol];
       }
       [outProtocol writeListEnd];
     }
@@ -4391,15 +5370,15 @@ while (true)
   {
     case 0:
       if (fieldType == TType_LIST) {
-        int _size26;
-        [inProtocol readListBeginReturningElementType: NULL size: &_size26];
-        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size26];
-        int _i27;
-        for (_i27 = 0; _i27 < _size26; ++_i27)
+        int _size36;
+        [inProtocol readListBeginReturningElementType: NULL size: &_size36];
+        NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size36];
+        int _i37;
+        for (_i37 = 0; _i37 < _size36; ++_i37)
         {
-          Stat *_elem28 = [[Stat alloc] init];
-          [_elem28 read: inProtocol];
-          [fieldValue addObject: _elem28];
+          Stat *_elem38 = [[Stat alloc] init];
+          [_elem38 read: inProtocol];
+          [fieldValue addObject: _elem38];
         }
         [inProtocol readListEnd];
         [self setSuccess: fieldValue];
@@ -4435,10 +5414,10 @@ if (__success_isset) {
     [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
     {
       [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-      int i30;
-      for (i30 = 0; i30 < [__success count]; i30++)
+      int i40;
+      for (i40 = 0; i40 < [__success count]; i40++)
       {
-        [[__success objectAtIndex: i30] write: outProtocol];
+        [[__success objectAtIndex: i40] write: outProtocol];
       }
       [outProtocol writeListEnd];
     }
@@ -6449,10 +7428,10 @@ if (blocks != nil){
   [outProtocol writeFieldBeginWithName: @"blocks" type: TType_LIST fieldID: 1];
   {
     [outProtocol writeListBeginWithElementType: TType_STRUCT size: [blocks count]];
-    int i32;
-    for (i32 = 0; i32 < [blocks count]; i32++)
+    int i42;
+    for (i42 = 0; i42 < [blocks count]; i42++)
     {
-      [[blocks objectAtIndex: i32] write: outProtocol];
+      [[blocks objectAtIndex: i42] write: outProtocol];
     }
     [outProtocol writeListEnd];
   }

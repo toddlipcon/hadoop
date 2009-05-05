@@ -22,6 +22,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Map;
 import javax.security.auth.login.LoginException;
@@ -33,8 +35,11 @@ import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.security.UnixUserGroupInformation;
 import org.apache.hadoop.util.VersionInfo;
 
-import org.apache.hadoop.thriftfs.api.RequestContext;
 import org.apache.hadoop.thriftfs.api.HadoopServiceBase;
+import org.apache.hadoop.thriftfs.api.RequestContext;
+import org.apache.hadoop.thriftfs.api.RuntimeInfo;
+import org.apache.hadoop.thriftfs.api.StackTraceElement;
+import org.apache.hadoop.thriftfs.api.ThreadStackTrace;
 
 /**
  * Base class to provide some utility functions for thrift plugin handlers
@@ -63,6 +68,50 @@ public abstract class ThriftHandlerBase implements HadoopServiceBase.Iface {
     vi.buildVersion = VersionInfo.getBuildVersion();
     return vi;
   }
+
+  /**
+   * Return lots of status info about this server
+   */
+  public RuntimeInfo getRuntimeInfo(RequestContext ctx) {
+    RuntimeInfo ri = new RuntimeInfo();
+    ri.totalMemory = Runtime.getRuntime().totalMemory();
+    ri.freeMemory = Runtime.getRuntime().freeMemory();
+    ri.maxMemory = Runtime.getRuntime().maxMemory();
+
+    return ri;
+  }
+
+  /**
+   * Return a list of threads that currently exist with their stack traces
+   */
+  public List<ThreadStackTrace> getThreadDump(RequestContext ctx) {
+    List<ThreadStackTrace> dump = new ArrayList<ThreadStackTrace>();
+
+    Map<Thread, java.lang.StackTraceElement[]> traces = Thread.getAllStackTraces();
+    for (Map.Entry<Thread, java.lang.StackTraceElement[]> entry : traces.entrySet()) {
+      final Thread t = entry.getKey();
+      final java.lang.StackTraceElement[] frames = entry.getValue();
+
+      ThreadStackTrace tst = new ThreadStackTrace();
+      tst.threadName = t.getName();
+      tst.threadStringRepresentation = String.valueOf(t);
+      tst.isDaemon = t.isDaemon();
+      tst.stackTrace = new ArrayList<StackTraceElement>();
+      for (java.lang.StackTraceElement ste : frames) {
+        StackTraceElement tFrame = new StackTraceElement();
+        tFrame.className = ste.getClassName();
+        tFrame.fileName = ste.getFileName();
+        tFrame.lineNumber = ste.getLineNumber();
+        tFrame.methodName = ste.getMethodName();
+        tFrame.isNativeMethod = ste.isNativeMethod();
+        tFrame.stringRepresentation = String.valueOf(ste);
+        tst.stackTrace.add(tFrame);
+      }
+      dump.add(tst);
+    }
+    return dump;
+  }
+
 
   /**
    * Should be called by all RPCs on the request context passed in.

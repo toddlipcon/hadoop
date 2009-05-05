@@ -439,6 +439,151 @@ class VersionInfo {
 
 };
 
+class StackTraceElement {
+ public:
+
+  static const char* ascii_fingerprint; // = "1ABFF4D07604C86CD52A05A2F78CDB98";
+  static const uint8_t binary_fingerprint[16]; // = {0x1A,0xBF,0xF4,0xD0,0x76,0x04,0xC8,0x6C,0xD5,0x2A,0x05,0xA2,0xF7,0x8C,0xDB,0x98};
+
+  StackTraceElement() : className(""), fileName(""), lineNumber(0), methodName(""), isNativeMethod(0), stringRepresentation("") {
+  }
+
+  virtual ~StackTraceElement() throw() {}
+
+  std::string className;
+  std::string fileName;
+  int32_t lineNumber;
+  std::string methodName;
+  bool isNativeMethod;
+  std::string stringRepresentation;
+
+  struct __isset {
+    __isset() : className(false), fileName(false), lineNumber(false), methodName(false), isNativeMethod(false), stringRepresentation(false) {}
+    bool className;
+    bool fileName;
+    bool lineNumber;
+    bool methodName;
+    bool isNativeMethod;
+    bool stringRepresentation;
+  } __isset;
+
+  bool operator == (const StackTraceElement & rhs) const
+  {
+    if (!(className == rhs.className))
+      return false;
+    if (!(fileName == rhs.fileName))
+      return false;
+    if (!(lineNumber == rhs.lineNumber))
+      return false;
+    if (!(methodName == rhs.methodName))
+      return false;
+    if (!(isNativeMethod == rhs.isNativeMethod))
+      return false;
+    if (!(stringRepresentation == rhs.stringRepresentation))
+      return false;
+    return true;
+  }
+  bool operator != (const StackTraceElement &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const StackTraceElement & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class ThreadStackTrace {
+ public:
+
+  static const char* ascii_fingerprint; // = "1BE1F9941D6C85D93B58E3AF7E99D33D";
+  static const uint8_t binary_fingerprint[16]; // = {0x1B,0xE1,0xF9,0x94,0x1D,0x6C,0x85,0xD9,0x3B,0x58,0xE3,0xAF,0x7E,0x99,0xD3,0x3D};
+
+  ThreadStackTrace() : threadName(""), threadStringRepresentation(""), isDaemon(0) {
+  }
+
+  virtual ~ThreadStackTrace() throw() {}
+
+  std::string threadName;
+  std::string threadStringRepresentation;
+  bool isDaemon;
+  std::vector<StackTraceElement>  stackTrace;
+
+  struct __isset {
+    __isset() : threadName(false), threadStringRepresentation(false), isDaemon(false), stackTrace(false) {}
+    bool threadName;
+    bool threadStringRepresentation;
+    bool isDaemon;
+    bool stackTrace;
+  } __isset;
+
+  bool operator == (const ThreadStackTrace & rhs) const
+  {
+    if (!(threadName == rhs.threadName))
+      return false;
+    if (!(threadStringRepresentation == rhs.threadStringRepresentation))
+      return false;
+    if (!(isDaemon == rhs.isDaemon))
+      return false;
+    if (!(stackTrace == rhs.stackTrace))
+      return false;
+    return true;
+  }
+  bool operator != (const ThreadStackTrace &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const ThreadStackTrace & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class RuntimeInfo {
+ public:
+
+  static const char* ascii_fingerprint; // = "EA2D65F1E0BB78760205682082304B41";
+  static const uint8_t binary_fingerprint[16]; // = {0xEA,0x2D,0x65,0xF1,0xE0,0xBB,0x78,0x76,0x02,0x05,0x68,0x20,0x82,0x30,0x4B,0x41};
+
+  RuntimeInfo() : totalMemory(0), freeMemory(0), maxMemory(0) {
+  }
+
+  virtual ~RuntimeInfo() throw() {}
+
+  int64_t totalMemory;
+  int64_t freeMemory;
+  int64_t maxMemory;
+
+  struct __isset {
+    __isset() : totalMemory(false), freeMemory(false), maxMemory(false) {}
+    bool totalMemory;
+    bool freeMemory;
+    bool maxMemory;
+  } __isset;
+
+  bool operator == (const RuntimeInfo & rhs) const
+  {
+    if (!(totalMemory == rhs.totalMemory))
+      return false;
+    if (!(freeMemory == rhs.freeMemory))
+      return false;
+    if (!(maxMemory == rhs.maxMemory))
+      return false;
+    return true;
+  }
+  bool operator != (const RuntimeInfo &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const RuntimeInfo & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
 class IOException : public apache::thrift::TException {
  public:
 

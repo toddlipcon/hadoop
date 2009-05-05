@@ -274,6 +274,77 @@ module Hadoop
 
         end
 
+        # A single stack frame in a stack dump
+        class StackTraceElement
+          include ::Thrift::Struct
+          CLASSNAME = 1
+          FILENAME = 2
+          LINENUMBER = 3
+          METHODNAME = 4
+          ISNATIVEMETHOD = 5
+          STRINGREPRESENTATION = 6
+
+          ::Thrift::Struct.field_accessor self, :className, :fileName, :lineNumber, :methodName, :isNativeMethod, :stringRepresentation
+          FIELDS = {
+            CLASSNAME => {:type => ::Thrift::Types::STRING, :name => 'className'},
+            FILENAME => {:type => ::Thrift::Types::STRING, :name => 'fileName'},
+            LINENUMBER => {:type => ::Thrift::Types::I32, :name => 'lineNumber'},
+            METHODNAME => {:type => ::Thrift::Types::STRING, :name => 'methodName'},
+            ISNATIVEMETHOD => {:type => ::Thrift::Types::BOOL, :name => 'isNativeMethod'},
+            STRINGREPRESENTATION => {:type => ::Thrift::Types::STRING, :name => 'stringRepresentation'}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
+        # Info about a thread with its corresponding stack trace
+        class ThreadStackTrace
+          include ::Thrift::Struct
+          THREADNAME = 1
+          THREADSTRINGREPRESENTATION = 2
+          ISDAEMON = 3
+          STACKTRACE = 4
+
+          ::Thrift::Struct.field_accessor self, :threadName, :threadStringRepresentation, :isDaemon, :stackTrace
+          FIELDS = {
+            THREADNAME => {:type => ::Thrift::Types::STRING, :name => 'threadName'},
+            THREADSTRINGREPRESENTATION => {:type => ::Thrift::Types::STRING, :name => 'threadStringRepresentation'},
+            ISDAEMON => {:type => ::Thrift::Types::BOOL, :name => 'isDaemon'},
+            STACKTRACE => {:type => ::Thrift::Types::LIST, :name => 'stackTrace', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::StackTraceElement}}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
+        # Memory available via java.lang.Runtime
+        class RuntimeInfo
+          include ::Thrift::Struct
+          TOTALMEMORY = 1
+          FREEMEMORY = 2
+          MAXMEMORY = 3
+
+          ::Thrift::Struct.field_accessor self, :totalMemory, :freeMemory, :maxMemory
+          FIELDS = {
+            TOTALMEMORY => {:type => ::Thrift::Types::I64, :name => 'totalMemory'},
+            FREEMEMORY => {:type => ::Thrift::Types::I64, :name => 'freeMemory'},
+            MAXMEMORY => {:type => ::Thrift::Types::I64, :name => 'maxMemory'}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
         # Generic I/O error
         class IOException < ::Thrift::Exception
           include ::Thrift::Struct
