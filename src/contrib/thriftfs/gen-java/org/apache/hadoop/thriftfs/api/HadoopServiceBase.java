@@ -32,6 +32,10 @@ public class HadoopServiceBase {
 
     public List<ThreadStackTrace> getThreadDump(RequestContext ctx) throws TException;
 
+    public List<MetricsContext> getAllMetrics(RequestContext ctx) throws IOException, TException;
+
+    public MetricsContext getMetricsContext(RequestContext ctx, String contextName) throws IOException, TException;
+
   }
 
   public static class Client implements Iface {
@@ -160,6 +164,79 @@ public class HadoopServiceBase {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "getThreadDump failed: unknown result");
     }
 
+    public List<MetricsContext> getAllMetrics(RequestContext ctx) throws IOException, TException
+    {
+      send_getAllMetrics(ctx);
+      return recv_getAllMetrics();
+    }
+
+    public void send_getAllMetrics(RequestContext ctx) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("getAllMetrics", TMessageType.CALL, seqid_));
+      getAllMetrics_args args = new getAllMetrics_args();
+      args.ctx = ctx;
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public List<MetricsContext> recv_getAllMetrics() throws IOException, TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      getAllMetrics_result result = new getAllMetrics_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.err != null) {
+        throw result.err;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "getAllMetrics failed: unknown result");
+    }
+
+    public MetricsContext getMetricsContext(RequestContext ctx, String contextName) throws IOException, TException
+    {
+      send_getMetricsContext(ctx, contextName);
+      return recv_getMetricsContext();
+    }
+
+    public void send_getMetricsContext(RequestContext ctx, String contextName) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("getMetricsContext", TMessageType.CALL, seqid_));
+      getMetricsContext_args args = new getMetricsContext_args();
+      args.ctx = ctx;
+      args.contextName = contextName;
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public MetricsContext recv_getMetricsContext() throws IOException, TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      getMetricsContext_result result = new getMetricsContext_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.err != null) {
+        throw result.err;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "getMetricsContext failed: unknown result");
+    }
+
   }
   public static class Processor implements TProcessor {
     public Processor(Iface iface)
@@ -168,6 +245,8 @@ public class HadoopServiceBase {
       processMap_.put("getVersionInfo", new getVersionInfo());
       processMap_.put("getRuntimeInfo", new getRuntimeInfo());
       processMap_.put("getThreadDump", new getThreadDump());
+      processMap_.put("getAllMetrics", new getAllMetrics());
+      processMap_.put("getMetricsContext", new getMetricsContext());
     }
 
     protected static interface ProcessFunction {
@@ -236,6 +315,46 @@ public class HadoopServiceBase {
         getThreadDump_result result = new getThreadDump_result();
         result.success = iface_.getThreadDump(args.ctx);
         oprot.writeMessageBegin(new TMessage("getThreadDump", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
+    private class getAllMetrics implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        getAllMetrics_args args = new getAllMetrics_args();
+        args.read(iprot);
+        iprot.readMessageEnd();
+        getAllMetrics_result result = new getAllMetrics_result();
+        try {
+          result.success = iface_.getAllMetrics(args.ctx);
+        } catch (IOException err) {
+          result.err = err;
+        }
+        oprot.writeMessageBegin(new TMessage("getAllMetrics", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
+    private class getMetricsContext implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        getMetricsContext_args args = new getMetricsContext_args();
+        args.read(iprot);
+        iprot.readMessageEnd();
+        getMetricsContext_result result = new getMetricsContext_result();
+        try {
+          result.success = iface_.getMetricsContext(args.ctx, args.contextName);
+        } catch (IOException err) {
+          result.err = err;
+        }
+        oprot.writeMessageBegin(new TMessage("getMetricsContext", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
         oprot.getTransport().flush();
@@ -1409,14 +1528,14 @@ public class HadoopServiceBase {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list13 = iprot.readListBegin();
-                this.success = new ArrayList<ThreadStackTrace>(_list13.size);
-                for (int _i14 = 0; _i14 < _list13.size; ++_i14)
+                TList _list32 = iprot.readListBegin();
+                this.success = new ArrayList<ThreadStackTrace>(_list32.size);
+                for (int _i33 = 0; _i33 < _list32.size; ++_i33)
                 {
-                  ThreadStackTrace _elem15;
-                  _elem15 = new ThreadStackTrace();
-                  _elem15.read(iprot);
-                  this.success.add(_elem15);
+                  ThreadStackTrace _elem34;
+                  _elem34 = new ThreadStackTrace();
+                  _elem34.read(iprot);
+                  this.success.add(_elem34);
                 }
                 iprot.readListEnd();
               }
@@ -1444,8 +1563,8 @@ public class HadoopServiceBase {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
-          for (ThreadStackTrace _iter16 : this.success)          {
-            _iter16.write(oprot);
+          for (ThreadStackTrace _iter35 : this.success)          {
+            _iter35.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -1465,6 +1584,1065 @@ public class HadoopServiceBase {
         sb.append("null");
       } else {
         sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+      // check that fields of type enum have valid values
+    }
+
+  }
+
+  public static class getAllMetrics_args implements TBase, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("getAllMetrics_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
+
+    public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
+    }});
+
+    static {
+      FieldMetaData.addStructMetaDataMap(getAllMetrics_args.class, metaDataMap);
+    }
+
+    public getAllMetrics_args() {
+    }
+
+    public getAllMetrics_args(
+      RequestContext ctx)
+    {
+      this();
+      this.ctx = ctx;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getAllMetrics_args(getAllMetrics_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
+    }
+
+    @Override
+    public getAllMetrics_args clone() {
+      return new getAllMetrics_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
+    public void setFieldValue(int fieldID, Object value) {
+      switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    public Object getFieldValue(int fieldID) {
+      switch (fieldID) {
+      case CTX:
+        return getCtx();
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
+    public boolean isSet(int fieldID) {
+      switch (fieldID) {
+      case CTX:
+        return isSetCtx();
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getAllMetrics_args)
+        return this.equals((getAllMetrics_args)that);
+      return false;
+    }
+
+    public boolean equals(getAllMetrics_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id)
+        {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+            break;
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getAllMetrics_args(");
+      boolean first = true;
+
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+      // check that fields of type enum have valid values
+    }
+
+  }
+
+  public static class getAllMetrics_result implements TBase, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("getAllMetrics_result");
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.LIST, (short)0);
+    private static final TField ERR_FIELD_DESC = new TField("err", TType.STRUCT, (short)1);
+
+    public List<MetricsContext> success;
+    public static final int SUCCESS = 0;
+    public IOException err;
+    public static final int ERR = 1;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
+
+    public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new ListMetaData(TType.LIST, 
+              new StructMetaData(TType.STRUCT, MetricsContext.class))));
+      put(ERR, new FieldMetaData("err", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRUCT)));
+    }});
+
+    static {
+      FieldMetaData.addStructMetaDataMap(getAllMetrics_result.class, metaDataMap);
+    }
+
+    public getAllMetrics_result() {
+    }
+
+    public getAllMetrics_result(
+      List<MetricsContext> success,
+      IOException err)
+    {
+      this();
+      this.success = success;
+      this.err = err;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getAllMetrics_result(getAllMetrics_result other) {
+      if (other.isSetSuccess()) {
+        List<MetricsContext> __this__success = new ArrayList<MetricsContext>();
+        for (MetricsContext other_element : other.success) {
+          __this__success.add(new MetricsContext(other_element));
+        }
+        this.success = __this__success;
+      }
+      if (other.isSetErr()) {
+        this.err = new IOException(other.err);
+      }
+    }
+
+    @Override
+    public getAllMetrics_result clone() {
+      return new getAllMetrics_result(this);
+    }
+
+    public int getSuccessSize() {
+      return (this.success == null) ? 0 : this.success.size();
+    }
+
+    public java.util.Iterator<MetricsContext> getSuccessIterator() {
+      return (this.success == null) ? null : this.success.iterator();
+    }
+
+    public void addToSuccess(MetricsContext elem) {
+      if (this.success == null) {
+        this.success = new ArrayList<MetricsContext>();
+      }
+      this.success.add(elem);
+    }
+
+    public List<MetricsContext> getSuccess() {
+      return this.success;
+    }
+
+    public void setSuccess(List<MetricsContext> success) {
+      this.success = success;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    // Returns true if field success is set (has been asigned a value) and false otherwise
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public IOException getErr() {
+      return this.err;
+    }
+
+    public void setErr(IOException err) {
+      this.err = err;
+    }
+
+    public void unsetErr() {
+      this.err = null;
+    }
+
+    // Returns true if field err is set (has been asigned a value) and false otherwise
+    public boolean isSetErr() {
+      return this.err != null;
+    }
+
+    public void setErrIsSet(boolean value) {
+      if (!value) {
+        this.err = null;
+      }
+    }
+
+    public void setFieldValue(int fieldID, Object value) {
+      switch (fieldID) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((List<MetricsContext>)value);
+        }
+        break;
+
+      case ERR:
+        if (value == null) {
+          unsetErr();
+        } else {
+          setErr((IOException)value);
+        }
+        break;
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    public Object getFieldValue(int fieldID) {
+      switch (fieldID) {
+      case SUCCESS:
+        return getSuccess();
+
+      case ERR:
+        return getErr();
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
+    public boolean isSet(int fieldID) {
+      switch (fieldID) {
+      case SUCCESS:
+        return isSetSuccess();
+      case ERR:
+        return isSetErr();
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getAllMetrics_result)
+        return this.equals((getAllMetrics_result)that);
+      return false;
+    }
+
+    public boolean equals(getAllMetrics_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_err = true && this.isSetErr();
+      boolean that_present_err = true && that.isSetErr();
+      if (this_present_err || that_present_err) {
+        if (!(this_present_err && that_present_err))
+          return false;
+        if (!this.err.equals(that.err))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id)
+        {
+          case SUCCESS:
+            if (field.type == TType.LIST) {
+              {
+                TList _list36 = iprot.readListBegin();
+                this.success = new ArrayList<MetricsContext>(_list36.size);
+                for (int _i37 = 0; _i37 < _list36.size; ++_i37)
+                {
+                  MetricsContext _elem38;
+                  _elem38 = new MetricsContext();
+                  _elem38.read(iprot);
+                  this.success.add(_elem38);
+                }
+                iprot.readListEnd();
+              }
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case ERR:
+            if (field.type == TType.STRUCT) {
+              this.err = new IOException();
+              this.err.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+            break;
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        {
+          oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
+          for (MetricsContext _iter39 : this.success)          {
+            _iter39.write(oprot);
+          }
+          oprot.writeListEnd();
+        }
+        oprot.writeFieldEnd();
+      } else if (this.isSetErr()) {
+        oprot.writeFieldBegin(ERR_FIELD_DESC);
+        this.err.write(oprot);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getAllMetrics_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("err:");
+      if (this.err == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.err);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+      // check that fields of type enum have valid values
+    }
+
+  }
+
+  public static class getMetricsContext_args implements TBase, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("getMetricsContext_args");
+    private static final TField CTX_FIELD_DESC = new TField("ctx", TType.STRUCT, (short)10);
+    private static final TField CONTEXT_NAME_FIELD_DESC = new TField("contextName", TType.STRING, (short)1);
+
+    public RequestContext ctx;
+    public static final int CTX = 10;
+    public String contextName;
+    public static final int CONTEXTNAME = 1;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
+
+    public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(CTX, new FieldMetaData("ctx", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, RequestContext.class)));
+      put(CONTEXTNAME, new FieldMetaData("contextName", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+    }});
+
+    static {
+      FieldMetaData.addStructMetaDataMap(getMetricsContext_args.class, metaDataMap);
+    }
+
+    public getMetricsContext_args() {
+    }
+
+    public getMetricsContext_args(
+      RequestContext ctx,
+      String contextName)
+    {
+      this();
+      this.ctx = ctx;
+      this.contextName = contextName;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getMetricsContext_args(getMetricsContext_args other) {
+      if (other.isSetCtx()) {
+        this.ctx = new RequestContext(other.ctx);
+      }
+      if (other.isSetContextName()) {
+        this.contextName = other.contextName;
+      }
+    }
+
+    @Override
+    public getMetricsContext_args clone() {
+      return new getMetricsContext_args(this);
+    }
+
+    public RequestContext getCtx() {
+      return this.ctx;
+    }
+
+    public void setCtx(RequestContext ctx) {
+      this.ctx = ctx;
+    }
+
+    public void unsetCtx() {
+      this.ctx = null;
+    }
+
+    // Returns true if field ctx is set (has been asigned a value) and false otherwise
+    public boolean isSetCtx() {
+      return this.ctx != null;
+    }
+
+    public void setCtxIsSet(boolean value) {
+      if (!value) {
+        this.ctx = null;
+      }
+    }
+
+    public String getContextName() {
+      return this.contextName;
+    }
+
+    public void setContextName(String contextName) {
+      this.contextName = contextName;
+    }
+
+    public void unsetContextName() {
+      this.contextName = null;
+    }
+
+    // Returns true if field contextName is set (has been asigned a value) and false otherwise
+    public boolean isSetContextName() {
+      return this.contextName != null;
+    }
+
+    public void setContextNameIsSet(boolean value) {
+      if (!value) {
+        this.contextName = null;
+      }
+    }
+
+    public void setFieldValue(int fieldID, Object value) {
+      switch (fieldID) {
+      case CTX:
+        if (value == null) {
+          unsetCtx();
+        } else {
+          setCtx((RequestContext)value);
+        }
+        break;
+
+      case CONTEXTNAME:
+        if (value == null) {
+          unsetContextName();
+        } else {
+          setContextName((String)value);
+        }
+        break;
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    public Object getFieldValue(int fieldID) {
+      switch (fieldID) {
+      case CTX:
+        return getCtx();
+
+      case CONTEXTNAME:
+        return getContextName();
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
+    public boolean isSet(int fieldID) {
+      switch (fieldID) {
+      case CTX:
+        return isSetCtx();
+      case CONTEXTNAME:
+        return isSetContextName();
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getMetricsContext_args)
+        return this.equals((getMetricsContext_args)that);
+      return false;
+    }
+
+    public boolean equals(getMetricsContext_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_ctx = true && this.isSetCtx();
+      boolean that_present_ctx = true && that.isSetCtx();
+      if (this_present_ctx || that_present_ctx) {
+        if (!(this_present_ctx && that_present_ctx))
+          return false;
+        if (!this.ctx.equals(that.ctx))
+          return false;
+      }
+
+      boolean this_present_contextName = true && this.isSetContextName();
+      boolean that_present_contextName = true && that.isSetContextName();
+      if (this_present_contextName || that_present_contextName) {
+        if (!(this_present_contextName && that_present_contextName))
+          return false;
+        if (!this.contextName.equals(that.contextName))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id)
+        {
+          case CTX:
+            if (field.type == TType.STRUCT) {
+              this.ctx = new RequestContext();
+              this.ctx.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case CONTEXTNAME:
+            if (field.type == TType.STRING) {
+              this.contextName = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+            break;
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.contextName != null) {
+        oprot.writeFieldBegin(CONTEXT_NAME_FIELD_DESC);
+        oprot.writeString(this.contextName);
+        oprot.writeFieldEnd();
+      }
+      if (this.ctx != null) {
+        oprot.writeFieldBegin(CTX_FIELD_DESC);
+        this.ctx.write(oprot);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getMetricsContext_args(");
+      boolean first = true;
+
+      sb.append("ctx:");
+      if (this.ctx == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.ctx);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("contextName:");
+      if (this.contextName == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.contextName);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+      // check that fields of type enum have valid values
+    }
+
+  }
+
+  public static class getMetricsContext_result implements TBase, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("getMetricsContext_result");
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.STRUCT, (short)0);
+    private static final TField ERR_FIELD_DESC = new TField("err", TType.STRUCT, (short)1);
+
+    public MetricsContext success;
+    public static final int SUCCESS = 0;
+    public IOException err;
+    public static final int ERR = 1;
+
+    private final Isset __isset = new Isset();
+    private static final class Isset implements java.io.Serializable {
+    }
+
+    public static final Map<Integer, FieldMetaData> metaDataMap = Collections.unmodifiableMap(new HashMap<Integer, FieldMetaData>() {{
+      put(SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new StructMetaData(TType.STRUCT, MetricsContext.class)));
+      put(ERR, new FieldMetaData("err", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRUCT)));
+    }});
+
+    static {
+      FieldMetaData.addStructMetaDataMap(getMetricsContext_result.class, metaDataMap);
+    }
+
+    public getMetricsContext_result() {
+    }
+
+    public getMetricsContext_result(
+      MetricsContext success,
+      IOException err)
+    {
+      this();
+      this.success = success;
+      this.err = err;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getMetricsContext_result(getMetricsContext_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new MetricsContext(other.success);
+      }
+      if (other.isSetErr()) {
+        this.err = new IOException(other.err);
+      }
+    }
+
+    @Override
+    public getMetricsContext_result clone() {
+      return new getMetricsContext_result(this);
+    }
+
+    public MetricsContext getSuccess() {
+      return this.success;
+    }
+
+    public void setSuccess(MetricsContext success) {
+      this.success = success;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    // Returns true if field success is set (has been asigned a value) and false otherwise
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public IOException getErr() {
+      return this.err;
+    }
+
+    public void setErr(IOException err) {
+      this.err = err;
+    }
+
+    public void unsetErr() {
+      this.err = null;
+    }
+
+    // Returns true if field err is set (has been asigned a value) and false otherwise
+    public boolean isSetErr() {
+      return this.err != null;
+    }
+
+    public void setErrIsSet(boolean value) {
+      if (!value) {
+        this.err = null;
+      }
+    }
+
+    public void setFieldValue(int fieldID, Object value) {
+      switch (fieldID) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((MetricsContext)value);
+        }
+        break;
+
+      case ERR:
+        if (value == null) {
+          unsetErr();
+        } else {
+          setErr((IOException)value);
+        }
+        break;
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    public Object getFieldValue(int fieldID) {
+      switch (fieldID) {
+      case SUCCESS:
+        return getSuccess();
+
+      case ERR:
+        return getErr();
+
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    // Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise
+    public boolean isSet(int fieldID) {
+      switch (fieldID) {
+      case SUCCESS:
+        return isSetSuccess();
+      case ERR:
+        return isSetErr();
+      default:
+        throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
+      }
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getMetricsContext_result)
+        return this.equals((getMetricsContext_result)that);
+      return false;
+    }
+
+    public boolean equals(getMetricsContext_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_err = true && this.isSetErr();
+      boolean that_present_err = true && that.isSetErr();
+      if (this_present_err || that_present_err) {
+        if (!(this_present_err && that_present_err))
+          return false;
+        if (!this.err.equals(that.err))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id)
+        {
+          case SUCCESS:
+            if (field.type == TType.STRUCT) {
+              this.success = new MetricsContext();
+              this.success.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case ERR:
+            if (field.type == TType.STRUCT) {
+              this.err = new IOException();
+              this.err.read(iprot);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+            break;
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        this.success.write(oprot);
+        oprot.writeFieldEnd();
+      } else if (this.isSetErr()) {
+        oprot.writeFieldBegin(ERR_FIELD_DESC);
+        this.err.write(oprot);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getMetricsContext_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("err:");
+      if (this.err == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.err);
       }
       first = false;
       sb.append(")");

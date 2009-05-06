@@ -12,6 +12,8 @@ interface HadoopServiceBaseIf {
   public function getVersionInfo($ctx);
   public function getRuntimeInfo($ctx);
   public function getThreadDump($ctx);
+  public function getAllMetrics($ctx);
+  public function getMetricsContext($ctx, $contextName);
 }
 
 class HadoopServiceBaseClient implements HadoopServiceBaseIf {
@@ -176,6 +178,115 @@ class HadoopServiceBaseClient implements HadoopServiceBaseIf {
       return $result->success;
     }
     throw new Exception("getThreadDump failed: unknown result");
+  }
+
+  public function getAllMetrics($ctx)
+  {
+    $this->send_getAllMetrics($ctx);
+    return $this->recv_getAllMetrics();
+  }
+
+  public function send_getAllMetrics($ctx)
+  {
+    $args = new hadoop_api_HadoopServiceBase_getAllMetrics_args();
+    $args->ctx = $ctx;
+    $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'getAllMetrics', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('getAllMetrics', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_getAllMetrics()
+  {
+    $bin_accel = ($this->input_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, 'hadoop_api_HadoopServiceBase_getAllMetrics_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new hadoop_api_HadoopServiceBase_getAllMetrics_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->err !== null) {
+      throw $result->err;
+    }
+    throw new Exception("getAllMetrics failed: unknown result");
+  }
+
+  public function getMetricsContext($ctx, $contextName)
+  {
+    $this->send_getMetricsContext($ctx, $contextName);
+    return $this->recv_getMetricsContext();
+  }
+
+  public function send_getMetricsContext($ctx, $contextName)
+  {
+    $args = new hadoop_api_HadoopServiceBase_getMetricsContext_args();
+    $args->ctx = $ctx;
+    $args->contextName = $contextName;
+    $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'getMetricsContext', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('getMetricsContext', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_getMetricsContext()
+  {
+    $bin_accel = ($this->input_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, 'hadoop_api_HadoopServiceBase_getMetricsContext_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new hadoop_api_HadoopServiceBase_getMetricsContext_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->err !== null) {
+      throw $result->err;
+    }
+    throw new Exception("getMetricsContext failed: unknown result");
   }
 
 }
@@ -615,15 +726,15 @@ class hadoop_api_HadoopServiceBase_getThreadDump_result {
         case 0:
           if ($ftype == TType::LST) {
             $this->success = array();
-            $_size23 = 0;
-            $_etype26 = 0;
-            $xfer += $input->readListBegin($_etype26, $_size23);
-            for ($_i27 = 0; $_i27 < $_size23; ++$_i27)
+            $_size57 = 0;
+            $_etype60 = 0;
+            $xfer += $input->readListBegin($_etype60, $_size57);
+            for ($_i61 = 0; $_i61 < $_size57; ++$_i61)
             {
-              $elem28 = null;
-              $elem28 = new hadoop_api_ThreadStackTrace();
-              $xfer += $elem28->read($input);
-              $this->success []= $elem28;
+              $elem62 = null;
+              $elem62 = new hadoop_api_ThreadStackTrace();
+              $xfer += $elem62->read($input);
+              $this->success []= $elem62;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -651,13 +762,408 @@ class hadoop_api_HadoopServiceBase_getThreadDump_result {
       {
         $output->writeListBegin(TType::STRUCT, count($this->success));
         {
-          foreach ($this->success as $iter29)
+          foreach ($this->success as $iter63)
           {
-            $xfer += $iter29->write($output);
+            $xfer += $iter63->write($output);
           }
         }
         $output->writeListEnd();
       }
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_HadoopServiceBase_getAllMetrics_args {
+  static $_TSPEC;
+
+  public $ctx = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'HadoopServiceBase_getAllMetrics_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('HadoopServiceBase_getAllMetrics_args');
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_HadoopServiceBase_getAllMetrics_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $err = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::LST,
+          'etype' => TType::STRUCT,
+          'elem' => array(
+            'type' => TType::STRUCT,
+            'class' => 'hadoop_api_MetricsContext',
+            ),
+          ),
+        1 => array(
+          'var' => 'err',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_IOException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['err'])) {
+        $this->err = $vals['err'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'HadoopServiceBase_getAllMetrics_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::LST) {
+            $this->success = array();
+            $_size64 = 0;
+            $_etype67 = 0;
+            $xfer += $input->readListBegin($_etype67, $_size64);
+            for ($_i68 = 0; $_i68 < $_size64; ++$_i68)
+            {
+              $elem69 = null;
+              $elem69 = new hadoop_api_MetricsContext();
+              $xfer += $elem69->read($input);
+              $this->success []= $elem69;
+            }
+            $xfer += $input->readListEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->err = new hadoop_api_IOException();
+            $xfer += $this->err->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('HadoopServiceBase_getAllMetrics_result');
+    if ($this->success !== null) {
+      if (!is_array($this->success)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('success', TType::LST, 0);
+      {
+        $output->writeListBegin(TType::STRUCT, count($this->success));
+        {
+          foreach ($this->success as $iter70)
+          {
+            $xfer += $iter70->write($output);
+          }
+        }
+        $output->writeListEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->err !== null) {
+      $xfer += $output->writeFieldBegin('err', TType::STRUCT, 1);
+      $xfer += $this->err->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_HadoopServiceBase_getMetricsContext_args {
+  static $_TSPEC;
+
+  public $ctx = null;
+  public $contextName = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        10 => array(
+          'var' => 'ctx',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_RequestContext',
+          ),
+        1 => array(
+          'var' => 'contextName',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['ctx'])) {
+        $this->ctx = $vals['ctx'];
+      }
+      if (isset($vals['contextName'])) {
+        $this->contextName = $vals['contextName'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'HadoopServiceBase_getMetricsContext_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 10:
+          if ($ftype == TType::STRUCT) {
+            $this->ctx = new hadoop_api_RequestContext();
+            $xfer += $this->ctx->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->contextName);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('HadoopServiceBase_getMetricsContext_args');
+    if ($this->contextName !== null) {
+      $xfer += $output->writeFieldBegin('contextName', TType::STRING, 1);
+      $xfer += $output->writeString($this->contextName);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->ctx !== null) {
+      if (!is_object($this->ctx)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+      $xfer += $this->ctx->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_HadoopServiceBase_getMetricsContext_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $err = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_MetricsContext',
+          ),
+        1 => array(
+          'var' => 'err',
+          'type' => TType::STRUCT,
+          'class' => 'hadoop_api_IOException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['err'])) {
+        $this->err = $vals['err'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'HadoopServiceBase_getMetricsContext_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::STRUCT) {
+            $this->success = new hadoop_api_MetricsContext();
+            $xfer += $this->success->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->err = new hadoop_api_IOException();
+            $xfer += $this->err->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('HadoopServiceBase_getMetricsContext_result');
+    if ($this->success !== null) {
+      if (!is_object($this->success)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('success', TType::STRUCT, 0);
+      $xfer += $this->success->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->err !== null) {
+      $xfer += $output->writeFieldBegin('err', TType::STRUCT, 1);
+      $xfer += $this->err->write($output);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();

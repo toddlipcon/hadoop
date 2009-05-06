@@ -666,6 +666,92 @@ class QuotaException : public apache::thrift::TException {
 
 };
 
+class MetricsRecord {
+ public:
+
+  static const char* ascii_fingerprint; // = "18C5B1B6E47E7130EC0D1957A6E074A4";
+  static const uint8_t binary_fingerprint[16]; // = {0x18,0xC5,0xB1,0xB6,0xE4,0x7E,0x71,0x30,0xEC,0x0D,0x19,0x57,0xA6,0xE0,0x74,0xA4};
+
+  MetricsRecord() {
+  }
+
+  virtual ~MetricsRecord() throw() {}
+
+  std::map<std::string, std::string>  tags;
+  std::map<std::string, int64_t>  metrics;
+
+  struct __isset {
+    __isset() : tags(false), metrics(false) {}
+    bool tags;
+    bool metrics;
+  } __isset;
+
+  bool operator == (const MetricsRecord & rhs) const
+  {
+    if (!(tags == rhs.tags))
+      return false;
+    if (!(metrics == rhs.metrics))
+      return false;
+    return true;
+  }
+  bool operator != (const MetricsRecord &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MetricsRecord & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class MetricsContext {
+ public:
+
+  static const char* ascii_fingerprint; // = "6B25608E3F53AABD10A37FB97A5027D1";
+  static const uint8_t binary_fingerprint[16]; // = {0x6B,0x25,0x60,0x8E,0x3F,0x53,0xAA,0xBD,0x10,0xA3,0x7F,0xB9,0x7A,0x50,0x27,0xD1};
+
+  MetricsContext() : name(""), isMonitoring(0), period(0) {
+  }
+
+  virtual ~MetricsContext() throw() {}
+
+  std::string name;
+  bool isMonitoring;
+  int32_t period;
+  std::map<std::string, std::vector<MetricsRecord> >  records;
+
+  struct __isset {
+    __isset() : name(false), isMonitoring(false), period(false), records(false) {}
+    bool name;
+    bool isMonitoring;
+    bool period;
+    bool records;
+  } __isset;
+
+  bool operator == (const MetricsContext & rhs) const
+  {
+    if (!(name == rhs.name))
+      return false;
+    if (!(isMonitoring == rhs.isMonitoring))
+      return false;
+    if (!(period == rhs.period))
+      return false;
+    if (!(records == rhs.records))
+      return false;
+    return true;
+  }
+  bool operator != (const MetricsContext &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const MetricsContext & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
 class BlockData {
  public:
 

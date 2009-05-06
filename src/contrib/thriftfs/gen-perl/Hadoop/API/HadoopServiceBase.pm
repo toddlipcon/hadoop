@@ -386,16 +386,16 @@ sub read {
     {
       /^0$/ && do{      if ($ftype == TType::LIST) {
         {
-          my $_size23 = 0;
+          my $_size57 = 0;
           $self->{success} = [];
-          my $_etype26 = 0;
-          $xfer += $input->readListBegin(\$_etype26, \$_size23);
-          for (my $_i27 = 0; $_i27 < $_size23; ++$_i27)
+          my $_etype60 = 0;
+          $xfer += $input->readListBegin(\$_etype60, \$_size57);
+          for (my $_i61 = 0; $_i61 < $_size57; ++$_i61)
           {
-            my $elem28 = undef;
-            $elem28 = new Hadoop::API::ThreadStackTrace();
-            $xfer += $elem28->read($input);
-            push(@{$self->{success}},$elem28);
+            my $elem62 = undef;
+            $elem62 = new Hadoop::API::ThreadStackTrace();
+            $xfer += $elem62->read($input);
+            push(@{$self->{success}},$elem62);
           }
           $xfer += $input->readListEnd();
         }
@@ -421,13 +421,349 @@ sub write {
     {
       $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
       {
-        foreach my $iter29 (@{$self->{success}}) 
+        foreach my $iter63 (@{$self->{success}}) 
         {
-          $xfer += ${iter29}->write($output);
+          $xfer += ${iter63}->write($output);
         }
       }
       $output->writeListEnd();
     }
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::HadoopServiceBase_getAllMetrics_args;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::HadoopServiceBase_getAllMetrics_args->mk_accessors( qw( ctx ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{ctx} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'HadoopServiceBase_getAllMetrics_args';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('HadoopServiceBase_getAllMetrics_args');
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::HadoopServiceBase_getAllMetrics_result;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::HadoopServiceBase_getAllMetrics_result->mk_accessors( qw( success ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{success} = undef;
+$self->{err} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{success}) {
+      $self->{success} = $vals->{success};
+    }
+    if (defined $vals->{err}) {
+      $self->{err} = $vals->{err};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'HadoopServiceBase_getAllMetrics_result';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^0$/ && do{      if ($ftype == TType::LIST) {
+        {
+          my $_size64 = 0;
+          $self->{success} = [];
+          my $_etype67 = 0;
+          $xfer += $input->readListBegin(\$_etype67, \$_size64);
+          for (my $_i68 = 0; $_i68 < $_size64; ++$_i68)
+          {
+            my $elem69 = undef;
+            $elem69 = new Hadoop::API::MetricsContext();
+            $xfer += $elem69->read($input);
+            push(@{$self->{success}},$elem69);
+          }
+          $xfer += $input->readListEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{err} = new Hadoop::API::IOException();
+        $xfer += $self->{err}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('HadoopServiceBase_getAllMetrics_result');
+  if (defined $self->{success}) {
+    $xfer += $output->writeFieldBegin('success', TType::LIST, 0);
+    {
+      $output->writeListBegin(TType::STRUCT, scalar(@{$self->{success}}));
+      {
+        foreach my $iter70 (@{$self->{success}}) 
+        {
+          $xfer += ${iter70}->write($output);
+        }
+      }
+      $output->writeListEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{err}) {
+    $xfer += $output->writeFieldBegin('err', TType::STRUCT, 1);
+    $xfer += $self->{err}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::HadoopServiceBase_getMetricsContext_args;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::HadoopServiceBase_getMetricsContext_args->mk_accessors( qw( ctx contextName ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{ctx} = undef;
+$self->{contextName} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{ctx}) {
+      $self->{ctx} = $vals->{ctx};
+    }
+    if (defined $vals->{contextName}) {
+      $self->{contextName} = $vals->{contextName};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'HadoopServiceBase_getMetricsContext_args';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^10$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{ctx} = new Hadoop::API::RequestContext();
+        $xfer += $self->{ctx}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{contextName});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('HadoopServiceBase_getMetricsContext_args');
+  if (defined $self->{contextName}) {
+    $xfer += $output->writeFieldBegin('contextName', TType::STRING, 1);
+    $xfer += $output->writeString($self->{contextName});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{ctx}) {
+    $xfer += $output->writeFieldBegin('ctx', TType::STRUCT, 10);
+    $xfer += $self->{ctx}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::HadoopServiceBase_getMetricsContext_result;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::HadoopServiceBase_getMetricsContext_result->mk_accessors( qw( success ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{success} = undef;
+$self->{err} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{success}) {
+      $self->{success} = $vals->{success};
+    }
+    if (defined $vals->{err}) {
+      $self->{err} = $vals->{err};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'HadoopServiceBase_getMetricsContext_result';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^0$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{success} = new Hadoop::API::MetricsContext();
+        $xfer += $self->{success}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^1$/ && do{      if ($ftype == TType::STRUCT) {
+        $self->{err} = new Hadoop::API::IOException();
+        $xfer += $self->{err}->read($input);
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('HadoopServiceBase_getMetricsContext_result');
+  if (defined $self->{success}) {
+    $xfer += $output->writeFieldBegin('success', TType::STRUCT, 0);
+    $xfer += $self->{success}->write($output);
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{err}) {
+    $xfer += $output->writeFieldBegin('err', TType::STRUCT, 1);
+    $xfer += $self->{err}->write($output);
     $xfer += $output->writeFieldEnd();
   }
   $xfer += $output->writeFieldStop();
@@ -452,6 +788,19 @@ sub getRuntimeInfo{
 sub getThreadDump{
   my $self = shift;
   my $ctx = shift;
+
+  die 'implement interface';
+}
+sub getAllMetrics{
+  my $self = shift;
+  my $ctx = shift;
+
+  die 'implement interface';
+}
+sub getMetricsContext{
+  my $self = shift;
+  my $ctx = shift;
+  my $contextName = shift;
 
   die 'implement interface';
 }
@@ -487,6 +836,23 @@ sub getThreadDump{
 
   my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
   return $self->{impl}->getThreadDump($ctx);
+}
+
+sub getAllMetrics{
+  my $self = shift;
+  my $request = shift;
+
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  return $self->{impl}->getAllMetrics($ctx);
+}
+
+sub getMetricsContext{
+  my $self = shift;
+  my $request = shift;
+
+  my $ctx = ($request->{'ctx'}) ? $request->{'ctx'} : undef;
+  my $contextName = ($request->{'contextName'}) ? $request->{'contextName'} : undef;
+  return $self->{impl}->getMetricsContext($ctx, $contextName);
 }
 
 package Hadoop::API::HadoopServiceBaseClient;
@@ -632,6 +998,101 @@ sub recv_getThreadDump{
   }
   die "getThreadDump failed: unknown result";
 }
+sub getAllMetrics{
+  my $self = shift;
+  my $ctx = shift;
+
+    $self->send_getAllMetrics($ctx);
+  return $self->recv_getAllMetrics();
+}
+
+sub send_getAllMetrics{
+  my $self = shift;
+  my $ctx = shift;
+
+  $self->{output}->writeMessageBegin('getAllMetrics', TMessageType::CALL, $self->{seqid});
+  my $args = new Hadoop::API::HadoopServiceBase_getAllMetrics_args();
+  $args->{ctx} = $ctx;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_getAllMetrics{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new Hadoop::API::HadoopServiceBase_getAllMetrics_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{success} ) {
+    return $result->{success};
+  }
+  if (defined $result->{err}) {
+    die $result->{err};
+  }
+  die "getAllMetrics failed: unknown result";
+}
+sub getMetricsContext{
+  my $self = shift;
+  my $ctx = shift;
+  my $contextName = shift;
+
+    $self->send_getMetricsContext($ctx, $contextName);
+  return $self->recv_getMetricsContext();
+}
+
+sub send_getMetricsContext{
+  my $self = shift;
+  my $ctx = shift;
+  my $contextName = shift;
+
+  $self->{output}->writeMessageBegin('getMetricsContext', TMessageType::CALL, $self->{seqid});
+  my $args = new Hadoop::API::HadoopServiceBase_getMetricsContext_args();
+  $args->{ctx} = $ctx;
+  $args->{contextName} = $contextName;
+  $args->write($self->{output});
+  $self->{output}->writeMessageEnd();
+  $self->{output}->getTransport()->flush();
+}
+
+sub recv_getMetricsContext{
+  my $self = shift;
+
+  my $rseqid = 0;
+  my $fname;
+  my $mtype = 0;
+
+  $self->{input}->readMessageBegin(\$fname, \$mtype, \$rseqid);
+  if ($mtype == TMessageType::EXCEPTION) {
+    my $x = new TApplicationException();
+    $x->read($self->{input});
+    $self->{input}->readMessageEnd();
+    die $x;
+  }
+  my $result = new Hadoop::API::HadoopServiceBase_getMetricsContext_result();
+  $result->read($self->{input});
+  $self->{input}->readMessageEnd();
+
+  if (defined $result->{success} ) {
+    return $result->{success};
+  }
+  if (defined $result->{err}) {
+    die $result->{err};
+  }
+  die "getMetricsContext failed: unknown result";
+}
 package Hadoop::API::HadoopServiceBaseProcessor;
 
 sub new {
@@ -702,4 +1163,36 @@ sub process_getThreadDump{
       $result->write($output);
       $output->getTransport()->flush();
   }
+sub process_getAllMetrics{
+    my $self = shift;
+    my ($seqid, $input, $output); 
+    my $args = new Hadoop::API::HadoopServiceBase_getAllMetrics_args();
+    $args->read($input);
+    $input->readMessageEnd();
+    my $result = new Hadoop::API::HadoopServiceBase_getAllMetrics_result();
+    eval {
+      $result->{success} = $self->{handler}->getAllMetrics($args->ctx);
+    }; if( UNIVERSAL::isa($@,'IOException') ){ 
+      $result->{err} = $@;
+    }
+    $output->writeMessageBegin('getAllMetrics', TMessageType::REPLY, $seqid);
+    $result->write($output);
+    $output->getTransport()->flush();
+}
+sub process_getMetricsContext{
+  my $self = shift;
+  my ($seqid, $input, $output); 
+  my $args = new Hadoop::API::HadoopServiceBase_getMetricsContext_args();
+  $args->read($input);
+  $input->readMessageEnd();
+  my $result = new Hadoop::API::HadoopServiceBase_getMetricsContext_result();
+  eval {
+    $result->{success} = $self->{handler}->getMetricsContext($args->ctx, $args->contextName);
+  }; if( UNIVERSAL::isa($@,'IOException') ){ 
+    $result->{err} = $@;
+  }
+  $output->writeMessageBegin('getMetricsContext', TMessageType::REPLY, $seqid);
+  $result->write($output);
+  $output->getTransport()->flush();
+}
 1;

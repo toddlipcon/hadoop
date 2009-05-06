@@ -1426,6 +1426,206 @@ class QuotaException(Exception):
   def __ne__(self, other):
     return not (self == other)
 
+class MetricsRecord:
+  """
+  Attributes:
+   - tags
+   - metrics
+  """
+
+  thrift_spec = (
+    None, # 0
+    None, # 1
+    (2, TType.MAP, 'tags', (TType.STRING,None,TType.STRING,None), None, ), # 2
+    (3, TType.MAP, 'metrics', (TType.STRING,None,TType.I64,None), None, ), # 3
+  )
+
+  def __init__(self, tags=None, metrics=None,):
+    self.tags = tags
+    self.metrics = metrics
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 2:
+        if ftype == TType.MAP:
+          self.tags = {}
+          (_ktype24, _vtype25, _size23 ) = iprot.readMapBegin() 
+          for _i27 in xrange(_size23):
+            _key28 = iprot.readString();
+            _val29 = iprot.readString();
+            self.tags[_key28] = _val29
+          iprot.readMapEnd()
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.MAP:
+          self.metrics = {}
+          (_ktype31, _vtype32, _size30 ) = iprot.readMapBegin() 
+          for _i34 in xrange(_size30):
+            _key35 = iprot.readString();
+            _val36 = iprot.readI64();
+            self.metrics[_key35] = _val36
+          iprot.readMapEnd()
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('MetricsRecord')
+    if self.tags != None:
+      oprot.writeFieldBegin('tags', TType.MAP, 2)
+      oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.tags))
+      for kiter37,viter38 in self.tags.items():
+        oprot.writeString(kiter37)
+        oprot.writeString(viter38)
+      oprot.writeMapEnd()
+      oprot.writeFieldEnd()
+    if self.metrics != None:
+      oprot.writeFieldBegin('metrics', TType.MAP, 3)
+      oprot.writeMapBegin(TType.STRING, TType.I64, len(self.metrics))
+      for kiter39,viter40 in self.metrics.items():
+        oprot.writeString(kiter39)
+        oprot.writeI64(viter40)
+      oprot.writeMapEnd()
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class MetricsContext:
+  """
+  Attributes:
+   - name
+   - isMonitoring
+   - period
+   - records
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.STRING, 'name', None, None, ), # 1
+    (2, TType.BOOL, 'isMonitoring', None, None, ), # 2
+    (3, TType.I32, 'period', None, None, ), # 3
+    (4, TType.MAP, 'records', (TType.STRING,None,TType.LIST,(TType.STRUCT,(MetricsRecord, MetricsRecord.thrift_spec))), None, ), # 4
+  )
+
+  def __init__(self, name=None, isMonitoring=None, period=None, records=None,):
+    self.name = name
+    self.isMonitoring = isMonitoring
+    self.period = period
+    self.records = records
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.STRING:
+          self.name = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.BOOL:
+          self.isMonitoring = iprot.readBool();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.I32:
+          self.period = iprot.readI32();
+        else:
+          iprot.skip(ftype)
+      elif fid == 4:
+        if ftype == TType.MAP:
+          self.records = {}
+          (_ktype42, _vtype43, _size41 ) = iprot.readMapBegin() 
+          for _i45 in xrange(_size41):
+            _key46 = iprot.readString();
+            _val47 = []
+            (_etype51, _size48) = iprot.readListBegin()
+            for _i52 in xrange(_size48):
+              _elem53 = MetricsRecord()
+              _elem53.read(iprot)
+              _val47.append(_elem53)
+            iprot.readListEnd()
+            self.records[_key46] = _val47
+          iprot.readMapEnd()
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('MetricsContext')
+    if self.name != None:
+      oprot.writeFieldBegin('name', TType.STRING, 1)
+      oprot.writeString(self.name)
+      oprot.writeFieldEnd()
+    if self.isMonitoring != None:
+      oprot.writeFieldBegin('isMonitoring', TType.BOOL, 2)
+      oprot.writeBool(self.isMonitoring)
+      oprot.writeFieldEnd()
+    if self.period != None:
+      oprot.writeFieldBegin('period', TType.I32, 3)
+      oprot.writeI32(self.period)
+      oprot.writeFieldEnd()
+    if self.records != None:
+      oprot.writeFieldBegin('records', TType.MAP, 4)
+      oprot.writeMapBegin(TType.STRING, TType.LIST, len(self.records))
+      for kiter54,viter55 in self.records.items():
+        oprot.writeString(kiter54)
+        oprot.writeListBegin(TType.STRUCT, len(viter55))
+        for iter56 in viter55:
+          iter56.write(oprot)
+        oprot.writeListEnd()
+      oprot.writeMapEnd()
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
 class BlockData:
   """
   Encapsulates a block data transfer with its CRC

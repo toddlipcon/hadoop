@@ -58,6 +58,38 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getThreadDump failed: unknown result')
                 end
 
+                def getAllMetrics(ctx)
+                  send_getAllMetrics(ctx)
+                  return recv_getAllMetrics()
+                end
+
+                def send_getAllMetrics(ctx)
+                  send_message('getAllMetrics', GetAllMetrics_args, :ctx => ctx)
+                end
+
+                def recv_getAllMetrics()
+                  result = receive_message(GetAllMetrics_result)
+                  return result.success unless result.success.nil?
+                  raise result.err unless result.err.nil?
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getAllMetrics failed: unknown result')
+                end
+
+                def getMetricsContext(ctx, contextName)
+                  send_getMetricsContext(ctx, contextName)
+                  return recv_getMetricsContext()
+                end
+
+                def send_getMetricsContext(ctx, contextName)
+                  send_message('getMetricsContext', GetMetricsContext_args, :ctx => ctx, :contextName => contextName)
+                end
+
+                def recv_getMetricsContext()
+                  result = receive_message(GetMetricsContext_result)
+                  return result.success unless result.success.nil?
+                  raise result.err unless result.err.nil?
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getMetricsContext failed: unknown result')
+                end
+
               end
 
               class Processor
@@ -82,6 +114,28 @@ require File.dirname(__FILE__) + '/hdfs_types'
                   result = GetThreadDump_result.new()
                   result.success = @handler.getThreadDump(args.ctx)
                   write_result(result, oprot, 'getThreadDump', seqid)
+                end
+
+                def process_getAllMetrics(seqid, iprot, oprot)
+                  args = read_args(iprot, GetAllMetrics_args)
+                  result = GetAllMetrics_result.new()
+                  begin
+                    result.success = @handler.getAllMetrics(args.ctx)
+                  rescue Hadoop::API::IOException => err
+                    result.err = err
+                  end
+                  write_result(result, oprot, 'getAllMetrics', seqid)
+                end
+
+                def process_getMetricsContext(seqid, iprot, oprot)
+                  args = read_args(iprot, GetMetricsContext_args)
+                  result = GetMetricsContext_result.new()
+                  begin
+                    result.success = @handler.getMetricsContext(args.ctx, args.contextName)
+                  rescue Hadoop::API::IOException => err
+                    result.err = err
+                  end
+                  write_result(result, oprot, 'getMetricsContext', seqid)
                 end
 
               end
@@ -175,6 +229,76 @@ require File.dirname(__FILE__) + '/hdfs_types'
                 ::Thrift::Struct.field_accessor self, :success
                 FIELDS = {
                   SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::ThreadStackTrace}}
+                }
+
+                def struct_fields; FIELDS; end
+
+                def validate
+                end
+
+              end
+
+              class GetAllMetrics_args
+                include ::Thrift::Struct
+                CTX = 10
+
+                ::Thrift::Struct.field_accessor self, :ctx
+                FIELDS = {
+                  CTX => {:type => ::Thrift::Types::STRUCT, :name => 'ctx', :class => Hadoop::API::RequestContext}
+                }
+
+                def struct_fields; FIELDS; end
+
+                def validate
+                end
+
+              end
+
+              class GetAllMetrics_result
+                include ::Thrift::Struct
+                SUCCESS = 0
+                ERR = 1
+
+                ::Thrift::Struct.field_accessor self, :success, :err
+                FIELDS = {
+                  SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::MetricsContext}},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
+                }
+
+                def struct_fields; FIELDS; end
+
+                def validate
+                end
+
+              end
+
+              class GetMetricsContext_args
+                include ::Thrift::Struct
+                CTX = 10
+                CONTEXTNAME = 1
+
+                ::Thrift::Struct.field_accessor self, :ctx, :contextName
+                FIELDS = {
+                  CTX => {:type => ::Thrift::Types::STRUCT, :name => 'ctx', :class => Hadoop::API::RequestContext},
+                  CONTEXTNAME => {:type => ::Thrift::Types::STRING, :name => 'contextName'}
+                }
+
+                def struct_fields; FIELDS; end
+
+                def validate
+                end
+
+              end
+
+              class GetMetricsContext_result
+                include ::Thrift::Struct
+                SUCCESS = 0
+                ERR = 1
+
+                ::Thrift::Struct.field_accessor self, :success, :err
+                FIELDS = {
+                  SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => Hadoop::API::MetricsContext},
+                  ERR => {:type => ::Thrift::Types::STRUCT, :name => 'err', :class => Hadoop::API::IOException}
                 }
 
                 def struct_fields; FIELDS; end

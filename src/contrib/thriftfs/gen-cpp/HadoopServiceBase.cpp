@@ -409,14 +409,14 @@ uint32_t HadoopServiceBase_getThreadDump_result::read(apache::thrift::protocol::
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             this->success.clear();
-            uint32_t _size21;
-            apache::thrift::protocol::TType _etype24;
-            iprot->readListBegin(_etype24, _size21);
-            this->success.resize(_size21);
-            uint32_t _i25;
-            for (_i25 = 0; _i25 < _size21; ++_i25)
+            uint32_t _size51;
+            apache::thrift::protocol::TType _etype54;
+            iprot->readListBegin(_etype54, _size51);
+            this->success.resize(_size51);
+            uint32_t _i55;
+            for (_i55 = 0; _i55 < _size51; ++_i55)
             {
-              xfer += this->success[_i25].read(iprot);
+              xfer += this->success[_i55].read(iprot);
             }
             iprot->readListEnd();
           }
@@ -447,10 +447,10 @@ uint32_t HadoopServiceBase_getThreadDump_result::write(apache::thrift::protocol:
     xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
     {
       xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
-      std::vector<ThreadStackTrace> ::const_iterator _iter26;
-      for (_iter26 = this->success.begin(); _iter26 != this->success.end(); ++_iter26)
+      std::vector<ThreadStackTrace> ::const_iterator _iter56;
+      for (_iter56 = this->success.begin(); _iter56 != this->success.end(); ++_iter56)
       {
-        xfer += (*_iter26).write(oprot);
+        xfer += (*_iter56).write(oprot);
       }
       xfer += oprot->writeListEnd();
     }
@@ -485,18 +485,420 @@ uint32_t HadoopServiceBase_getThreadDump_presult::read(apache::thrift::protocol:
         if (ftype == apache::thrift::protocol::T_LIST) {
           {
             (*(this->success)).clear();
-            uint32_t _size27;
-            apache::thrift::protocol::TType _etype30;
-            iprot->readListBegin(_etype30, _size27);
-            (*(this->success)).resize(_size27);
-            uint32_t _i31;
-            for (_i31 = 0; _i31 < _size27; ++_i31)
+            uint32_t _size57;
+            apache::thrift::protocol::TType _etype60;
+            iprot->readListBegin(_etype60, _size57);
+            (*(this->success)).resize(_size57);
+            uint32_t _i61;
+            for (_i61 = 0; _i61 < _size57; ++_i61)
             {
-              xfer += (*(this->success))[_i31].read(iprot);
+              xfer += (*(this->success))[_i61].read(iprot);
             }
             iprot->readListEnd();
           }
           this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getAllMetrics_args::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getAllMetrics_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("HadoopServiceBase_getAllMetrics_args");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getAllMetrics_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("HadoopServiceBase_getAllMetrics_pargs");
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getAllMetrics_result::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == apache::thrift::protocol::T_LIST) {
+          {
+            this->success.clear();
+            uint32_t _size62;
+            apache::thrift::protocol::TType _etype65;
+            iprot->readListBegin(_etype65, _size62);
+            this->success.resize(_size62);
+            uint32_t _i66;
+            for (_i66 = 0; _i66 < _size62; ++_i66)
+            {
+              xfer += this->success[_i66].read(iprot);
+            }
+            iprot->readListEnd();
+          }
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->err.read(iprot);
+          this->__isset.err = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getAllMetrics_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+
+  uint32_t xfer = 0;
+
+  xfer += oprot->writeStructBegin("HadoopServiceBase_getAllMetrics_result");
+
+  if (this->__isset.success) {
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_LIST, 0);
+    {
+      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->success.size());
+      std::vector<MetricsContext> ::const_iterator _iter67;
+      for (_iter67 = this->success.begin(); _iter67 != this->success.end(); ++_iter67)
+      {
+        xfer += (*_iter67).write(oprot);
+      }
+      xfer += oprot->writeListEnd();
+    }
+    xfer += oprot->writeFieldEnd();
+  } else if (this->__isset.err) {
+    xfer += oprot->writeFieldBegin("err", apache::thrift::protocol::T_STRUCT, 1);
+    xfer += this->err.write(oprot);
+    xfer += oprot->writeFieldEnd();
+  }
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getAllMetrics_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == apache::thrift::protocol::T_LIST) {
+          {
+            (*(this->success)).clear();
+            uint32_t _size68;
+            apache::thrift::protocol::TType _etype71;
+            iprot->readListBegin(_etype71, _size68);
+            (*(this->success)).resize(_size68);
+            uint32_t _i72;
+            for (_i72 = 0; _i72 < _size68; ++_i72)
+            {
+              xfer += (*(this->success))[_i72].read(iprot);
+            }
+            iprot->readListEnd();
+          }
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->err.read(iprot);
+          this->__isset.err = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getMetricsContext_args::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 10:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ctx.read(iprot);
+          this->__isset.ctx = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->contextName);
+          this->__isset.contextName = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getMetricsContext_args::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("HadoopServiceBase_getMetricsContext_args");
+  xfer += oprot->writeFieldBegin("contextName", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->contextName);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += this->ctx.write(oprot);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getMetricsContext_pargs::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("HadoopServiceBase_getMetricsContext_pargs");
+  xfer += oprot->writeFieldBegin("contextName", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString((*(this->contextName)));
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("ctx", apache::thrift::protocol::T_STRUCT, 10);
+  xfer += (*(this->ctx)).write(oprot);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getMetricsContext_result::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->success.read(iprot);
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->err.read(iprot);
+          this->__isset.err = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getMetricsContext_result::write(apache::thrift::protocol::TProtocol* oprot) const {
+
+  uint32_t xfer = 0;
+
+  xfer += oprot->writeStructBegin("HadoopServiceBase_getMetricsContext_result");
+
+  if (this->__isset.success) {
+    xfer += oprot->writeFieldBegin("success", apache::thrift::protocol::T_STRUCT, 0);
+    xfer += this->success.write(oprot);
+    xfer += oprot->writeFieldEnd();
+  } else if (this->__isset.err) {
+    xfer += oprot->writeFieldBegin("err", apache::thrift::protocol::T_STRUCT, 1);
+    xfer += this->err.write(oprot);
+    xfer += oprot->writeFieldEnd();
+  }
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+uint32_t HadoopServiceBase_getMetricsContext_presult::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += (*(this->success)).read(iprot);
+          this->__isset.success = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRUCT) {
+          xfer += this->err.read(iprot);
+          this->__isset.err = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -693,6 +1095,133 @@ void HadoopServiceBaseClient::recv_getThreadDump(std::vector<ThreadStackTrace> &
   throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "getThreadDump failed: unknown result");
 }
 
+void HadoopServiceBaseClient::getAllMetrics(std::vector<MetricsContext> & _return, const RequestContext& ctx)
+{
+  send_getAllMetrics(ctx);
+  recv_getAllMetrics(_return);
+}
+
+void HadoopServiceBaseClient::send_getAllMetrics(const RequestContext& ctx)
+{
+  int32_t cseqid = 0;
+  oprot_->writeMessageBegin("getAllMetrics", apache::thrift::protocol::T_CALL, cseqid);
+
+  HadoopServiceBase_getAllMetrics_pargs args;
+  args.ctx = &ctx;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->flush();
+  oprot_->getTransport()->writeEnd();
+}
+
+void HadoopServiceBaseClient::recv_getAllMetrics(std::vector<MetricsContext> & _return)
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  apache::thrift::protocol::TMessageType mtype;
+
+  iprot_->readMessageBegin(fname, mtype, rseqid);
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
+    x.read(iprot_);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw x;
+  }
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+  }
+  if (fname.compare("getAllMetrics") != 0) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+  }
+  HadoopServiceBase_getAllMetrics_presult result;
+  result.success = &_return;
+  result.read(iprot_);
+  iprot_->readMessageEnd();
+  iprot_->getTransport()->readEnd();
+
+  if (result.__isset.success) {
+    // _return pointer has now been filled
+    return;
+  }
+  if (result.__isset.err) {
+    throw result.err;
+  }
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "getAllMetrics failed: unknown result");
+}
+
+void HadoopServiceBaseClient::getMetricsContext(MetricsContext& _return, const RequestContext& ctx, const std::string& contextName)
+{
+  send_getMetricsContext(ctx, contextName);
+  recv_getMetricsContext(_return);
+}
+
+void HadoopServiceBaseClient::send_getMetricsContext(const RequestContext& ctx, const std::string& contextName)
+{
+  int32_t cseqid = 0;
+  oprot_->writeMessageBegin("getMetricsContext", apache::thrift::protocol::T_CALL, cseqid);
+
+  HadoopServiceBase_getMetricsContext_pargs args;
+  args.ctx = &ctx;
+  args.contextName = &contextName;
+  args.write(oprot_);
+
+  oprot_->writeMessageEnd();
+  oprot_->getTransport()->flush();
+  oprot_->getTransport()->writeEnd();
+}
+
+void HadoopServiceBaseClient::recv_getMetricsContext(MetricsContext& _return)
+{
+
+  int32_t rseqid = 0;
+  std::string fname;
+  apache::thrift::protocol::TMessageType mtype;
+
+  iprot_->readMessageBegin(fname, mtype, rseqid);
+  if (mtype == apache::thrift::protocol::T_EXCEPTION) {
+    apache::thrift::TApplicationException x;
+    x.read(iprot_);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw x;
+  }
+  if (mtype != apache::thrift::protocol::T_REPLY) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::INVALID_MESSAGE_TYPE);
+  }
+  if (fname.compare("getMetricsContext") != 0) {
+    iprot_->skip(apache::thrift::protocol::T_STRUCT);
+    iprot_->readMessageEnd();
+    iprot_->getTransport()->readEnd();
+    throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::WRONG_METHOD_NAME);
+  }
+  HadoopServiceBase_getMetricsContext_presult result;
+  result.success = &_return;
+  result.read(iprot_);
+  iprot_->readMessageEnd();
+  iprot_->getTransport()->readEnd();
+
+  if (result.__isset.success) {
+    // _return pointer has now been filled
+    return;
+  }
+  if (result.__isset.err) {
+    throw result.err;
+  }
+  throw apache::thrift::TApplicationException(apache::thrift::TApplicationException::MISSING_RESULT, "getMetricsContext failed: unknown result");
+}
+
 bool HadoopServiceBaseProcessor::process(boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot) {
 
   apache::thrift::protocol::TProtocol* iprot = piprot.get();
@@ -816,6 +1345,68 @@ void HadoopServiceBaseProcessor::process_getThreadDump(int32_t seqid, apache::th
   }
 
   oprot->writeMessageBegin("getThreadDump", apache::thrift::protocol::T_REPLY, seqid);
+  result.write(oprot);
+  oprot->writeMessageEnd();
+  oprot->getTransport()->flush();
+  oprot->getTransport()->writeEnd();
+}
+
+void HadoopServiceBaseProcessor::process_getAllMetrics(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+{
+  HadoopServiceBase_getAllMetrics_args args;
+  args.read(iprot);
+  iprot->readMessageEnd();
+  iprot->getTransport()->readEnd();
+
+  HadoopServiceBase_getAllMetrics_result result;
+  try {
+    iface_->getAllMetrics(result.success, args.ctx);
+    result.__isset.success = true;
+  } catch (IOException &err) {
+    result.err = err;
+    result.__isset.err = true;
+  } catch (const std::exception& e) {
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("getAllMetrics", apache::thrift::protocol::T_EXCEPTION, seqid);
+    x.write(oprot);
+    oprot->writeMessageEnd();
+    oprot->getTransport()->flush();
+    oprot->getTransport()->writeEnd();
+    return;
+  }
+
+  oprot->writeMessageBegin("getAllMetrics", apache::thrift::protocol::T_REPLY, seqid);
+  result.write(oprot);
+  oprot->writeMessageEnd();
+  oprot->getTransport()->flush();
+  oprot->getTransport()->writeEnd();
+}
+
+void HadoopServiceBaseProcessor::process_getMetricsContext(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot)
+{
+  HadoopServiceBase_getMetricsContext_args args;
+  args.read(iprot);
+  iprot->readMessageEnd();
+  iprot->getTransport()->readEnd();
+
+  HadoopServiceBase_getMetricsContext_result result;
+  try {
+    iface_->getMetricsContext(result.success, args.ctx, args.contextName);
+    result.__isset.success = true;
+  } catch (IOException &err) {
+    result.err = err;
+    result.__isset.err = true;
+  } catch (const std::exception& e) {
+    apache::thrift::TApplicationException x(e.what());
+    oprot->writeMessageBegin("getMetricsContext", apache::thrift::protocol::T_EXCEPTION, seqid);
+    x.write(oprot);
+    oprot->writeMessageEnd();
+    oprot->getTransport()->flush();
+    oprot->getTransport()->writeEnd();
+    return;
+  }
+
+  oprot->writeMessageBegin("getMetricsContext", apache::thrift::protocol::T_REPLY, seqid);
   result.write(oprot);
   oprot->writeMessageEnd();
   oprot->getTransport()->flush();

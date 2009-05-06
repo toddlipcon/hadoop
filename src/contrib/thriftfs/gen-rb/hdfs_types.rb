@@ -390,6 +390,46 @@ module Hadoop
 
         end
 
+        class MetricsRecord
+          include ::Thrift::Struct
+          TAGS = 2
+          METRICS = 3
+
+          ::Thrift::Struct.field_accessor self, :tags, :metrics
+          FIELDS = {
+            TAGS => {:type => ::Thrift::Types::MAP, :name => 'tags', :key => {:type => ::Thrift::Types::STRING}, :value => {:type => ::Thrift::Types::STRING}},
+            METRICS => {:type => ::Thrift::Types::MAP, :name => 'metrics', :key => {:type => ::Thrift::Types::STRING}, :value => {:type => ::Thrift::Types::I64}}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
+        class MetricsContext
+          include ::Thrift::Struct
+          NAME = 1
+          ISMONITORING = 2
+          PERIOD = 3
+          RECORDS = 4
+
+          ::Thrift::Struct.field_accessor self, :name, :isMonitoring, :period, :records
+          FIELDS = {
+            NAME => {:type => ::Thrift::Types::STRING, :name => 'name'},
+            ISMONITORING => {:type => ::Thrift::Types::BOOL, :name => 'isMonitoring'},
+            PERIOD => {:type => ::Thrift::Types::I32, :name => 'period'},
+            RECORDS => {:type => ::Thrift::Types::MAP, :name => 'records', :key => {:type => ::Thrift::Types::STRING}, :value => {:type => ::Thrift::Types::LIST, :element => {:type => ::Thrift::Types::STRUCT, :class => Hadoop::API::MetricsRecord}}}
+          }
+
+          def struct_fields; FIELDS; end
+
+          def validate
+          end
+
+        end
+
         # Encapsulates a block data transfer with its CRC
         class BlockData
           include ::Thrift::Struct

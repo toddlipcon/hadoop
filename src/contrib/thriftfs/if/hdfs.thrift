@@ -287,12 +287,28 @@ exception QuotaException {
   2: string stack
 }
 
+struct MetricsRecord {
+  2: map<string, string> tags
+  3: map<string, i64> metrics
+}
+
+struct MetricsContext {
+  1: string name
+  2: bool isMonitoring
+  3: i32 period
+
+  4: map<string, list<MetricsRecord>> records
+}
 
 service HadoopServiceBase {
   /** Return the version information for this server */
   VersionInfo getVersionInfo(10:RequestContext ctx);
   RuntimeInfo getRuntimeInfo(10:RequestContext ctx);
   list<ThreadStackTrace> getThreadDump(10:RequestContext ctx);
+  list<MetricsContext> getAllMetrics(10:RequestContext ctx)
+    throws (1:IOException err);
+  MetricsContext getMetricsContext(10:RequestContext ctx, 1:string contextName)
+    throws (1:IOException err);
 }
 
 /**

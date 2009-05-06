@@ -1326,6 +1326,250 @@ uint32_t QuotaException::write(apache::thrift::protocol::TProtocol* oprot) const
   return xfer;
 }
 
+const char* MetricsRecord::ascii_fingerprint = "18C5B1B6E47E7130EC0D1957A6E074A4";
+const uint8_t MetricsRecord::binary_fingerprint[16] = {0x18,0xC5,0xB1,0xB6,0xE4,0x7E,0x71,0x30,0xEC,0x0D,0x19,0x57,0xA6,0xE0,0x74,0xA4};
+
+uint32_t MetricsRecord::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 2:
+        if (ftype == apache::thrift::protocol::T_MAP) {
+          {
+            this->tags.clear();
+            uint32_t _size21;
+            apache::thrift::protocol::TType _ktype22;
+            apache::thrift::protocol::TType _vtype23;
+            iprot->readMapBegin(_ktype22, _vtype23, _size21);
+            uint32_t _i25;
+            for (_i25 = 0; _i25 < _size21; ++_i25)
+            {
+              std::string _key26;
+              xfer += iprot->readString(_key26);
+              std::string& _val27 = this->tags[_key26];
+              xfer += iprot->readString(_val27);
+            }
+            iprot->readMapEnd();
+          }
+          this->__isset.tags = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == apache::thrift::protocol::T_MAP) {
+          {
+            this->metrics.clear();
+            uint32_t _size28;
+            apache::thrift::protocol::TType _ktype29;
+            apache::thrift::protocol::TType _vtype30;
+            iprot->readMapBegin(_ktype29, _vtype30, _size28);
+            uint32_t _i32;
+            for (_i32 = 0; _i32 < _size28; ++_i32)
+            {
+              std::string _key33;
+              xfer += iprot->readString(_key33);
+              int64_t& _val34 = this->metrics[_key33];
+              xfer += iprot->readI64(_val34);
+            }
+            iprot->readMapEnd();
+          }
+          this->__isset.metrics = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t MetricsRecord::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("MetricsRecord");
+  xfer += oprot->writeFieldBegin("tags", apache::thrift::protocol::T_MAP, 2);
+  {
+    xfer += oprot->writeMapBegin(apache::thrift::protocol::T_STRING, apache::thrift::protocol::T_STRING, this->tags.size());
+    std::map<std::string, std::string> ::const_iterator _iter35;
+    for (_iter35 = this->tags.begin(); _iter35 != this->tags.end(); ++_iter35)
+    {
+      xfer += oprot->writeString(_iter35->first);
+      xfer += oprot->writeString(_iter35->second);
+    }
+    xfer += oprot->writeMapEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("metrics", apache::thrift::protocol::T_MAP, 3);
+  {
+    xfer += oprot->writeMapBegin(apache::thrift::protocol::T_STRING, apache::thrift::protocol::T_I64, this->metrics.size());
+    std::map<std::string, int64_t> ::const_iterator _iter36;
+    for (_iter36 = this->metrics.begin(); _iter36 != this->metrics.end(); ++_iter36)
+    {
+      xfer += oprot->writeString(_iter36->first);
+      xfer += oprot->writeI64(_iter36->second);
+    }
+    xfer += oprot->writeMapEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+const char* MetricsContext::ascii_fingerprint = "6B25608E3F53AABD10A37FB97A5027D1";
+const uint8_t MetricsContext::binary_fingerprint[16] = {0x6B,0x25,0x60,0x8E,0x3F,0x53,0xAA,0xBD,0x10,0xA3,0x7F,0xB9,0x7A,0x50,0x27,0xD1};
+
+uint32_t MetricsContext::read(apache::thrift::protocol::TProtocol* iprot) {
+
+  uint32_t xfer = 0;
+  std::string fname;
+  apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->name);
+          this->__isset.name = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->isMonitoring);
+          this->__isset.isMonitoring = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->period);
+          this->__isset.period = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 4:
+        if (ftype == apache::thrift::protocol::T_MAP) {
+          {
+            this->records.clear();
+            uint32_t _size37;
+            apache::thrift::protocol::TType _ktype38;
+            apache::thrift::protocol::TType _vtype39;
+            iprot->readMapBegin(_ktype38, _vtype39, _size37);
+            uint32_t _i41;
+            for (_i41 = 0; _i41 < _size37; ++_i41)
+            {
+              std::string _key42;
+              xfer += iprot->readString(_key42);
+              std::vector<MetricsRecord> & _val43 = this->records[_key42];
+              {
+                _val43.clear();
+                uint32_t _size44;
+                apache::thrift::protocol::TType _etype47;
+                iprot->readListBegin(_etype47, _size44);
+                _val43.resize(_size44);
+                uint32_t _i48;
+                for (_i48 = 0; _i48 < _size44; ++_i48)
+                {
+                  xfer += _val43[_i48].read(iprot);
+                }
+                iprot->readListEnd();
+              }
+            }
+            iprot->readMapEnd();
+          }
+          this->__isset.records = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t MetricsContext::write(apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  xfer += oprot->writeStructBegin("MetricsContext");
+  xfer += oprot->writeFieldBegin("name", apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->name);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("isMonitoring", apache::thrift::protocol::T_BOOL, 2);
+  xfer += oprot->writeBool(this->isMonitoring);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("period", apache::thrift::protocol::T_I32, 3);
+  xfer += oprot->writeI32(this->period);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("records", apache::thrift::protocol::T_MAP, 4);
+  {
+    xfer += oprot->writeMapBegin(apache::thrift::protocol::T_STRING, apache::thrift::protocol::T_LIST, this->records.size());
+    std::map<std::string, std::vector<MetricsRecord> > ::const_iterator _iter49;
+    for (_iter49 = this->records.begin(); _iter49 != this->records.end(); ++_iter49)
+    {
+      xfer += oprot->writeString(_iter49->first);
+      {
+        xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, _iter49->second.size());
+        std::vector<MetricsRecord> ::const_iterator _iter50;
+        for (_iter50 = _iter49->second.begin(); _iter50 != _iter49->second.end(); ++_iter50)
+        {
+          xfer += (*_iter50).write(oprot);
+        }
+        xfer += oprot->writeListEnd();
+      }
+    }
+    xfer += oprot->writeMapEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
 const char* BlockData::ascii_fingerprint = "4086F12A5C2D615560236565C542F3C3";
 const uint8_t BlockData::binary_fingerprint[16] = {0x40,0x86,0xF1,0x2A,0x5C,0x2D,0x61,0x55,0x60,0x23,0x65,0x65,0xC5,0x42,0xF3,0xC3};
 

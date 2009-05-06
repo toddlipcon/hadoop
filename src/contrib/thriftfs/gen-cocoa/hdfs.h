@@ -557,6 +557,64 @@ enum DatanodeState {
 
 @end
 
+@interface MetricsRecord : NSObject {
+  NSDictionary * __tags;
+  NSDictionary * __metrics;
+
+  BOOL __tags_isset;
+  BOOL __metrics_isset;
+}
+
+- (id) initWithTags: (NSDictionary *) tags metrics: (NSDictionary *) metrics;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSDictionary *) tags;
+- (void) setTags: (NSDictionary *) tags;
+- (BOOL) tagsIsSet;
+
+- (NSDictionary *) metrics;
+- (void) setMetrics: (NSDictionary *) metrics;
+- (BOOL) metricsIsSet;
+
+@end
+
+@interface MetricsContext : NSObject {
+  NSString * __name;
+  BOOL __isMonitoring;
+  int32_t __period;
+  NSDictionary * __records;
+
+  BOOL __name_isset;
+  BOOL __isMonitoring_isset;
+  BOOL __period_isset;
+  BOOL __records_isset;
+}
+
+- (id) initWithName: (NSString *) name isMonitoring: (BOOL) isMonitoring period: (int32_t) period records: (NSDictionary *) records;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (NSString *) name;
+- (void) setName: (NSString *) name;
+- (BOOL) nameIsSet;
+
+- (BOOL) isMonitoring;
+- (void) setIsMonitoring: (BOOL) isMonitoring;
+- (BOOL) isMonitoringIsSet;
+
+- (int32_t) period;
+- (void) setPeriod: (int32_t) period;
+- (BOOL) periodIsSet;
+
+- (NSDictionary *) records;
+- (void) setRecords: (NSDictionary *) records;
+- (BOOL) recordsIsSet;
+
+@end
+
 @interface BlockData : NSObject {
   int32_t __crc;
   int32_t __length;
@@ -590,6 +648,8 @@ enum DatanodeState {
 - (VersionInfo *) getVersionInfo: (RequestContext *) ctx;  // throws TException
 - (RuntimeInfo *) getRuntimeInfo: (RequestContext *) ctx;  // throws TException
 - (NSArray *) getThreadDump: (RequestContext *) ctx;  // throws TException
+- (NSArray *) getAllMetrics: (RequestContext *) ctx;  // throws IOException *, TException
+- (MetricsContext *) getMetricsContext: (RequestContext *) ctx : (NSString *) contextName;  // throws IOException *, TException
 @end
 
 @interface HadoopServiceBaseClient : NSObject <HadoopServiceBase> {

@@ -1705,6 +1705,295 @@ sub write {
   return $xfer;
 }
 
+package Hadoop::API::MetricsRecord;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::MetricsRecord->mk_accessors( qw( tags metrics ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{tags} = undef;
+$self->{metrics} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{tags}) {
+      $self->{tags} = $vals->{tags};
+    }
+    if (defined $vals->{metrics}) {
+      $self->{metrics} = $vals->{metrics};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'MetricsRecord';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^2$/ && do{      if ($ftype == TType::MAP) {
+        {
+          my $_size23 = 0;
+          $self->{tags} = {};
+          my $_ktype24 = 0;
+          my $_vtype25 = 0;
+          $xfer += $input->readMapBegin(\$_ktype24, \$_vtype25, \$_size23);
+          for (my $_i27 = 0; $_i27 < $_size23; ++$_i27)
+          {
+            my $key28 = '';
+            my $val29 = '';
+            $xfer += $input->readString(\$key28);
+            $xfer += $input->readString(\$val29);
+            $self->{tags}->{$key28} = $val29;
+          }
+          $xfer += $input->readMapEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::MAP) {
+        {
+          my $_size30 = 0;
+          $self->{metrics} = {};
+          my $_ktype31 = 0;
+          my $_vtype32 = 0;
+          $xfer += $input->readMapBegin(\$_ktype31, \$_vtype32, \$_size30);
+          for (my $_i34 = 0; $_i34 < $_size30; ++$_i34)
+          {
+            my $key35 = '';
+            my $val36 = 0;
+            $xfer += $input->readString(\$key35);
+            $xfer += $input->readI64(\$val36);
+            $self->{metrics}->{$key35} = $val36;
+          }
+          $xfer += $input->readMapEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('MetricsRecord');
+  if (defined $self->{tags}) {
+    $xfer += $output->writeFieldBegin('tags', TType::MAP, 2);
+    {
+      $output->writeMapBegin(TType::STRING, TType::STRING, scalar(keys %{$self->{tags}}));
+      {
+        while( my ($kiter37,$viter38) = each %{$self->{tags}}) 
+        {
+          $xfer += $output->writeString($kiter37);
+          $xfer += $output->writeString($viter38);
+        }
+      }
+      $output->writeMapEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{metrics}) {
+    $xfer += $output->writeFieldBegin('metrics', TType::MAP, 3);
+    {
+      $output->writeMapBegin(TType::STRING, TType::I64, scalar(keys %{$self->{metrics}}));
+      {
+        while( my ($kiter39,$viter40) = each %{$self->{metrics}}) 
+        {
+          $xfer += $output->writeString($kiter39);
+          $xfer += $output->writeI64($viter40);
+        }
+      }
+      $output->writeMapEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
+package Hadoop::API::MetricsContext;
+use Class::Accessor;
+use base('Class::Accessor');
+Hadoop::API::MetricsContext->mk_accessors( qw( name isMonitoring period records ) );
+sub new {
+my $classname = shift;
+my $self      = {};
+my $vals      = shift || {};
+$self->{name} = undef;
+$self->{isMonitoring} = undef;
+$self->{period} = undef;
+$self->{records} = undef;
+  if (UNIVERSAL::isa($vals,'HASH')) {
+    if (defined $vals->{name}) {
+      $self->{name} = $vals->{name};
+    }
+    if (defined $vals->{isMonitoring}) {
+      $self->{isMonitoring} = $vals->{isMonitoring};
+    }
+    if (defined $vals->{period}) {
+      $self->{period} = $vals->{period};
+    }
+    if (defined $vals->{records}) {
+      $self->{records} = $vals->{records};
+    }
+  }
+return bless($self,$classname);
+}
+
+sub getName {
+  return 'MetricsContext';
+}
+
+sub read {
+  my $self  = shift;
+  my $input = shift;
+  my $xfer  = 0;
+  my $fname;
+  my $ftype = 0;
+  my $fid   = 0;
+  $xfer += $input->readStructBegin(\$fname);
+  while (1) 
+  {
+    $xfer += $input->readFieldBegin(\$fname, \$ftype, \$fid);
+    if ($ftype == TType::STOP) {
+      last;
+    }
+    SWITCH: for($fid)
+    {
+      /^1$/ && do{      if ($ftype == TType::STRING) {
+        $xfer += $input->readString(\$self->{name});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^2$/ && do{      if ($ftype == TType::BOOL) {
+        $xfer += $input->readBool(\$self->{isMonitoring});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^3$/ && do{      if ($ftype == TType::I32) {
+        $xfer += $input->readI32(\$self->{period});
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+      /^4$/ && do{      if ($ftype == TType::MAP) {
+        {
+          my $_size41 = 0;
+          $self->{records} = {};
+          my $_ktype42 = 0;
+          my $_vtype43 = 0;
+          $xfer += $input->readMapBegin(\$_ktype42, \$_vtype43, \$_size41);
+          for (my $_i45 = 0; $_i45 < $_size41; ++$_i45)
+          {
+            my $key46 = '';
+            my $val47 = [];
+            $xfer += $input->readString(\$key46);
+            {
+              my $_size48 = 0;
+              $val47 = [];
+              my $_etype51 = 0;
+              $xfer += $input->readListBegin(\$_etype51, \$_size48);
+              for (my $_i52 = 0; $_i52 < $_size48; ++$_i52)
+              {
+                my $elem53 = undef;
+                $elem53 = new Hadoop::API::MetricsRecord();
+                $xfer += $elem53->read($input);
+                push(@{$val47},$elem53);
+              }
+              $xfer += $input->readListEnd();
+            }
+            $self->{records}->{$key46} = $val47;
+          }
+          $xfer += $input->readMapEnd();
+        }
+      } else {
+        $xfer += $input->skip($ftype);
+      }
+      last; };
+        $xfer += $input->skip($ftype);
+    }
+    $xfer += $input->readFieldEnd();
+  }
+  $xfer += $input->readStructEnd();
+  return $xfer;
+}
+
+sub write {
+  my $self   = shift;
+  my $output = shift;
+  my $xfer   = 0;
+  $xfer += $output->writeStructBegin('MetricsContext');
+  if (defined $self->{name}) {
+    $xfer += $output->writeFieldBegin('name', TType::STRING, 1);
+    $xfer += $output->writeString($self->{name});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{isMonitoring}) {
+    $xfer += $output->writeFieldBegin('isMonitoring', TType::BOOL, 2);
+    $xfer += $output->writeBool($self->{isMonitoring});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{period}) {
+    $xfer += $output->writeFieldBegin('period', TType::I32, 3);
+    $xfer += $output->writeI32($self->{period});
+    $xfer += $output->writeFieldEnd();
+  }
+  if (defined $self->{records}) {
+    $xfer += $output->writeFieldBegin('records', TType::MAP, 4);
+    {
+      $output->writeMapBegin(TType::STRING, TType::LIST, scalar(keys %{$self->{records}}));
+      {
+        while( my ($kiter54,$viter55) = each %{$self->{records}}) 
+        {
+          $xfer += $output->writeString($kiter54);
+          {
+            $output->writeListBegin(TType::STRUCT, scalar(@{${viter55}}));
+            {
+              foreach my $iter56 (@{${viter55}}) 
+              {
+                $xfer += ${iter56}->write($output);
+              }
+            }
+            $output->writeListEnd();
+          }
+        }
+      }
+      $output->writeMapEnd();
+    }
+    $xfer += $output->writeFieldEnd();
+  }
+  $xfer += $output->writeFieldStop();
+  $xfer += $output->writeStructEnd();
+  return $xfer;
+}
+
 package Hadoop::API::BlockData;
 use Class::Accessor;
 use base('Class::Accessor');

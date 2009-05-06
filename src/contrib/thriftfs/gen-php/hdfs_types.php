@@ -2100,6 +2100,357 @@ class hadoop_api_QuotaException extends TException {
 
 }
 
+class hadoop_api_MetricsRecord {
+  static $_TSPEC;
+
+  public $tags = null;
+  public $metrics = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        2 => array(
+          'var' => 'tags',
+          'type' => TType::MAP,
+          'ktype' => TType::STRING,
+          'vtype' => TType::STRING,
+          'key' => array(
+            'type' => TType::STRING,
+          ),
+          'val' => array(
+            'type' => TType::STRING,
+            ),
+          ),
+        3 => array(
+          'var' => 'metrics',
+          'type' => TType::MAP,
+          'ktype' => TType::STRING,
+          'vtype' => TType::I64,
+          'key' => array(
+            'type' => TType::STRING,
+          ),
+          'val' => array(
+            'type' => TType::I64,
+            ),
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['tags'])) {
+        $this->tags = $vals['tags'];
+      }
+      if (isset($vals['metrics'])) {
+        $this->metrics = $vals['metrics'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'MetricsRecord';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 2:
+          if ($ftype == TType::MAP) {
+            $this->tags = array();
+            $_size23 = 0;
+            $_ktype24 = 0;
+            $_vtype25 = 0;
+            $xfer += $input->readMapBegin($_ktype24, $_vtype25, $_size23);
+            for ($_i27 = 0; $_i27 < $_size23; ++$_i27)
+            {
+              $key28 = '';
+              $val29 = '';
+              $xfer += $input->readString($key28);
+              $xfer += $input->readString($val29);
+              $this->tags[$key28] = $val29;
+            }
+            $xfer += $input->readMapEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::MAP) {
+            $this->metrics = array();
+            $_size30 = 0;
+            $_ktype31 = 0;
+            $_vtype32 = 0;
+            $xfer += $input->readMapBegin($_ktype31, $_vtype32, $_size30);
+            for ($_i34 = 0; $_i34 < $_size30; ++$_i34)
+            {
+              $key35 = '';
+              $val36 = 0;
+              $xfer += $input->readString($key35);
+              $xfer += $input->readI64($val36);
+              $this->metrics[$key35] = $val36;
+            }
+            $xfer += $input->readMapEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('MetricsRecord');
+    if ($this->tags !== null) {
+      if (!is_array($this->tags)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('tags', TType::MAP, 2);
+      {
+        $output->writeMapBegin(TType::STRING, TType::STRING, count($this->tags));
+        {
+          foreach ($this->tags as $kiter37 => $viter38)
+          {
+            $xfer += $output->writeString($kiter37);
+            $xfer += $output->writeString($viter38);
+          }
+        }
+        $output->writeMapEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->metrics !== null) {
+      if (!is_array($this->metrics)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('metrics', TType::MAP, 3);
+      {
+        $output->writeMapBegin(TType::STRING, TType::I64, count($this->metrics));
+        {
+          foreach ($this->metrics as $kiter39 => $viter40)
+          {
+            $xfer += $output->writeString($kiter39);
+            $xfer += $output->writeI64($viter40);
+          }
+        }
+        $output->writeMapEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class hadoop_api_MetricsContext {
+  static $_TSPEC;
+
+  public $name = null;
+  public $isMonitoring = null;
+  public $period = null;
+  public $records = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        1 => array(
+          'var' => 'name',
+          'type' => TType::STRING,
+          ),
+        2 => array(
+          'var' => 'isMonitoring',
+          'type' => TType::BOOL,
+          ),
+        3 => array(
+          'var' => 'period',
+          'type' => TType::I32,
+          ),
+        4 => array(
+          'var' => 'records',
+          'type' => TType::MAP,
+          'ktype' => TType::STRING,
+          'vtype' => TType::LST,
+          'key' => array(
+            'type' => TType::STRING,
+          ),
+          'val' => array(
+            'type' => TType::LST,
+            'etype' => TType::STRUCT,
+            'elem' => array(
+              'type' => TType::STRUCT,
+              'class' => 'hadoop_api_MetricsRecord',
+              ),
+            ),
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['name'])) {
+        $this->name = $vals['name'];
+      }
+      if (isset($vals['isMonitoring'])) {
+        $this->isMonitoring = $vals['isMonitoring'];
+      }
+      if (isset($vals['period'])) {
+        $this->period = $vals['period'];
+      }
+      if (isset($vals['records'])) {
+        $this->records = $vals['records'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'MetricsContext';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->name);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 2:
+          if ($ftype == TType::BOOL) {
+            $xfer += $input->readBool($this->isMonitoring);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 3:
+          if ($ftype == TType::I32) {
+            $xfer += $input->readI32($this->period);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 4:
+          if ($ftype == TType::MAP) {
+            $this->records = array();
+            $_size41 = 0;
+            $_ktype42 = 0;
+            $_vtype43 = 0;
+            $xfer += $input->readMapBegin($_ktype42, $_vtype43, $_size41);
+            for ($_i45 = 0; $_i45 < $_size41; ++$_i45)
+            {
+              $key46 = '';
+              $val47 = array();
+              $xfer += $input->readString($key46);
+              $val47 = array();
+              $_size48 = 0;
+              $_etype51 = 0;
+              $xfer += $input->readListBegin($_etype51, $_size48);
+              for ($_i52 = 0; $_i52 < $_size48; ++$_i52)
+              {
+                $elem53 = null;
+                $elem53 = new hadoop_api_MetricsRecord();
+                $xfer += $elem53->read($input);
+                $val47 []= $elem53;
+              }
+              $xfer += $input->readListEnd();
+              $this->records[$key46] = $val47;
+            }
+            $xfer += $input->readMapEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('MetricsContext');
+    if ($this->name !== null) {
+      $xfer += $output->writeFieldBegin('name', TType::STRING, 1);
+      $xfer += $output->writeString($this->name);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->isMonitoring !== null) {
+      $xfer += $output->writeFieldBegin('isMonitoring', TType::BOOL, 2);
+      $xfer += $output->writeBool($this->isMonitoring);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->period !== null) {
+      $xfer += $output->writeFieldBegin('period', TType::I32, 3);
+      $xfer += $output->writeI32($this->period);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->records !== null) {
+      if (!is_array($this->records)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('records', TType::MAP, 4);
+      {
+        $output->writeMapBegin(TType::STRING, TType::LST, count($this->records));
+        {
+          foreach ($this->records as $kiter54 => $viter55)
+          {
+            $xfer += $output->writeString($kiter54);
+            {
+              $output->writeListBegin(TType::STRUCT, count($viter55));
+              {
+                foreach ($viter55 as $iter56)
+                {
+                  $xfer += $iter56->write($output);
+                }
+              }
+              $output->writeListEnd();
+            }
+          }
+        }
+        $output->writeMapEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
 class hadoop_api_BlockData {
   static $_TSPEC;
 

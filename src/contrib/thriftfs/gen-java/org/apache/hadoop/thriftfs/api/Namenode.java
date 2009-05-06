@@ -3196,13 +3196,13 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list17 = iprot.readListBegin();
-                this.success = new ArrayList<Long>(_list17.size);
-                for (int _i18 = 0; _i18 < _list17.size; ++_i18)
+                TList _list40 = iprot.readListBegin();
+                this.success = new ArrayList<Long>(_list40.size);
+                for (int _i41 = 0; _i41 < _list40.size; ++_i41)
                 {
-                  long _elem19;
-                  _elem19 = iprot.readI64();
-                  this.success.add(_elem19);
+                  long _elem42;
+                  _elem42 = iprot.readI64();
+                  this.success.add(_elem42);
                 }
                 iprot.readListEnd();
               }
@@ -3238,8 +3238,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.I64, this.success.size()));
-          for (long _iter20 : this.success)          {
-            oprot.writeI64(_iter20);
+          for (long _iter43 : this.success)          {
+            oprot.writeI64(_iter43);
           }
           oprot.writeListEnd();
         }
@@ -4346,14 +4346,14 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list21 = iprot.readListBegin();
-                this.success = new ArrayList<Block>(_list21.size);
-                for (int _i22 = 0; _i22 < _list21.size; ++_i22)
+                TList _list44 = iprot.readListBegin();
+                this.success = new ArrayList<Block>(_list44.size);
+                for (int _i45 = 0; _i45 < _list44.size; ++_i45)
                 {
-                  Block _elem23;
-                  _elem23 = new Block();
-                  _elem23.read(iprot);
-                  this.success.add(_elem23);
+                  Block _elem46;
+                  _elem46 = new Block();
+                  _elem46.read(iprot);
+                  this.success.add(_elem46);
                 }
                 iprot.readListEnd();
               }
@@ -4389,8 +4389,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
-          for (Block _iter24 : this.success)          {
-            _iter24.write(oprot);
+          for (Block _iter47 : this.success)          {
+            _iter47.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -4949,14 +4949,14 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list25 = iprot.readListBegin();
-                this.success = new ArrayList<DatanodeInfo>(_list25.size);
-                for (int _i26 = 0; _i26 < _list25.size; ++_i26)
+                TList _list48 = iprot.readListBegin();
+                this.success = new ArrayList<DatanodeInfo>(_list48.size);
+                for (int _i49 = 0; _i49 < _list48.size; ++_i49)
                 {
-                  DatanodeInfo _elem27;
-                  _elem27 = new DatanodeInfo();
-                  _elem27.read(iprot);
-                  this.success.add(_elem27);
+                  DatanodeInfo _elem50;
+                  _elem50 = new DatanodeInfo();
+                  _elem50.read(iprot);
+                  this.success.add(_elem50);
                 }
                 iprot.readListEnd();
               }
@@ -4992,8 +4992,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
-          for (DatanodeInfo _iter28 : this.success)          {
-            _iter28.write(oprot);
+          for (DatanodeInfo _iter51 : this.success)          {
+            _iter51.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -7440,14 +7440,14 @@ public class Namenode {
           case SUCCESS:
             if (field.type == TType.LIST) {
               {
-                TList _list29 = iprot.readListBegin();
-                this.success = new ArrayList<Stat>(_list29.size);
-                for (int _i30 = 0; _i30 < _list29.size; ++_i30)
+                TList _list52 = iprot.readListBegin();
+                this.success = new ArrayList<Stat>(_list52.size);
+                for (int _i53 = 0; _i53 < _list52.size; ++_i53)
                 {
-                  Stat _elem31;
-                  _elem31 = new Stat();
-                  _elem31.read(iprot);
-                  this.success.add(_elem31);
+                  Stat _elem54;
+                  _elem54 = new Stat();
+                  _elem54.read(iprot);
+                  this.success.add(_elem54);
                 }
                 iprot.readListEnd();
               }
@@ -7483,8 +7483,8 @@ public class Namenode {
         oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.success.size()));
-          for (Stat _iter32 : this.success)          {
-            _iter32.write(oprot);
+          for (Stat _iter55 : this.success)          {
+            _iter55.write(oprot);
           }
           oprot.writeListEnd();
         }
@@ -9437,14 +9437,14 @@ public class Namenode {
           case BLOCKS:
             if (field.type == TType.LIST) {
               {
-                TList _list33 = iprot.readListBegin();
-                this.blocks = new ArrayList<Block>(_list33.size);
-                for (int _i34 = 0; _i34 < _list33.size; ++_i34)
+                TList _list56 = iprot.readListBegin();
+                this.blocks = new ArrayList<Block>(_list56.size);
+                for (int _i57 = 0; _i57 < _list56.size; ++_i57)
                 {
-                  Block _elem35;
-                  _elem35 = new Block();
-                  _elem35.read(iprot);
-                  this.blocks.add(_elem35);
+                  Block _elem58;
+                  _elem58 = new Block();
+                  _elem58.read(iprot);
+                  this.blocks.add(_elem58);
                 }
                 iprot.readListEnd();
               }
@@ -9473,8 +9473,8 @@ public class Namenode {
         oprot.writeFieldBegin(BLOCKS_FIELD_DESC);
         {
           oprot.writeListBegin(new TList(TType.STRUCT, this.blocks.size()));
-          for (Block _iter36 : this.blocks)          {
-            _iter36.write(oprot);
+          for (Block _iter59 : this.blocks)          {
+            _iter59.write(oprot);
           }
           oprot.writeListEnd();
         }

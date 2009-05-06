@@ -37,6 +37,16 @@ class HadoopServiceBaseHandler : virtual public HadoopServiceBaseIf {
     printf("getThreadDump\n");
   }
 
+  void getAllMetrics(std::vector<MetricsContext> & _return, const RequestContext& ctx) {
+    // Your implementation goes here
+    printf("getAllMetrics\n");
+  }
+
+  void getMetricsContext(MetricsContext& _return, const RequestContext& ctx, const std::string& contextName) {
+    // Your implementation goes here
+    printf("getMetricsContext\n");
+  }
+
 };
 
 int main(int argc, char **argv) {

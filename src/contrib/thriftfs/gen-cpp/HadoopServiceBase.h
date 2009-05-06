@@ -17,6 +17,8 @@ class HadoopServiceBaseIf {
   virtual void getVersionInfo(VersionInfo& _return, const RequestContext& ctx) = 0;
   virtual void getRuntimeInfo(RuntimeInfo& _return, const RequestContext& ctx) = 0;
   virtual void getThreadDump(std::vector<ThreadStackTrace> & _return, const RequestContext& ctx) = 0;
+  virtual void getAllMetrics(std::vector<MetricsContext> & _return, const RequestContext& ctx) = 0;
+  virtual void getMetricsContext(MetricsContext& _return, const RequestContext& ctx, const std::string& contextName) = 0;
 };
 
 class HadoopServiceBaseNull : virtual public HadoopServiceBaseIf {
@@ -29,6 +31,12 @@ class HadoopServiceBaseNull : virtual public HadoopServiceBaseIf {
     return;
   }
   void getThreadDump(std::vector<ThreadStackTrace> & /* _return */, const RequestContext& /* ctx */) {
+    return;
+  }
+  void getAllMetrics(std::vector<MetricsContext> & /* _return */, const RequestContext& /* ctx */) {
+    return;
+  }
+  void getMetricsContext(MetricsContext& /* _return */, const RequestContext& /* ctx */, const std::string& /* contextName */) {
     return;
   }
 };
@@ -312,6 +320,209 @@ class HadoopServiceBase_getThreadDump_presult {
 
 };
 
+class HadoopServiceBase_getAllMetrics_args {
+ public:
+
+  HadoopServiceBase_getAllMetrics_args() {
+  }
+
+  virtual ~HadoopServiceBase_getAllMetrics_args() throw() {}
+
+  RequestContext ctx;
+
+  struct __isset {
+    __isset() : ctx(false) {}
+    bool ctx;
+  } __isset;
+
+  bool operator == (const HadoopServiceBase_getAllMetrics_args & rhs) const
+  {
+    if (!(ctx == rhs.ctx))
+      return false;
+    return true;
+  }
+  bool operator != (const HadoopServiceBase_getAllMetrics_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const HadoopServiceBase_getAllMetrics_args & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class HadoopServiceBase_getAllMetrics_pargs {
+ public:
+
+
+  virtual ~HadoopServiceBase_getAllMetrics_pargs() throw() {}
+
+  const RequestContext* ctx;
+
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class HadoopServiceBase_getAllMetrics_result {
+ public:
+
+  HadoopServiceBase_getAllMetrics_result() {
+  }
+
+  virtual ~HadoopServiceBase_getAllMetrics_result() throw() {}
+
+  std::vector<MetricsContext>  success;
+  IOException err;
+
+  struct __isset {
+    __isset() : success(false), err(false) {}
+    bool success;
+    bool err;
+  } __isset;
+
+  bool operator == (const HadoopServiceBase_getAllMetrics_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    if (!(err == rhs.err))
+      return false;
+    return true;
+  }
+  bool operator != (const HadoopServiceBase_getAllMetrics_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const HadoopServiceBase_getAllMetrics_result & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class HadoopServiceBase_getAllMetrics_presult {
+ public:
+
+
+  virtual ~HadoopServiceBase_getAllMetrics_presult() throw() {}
+
+  std::vector<MetricsContext> * success;
+  IOException err;
+
+  struct __isset {
+    __isset() : success(false), err(false) {}
+    bool success;
+    bool err;
+  } __isset;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+
+};
+
+class HadoopServiceBase_getMetricsContext_args {
+ public:
+
+  HadoopServiceBase_getMetricsContext_args() : contextName("") {
+  }
+
+  virtual ~HadoopServiceBase_getMetricsContext_args() throw() {}
+
+  RequestContext ctx;
+  std::string contextName;
+
+  struct __isset {
+    __isset() : ctx(false), contextName(false) {}
+    bool ctx;
+    bool contextName;
+  } __isset;
+
+  bool operator == (const HadoopServiceBase_getMetricsContext_args & rhs) const
+  {
+    if (!(ctx == rhs.ctx))
+      return false;
+    if (!(contextName == rhs.contextName))
+      return false;
+    return true;
+  }
+  bool operator != (const HadoopServiceBase_getMetricsContext_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const HadoopServiceBase_getMetricsContext_args & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class HadoopServiceBase_getMetricsContext_pargs {
+ public:
+
+
+  virtual ~HadoopServiceBase_getMetricsContext_pargs() throw() {}
+
+  const RequestContext* ctx;
+  const std::string* contextName;
+
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class HadoopServiceBase_getMetricsContext_result {
+ public:
+
+  HadoopServiceBase_getMetricsContext_result() {
+  }
+
+  virtual ~HadoopServiceBase_getMetricsContext_result() throw() {}
+
+  MetricsContext success;
+  IOException err;
+
+  struct __isset {
+    __isset() : success(false), err(false) {}
+    bool success;
+    bool err;
+  } __isset;
+
+  bool operator == (const HadoopServiceBase_getMetricsContext_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    if (!(err == rhs.err))
+      return false;
+    return true;
+  }
+  bool operator != (const HadoopServiceBase_getMetricsContext_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const HadoopServiceBase_getMetricsContext_result & ) const;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+class HadoopServiceBase_getMetricsContext_presult {
+ public:
+
+
+  virtual ~HadoopServiceBase_getMetricsContext_presult() throw() {}
+
+  MetricsContext* success;
+  IOException err;
+
+  struct __isset {
+    __isset() : success(false), err(false) {}
+    bool success;
+    bool err;
+  } __isset;
+
+  uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+
+};
+
 class HadoopServiceBaseClient : virtual public HadoopServiceBaseIf {
  public:
   HadoopServiceBaseClient(boost::shared_ptr<apache::thrift::protocol::TProtocol> prot) :
@@ -341,6 +552,12 @@ class HadoopServiceBaseClient : virtual public HadoopServiceBaseIf {
   void getThreadDump(std::vector<ThreadStackTrace> & _return, const RequestContext& ctx);
   void send_getThreadDump(const RequestContext& ctx);
   void recv_getThreadDump(std::vector<ThreadStackTrace> & _return);
+  void getAllMetrics(std::vector<MetricsContext> & _return, const RequestContext& ctx);
+  void send_getAllMetrics(const RequestContext& ctx);
+  void recv_getAllMetrics(std::vector<MetricsContext> & _return);
+  void getMetricsContext(MetricsContext& _return, const RequestContext& ctx, const std::string& contextName);
+  void send_getMetricsContext(const RequestContext& ctx, const std::string& contextName);
+  void recv_getMetricsContext(MetricsContext& _return);
  protected:
   boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot_;
   boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot_;
@@ -357,12 +574,16 @@ class HadoopServiceBaseProcessor : virtual public apache::thrift::TProcessor {
   void process_getVersionInfo(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
   void process_getRuntimeInfo(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
   void process_getThreadDump(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
+  void process_getAllMetrics(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
+  void process_getMetricsContext(int32_t seqid, apache::thrift::protocol::TProtocol* iprot, apache::thrift::protocol::TProtocol* oprot);
  public:
   HadoopServiceBaseProcessor(boost::shared_ptr<HadoopServiceBaseIf> iface) :
     iface_(iface) {
     processMap_["getVersionInfo"] = &HadoopServiceBaseProcessor::process_getVersionInfo;
     processMap_["getRuntimeInfo"] = &HadoopServiceBaseProcessor::process_getRuntimeInfo;
     processMap_["getThreadDump"] = &HadoopServiceBaseProcessor::process_getThreadDump;
+    processMap_["getAllMetrics"] = &HadoopServiceBaseProcessor::process_getAllMetrics;
+    processMap_["getMetricsContext"] = &HadoopServiceBaseProcessor::process_getMetricsContext;
   }
 
   virtual bool process(boost::shared_ptr<apache::thrift::protocol::TProtocol> piprot, boost::shared_ptr<apache::thrift::protocol::TProtocol> poprot);
@@ -413,6 +634,30 @@ class HadoopServiceBaseMultiface : virtual public HadoopServiceBaseIf {
         return;
       } else {
         ifaces_[i]->getThreadDump(_return, ctx);
+      }
+    }
+  }
+
+  void getAllMetrics(std::vector<MetricsContext> & _return, const RequestContext& ctx) {
+    uint32_t sz = ifaces_.size();
+    for (uint32_t i = 0; i < sz; ++i) {
+      if (i == sz - 1) {
+        ifaces_[i]->getAllMetrics(_return, ctx);
+        return;
+      } else {
+        ifaces_[i]->getAllMetrics(_return, ctx);
+      }
+    }
+  }
+
+  void getMetricsContext(MetricsContext& _return, const RequestContext& ctx, const std::string& contextName) {
+    uint32_t sz = ifaces_.size();
+    for (uint32_t i = 0; i < sz; ++i) {
+      if (i == sz - 1) {
+        ifaces_[i]->getMetricsContext(_return, ctx, contextName);
+        return;
+      } else {
+        ifaces_[i]->getMetricsContext(_return, ctx, contextName);
       }
     }
   }
