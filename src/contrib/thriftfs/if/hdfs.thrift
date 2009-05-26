@@ -105,6 +105,16 @@ struct DatanodeInfo {
 }
 
 /**
+ * A token given by the NameNode that grants access to a block on a
+ * given DataNode
+ * @see org.apache.hadoop.security.AccessToken
+ */
+struct AccessToken {
+  1: string tokenID,
+  2: string tokenAuthenticator,
+}
+
+/**
  * Representation of a file block in HDFS
  *
  * Modelled after org.apache.hadoop.hdfs.protocol.LocatedBlock
@@ -126,7 +136,10 @@ struct Block {
   6: i64 startOffset;
 
   /** List of data nodes with copies  of this block. */
-  5: list<DatanodeInfo> nodes
+  5: list<DatanodeInfo> nodes,
+
+  /** Token granting access to this block */
+  7: AccessToken accessToken
 }
 
 /**

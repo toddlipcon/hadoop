@@ -90,9 +90,10 @@ public class DatanodePlugin
       BlockData ret = new BlockData();
       DFSClient.BlockReader reader = null;
       try {
-        reader = DFSClient.BlockReader.newBlockReader(getSocket(), block.path,
-            block.blockId, block.genStamp, offset, length, bufferSize, true,
-            serverContext.getClientName());
+        reader = DFSClient.BlockReader.newBlockReader(
+          getSocket(), block.path,
+          block.blockId, ThriftUtils.fromThrift(block.getAccessToken()), block.genStamp,
+          offset, length, bufferSize, true, serverContext.getClientName());
         byte[] buf = new byte[length];
         int n = reader.read(buf, 0, length);
         if (n == -1) {

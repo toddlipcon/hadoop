@@ -30,6 +30,7 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
   private static final TField GEN_STAMP_FIELD_DESC = new TField("genStamp", TType.I64, (short)4);
   private static final TField START_OFFSET_FIELD_DESC = new TField("startOffset", TType.I64, (short)6);
   private static final TField NODES_FIELD_DESC = new TField("nodes", TType.LIST, (short)5);
+  private static final TField ACCESS_TOKEN_FIELD_DESC = new TField("accessToken", TType.STRUCT, (short)7);
 
   /**
    * Block ID (unique among all blocks in a filesystem).
@@ -61,6 +62,11 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
    */
   public List<DatanodeInfo> nodes;
   public static final int NODES = 5;
+  /**
+   * Token granting access to this block
+   */
+  public AccessToken accessToken;
+  public static final int ACCESSTOKEN = 7;
 
   private final Isset __isset = new Isset();
   private static final class Isset implements java.io.Serializable {
@@ -84,6 +90,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     put(NODES, new FieldMetaData("nodes", TFieldRequirementType.DEFAULT, 
         new ListMetaData(TType.LIST, 
             new StructMetaData(TType.STRUCT, DatanodeInfo.class))));
+    put(ACCESSTOKEN, new FieldMetaData("accessToken", TFieldRequirementType.DEFAULT, 
+        new StructMetaData(TType.STRUCT, AccessToken.class)));
   }});
 
   static {
@@ -99,7 +107,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     long numBytes,
     long genStamp,
     long startOffset,
-    List<DatanodeInfo> nodes)
+    List<DatanodeInfo> nodes,
+    AccessToken accessToken)
   {
     this();
     this.blockId = blockId;
@@ -112,6 +121,7 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     this.startOffset = startOffset;
     this.__isset.startOffset = true;
     this.nodes = nodes;
+    this.accessToken = accessToken;
   }
 
   /**
@@ -135,6 +145,9 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
         __this__nodes.add(new DatanodeInfo(other_element));
       }
       this.nodes = __this__nodes;
+    }
+    if (other.isSetAccessToken()) {
+      this.accessToken = new AccessToken(other.accessToken);
     }
   }
 
@@ -328,6 +341,35 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     }
   }
 
+  /**
+   * Token granting access to this block
+   */
+  public AccessToken getAccessToken() {
+    return this.accessToken;
+  }
+
+  /**
+   * Token granting access to this block
+   */
+  public void setAccessToken(AccessToken accessToken) {
+    this.accessToken = accessToken;
+  }
+
+  public void unsetAccessToken() {
+    this.accessToken = null;
+  }
+
+  // Returns true if field accessToken is set (has been asigned a value) and false otherwise
+  public boolean isSetAccessToken() {
+    return this.accessToken != null;
+  }
+
+  public void setAccessTokenIsSet(boolean value) {
+    if (!value) {
+      this.accessToken = null;
+    }
+  }
+
   public void setFieldValue(int fieldID, Object value) {
     switch (fieldID) {
     case BLOCKID:
@@ -378,6 +420,14 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       }
       break;
 
+    case ACCESSTOKEN:
+      if (value == null) {
+        unsetAccessToken();
+      } else {
+        setAccessToken((AccessToken)value);
+      }
+      break;
+
     default:
       throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
     }
@@ -403,6 +453,9 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     case NODES:
       return getNodes();
 
+    case ACCESSTOKEN:
+      return getAccessToken();
+
     default:
       throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
     }
@@ -423,6 +476,8 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       return isSetStartOffset();
     case NODES:
       return isSetNodes();
+    case ACCESSTOKEN:
+      return isSetAccessToken();
     default:
       throw new IllegalArgumentException("Field " + fieldID + " doesn't exist!");
     }
@@ -492,6 +547,15 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       if (!(this_present_nodes && that_present_nodes))
         return false;
       if (!this.nodes.equals(that.nodes))
+        return false;
+    }
+
+    boolean this_present_accessToken = true && this.isSetAccessToken();
+    boolean that_present_accessToken = true && that.isSetAccessToken();
+    if (this_present_accessToken || that_present_accessToken) {
+      if (!(this_present_accessToken && that_present_accessToken))
+        return false;
+      if (!this.accessToken.equals(that.accessToken))
         return false;
     }
 
@@ -571,6 +635,14 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
             TProtocolUtil.skip(iprot, field.type);
           }
           break;
+        case ACCESSTOKEN:
+          if (field.type == TType.STRUCT) {
+            this.accessToken = new AccessToken();
+            this.accessToken.read(iprot);
+          } else { 
+            TProtocolUtil.skip(iprot, field.type);
+          }
+          break;
         default:
           TProtocolUtil.skip(iprot, field.type);
           break;
@@ -616,6 +688,11 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
     oprot.writeFieldBegin(START_OFFSET_FIELD_DESC);
     oprot.writeI64(this.startOffset);
     oprot.writeFieldEnd();
+    if (this.accessToken != null) {
+      oprot.writeFieldBegin(ACCESS_TOKEN_FIELD_DESC);
+      this.accessToken.write(oprot);
+      oprot.writeFieldEnd();
+    }
     oprot.writeFieldStop();
     oprot.writeStructEnd();
   }
@@ -654,6 +731,14 @@ public class Block implements TBase, java.io.Serializable, Cloneable {
       sb.append("null");
     } else {
       sb.append(this.nodes);
+    }
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("accessToken:");
+    if (this.accessToken == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.accessToken);
     }
     first = false;
     sb.append(")");

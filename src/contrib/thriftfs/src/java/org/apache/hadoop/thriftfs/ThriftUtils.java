@@ -28,7 +28,9 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.protocol.DatanodeID;
 import org.apache.hadoop.hdfs.protocol.LocatedBlock;
 import org.apache.hadoop.hdfs.server.namenode.NameNode;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.net.NetUtils;
+import org.apache.hadoop.thriftfs.api.AccessToken;
 import org.apache.hadoop.thriftfs.api.Block;
 import org.apache.hadoop.thriftfs.api.Constants;
 import org.apache.hadoop.thriftfs.api.DatanodeInfo;
@@ -39,7 +41,6 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-
 public class ThriftUtils {
   
   static final Log LOG = LogFactory.getLog(ThriftUtils.class);
@@ -59,7 +60,11 @@ public class ThriftUtils {
       nodes[i] = fromThrift(block.nodes.get(0));
     }
 
-    return new LocatedBlock(b, nodes);
+    org.apache.hadoop.security.AccessToken token = fromThrift(block.accessToken);
+
+    LocatedBlock lb = new LocatedBlock(b, nodes, block.startOffset);
+    lb.setAccessToken(token);
+    return lb;
   }
 
   public static Block toThrift(LocatedBlock block, String path,
@@ -78,7 +83,27 @@ public class ThriftUtils {
 
     org.apache.hadoop.hdfs.protocol.Block b = block.getBlock();
     return new Block(b.getBlockId(), path, b.getNumBytes(),
-                     b.getGenerationStamp(), block.getStartOffset(), nodes);
+                     b.getGenerationStamp(), block.getStartOffset(), nodes,
+                     toThrift(block.getAccessToken()));
+  }
+
+  public static org.apache.hadoop.security.AccessToken fromThrift(AccessToken token) {
+    if (token == null) {
+      return org.apache.hadoop.security.AccessToken.DUMMY_TOKEN;
+    }
+
+    return new org.apache.hadoop.security.AccessToken(
+      new Text(token.tokenID), new Text(token.tokenAuthenticator));
+  }
+
+  public static AccessToken toThrift(org.apache.hadoop.security.AccessToken token) {
+    if (token == null) {
+      return null;
+    }
+    AccessToken thriftToken = new AccessToken();
+    thriftToken.tokenID = token.getTokenID().toString();
+    thriftToken.tokenAuthenticator = token.getTokenAuthenticator().toString();
+    return thriftToken;
   }
 
   public static org.apache.hadoop.hdfs.protocol.DatanodeInfo fromThrift(
