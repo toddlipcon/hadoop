@@ -1392,7 +1392,9 @@ public class DFSClient implements FSConstants, java.io.Closeable {
       
       if ( in.readShort() != DataTransferProtocol.OP_STATUS_SUCCESS ) {
         throw new IOException("Got error in response to OP_READ_BLOCK " +
-                              "for file " + file + 
+                              "self=" + sock.getLocalSocketAddress() +
+                              ", remote=" + sock.getRemoteSocketAddress() + 
+                              " for file " + file + 
                               " for block " + blockId);
       }
       DataChecksum checksum = DataChecksum.newDataChecksum( in );
