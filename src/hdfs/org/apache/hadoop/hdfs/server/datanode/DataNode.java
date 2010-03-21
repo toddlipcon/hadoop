@@ -1490,8 +1490,14 @@ public class DataNode extends Configured
       //check generation stamps
       for(DatanodeID id : datanodeids) {
         try {
-          InterDatanodeProtocol datanode = dnRegistration.equals(id)?
-              this: DataNode.createInterDataNodeProtocolProxy(id, getConf());
+          InterDatanodeProtocol datanode;
+          if (dnRegistration.equals(id)) {
+            LOG.info("Skipping IDNPP creation for local id " + id);
+            datanode = this;
+          } else {
+            LOG.info("Creating IDNPP for non-local id " + id + " (dnReg=" + dnRegistration + ")");
+            datanode = DataNode.createInterDataNodeProtocolProxy(id, getConf());
+          }
           BlockMetaDataInfo info = datanode.getBlockMetaDataInfo(block);
           if (info != null && info.getGenerationStamp() >= block.getGenerationStamp()) {
             if (keepLength) {
