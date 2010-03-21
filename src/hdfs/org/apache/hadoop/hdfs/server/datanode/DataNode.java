@@ -1518,7 +1518,8 @@ public class DataNode extends Configured
       for(DatanodeID id : datanodeids) {
         try {
           InterDatanodeProtocol datanode;
-          if (dnRegistration.equals(id)) {
+          if (dnRegistration.getHost().equals(id.getHost()) &&
+              dnRegistration.getIpcPort() == id.getIpcPort()) {
             LOG.info("Skipping IDNPP creation for local id " + id);
             datanode = this;
           } else {
