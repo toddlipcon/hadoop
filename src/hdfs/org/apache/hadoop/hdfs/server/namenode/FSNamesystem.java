@@ -237,6 +237,9 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
   private int minReplication;
   // Default replication
   private int defaultReplication;
+  // Variable to stall new replication checks for testing purposes
+  private boolean stallReplicationWork = false;
+
   // heartbeatRecheckInterval is how often namenode checks for expired datanodes
   private long heartbeatRecheckInterval;
   // heartbeatExpireInterval is how long namenode waits for datanode to report
@@ -1074,7 +1077,8 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
         // period, then start lease recovery.
         //
         if (lease.expiredSoftLimit()) {
-          LOG.info("startFile: recover lease " + lease + ", src=" + src);
+          LOG.info("startFile: recover lease " + lease + ", src=" + src +
+                   " from client " + pendingFile.clientName);
           internalReleaseLease(lease, src);
         }
         throw new AlreadyBeingCreatedException("failed to create file " + src + " for " + holder +
@@ -1898,7 +1902,7 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
       if (pendingFile.getBlocks().length == 0) {
         finalizeINodeFileUnderConstruction(src, pendingFile);
         NameNode.stateChangeLog.warn("BLOCK*"
-          + " internalReleaseLease: No blocks found, lease removed.");
+          + " internalReleaseLease: No blocks found, lease removed for " +  src);
         return;
       }
       // setup the Inode.targets for the last block from the blocksMap
@@ -1920,6 +1924,8 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
 
   private void finalizeINodeFileUnderConstruction(String src,
       INodeFileUnderConstruction pendingFile) throws IOException {
+    NameNode.stateChangeLog.info("Removing lease on  file " + src + 
+                                 " from client " + pendingFile.clientName);
     leaseManager.removeLease(pendingFile.clientName, src);
 
     // The file is no longer pending.
@@ -2448,6 +2454,11 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
    */
   private int computeReplicationWork(
                                   int blocksToProcess) throws IOException {
+    // stall only useful for unit tests (see TestFileAppend4.java)
+    if (stallReplicationWork)  {
+      return 0;
+    }
+    
     // Choose the blocks to be replicated
     List<List<Block>> blocksToReplicate = 
       chooseUnderReplicatedBlocks(blocksToProcess);
@@ -2570,7 +2581,7 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
       }
     }
 
-    // choose replication targets: NOT HODING THE GLOBAL LOCK
+    // choose replication targets: NOT HOLDING THE GLOBAL LOCK
     DatanodeDescriptor targets[] = replicator.chooseTarget(
         requiredReplication - numEffectiveReplicas,
         srcNode, containingNodes, null, block.getNumBytes());
@@ -2983,7 +2994,7 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     if (storedBlock == null) {
       // if the block with a WILDCARD generation stamp matches and the
       // corresponding file is under construction, then accept this block.
-      // This block has a diferent generation stamp on the datanode 
+      // This block has a different generation stamp on the datanode 
       // because of a lease-recovery-attempt.
       Block nblk = new Block(block.getBlockId());
       storedBlock = blocksMap.getStoredBlock(nblk);
@@ -3127,6 +3138,18 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     INodeFile fileINode = null;
     fileINode = storedBlock.getINode();
     if (fileINode.isUnderConstruction()) {
+      INodeFileUnderConstruction cons = (INodeFileUnderConstruction) fileINode;
+      Block[] blocks = fileINode.getBlocks();
+      // If this is the last block of this
+      // file, then set targets. This enables lease recovery to occur.
+      // This is especially important after a restart of the NN.
+      Block last = blocks[blocks.length-1];
+      if (last.equals(storedBlock)) {
+        Iterator<DatanodeDescriptor> it = blocksMap.nodeIterator(last);
+        for (int i = 0; it != null && it.hasNext(); i++) {
+          cons.addTarget(it.next());
+        }
+      }
       return block;
     }
 
@@ -3732,6 +3755,9 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
   short getMaxReplication()     { return (short)maxReplication; }
   short getMinReplication()     { return (short)minReplication; }
   short getDefaultReplication() { return (short)defaultReplication; }
+  
+  public void stallReplicationWork()   { stallReplicationWork = true;   }
+  public void restartReplicationWork() { stallReplicationWork = false;  }
     
   /**
    * A immutable object that stores the number of live replicas and

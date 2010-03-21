@@ -18,6 +18,8 @@
 package org.apache.hadoop.hdfs.server.namenode;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.hadoop.fs.permission.PermissionStatus;
 import org.apache.hadoop.hdfs.protocol.Block;
@@ -90,6 +92,30 @@ class INodeFileUnderConstruction extends INodeFile {
 
   void setTargets(DatanodeDescriptor[] targets) {
     this.targets = targets;
+    this.primaryNodeIndex = -1;
+  }
+
+  /**
+   * add this target if it does not already exists
+   */
+  void addTarget(DatanodeDescriptor node) {
+    if (this.targets == null) {
+      this.targets = new DatanodeDescriptor[0];
+    }
+
+    for (int j = 0; j < this.targets.length; j++) {
+      if (this.targets[j].equals(node)) {
+        return;  // target already exists
+      }
+    }
+      
+    // allocate new data structure to store additional target
+    DatanodeDescriptor[] newt = new DatanodeDescriptor[targets.length + 1];
+    for (int i = 0; i < targets.length; i++) {
+      newt[i] = this.targets[i];
+    }
+    newt[targets.length] = node;
+    this.targets = newt;
     this.primaryNodeIndex = -1;
   }
 

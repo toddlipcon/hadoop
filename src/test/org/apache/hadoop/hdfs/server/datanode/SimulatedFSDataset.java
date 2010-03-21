@@ -381,7 +381,8 @@ public class SimulatedFSDataset  implements FSConstants, FSDatasetInterface, Con
   }
 
   public synchronized BlockWriteStreams writeToBlock(Block b, 
-                                            boolean isRecovery)
+                                            boolean isRecovery,
+                                            boolean isReplicationRequest)
                                             throws IOException {
     if (isValidBlock(b)) {
           throw new BlockAlreadyExistsException("Block " + b + 
