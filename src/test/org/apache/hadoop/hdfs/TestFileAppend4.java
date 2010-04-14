@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hdfs.DFSClient.DFSOutputStream;
 import org.apache.hadoop.hdfs.protocol.FSConstants;
 import org.apache.hadoop.hdfs.protocol.FSConstants.SafeModeAction;
 import org.apache.hadoop.hdfs.server.datanode.DataNode;
@@ -309,6 +310,55 @@ public class TestFileAppend4 extends TestCase {
     LOG.info("STOP");
   }
 
+
+  // test [3 bbw, 0 HDFS block] with cluster restart
+  // ** previous HDFS-142 patches hit an problem with multiple outstanding bbw on a single disk**
+  public void testAppendSync2XBbwClusterRestart() throws Exception {
+    LOG.info("START");
+    cluster = new MiniDFSCluster(conf, 1, true, null);
+    // assumption: this MiniDFS starts up 1 datanode with 2 dirs to load balance
+    assertTrue(cluster.getDataNodes().get(0).getConf().get("dfs.data.dir").matches("[^,]+,[^,]*"));
+    FileSystem fs1 = cluster.getFileSystem();
+    FileSystem fs2 = null;
+    try {
+      // create 3 bbw files [so at least one dir has 2 files]
+      int[] files = new int[]{0,1,2};
+      Path[] paths = new Path[files.length];
+      FSDataOutputStream[] stms = new FSDataOutputStream[files.length];
+      for (int i : files ) {
+        createFile(fs1, "/bbwRestart" + i + ".test", 1, BBW_SIZE);
+        stm.sync();
+        assertFileSize(fs1, 0); 
+        paths[i] = file1;
+        stms[i] = stm;
+      }
+
+      cluster.shutdown();
+      fs1.close(); // same as: loseLeases()
+      LOG.info("STOPPED first instance of the cluster");
+
+      cluster = new MiniDFSCluster(conf, 1, false, null);
+      cluster.waitActive();
+      LOG.info("START second instance.");
+
+      fs2 = cluster.getFileSystem();
+      
+      // recover 3 bbw files
+      for (int i : files) {
+        file1 = paths[i];
+        recoverFile(fs2);
+        assertFileSize(fs2, BBW_SIZE); 
+        checkFile(fs2, BBW_SIZE);
+      }
+    } finally {
+      if(fs2 != null) {
+        fs2.close();
+      }
+      fs1.close();
+      cluster.shutdown();
+    }
+    LOG.info("STOP");
+  }  
   // test [1 bbw, 1 HDFS block]
   public void testAppendSyncBlockPlusBbw() throws Exception {
     LOG.info("START");

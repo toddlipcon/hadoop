@@ -60,16 +60,21 @@ import org.mortbay.log.Log;
 public class FSDataset implements FSConstants, FSDatasetInterface {
 
   /**
-   * A data structure than excapsulates a Block along with the full pathname
+   * A data structure than encapsulates a Block along with the full pathname
    * of the block file
    */
-  static class BlockAndFile {
+  static class BlockAndFile implements Comparable<BlockAndFile> {
     final Block block;
     final File pathfile;
 
     BlockAndFile(File fullpathname, Block block) {
       this.pathfile = fullpathname;
       this.block = block;
+    }
+
+    public int compareTo(BlockAndFile o)
+    {
+      return this.block.compareTo(o.block);
     }
   }
 
