@@ -295,7 +295,8 @@ class DataXceiver extends Thread implements Runnable, FSConstants {
         mirrorTarget = NetUtils.createSocketAddr(mirrorNode);
         mirrorSock = datanode.newSocket();
         try {
-          int timeoutValue = numTargets * datanode.socketTimeout;
+          int timeoutValue = datanode.socketTimeout +
+                             (HdfsConstants.READ_TIMEOUT_EXTENSION * numTargets);
           int writeTimeout = datanode.socketWriteTimeout + 
                              (HdfsConstants.WRITE_TIMEOUT_EXTENSION * numTargets);
           NetUtils.connect(mirrorSock, mirrorTarget, timeoutValue);
