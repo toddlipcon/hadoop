@@ -3134,8 +3134,8 @@ public class DFSClient implements FSConstants, java.io.Closeable {
     }
 
     private synchronized void enqueueCurrentPacket() {
-      assert currentPacket != null;
       synchronized (dataQueue) {
+        if (currentPacket == null) return;
         dataQueue.addLast(currentPacket);
         dataQueue.notifyAll();
         lastQueuedSeqno = currentPacket.seqno;
