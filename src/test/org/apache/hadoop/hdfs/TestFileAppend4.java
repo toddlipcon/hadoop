@@ -148,13 +148,7 @@ public class TestFileAppend4 extends TestCase {
       }
     }
     if (out != null) {
-      try {
-        out.close();
-        LOG.info("Successfully obtained lease");
-      } catch (IOException e) {
-        LOG.info("Unable to close file after opening for appends");
-        recovered = false;
-      }
+      out.close();
     }
     if (!recovered) {
       fail("Recovery should take < 1 min");
@@ -539,6 +533,49 @@ public class TestFileAppend4 extends TestCase {
     } finally {
       cluster.shutdown();
       fs1.close();
+    }
+  }
+  
+  // we test different datanodes dying and not coming back
+  public void testDnDeath0() throws Exception {
+    dnDeathTest(0);
+  }
+  public void testDnDeath1() throws Exception {
+    dnDeathTest(1);
+  }
+  public void testDnDeath2() throws Exception {
+    dnDeathTest(2);
+  }
+
+  /**
+   * Test case that writes and completes a file, and then
+   * tries to recover the file after the old primary
+   * DN has failed.
+   */
+  void dnDeathTest(int badDN) throws Exception {
+    LOG.info("START");
+    cluster = new MiniDFSCluster(conf, 3, true, null);
+    FileSystem fs1 = cluster.getFileSystem();
+    try {
+      int halfBlock = (int)BLOCK_SIZE/2;
+      short rep = 3; // replication
+      assertTrue(BLOCK_SIZE%4 == 0);
+
+      file1 = new Path("/dnDeath.dat");
+
+      // write 1/2 block & close
+      stm = fs1.create(file1, true, (int)BLOCK_SIZE*2, rep, BLOCK_SIZE);
+      AppendTestUtil.write(stm, 0, halfBlock);
+      stm.close();
+      
+      // close one of the datanodes
+      cluster.stopDataNode(badDN);
+
+      // Recover the lease
+      recoverFile(fs1);
+    } finally {
+      fs1.close();
+      cluster.shutdown();
     }
   }
 
