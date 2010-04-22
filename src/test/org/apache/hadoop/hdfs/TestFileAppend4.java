@@ -151,7 +151,7 @@ public class TestFileAppend4 extends TestCase {
       out.close();
     }
     if (!recovered) {
-      fail("Recovery should take < 1 min");
+      fail((tries > 0) ? "Recovery failed" : "Recovery should take < 1 min");
     }
     LOG.info("Past out lease recovery");
   }
@@ -578,6 +578,5 @@ public class TestFileAppend4 extends TestCase {
       cluster.shutdown();
     }
   }
-
-
+  
 }
