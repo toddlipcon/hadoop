@@ -834,6 +834,9 @@ public class DataNode extends Configured
           shutdown();
           return;
         }
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException ie) {}
         LOG.warn(StringUtils.stringifyException(re));
       } catch (IOException e) {
         LOG.warn(StringUtils.stringifyException(e));
