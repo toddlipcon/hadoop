@@ -1985,12 +1985,21 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
       // There should be no locations in the blocksMap till now because the
       // file is underConstruction
       DatanodeDescriptor[] descriptors = null;
-      if (newtargets.length > 0) {
-        descriptors = new DatanodeDescriptor[newtargets.length];
-        for(int i = 0; i < newtargets.length; i++) {
-          descriptors[i] = getDatanode(newtargets[i]);
-          descriptors[i].addBlock(newblockinfo);
+      List<DatanodeDescriptor> descriptorsList =
+        new ArrayList<DatanodeDescriptor>(newtargets.length);
+      for(int i = 0; i < newtargets.length; i++) {
+        DatanodeDescriptor node =
+          datanodeMap.get(newtargets[i].getStorageID());
+        if (node != null) {
+          node.addBlock(newblockinfo);
+          descriptorsList.add(node);
+        } else {
+          LOG.warn("commitBlockSynchronization included a target DN " +
+            newtargets[i] + " which is not known to DN. Ignoring.");
         }
+      }
+      if (!descriptorsList.isEmpty()) {
+        descriptors = descriptorsList.toArray(new DatanodeDescriptor[0]);
       }
       // add locations into the INodeUnderConstruction
       pendingFile.setLastBlock(newblockinfo, descriptors);
