@@ -179,16 +179,4 @@ class INodeFile extends INode {
     }
     return blocks[blocks.length - 2];
   }
-
-  INodeFileUnderConstruction toINodeFileUnderConstruction(
-      String clientName, String clientMachine, DatanodeDescriptor clientNode
-      ) throws IOException {
-    if (isUnderConstruction()) {
-      return (INodeFileUnderConstruction)this;
-    }
-    return new INodeFileUnderConstruction(name,
-        blockReplication, modificationTime, preferredBlockSize,
-        blocks, getPermissionStatus(),
-        clientName, clientMachine, clientNode);
-  }
 }
