@@ -10,12 +10,16 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.DFSClient.DFSOutputStream;
+import org.apache.hadoop.hdfs.protocol.Block;
+import org.apache.hadoop.hdfs.protocol.DatanodeID;
 import org.apache.hadoop.hdfs.protocol.FSConstants;
 import org.apache.hadoop.hdfs.protocol.FSConstants.SafeModeAction;
 import org.apache.hadoop.hdfs.server.datanode.DataNode;
@@ -28,6 +32,10 @@ import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.log4j.Level;
+
+import static org.mockito.Mockito.*;
+import org.mockito.stubbing.Answer;
+import org.mockito.invocation.InvocationOnMock;
 
 /* File Append tests for HDFS-200 & HDFS-142, specifically focused on:
  *  using append()/sync() to recover block information
@@ -578,5 +586,169 @@ public class TestFileAppend4 extends TestCase {
       cluster.shutdown();
     }
   }
-  
+
+
+  /**
+   * Test case that stops a writer after finalizing a block but
+   * before calling completeFile, and then tries to recover
+   * the lease.
+   */
+  public void testRecoverFinalizedBlock() throws Throwable {
+    cluster = new MiniDFSCluster(conf, 3, true, null);
+
+    try {
+      cluster.waitActive();
+      NameNode preSpyNN = cluster.getNameNode();
+      NameNode spyNN = spy(preSpyNN);
+
+      // Delay completeFile
+      DelayAnswer delayer = new DelayAnswer();
+      doAnswer(delayer).when(spyNN).complete(anyString(), anyString());
+
+      DFSClient client = new DFSClient(null, spyNN, conf, null);
+      file1 = new Path("/testRecoverFinalized");
+      final OutputStream stm = client.create("/testRecoverFinalized", true);
+
+      // write 1/2 block
+      AppendTestUtil.write(stm, 0, 4096);
+      final AtomicReference<Throwable> err = new AtomicReference<Throwable>();
+      Thread t = new Thread() { 
+          public void run() {
+            try {
+              stm.close();
+            } catch (Throwable t) {
+              err.set(t);
+            }
+          }};
+      t.start();
+      LOG.info("Waiting for close to get to latch...");
+      delayer.waitForCall();
+
+      // At this point, the block is finalized on the DNs, but the file
+      // has not been completed in the NN.
+      // Lose the leases
+      LOG.info("Killing lease checker");
+      client.leasechecker.interruptAndJoin();
+
+      FileSystem fs1 = cluster.getFileSystem();
+      FileSystem fs2 = AppendTestUtil.createHdfsWithDifferentUsername(
+        fs1.getConf());
+
+      LOG.info("Recovering file");
+      recoverFile(fs2);
+
+      LOG.info("Telling close to proceed.");
+      delayer.proceed();
+      LOG.info("Waiting for close to finish.");
+      t.join();
+      LOG.info("Close finished.");
+
+      // We expect that close will get a "Could not complete file"
+      // error.
+      Throwable thrownByClose = err.get();
+      assertNotNull(thrownByClose);
+      assertTrue(thrownByClose instanceof IOException);
+      if (!thrownByClose.getMessage().contains(
+            "Could not complete write"))
+        throw thrownByClose;
+    } finally {
+      cluster.shutdown();
+    }
+  }
+
+  /**
+   * Test for an intermittent failure of commitBlockSynchronization.
+   * This could happen if the DN crashed between calling updateBlocks
+   * and commitBlockSynchronization.
+   */
+  public void testDatanodeFailsToCommit() throws Throwable {
+    LOG.info("START");
+    cluster = new MiniDFSCluster(conf, 1, true, null);
+    FileSystem fs1 = cluster.getFileSystem();;
+    FileSystem fs2 = AppendTestUtil.createHdfsWithDifferentUsername(fs1.getConf());
+    try {
+      createFile(fs1, "/datanodeFailsCommit.test", 1, BBW_SIZE);
+      stm.sync();
+      loseLeases(fs1);
+
+      // Make the NN fail to commitBlockSynchronization one time
+      NameNode nn = cluster.getNameNode();
+      nn.namesystem = spy(nn.namesystem);
+      doAnswer(new ThrowNTimesAnswer(IOException.class, 1)).
+        when(nn.namesystem).
+        commitBlockSynchronization((Block)anyObject(), anyInt(), anyInt(),
+                                   anyBoolean(), anyBoolean(),
+                                   (DatanodeID[])anyObject());
+
+      recoverFile(fs2);
+      // close() should write recovered bbw to HDFS block
+      assertFileSize(fs2, BBW_SIZE); 
+      checkFile(fs2, BBW_SIZE);
+    } finally {
+      fs2.close();
+      fs1.close();
+      cluster.shutdown();
+    }
+    LOG.info("STOP");
+  }
+
+  /**
+   * Mockito answer helper that triggers one latch as soon as the
+   * method is called, then waits on another before continuing.
+   */
+  private static class DelayAnswer implements Answer<Boolean> {
+    private final CountDownLatch fireLatch = new CountDownLatch(1);
+    private final CountDownLatch waitLatch = new CountDownLatch(1);
+
+    /**
+     * Wait until the method is called.
+     */
+    public void waitForCall() throws InterruptedException {
+      fireLatch.await();
+    }
+
+    /**
+     * Tell the method to proceed.
+     * This should only be called after waitForCall()
+     */
+    public void proceed() {
+      waitLatch.countDown();
+    }
+
+    public Boolean answer(InvocationOnMock invocation) throws Throwable {
+      LOG.info("DelayAnswer firing fireLatch");
+      fireLatch.countDown();
+      try {
+        LOG.info("DelayAnswer waiting on waitLatch");
+        waitLatch.await();
+        LOG.info("DelayAnswer delay complete");
+      } catch (InterruptedException ie) {
+        throw new IOException("Interrupted waiting on latch", ie);
+      }
+      return (Boolean)invocation.callRealMethod();
+    }
+  }
+
+  /**
+   * Mockito answer helper that will throw an exception a given number
+   * of times before eventually succeding.
+   */
+  private static class ThrowNTimesAnswer implements Answer {
+    private int numTimesToThrow;
+    private Class<? extends Throwable> exceptionClass;
+
+    public ThrowNTimesAnswer(Class<? extends Throwable> exceptionClass,
+                             int numTimesToThrow) {
+      this.exceptionClass = exceptionClass;
+      this.numTimesToThrow = numTimesToThrow;
+    }
+
+    public Object answer(InvocationOnMock invocation) throws Throwable {
+      if (numTimesToThrow-- > 0) {
+        throw exceptionClass.newInstance();
+      }
+
+      return invocation.callRealMethod();
+    }
+  }
 }

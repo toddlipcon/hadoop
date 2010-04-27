@@ -1949,7 +1949,10 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     checkReplicationFactor(newFile);
   }
 
-  void commitBlockSynchronization(Block lastblock,
+  /**
+   * Public only for testing purposes
+   */
+  public void commitBlockSynchronization(Block lastblock,
       long newgenerationstamp, long newlength,
       boolean closeFile, boolean deleteblock, DatanodeID[] newtargets
       ) throws IOException {
@@ -4810,7 +4813,7 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
       throw new IOException(msg);
     }
     if (!((INodeFileUnderConstruction)fileINode).setLastRecoveryTime(now())) {
-      String msg = block + " is beening recovered, ignoring this request.";
+      String msg = block + " is already being recovered, ignoring this request.";
       LOG.info(msg);
       throw new IOException(msg);
     }
