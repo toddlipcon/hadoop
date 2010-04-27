@@ -193,6 +193,14 @@ public interface FSDatasetInterface extends FSDatasetMBean {
   public void finalizeBlock(Block b) throws IOException;
 
   /**
+   * Finalizes the block previously opened for writing using writeToBlock 
+   * if not already finalized
+   * @param b
+   * @throws IOException
+   */
+  public void finalizeBlockIfNeeded(Block b) throws IOException;
+
+  /**
    * Unfinalizes the block previously opened for writing using writeToBlock.
    * The temporary file associated with this block is deleted.
    * @param b

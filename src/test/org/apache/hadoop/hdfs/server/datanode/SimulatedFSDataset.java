@@ -265,7 +265,18 @@ public class SimulatedFSDataset  implements FSConstants, FSDatasetInterface, Con
     }
   }
 
-  public synchronized void finalizeBlock(Block b) throws IOException {
+  @Override
+  public void finalizeBlock(Block b) throws IOException {
+    finalizeBlockInternal(b, false);
+  }
+
+  @Override
+  public void finalizeBlockIfNeeded(Block b) throws IOException {
+    finalizeBlockInternal(b, true);    
+  }
+
+  private synchronized void finalizeBlockInternal(Block b, boolean refinalizeOk) 
+    throws IOException {
     BInfo binfo = blockMap.get(b);
     if (binfo == null) {
       throw new IOException("Finalizing a non existing block " + b);

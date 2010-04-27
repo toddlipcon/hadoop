@@ -1328,13 +1328,29 @@ public class FSDataset implements FSConstants, FSDatasetInterface {
   // we can GC it safely.
   //
 
+
+  @Override
+  public void finalizeBlock(Block b) throws IOException {
+    finalizeBlockInternal(b, false);
+  }
+
+  @Override
+  public void finalizeBlockIfNeeded(Block b) throws IOException {
+    finalizeBlockInternal(b, true);
+  }
+
   /**
    * Complete the block write!
    */
-  public synchronized void finalizeBlock(Block b) throws IOException {
+  private synchronized void finalizeBlockInternal(Block b, boolean reFinalizeOk) 
+    throws IOException {
     ActiveFile activeFile = ongoingCreates.get(b);
     if (activeFile == null) {
-      throw new IOException("Block " + b + " is already finalized.");
+      if (reFinalizeOk) {
+        return;
+      } else {
+        throw new IOException("Block " + b + " is already finalized.");
+      }
     }
     File f = activeFile.file;
     if (f == null || !f.exists()) {
