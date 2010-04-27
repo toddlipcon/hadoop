@@ -1988,6 +1988,10 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
       List<DatanodeDescriptor> descriptorsList =
         new ArrayList<DatanodeDescriptor>(newtargets.length);
       for(int i = 0; i < newtargets.length; i++) {
+        // We don't use getDatanode here since that method can
+        // throw. If we were to throw an exception during this commit
+        // process, we'd fall out of sync since DNs have already finalized
+        // the block with the new GS.
         DatanodeDescriptor node =
           datanodeMap.get(newtargets[i].getStorageID());
         if (node != null) {

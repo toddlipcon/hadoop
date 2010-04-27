@@ -180,7 +180,8 @@ class INodeFileUnderConstruction extends INodeFile {
     }
 
     int previous = primaryNodeIndex;
-    //find an alive datanode beginning from previous
+    // find an alive datanode beginning from previous.
+    // This causes us to cycle through the targets on successive retries.
     for(int i = 1; i <= targets.length; i++) {
       int j = (previous + i)%targets.length;
       if (targets[j].isAlive) {
