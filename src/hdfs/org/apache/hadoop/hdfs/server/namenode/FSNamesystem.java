@@ -3179,6 +3179,13 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     if (fileINode.isUnderConstruction()) {
       INodeFileUnderConstruction cons = (INodeFileUnderConstruction) fileINode;
       Block[] blocks = fileINode.getBlocks();
+      if (blocks == null || blocks.length == 0) {
+        // This should never happen, but better to handle it properly than to throw
+        // an NPE below.
+        LOG.error("Null blocks for reported block=" + block + " stored=" + storedBlock +
+          " inode=" + fileINode);
+        return block;
+      }
       // If this is the last block of this
       // file, then set targets. This enables lease recovery to occur.
       // This is especially important after a restart of the NN.
