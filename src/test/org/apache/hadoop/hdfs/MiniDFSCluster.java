@@ -751,7 +751,31 @@ public class MiniDFSCluster {
     return false;
   }
 
+  /**
+   * Wait for the given datanode to heartbeat once.
+   */
+  public void waitForDNHeartbeat(int dnIndex, long timeoutMillis)
+    throws IOException, InterruptedException {
+    DataNode dn = getDataNodes().get(dnIndex);
+    InetSocketAddress addr = new InetSocketAddress("localhost",
+                                                   getNameNodePort());
+    DFSClient client = new DFSClient(addr, conf);
 
+    long startTime = System.currentTimeMillis();
+    while (System.currentTimeMillis() < startTime + timeoutMillis) {
+      DatanodeInfo report[] = client.datanodeReport(DatanodeReportType.LIVE);
+
+      for (DatanodeInfo thisReport : report) {
+        if (thisReport.getStorageID().equals(
+              dn.dnRegistration.getStorageID())) {
+          if (thisReport.getLastUpdate() > startTime)
+            return;
+        }
+      }
+
+      Thread.sleep(500);
+    }
+  }
   
   public void formatDataNodeDirs() throws IOException {
     base_dir = new File(System.getProperty("test.build.data", "build/test/data"), "dfs/");

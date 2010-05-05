@@ -3030,12 +3030,14 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
                                     DatanodeDescriptor delNodeHint) {
     BlockInfo storedBlock = blocksMap.getStoredBlock(block);
     if (storedBlock == null) {
-      // if the block with a WILDCARD generation stamp matches and the
-      // corresponding file is under construction, then accept this block.
-      // This block has a different generation stamp on the datanode 
-      // because of a lease-recovery-attempt.
-      Block nblk = new Block(block.getBlockId());
-      storedBlock = blocksMap.getStoredBlock(nblk);
+      // If we have a block in the block map with the same ID, but a different
+      // generation stamp, and the corresponding file is under construction,
+      // then we need to do some special processing.
+      storedBlock = blocksMap.getStoredBlockWithoutMatchingGS(block);
+
+      // If the block ID is valid, and it either (a) belongs to a file under
+      // construction, or (b) the reported genstamp is higher than what we
+      // know about, then we accept the block.
       if (storedBlock != null && storedBlock.getINode() != null &&
           (storedBlock.getGenerationStamp() <= block.getGenerationStamp() ||
            storedBlock.getINode().isUnderConstruction())) {
@@ -3054,9 +3056,8 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
                                    + block + " on " + node.getName()
                                    + " size " + block.getNumBytes()
                                    + " But it does not belong to any file.");
-      // we could add this block to invalidate set of this datanode. 
-      // it will happen in next block report otherwise.
-      return block;      
+      addToInvalidates(block, node);
+      return block;
     }
      
     // add block to the data-node

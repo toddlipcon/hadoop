@@ -9,6 +9,9 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
@@ -74,7 +77,8 @@ public class TestFileAppend4 extends TestCase {
     conf.setInt("dfs.heartbeat.interval", 1);
     conf.setInt("dfs.socket.timeout", 5000);
     // handle under-replicated blocks quickly (for replication asserts)
-    conf.set("dfs.replication.pending.timeout.sec", Integer.toString(5));
+    conf.setInt("dfs.replication.pending.timeout.sec", 5);
+    conf.setInt("dfs.replication.interval", 1);
     // handle failures in the DFSClient pipeline quickly
     // (for cluster.shutdown(); fs.close() idiom)
     conf.setInt("ipc.client.connect.max.retries", 1);
@@ -690,6 +694,75 @@ public class TestFileAppend4 extends TestCase {
       cluster.shutdown();
     }
     LOG.info("STOP");
+  }
+
+  /**
+   * Test that when a DN starts up with bbws from a file that got
+   * removed or finalized when it was down, the block gets deleted.
+   */
+  public void testBBWCleanupOnStartup() throws Throwable {
+    LOG.info("START");
+    cluster = new MiniDFSCluster(conf, 3, true, null);
+    FileSystem fs1 = cluster.getFileSystem();
+    try {
+      int halfBlock = (int)BLOCK_SIZE/2;
+      short rep = 3; // replication
+      assertTrue(BLOCK_SIZE%4 == 0);
+
+      file1 = new Path("/bbwCleanupOnStartup.dat");
+
+      // write 1/2 block & sync
+      stm = fs1.create(file1, true, (int)BLOCK_SIZE*2, rep, BLOCK_SIZE);
+      AppendTestUtil.write(stm, 0, halfBlock);
+      stm.sync();
+
+      String dataDirs = cluster.getDataNodes().get(0).getConf().get("dfs.data.dir");
+      // close one of the datanodes
+      MiniDFSCluster.DataNodeProperties dnprops = cluster.stopDataNode(0);
+
+      stm.close();
+
+      List<File> bbwFilesAfterShutdown = getBBWFiles(dataDirs);
+      assertEquals(1, bbwFilesAfterShutdown.size());
+
+      assertTrue(cluster.restartDataNode(dnprops));
+
+      List<File> bbwFilesAfterRestart = null;
+      // Wait up to 10 heartbeats for the files to get removed - it should
+      // really happen after just a couple.
+      for (int i = 0; i < 10; i++) {
+        LOG.info("Waiting for heartbeat #" + i + " after DN restart");
+        cluster.waitForDNHeartbeat(0, 10000);
+
+        // Check if it has been deleted
+        bbwFilesAfterRestart = getBBWFiles(dataDirs);
+        if (bbwFilesAfterRestart.size() == 0) break;
+      }
+
+      assertEquals(0, bbwFilesAfterRestart.size());
+
+    } finally {
+      fs1.close();
+      cluster.shutdown();
+    }
+  }
+
+  private List<File> getBBWFiles(String dfsDataDirs) {
+    ArrayList<File> files = new ArrayList<File>();
+    for (String dirString : dfsDataDirs.split(",")) {
+      File dir = new File(dirString);
+      assertTrue("data dir " + dir + " should exist",
+                 dir.exists());
+      File bbwDir = new File(dir, "blocksBeingWritten");
+      assertTrue("bbw dir " + bbwDir + " should eixst",
+                 bbwDir.exists());
+      for (File blockFile : bbwDir.listFiles()) {
+        if (!blockFile.getName().endsWith(".meta")) {
+          files.add(blockFile);
+        }
+      }
+    }
+    return files;
   }
 
   /**
