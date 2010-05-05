@@ -767,7 +767,7 @@ public class FSDataset implements FSConstants, FSDatasetInterface {
   }
 
   /** Find the corresponding meta data file from a given block file */
-  private static File findMetaFile(final File blockFile) throws IOException {
+  static File findMetaFile(final File blockFile) throws IOException {
     final String prefix = blockFile.getName() + "_";
     final File parent = blockFile.getParentFile();
     File[] matches = parent.listFiles(new FilenameFilter() {
@@ -1140,7 +1140,7 @@ public class FSDataset implements FSConstants, FSDatasetInterface {
     return null;
   }
 
-  static private void truncateBlock(File blockFile, File metaFile,
+  static void truncateBlock(File blockFile, File metaFile,
       long oldlen, long newlen) throws IOException {
     if (newlen == oldlen) {
       return;
