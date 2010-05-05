@@ -3073,10 +3073,17 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
         if (cursize == 0) {
           storedBlock.setNumBytes(block.getNumBytes());
         } else if (cursize != block.getNumBytes()) {
-          LOG.warn("Inconsistent size for block " + block + 
+          String logMsg = "Inconsistent size for block " + block + 
                    " reported from " + node.getName() + 
                    " current size is " + cursize +
-                   " reported size is " + block.getNumBytes());
+                   " reported size is " + block.getNumBytes();
+          // If the block is still under construction this isn't likely
+          // to be a problem, so just log at INFO level.
+          if (underConstruction) {
+            LOG.info(logMsg);
+          } else {
+            LOG.warn(logMsg);
+          }
           try {
             if (cursize > block.getNumBytes()) {
               // new replica is smaller in size than existing block.
@@ -3155,7 +3162,7 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
                                       +"blockMap updated: "+node.getName()+" is added to "+block+" size "+block.getNumBytes());
       }
     } else {
-      NameNode.stateChangeLog.warn("BLOCK* NameSystem.addStoredBlock: "
+      NameNode.stateChangeLog.info("BLOCK* NameSystem.addStoredBlock: "
                                    + "Redundant addStoredBlock request received for " 
                                    + block + " on " + node.getName()
                                    + " size " + block.getNumBytes());
