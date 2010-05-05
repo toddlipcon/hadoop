@@ -27,7 +27,7 @@ import org.apache.hadoop.hdfs.server.namenode.BlocksMap.BlockInfo;
 
 
 class INodeFileUnderConstruction extends INodeFile {
-  final String clientName;         // lease holder
+  String clientName;         // lease holder
   private final String clientMachine;
   private final DatanodeDescriptor clientNode; // if client is a cluster node too.
 
@@ -68,6 +68,10 @@ class INodeFileUnderConstruction extends INodeFile {
 
   String getClientName() {
     return clientName;
+  }
+
+  void setClientName(String newName) {
+    clientName = newName;
   }
 
   String getClientMachine() {
@@ -158,10 +162,29 @@ class INodeFileUnderConstruction extends INodeFile {
 
   synchronized void setLastBlock(BlockInfo newblock, DatanodeDescriptor[] newtargets
       ) throws IOException {
-    if (blocks == null) {
+    if (blocks == null || blocks.length == 0) {
       throw new IOException("Trying to update non-existant block (newblock="
           + newblock + ")");
     }
+    BlockInfo oldLast = blocks[blocks.length - 1];
+    if (oldLast.getBlockId() != newblock.getBlockId()) {
+      // This should not happen - this means that we're performing recovery
+      // on an internal block in the file!
+      NameNode.stateChangeLog.error(
+        "Trying to commit block synchronization for an internal block on"
+        + " inode=" + this
+        + " newblock=" + newblock + " oldLast=" + oldLast);
+      throw new IOException("Trying to update an internal block of " +
+                            "pending file " + this);
+    }
+
+    if (oldLast.getGenerationStamp() > newblock.getGenerationStamp()) {
+      NameNode.stateChangeLog.warn(
+        "Updating last block " + oldLast + " of inode " +
+        "under construction " + this + " with a block that " +
+        "has an older generation stamp: " + newblock);
+    }
+
     blocks[blocks.length - 1] = newblock;
     setTargets(newtargets);
     lastRecoveryTime = 0;

@@ -1029,6 +1029,22 @@ public class FSDataset implements FSConstants, FSDatasetInterface {
       throw new IOException("Cannot update oldblock (=" + oldblock
           + ") to newblock (=" + newblock + ").");
     }
+
+
+    // Protect against a straggler updateblock call moving a block backwards
+    // in time.
+    boolean isValidUpdate =
+      (newblock.getGenerationStamp() > oldblock.getGenerationStamp()) ||
+      (newblock.getGenerationStamp() == oldblock.getGenerationStamp() &&
+       newblock.getNumBytes() == oldblock.getNumBytes());
+
+    if (!isValidUpdate) {
+      throw new IOException(
+        "Cannot update oldblock=" + oldblock +
+        " to newblock=" + newblock + " since generation stamps must " +
+        "increase, or else length must not change.");
+    }
+
     
     for(;;) {
       final List<Thread> threads = tryUpdateBlock(oldblock, newblock);

@@ -693,10 +693,110 @@ public class TestFileAppend4 extends TestCase {
   }
 
   /**
+   * Test for following sequence:
+   *  1. Client finishes writing a block, but does not allocate next one
+   *  2. Client loses lease
+   *  3. Recovery process starts, but commitBlockSynchronization not called yet
+   *  4. Client calls addBlock and continues writing
+   *  5. commitBlockSynchronization proceeds
+   *  6. Original client tries to write/close
+   */
+  public void testRecoveryOnBlockBoundary() throws Throwable {
+    LOG.info("START");
+    cluster = new MiniDFSCluster(conf, 1, true, null);
+    FileSystem fs1 = cluster.getFileSystem();;
+    final FileSystem fs2 = AppendTestUtil.createHdfsWithDifferentUsername(fs1.getConf());
+
+    // Allow us to delay commitBlockSynchronization
+    DelayAnswer delayer = new DelayAnswer();
+    NameNode nn = cluster.getNameNode();
+    nn.namesystem = spy(nn.namesystem);
+    doAnswer(delayer).
+      when(nn.namesystem).
+      commitBlockSynchronization((Block)anyObject(), anyInt(), anyInt(),
+                                 anyBoolean(), anyBoolean(),
+                                 (DatanodeID[])anyObject());
+
+    try {
+      file1 = new Path("/testWritingDuringRecovery.test");
+      stm = fs1.create(file1, true, (int)BLOCK_SIZE*2, (short)3, BLOCK_SIZE);
+      AppendTestUtil.write(stm, 0, (int)(BLOCK_SIZE));
+      stm.sync();
+
+      LOG.info("Losing lease");
+      loseLeases(fs1);
+
+
+      LOG.info("Triggering recovery in another thread");
+
+      final AtomicReference<Throwable> err = new AtomicReference<Throwable>();
+      Thread recoverThread = new Thread() {
+          public void run() {
+            try {
+              recoverFile(fs2);
+            } catch (Throwable t) {
+              err.set(t);
+            }
+          }
+        };
+      recoverThread.start();
+
+      LOG.info("Waiting for recovery about to call commitBlockSynchronization");
+      delayer.waitForCall();
+
+      LOG.info("Continuing to write to stream");
+      AppendTestUtil.write(stm, 0, (int)(BLOCK_SIZE));
+      try {
+        stm.sync();
+        fail("Sync was allowed after recovery started");
+      } catch (IOException ioe) {
+        LOG.info("Got expected IOE trying to write to a file from the writer " +
+                 "that lost its lease", ioe);
+      }
+
+      LOG.info("Written more to stream, allowing commit to proceed");
+      delayer.proceed();
+
+      LOG.info("Joining on recovery thread");
+      recoverThread.join();
+      if (err.get() != null) {
+        throw err.get();
+      }
+
+      LOG.info("Now that recovery has finished, still expect further writes to fail.");
+      try {
+        AppendTestUtil.write(stm, 0, (int)(BLOCK_SIZE));
+        stm.sync();
+        fail("Further writes after recovery finished did not fail!");
+      } catch (IOException ioe) {
+        LOG.info("Got expected exception", ioe);
+      }
+
+
+      LOG.info("Checking that file looks good");
+
+      // close() should write recovered only the first successful
+      // writes
+      assertFileSize(fs2, BLOCK_SIZE);
+      checkFile(fs2, BLOCK_SIZE);
+    } finally {
+      try {
+        fs2.close();
+        fs1.close();
+        cluster.shutdown();
+      } catch (Throwable t) {
+        LOG.warn("Didn't close down cleanly", t);
+      }
+    }
+    LOG.info("STOP");
+  }
+
+
+  /**
    * Mockito answer helper that triggers one latch as soon as the
    * method is called, then waits on another before continuing.
    */
-  private static class DelayAnswer implements Answer<Boolean> {
+  private static class DelayAnswer implements Answer {
     private final CountDownLatch fireLatch = new CountDownLatch(1);
     private final CountDownLatch waitLatch = new CountDownLatch(1);
 
@@ -715,7 +815,7 @@ public class TestFileAppend4 extends TestCase {
       waitLatch.countDown();
     }
 
-    public Boolean answer(InvocationOnMock invocation) throws Throwable {
+    public Object answer(InvocationOnMock invocation) throws Throwable {
       LOG.info("DelayAnswer firing fireLatch");
       fireLatch.countDown();
       try {
@@ -725,7 +825,7 @@ public class TestFileAppend4 extends TestCase {
       } catch (InterruptedException ie) {
         throw new IOException("Interrupted waiting on latch", ie);
       }
-      return (Boolean)invocation.callRealMethod();
+      return invocation.callRealMethod();
     }
   }
 

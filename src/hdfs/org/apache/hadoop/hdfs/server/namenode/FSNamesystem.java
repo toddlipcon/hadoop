@@ -23,6 +23,7 @@ import org.apache.hadoop.conf.*;
 import org.apache.hadoop.hdfs.DFSUtil;
 import org.apache.hadoop.hdfs.protocol.*;
 import org.apache.hadoop.hdfs.server.common.GenerationStamp;
+import org.apache.hadoop.hdfs.server.common.HdfsConstants;
 import org.apache.hadoop.hdfs.server.common.HdfsConstants.StartupOption;
 import org.apache.hadoop.hdfs.server.common.Storage;
 import org.apache.hadoop.hdfs.server.common.UpgradeStatusReport;
@@ -1929,8 +1930,19 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     }
     // start lease recovery of the last block for this file.
     pendingFile.assignPrimaryDatanode();
-    leaseManager.renewLease(lease);
+    Lease reassignedLease = reassignLease(
+      lease, src, HdfsConstants.NN_RECOVERY_LEASEHOLDER, pendingFile);
+    leaseManager.renewLease(reassignedLease);
   }
+
+  private Lease reassignLease(Lease lease, String src, String newHolder,
+                      INodeFileUnderConstruction pendingFile) {
+    if(newHolder == null)
+      return lease;
+    pendingFile.setClientName(newHolder);
+    return leaseManager.reassignLease(lease, src, newHolder);
+  }
+
 
   private void finalizeINodeFileUnderConstruction(String src,
       INodeFileUnderConstruction pendingFile) throws IOException {
