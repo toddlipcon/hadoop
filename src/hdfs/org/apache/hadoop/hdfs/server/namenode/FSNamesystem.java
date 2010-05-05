@@ -1415,23 +1415,34 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     if (isInSafeMode())
       throw new SafeModeException("Cannot complete file " + src, safeMode);
     INode iFile = dir.getFileINode(src);
-    INodeFileUnderConstruction pendingFile = null;
-    Block[] fileBlocks = null;
 
-    if (iFile != null && iFile.isUnderConstruction()) {
-      pendingFile = (INodeFileUnderConstruction) iFile;
-      fileBlocks =  dir.getFileBlocks(src);
-    }
-    if (fileBlocks == null ) {    
+    if (iFile == null) {
       NameNode.stateChangeLog.warn("DIR* NameSystem.completeFile: "
                                    + "failed to complete " + src
-                                   + " because dir.getFileBlocks() is null " + 
-                                   " and pendingFile is " + 
-                                   ((pendingFile == null) ? "null" : 
-                                     ("from " + pendingFile.getClientMachine()))
-                                  );                      
+                                   + " because the file no longer exists");
       return CompleteFileStatus.OPERATION_FAILED;
-    } else if (!checkFileProgress(pendingFile, true)) {
+    }
+
+    if (!iFile.isUnderConstruction()) {
+      NameNode.stateChangeLog.warn("DIR* NameSystem.completeFile: "
+                                   + "failed to complete " + src
+                                   + " because it is not under construction");
+      return CompleteFileStatus.OPERATION_FAILED;
+    }
+
+    // It is under construction
+    INodeFileUnderConstruction pendingFile = (INodeFileUnderConstruction) iFile;
+    Block[] fileBlocks =  dir.getFileBlocks(src);
+
+    if (fileBlocks == null ) {
+      NameNode.stateChangeLog.warn("DIR* NameSystem.completeFile: "
+                                   + "failed to complete " + src
+                                   + " because dir.getFileBlocks() is null,"
+                                   + " pending from " + pendingFile.getClientMachine());
+      return CompleteFileStatus.OPERATION_FAILED;
+    }
+
+    if (!checkFileProgress(pendingFile, true)) {
       return CompleteFileStatus.STILL_WAITING;
     }
 
