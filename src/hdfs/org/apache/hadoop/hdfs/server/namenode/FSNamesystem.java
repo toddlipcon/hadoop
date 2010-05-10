@@ -1414,24 +1414,8 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     NameNode.stateChangeLog.debug("DIR* NameSystem.completeFile: " + src + " for " + holder);
     if (isInSafeMode())
       throw new SafeModeException("Cannot complete file " + src, safeMode);
-    INode iFile = dir.getFileINode(src);
 
-    if (iFile == null) {
-      NameNode.stateChangeLog.warn("DIR* NameSystem.completeFile: "
-                                   + "failed to complete " + src
-                                   + " because the file no longer exists");
-      return CompleteFileStatus.OPERATION_FAILED;
-    }
-
-    if (!iFile.isUnderConstruction()) {
-      NameNode.stateChangeLog.warn("DIR* NameSystem.completeFile: "
-                                   + "failed to complete " + src
-                                   + " because it is not under construction");
-      return CompleteFileStatus.OPERATION_FAILED;
-    }
-
-    // It is under construction
-    INodeFileUnderConstruction pendingFile = (INodeFileUnderConstruction) iFile;
+    INodeFileUnderConstruction pendingFile  = checkLease(src, holder);
     Block[] fileBlocks =  dir.getFileBlocks(src);
 
     if (fileBlocks == null ) {
