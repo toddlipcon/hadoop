@@ -1191,7 +1191,9 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     //
     LocatedBlock lb = null;
     synchronized (this) {
-      INodeFileUnderConstruction file = (INodeFileUnderConstruction)dir.getFileINode(src);
+      // Need to re-check existence here, since the file may have been deleted
+      // in between the synchronized blocks
+      INodeFileUnderConstruction file = checkLease(src, holder);
 
       Block[] blocks = file.getBlocks();
       if (blocks != null && blocks.length > 0) {
