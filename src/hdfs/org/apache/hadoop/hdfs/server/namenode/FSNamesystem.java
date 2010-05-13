@@ -1220,9 +1220,15 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
           // remove this block from the list of pending blocks to be deleted. 
           // This reduces the possibility of triggering HADOOP-1349.
           //
-          for(Collection<Block> v : recentInvalidateSets.values()) {
+          for (Iterator<Collection<Block>> iter = recentInvalidateSets.values().iterator();
+               iter.hasNext();
+               ) {
+            Collection<Block> v = iter.next();
             if (v.remove(last)) {
               pendingDeletionBlocksCount--;
+              if (v.isEmpty()) {
+                iter.remove();
+              }
             }
           }
         }
