@@ -20,6 +20,7 @@ package org.apache.hadoop.hdfs;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -42,6 +43,8 @@ import org.apache.hadoop.security.UserGroupInformation;
 
 import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.log4j.Level;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class tests the building blocks that are needed to
@@ -56,6 +59,8 @@ public class TestFileAppend2 {
     ((Log4JLogger)DataNode.LOG).getLogger().setLevel(Level.ALL);
     ((Log4JLogger)DFSClient.LOG).getLogger().setLevel(Level.ALL);
   }
+
+  static Log LOG = LogFactory.getLog(TestFileAppend2.class);
 
   static final int blockSize = 1024;
   static final int numBlocks = 5;
@@ -75,7 +80,7 @@ public class TestFileAppend2 {
 ****/
   Workload[] workload = null;
   ArrayList<Path> testFiles = new ArrayList<Path>();
-  volatile static boolean globalStatus = true;
+  AtomicReference<Throwable> err = new AtomicReference<Throwable>();
 
   //
   // create a buffer that contains the entire test file data.
@@ -284,7 +289,7 @@ public class TestFileAppend2 {
     // create a bunch of files. Write to them and then verify.
     public void run() {
       System.out.println("Workload " + id + " starting... ");
-      for (int i = 0; i < numAppendsPerThread; i++) {
+      for (int i = 0; i < numAppendsPerThread && err.get() == null; i++) {
    
         // pick a file at random and remove it from pool
         Path testfile = null;
@@ -353,16 +358,10 @@ public class TestFileAppend2 {
 
           checkFile(fs, testfile, (int)(len + sizeToAppend));
         } catch (Throwable e) {
-          globalStatus = false;
-          if (e != null && e.toString() != null) {
-            System.out.println("Workload exception " + id + 
-                               " testfile " + testfile +
-                               " " + e);
-            e.printStackTrace();
-          }
-          assertTrue("Workload exception " + id + " testfile " + testfile +
-                     " expected size " + (len + sizeToAppend),
-                     false);
+          err.compareAndSet(null, e);
+          LOG.error("Workload exception " + id + " testfile " + testfile +
+                     " expected size " + (len + sizeToAppend), e);
+          return;
         }
 
         // Add testfile back to the pool of files.
@@ -377,7 +376,7 @@ public class TestFileAppend2 {
    * Test that appends to files at random offsets.
    */
   @Test
-  public void testComplexAppend() throws IOException {
+  public void testComplexAppend() throws Throwable {
     initBuffer(fileSize);
     Configuration conf = new Configuration();
     conf.setInt("heartbeat.recheck.interval", 2000);
@@ -409,6 +408,7 @@ public class TestFileAppend2 {
       workload = new Workload[numThreads];
       for (int i = 0; i < numThreads; i++) {
         workload[i] = new Workload(cluster, i);
+        workload[i].setDaemon(true);
         workload[i].start();
       }
 
@@ -430,6 +430,24 @@ public class TestFileAppend2 {
     // If any of the worker thread failed in their job, indicate that
     // this test failed.
     //
-    assertTrue("testComplexAppend Worker encountered exceptions.", globalStatus);
+    if (err.get() != null) {
+      throw err.get();
+    }
+  }
+
+  public static void main(String []args) throws Throwable {
+    TestFileAppend2 tfa2 = new TestFileAppend2();
+    try {
+      tfa2.numDatanodes=5;
+      tfa2.numThreads=30;
+      tfa2.numberOfFiles=4;
+      tfa2.numAppendsPerThread=2000;
+      tfa2.testComplexAppend();
+    } catch (Throwable t) {
+      LOG.error("FAILED", t);
+      System.exit(1);
+    }
+    // Something doesn't shut down right about the minicluster
+    System.exit(0);
   }
 }
