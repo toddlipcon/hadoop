@@ -75,8 +75,16 @@ class FSDatasetAsyncDiskService {
   FSDatasetAsyncDiskService(File[] volumes) {
     
     threadFactory = new ThreadFactory() {
+      int counter = 0;
+
       public Thread newThread(Runnable r) {
-        return new Thread(threadGroup, r);
+        int thisIndex;
+        synchronized (this) {
+          thisIndex = counter++;
+        }
+        Thread t = new Thread(threadGroup, r);
+        t.setName("Async disk worker " + thisIndex);
+        return t;
       }
     };
     
