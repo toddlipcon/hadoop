@@ -80,6 +80,7 @@ public class TestFileAppend2 {
   int numberOfFiles = 50;
   int numThreads = 10;
   int numAppendsPerThread = 20;
+  long sleepBetweenSizeChecks = 5000;
 /***
   int numberOfFiles = 1;
   int numThreads = 1;
@@ -88,6 +89,7 @@ public class TestFileAppend2 {
   Workload[] workload = null;
   ArrayList<Path> testFiles = new ArrayList<Path>();
   AtomicReference<Throwable> err = new AtomicReference<Throwable>();
+
 
   //
   // create a buffer that contains the entire test file data.
@@ -349,7 +351,7 @@ public class TestFileAppend2 {
                                  " size " + fs.getFileStatus(testfile).getLen() +
                                  " expected size " + (len + sizeToAppend) +
                                  " waiting for namenode metadata update.");
-              Thread.sleep(5000);
+              Thread.sleep(sleepBetweenSizeChecks);
               assertTrue("Timed out waiting for len " + (len + sizeToAppend) +
                 " in file " + testfile + " (cur len is " +
                 fs.getFileStatus(testfile).getLen() + ")",
@@ -488,6 +490,9 @@ public class TestFileAppend2 {
         line.getOptionValue(OPT_NUM_FILES, "1"));
     tfa2.numAppendsPerThread = Integer.parseInt(
         line.getOptionValue(OPT_NUM_APPENDS, "1000"));
+    
+    // Make workload more aggressive
+    tfa2.sleepBetweenSizeChecks = 10;
    
     try {
       tfa2.testComplexAppend();
