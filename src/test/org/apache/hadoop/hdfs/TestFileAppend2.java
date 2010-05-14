@@ -41,6 +41,13 @@ import org.apache.hadoop.security.AccessControlException;
 import org.apache.hadoop.security.UnixUserGroupInformation;
 import org.apache.hadoop.security.UserGroupInformation;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.log4j.Level;
 import org.apache.commons.logging.Log;
@@ -434,14 +441,55 @@ public class TestFileAppend2 {
       throw err.get();
     }
   }
+  
+  public static final String OPT_NUM_DNS = "numDataNodes";
+  public static final String OPT_NUM_FILES = "numFiles";
+  public static final String OPT_NUM_THREADS = "numThreads";
+  public static final String OPT_NUM_APPENDS = "appendsPerThread";
 
+  @SuppressWarnings("static-access")
   public static void main(String []args) throws Throwable {
-    TestFileAppend2 tfa2 = new TestFileAppend2();
+    Options options = new Options();
+    options.addOption(OptionBuilder
+      .withLongOpt(OPT_NUM_DNS).hasArg()
+      .withDescription("Number of DNs to start")
+      .create());
+    options.addOption(OptionBuilder
+        .withLongOpt(OPT_NUM_THREADS).hasArg()
+        .withDescription("number of threads to append from")
+        .create());
+    options.addOption(OptionBuilder
+        .withLongOpt(OPT_NUM_FILES).hasArg()
+        .withDescription("number of files to append to")
+        .create());
+    options.addOption(OptionBuilder
+        .withLongOpt(OPT_NUM_APPENDS).hasArg()
+        .withDescription("number of appends per thread")
+        .create());
+    CommandLineParser parser = new GnuParser();
+    CommandLine line;
     try {
-      tfa2.numDatanodes=5;
-      tfa2.numThreads=30;
-      tfa2.numberOfFiles=4;
-      tfa2.numAppendsPerThread=2000;
+      line = parser.parse( options, args );
+      if (line.getArgs().length != 0) {
+        throw new ParseException("Unexpected options");
+      }
+    } catch (ParseException pe) {
+      HelpFormatter formatter = new HelpFormatter();
+      formatter.printHelp("TestFileAppend2", options);
+      throw pe;
+    }
+            
+    TestFileAppend2 tfa2 = new TestFileAppend2();
+    tfa2.numDatanodes = Integer.parseInt(
+        line.getOptionValue(OPT_NUM_DNS, "1"));
+    tfa2.numThreads = Integer.parseInt(
+        line.getOptionValue(OPT_NUM_THREADS, "30"));
+    tfa2.numberOfFiles = Integer.parseInt(
+        line.getOptionValue(OPT_NUM_FILES, "1"));
+    tfa2.numAppendsPerThread = Integer.parseInt(
+        line.getOptionValue(OPT_NUM_APPENDS, "1000"));
+   
+    try {
       tfa2.testComplexAppend();
     } catch (Throwable t) {
       LOG.error("FAILED", t);
