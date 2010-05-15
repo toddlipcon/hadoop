@@ -67,6 +67,7 @@ import org.apache.hadoop.hdfs.server.namenode.NameNode;
 import org.apache.hadoop.hdfs.server.namenode.StreamFile;
 import org.apache.hadoop.hdfs.server.protocol.BlockCommand;
 import org.apache.hadoop.hdfs.server.protocol.BlockMetaDataInfo;
+import org.apache.hadoop.hdfs.server.protocol.BlockRecoveryInfo;
 import org.apache.hadoop.hdfs.server.protocol.DatanodeCommand;
 import org.apache.hadoop.hdfs.server.protocol.DatanodeProtocol;
 import org.apache.hadoop.hdfs.server.protocol.DatanodeRegistration;
@@ -1411,6 +1412,7 @@ public class DataNode extends Configured
     if (LOG.isDebugEnabled()) {
       LOG.debug("block=" + block);
     }
+    
     Block stored = data.getStoredBlock(block.getBlockId());
 
     if (stored == null) {
@@ -1428,6 +1430,11 @@ public class DataNode extends Configured
     // matches the block file on disk.
     data.validateBlockMetadata(stored);
     return info;
+  }
+  
+  @Override
+  public BlockRecoveryInfo getBlockRecoveryInfo(Block block) throws IOException {
+    return data.getBlockRecoveryInfo(block.getBlockId());
   }
 
   public Daemon recoverBlocks(final Block[] blocks, final DatanodeInfo[][] targets) {
@@ -1480,21 +1487,26 @@ public class DataNode extends Configured
   private static class BlockRecord { 
     final DatanodeID id;
     final InterDatanodeProtocol datanode;
-    final Block block;
+    final BlockRecoveryInfo info;
     
-    BlockRecord(DatanodeID id, InterDatanodeProtocol datanode, Block block) {
+    BlockRecord(DatanodeID id, InterDatanodeProtocol datanode,
+        BlockRecoveryInfo info) {
       this.id = id;
       this.datanode = datanode;
-      this.block = block;
+      this.info = info;
     }
 
     /** {@inheritDoc} */
     public String toString() {
-      return "block:" + block + " node:" + id;
+      return "recovery info:" + info + " node:" + id;
     }
   }
 
-  /** Recover a block */
+  /** Recover a block
+   * @param keepLength if true, will only recover replicas that have the same length
+   * as the block passed in. Otherwise, will calculate the minimum length of the
+   * replicas and truncate the rest to that length.
+   **/
   private LocatedBlock recoverBlock(Block block, boolean keepLength,
       DatanodeID[] datanodeids, boolean closeFile) throws IOException {
 
@@ -1513,11 +1525,18 @@ public class DataNode extends Configured
       ongoingRecovery.put(block, block);
     }
     try {
-      List<BlockRecord> syncList = new ArrayList<BlockRecord>();
-      long minlength = Long.MAX_VALUE;
       int errorCount = 0;
 
-      //check generation stamps
+      // Number of "replicasBeingWritten" in 0.21 parlance - these are replicas
+      // on DNs that are still alive from when the write was happening
+      int rbwCount = 0;
+      // Number of "replicasWaitingRecovery" in 0.21 parlance - these replicas
+      // have survived a DN restart, and thus might be truncated (eg if the
+      // DN died because of a machine power failure, and when the ext3 journal
+      // replayed, it truncated the file
+      int rwrCount = 0;
+      
+      List<BlockRecord> blockRecords = new ArrayList<BlockRecord>();
       for(DatanodeID id : datanodeids) {
         try {
           InterDatanodeProtocol datanode;
@@ -1529,25 +1548,58 @@ public class DataNode extends Configured
             LOG.info("Creating IDNPP for non-local id " + id + " (dnReg=" + dnRegistration + ")");
             datanode = DataNode.createInterDataNodeProtocolProxy(id, getConf());
           }
-          BlockMetaDataInfo info = datanode.getBlockMetaDataInfo(block);
-          if (info != null && info.getGenerationStamp() >= block.getGenerationStamp()) {
-            if (keepLength) {
-              if (info.getNumBytes() == block.getNumBytes()) {
-                syncList.add(new BlockRecord(id, datanode, new Block(info)));
-              }
-            }
-            else {
-              syncList.add(new BlockRecord(id, datanode, new Block(info)));
-              if (info.getNumBytes() < minlength) {
-                minlength = info.getNumBytes();
-              }
-            }
+          BlockRecoveryInfo info = datanode.getBlockRecoveryInfo(block);
+          if (info == null) {
+            LOG.info("No block metadata found for block " + block + " on datanode "
+                + id);
+            continue;
+          }
+          if (info.getBlock().getGenerationStamp() < block.getGenerationStamp()) {
+            LOG.info("Only old generation stamp " + info.getBlock().getGenerationStamp()
+                + " found on datanode " + id + " (needed block=" +
+                block + ")");
+            continue;
+          }
+          blockRecords.add(new BlockRecord(id, datanode, info));
+
+          if (info.wasRecoveredOnStartup()) {
+            rwrCount++;
+          } else {
+            rbwCount++;
           }
         } catch (IOException e) {
           ++errorCount;
           InterDatanodeProtocol.LOG.warn(
               "Failed to getBlockMetaDataInfo for block (=" + block 
               + ") from datanode (=" + id + ")", e);
+        }
+      }
+
+      // If we *only* have replicas from post-DN-restart, then we should
+      // include them in determining length. Otherwise they might cause us
+      // to truncate too short.
+      boolean shouldRecoverRwrs = (rbwCount == 0);
+      
+      List<BlockRecord> syncList = new ArrayList<BlockRecord>();
+      long minlength = Long.MAX_VALUE;
+      
+      for (BlockRecord record : blockRecords) {
+        BlockRecoveryInfo info = record.info;
+        assert (info != null && info.getBlock().getGenerationStamp() >= block.getGenerationStamp());
+        if (!shouldRecoverRwrs && info.wasRecoveredOnStartup()) {
+          LOG.info("Not recovering replica " + record + " since it was recovered on "
+              + "startup and we have better replicas");
+          continue;
+        }
+        if (keepLength) {
+          if (info.getBlock().getNumBytes() == block.getNumBytes()) {
+            syncList.add(record);
+          }
+        } else {          
+          syncList.add(record);
+          if (info.getBlock().getNumBytes() < minlength) {
+            minlength = info.getBlock().getNumBytes();
+          }
         }
       }
 
@@ -1589,7 +1641,7 @@ public class DataNode extends Configured
 
     for(BlockRecord r : syncList) {
       try {
-        r.datanode.updateBlock(r.block, newblock, closeFile);
+        r.datanode.updateBlock(r.info.getBlock(), newblock, closeFile);
         successList.add(r.id);
       } catch (IOException e) {
         InterDatanodeProtocol.LOG.warn("Failed to updateBlock (newblock="
