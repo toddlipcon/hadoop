@@ -2519,7 +2519,7 @@ public class DFSClient implements FSConstants, java.io.Closeable {
             }
 
             synchronized (ackQueue) {
-              assert ack.getSeqno()> lastAckedSeqno;
+              assert ack.getSeqno() == lastAckedSeqno + 1;
               lastAckedSeqno = ack.getSeqno();
               ackQueue.removeFirst();
               ackQueue.notifyAll();
@@ -3174,6 +3174,7 @@ public class DFSClient implements FSConstants, java.io.Closeable {
            * any partial checksum chunk will be sent now and in next packet.
            */
           long saveOffset = bytesCurBlock;
+          Packet oldCurrentPacket = currentPacket;
 
           // flush checksum buffer, but keep checksum buffer intact
           flushBuffer(true);
@@ -3193,6 +3194,12 @@ public class DFSClient implements FSConstants, java.io.Closeable {
             enqueueCurrentPacket();
           } else {
             // just discard the current packet since it is already been sent.
+            if (oldCurrentPacket == null && currentPacket != null) {
+              // If we didn't previously have a packet queued, and now we do,
+              // but we don't plan on sending it, then we should not
+              // skip a sequence number for it!
+              currentSeqno--;
+            }
             currentPacket = null;
           }
           // Restore state of stream. Record the last flush offset 
