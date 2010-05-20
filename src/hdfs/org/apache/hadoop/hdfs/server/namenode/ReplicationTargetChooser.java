@@ -24,6 +24,8 @@ import org.apache.hadoop.hdfs.protocol.LocatedBlock;
 import org.apache.hadoop.net.NetworkTopology;
 import org.apache.hadoop.net.Node;
 import org.apache.hadoop.net.NodeBase;
+import org.apache.hadoop.util.StringUtils;
+
 import java.util.*;
 
 /** The class is responsible for choosing the desired number of targets
@@ -182,7 +184,8 @@ class ReplicationTargetChooser {
       }
     } catch (NotEnoughReplicasException e) {
       FSNamesystem.LOG.warn("Not able to place enough replicas, still in need of "
-               + numOfReplicas);
+               + numOfReplicas + "(excluded: " +
+               StringUtils.joinObjects(", ", excludedNodes) + ")");
     }
     return writer;
   }
