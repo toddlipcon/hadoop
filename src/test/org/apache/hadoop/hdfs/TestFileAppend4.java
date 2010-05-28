@@ -1043,6 +1043,7 @@ public class TestFileAppend4 extends TestCase {
    * truncated to 0 bytes (very common with journaling filesystems)
    */
   public void testTruncatedPrimaryDN() throws Exception {
+    LOG.info("START");
     runDNRestartCorruptType(CorruptionType.TRUNCATE_BLOCK_TO_ZERO);
   }
   
@@ -1052,11 +1053,11 @@ public class TestFileAppend4 extends TestCase {
    * journal
    */
   public void testHalfLengthPrimaryDN() throws Exception {
+    LOG.info("START");
     runDNRestartCorruptType(CorruptionType.TRUNCATE_BLOCK_HALF);
   }
   
   private void runDNRestartCorruptType(CorruptionType corrupt) throws Exception {
-    LOG.info("START");
     cluster = new MiniDFSCluster(conf, 3, true, null);
     FileSystem fs1 = cluster.getFileSystem();
     try {
@@ -1088,13 +1089,63 @@ public class TestFileAppend4 extends TestCase {
       recoverFile(fs2);
       
       assertFileSize(fs2, 1024);
+      checkFile(fs2, 1024);
+    } finally {
+      // explicitly do not shut down fs1, since it's been frozen up by
+      // killing the DataStreamer and not allowing recovery
+      cluster.shutdown();
+    }
+  }
+
+  public void testFullClusterPowerLoss() throws Exception {
+    cluster = new MiniDFSCluster(conf, 2, true, null);
+    FileSystem fs1 = cluster.getFileSystem();
+    try {
+      short rep = 2; // replication
+      assertTrue(BLOCK_SIZE%4 == 0);
+
+      file1 = new Path("/dnDeath.dat");
+
+      // write 1/2 block & close
+      stm = fs1.create(file1, true, 1024, rep, 4096);
+      AppendTestUtil.write(stm, 0, 1024);
+      stm.sync();
+      loseLeases(fs1);
+      
+      DFSOutputStream dfso = (DFSOutputStream)stm.getWrappedStream();
+      dfso.abortForTests();
+      
+      // close the DNs
+      DataNodeProperties badDN = cluster.stopDataNode(0);
+      DataNodeProperties badDN2 = cluster.stopDataNode(0); // what was 1 is now 0
+      assertNotNull(badDN);
+      assertNotNull(badDN2);
+      
+      // Truncate one of them as if its journal got corrupted
+      corruptDataNode(0, CorruptionType.TRUNCATE_BLOCK_HALF);
+      
+      // Start the DN back up
+      cluster.restartDataNode(badDN);
+      cluster.restartDataNode(badDN2);
+      
+      // Wait for a heartbeat to make sure we get the initial block
+      // report of the replicasBeingWritten
+      cluster.waitForDNHeartbeat(0, 10000);
+      cluster.waitForDNHeartbeat(1, 10000);
+      
+      // Recover the lease
+      FileSystem fs2 = AppendTestUtil.createHdfsWithDifferentUsername(fs1.getConf());
+      recoverFile(fs2);
+      
+      assertFileSize(fs2, 512);
+      checkFile(fs2, 512);
     } finally {
       // explicitly do not shut down fs1, since it's been frozen up by
       // killing the DataStreamer and not allowing recovery
       cluster.shutdown();
     }    
   }
-
+  
   /**
    * Mockito answer helper that triggers one latch as soon as the
    * method is called, then waits on another before continuing.

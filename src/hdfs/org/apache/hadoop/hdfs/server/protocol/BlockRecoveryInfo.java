@@ -60,7 +60,7 @@ public class BlockRecoveryInfo implements Writable {
   }
   
   public String toString() {
-    return "BlockRecoveryInfo for block " + block +
-      "wasRecoveredOnStartup=" + wasRecoveredOnStartup;
+    return "BlockRecoveryInfo(block=" + block +
+      " wasRecoveredOnStartup=" + wasRecoveredOnStartup + ")";
   }
 }

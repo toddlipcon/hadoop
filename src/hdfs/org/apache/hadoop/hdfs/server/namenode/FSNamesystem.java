@@ -3034,33 +3034,42 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
                                     DatanodeDescriptor node,
                                     DatanodeDescriptor delNodeHint) {
     BlockInfo storedBlock = blocksMap.getStoredBlock(block);
+    String rejectionReason = null;
     if (storedBlock == null) {
       // If we have a block in the block map with the same ID, but a different
       // generation stamp, and the corresponding file is under construction,
       // then we need to do some special processing.
       storedBlock = blocksMap.getStoredBlockWithoutMatchingGS(block);
 
-      // If the block ID is valid, and it either (a) belongs to a file under
-      // construction, or (b) the reported genstamp is higher than what we
-      // know about, then we accept the block.
-      if (storedBlock != null && storedBlock.getINode() != null &&
-          (storedBlock.getGenerationStamp() <= block.getGenerationStamp() ||
-           storedBlock.getINode().isUnderConstruction())) {
+      if (storedBlock == null) {
+        rejectionReason = "Block not in blockMap with any generation stamp";
+      } else if (storedBlock.getINode() == null) {
+        rejectionReason = "Block does not correspond to any file";
+      } else if (block.getGenerationStamp() < storedBlock.getGenerationStamp() &&
+          !storedBlock.getINode().isUnderConstruction()) {
+        // gen stamp    construction    action
+        // -----------------------------------
+        // old          true            accept
+        // old          false           reject
+        // new          true            accept
+        // new          false           accept
+        rejectionReason = "Reported block has old generation stamp and file is " +
+          "not under construction. (current generation is " +
+          storedBlock.getGenerationStamp() + ")";
+      } else {
         NameNode.stateChangeLog.info("BLOCK* NameSystem.addStoredBlock: "
           + "addStoredBlock request received for " + block + " on "
           + node.getName() + " size " + block.getNumBytes()
           + " and it belongs to a file under construction. ");
-      } else {
-        storedBlock = null;
       }
     }
-    if(storedBlock == null || storedBlock.getINode() == null) {
-      // If this block does not belong to anyfile, then we are done.
+    if (rejectionReason != null) {
+        // If this block does not belong to anyfile, then we are done.
       NameNode.stateChangeLog.info("BLOCK* NameSystem.addStoredBlock: "
                                    + "addStoredBlock request received for " 
                                    + block + " on " + node.getName()
                                    + " size " + block.getNumBytes()
-                                   + " But it does not belong to any file.");
+                                   + " but was rejected: " + rejectionReason);
       addToInvalidates(block, node);
       return block;
     }
@@ -3069,12 +3078,13 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
     boolean added = node.addBlock(storedBlock);
     
     assert storedBlock != null : "Block must be stored by now";
-
-    if (block != storedBlock) {
+    assert block != storedBlock; // I think this is always true -todd
+    
+    if (block != storedBlock) { // how is this ever not the case? TODO(todd)
       if (block.getNumBytes() >= 0) {
         long cursize = storedBlock.getNumBytes();
-        INodeFile file = (storedBlock != null) ? storedBlock.getINode() : null;
-        boolean underConstruction = (file == null ? false : file.isUnderConstruction());
+        INodeFile file = storedBlock.getINode();
+        boolean underConstruction = file.isUnderConstruction();
         if (cursize == 0) {
           storedBlock.setNumBytes(block.getNumBytes());
         } else if (cursize != block.getNumBytes()) {
@@ -3089,44 +3099,38 @@ public class FSNamesystem implements FSConstants, FSNamesystemMBean {
           } else {
             LOG.warn(logMsg);
           }
+          
           try {
-            if (cursize > block.getNumBytes()) {
+            if (cursize > block.getNumBytes() && !underConstruction) {
               // new replica is smaller in size than existing block.
               // Mark the new replica as corrupt.
-              if (!underConstruction) {
-                LOG.warn("Mark new replica " + block + " from " + node.getName() + 
-                    "as corrupt because its length is shorter than existing ones");
+              LOG.warn("Mark new replica " + block + " from " + node.getName() + 
+                "as corrupt because its length is shorter than existing ones");
                 markBlockAsCorrupt(block, node);
-              }
             } else {
               // new replica is larger in size than existing block.
-              // Mark pre-existing replicas as corrupt.
-              int numNodes = blocksMap.numNodes(block);
-              int count = 0;
-              DatanodeDescriptor nodes[] = new DatanodeDescriptor[numNodes];
-              Iterator<DatanodeDescriptor> it = blocksMap.nodeIterator(block);
-              for (; it != null && it.hasNext(); ) {
-                DatanodeDescriptor dd = it.next();
-                if (!dd.equals(node)) {
-                  nodes[count++] = dd;
+              if (!underConstruction) {
+                // Mark pre-existing replicas as corrupt.
+                int numNodes = blocksMap.numNodes(block);
+                int count = 0;
+                DatanodeDescriptor nodes[] = new DatanodeDescriptor[numNodes];
+                Iterator<DatanodeDescriptor> it = blocksMap.nodeIterator(block);
+                for (; it != null && it.hasNext(); ) {
+                  DatanodeDescriptor dd = it.next();
+                  if (!dd.equals(node)) {
+                    nodes[count++] = dd;
+                  }
                 }
-              }
-              for (int j = 0; j < count && !underConstruction; j++) {
-                LOG.warn("Mark existing replica " + block + " from " + node.getName() + 
-                " as corrupt because its length is shorter than the new one");
-                markBlockAsCorrupt(block, nodes[j]);
+                for (int j = 0; j < count; j++) {
+                  LOG.warn("Mark existing replica " + block + " from " + node.getName() + 
+                  " as corrupt because its length is shorter than the new one");
+                  markBlockAsCorrupt(block, nodes[j]);
+                }
               }
               //
               // change the size of block in blocksMap
               //
-              storedBlock = blocksMap.getStoredBlock(block); //extra look up!
-              if (storedBlock == null) {
-                LOG.warn("Block " + block + 
-                   " reported from " + node.getName() + 
-                   " does not exist in blockMap. Surprise! Surprise!");
-              } else {
-                storedBlock.setNumBytes(block.getNumBytes());
-              }
+              storedBlock.setNumBytes(block.getNumBytes());
             }
           } catch (IOException e) {
             LOG.warn("Error in deleting bad block " + block + e);

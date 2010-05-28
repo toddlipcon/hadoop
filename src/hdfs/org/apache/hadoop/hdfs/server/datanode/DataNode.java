@@ -1498,7 +1498,7 @@ public class DataNode extends Configured
 
     /** {@inheritDoc} */
     public String toString() {
-      return "recovery info:" + info + " node:" + id;
+      return "BlockRecord(info=" + info + " node=" + id + ")";
     }
   }
 
